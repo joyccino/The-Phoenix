@@ -1,3 +1,4 @@
 # atomic
 
-Big things will start here.
+Adversity makes a man wise, though not rich.
+- Thomas Fuller
