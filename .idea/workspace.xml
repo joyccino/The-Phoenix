@@ -5,62 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="349bcdf3-b360-435e-985f-5cb77c69ad39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/java/com/phoenix/qpproject/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/resources/banner.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/resources/static/img/ThePhoenixClubLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/resources/static/img/pqLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/The-Phoenix.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/.jsdtscope" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.wst.common.component" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.wst.common.project.facet.core.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.wst.jsdt.ui.superType.container" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.wst.jsdt.ui.superType.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.settings/org.eclipse.wst.validation.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/.springBeans" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/bbs.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/deleteAction.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/join.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/joinAction.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/login.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/loginAction.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/logout.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/update.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/updateAction.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/view.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/write.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/WebContent/writeAction.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/src/bbs/Bbs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/src/bbs/BbsDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/src/user/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/src/user/UserDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/classes/bbs/Bbs.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/classes/bbs/BbsDAO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/classes/user/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/classes/user/UserDAO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/m2e-wtp/web-resources/META-INF/maven/WebTrial/WebTrial/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebTrial/target/m2e-wtp/web-resources/META-INF/maven/WebTrial/WebTrial/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo (1).zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/src/main/java/com/phoenix/qpproject/QpProjectApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/src/test/java/com/phoenix/qpproject/QpProjectApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/frontend/src/setProxy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qp-project/qp-project/src/main/java/com/phoenix/qpproject/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/qp-project/qp-project/src/main/java/com/phoenix/qpproject/TestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +26,13 @@
         <projects_view />
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
