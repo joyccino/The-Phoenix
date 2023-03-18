@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/The-Phoenix.iml" filepath="$PROJECT_DIR$/.idea/The-Phoenix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qp-project/qp-project/qp-project.iml" filepath="$PROJECT_DIR$/qp-project/qp-project/qp-project.iml" />
     </modules>
   </component>
 </project>
