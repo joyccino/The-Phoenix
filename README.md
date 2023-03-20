@@ -1,4 +1,4 @@
-# The Phoenix
+# The Phoenix Club
 
-Adversity makes a man wise, though not rich.
-- Thomas Fuller
+Java JDK Version:  11.0.18 <br>
+Apache Tomcat (server) Version: Tomcat v 9.0.69
