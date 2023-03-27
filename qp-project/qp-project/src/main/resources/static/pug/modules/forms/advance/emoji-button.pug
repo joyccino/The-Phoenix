@@ -1,0 +1,37 @@
+extends ../../../layouts/LayoutComponent
+
+append variables
+  
+  - var attrsBody = Object.assign(attrsBody, { class: 'overflow-hidden' });
+  - var attrsLayout = Object.assign(attrsLayout, { class: 'vh-100 container' });
+  - 
+    var pageHeader = {
+      title: 'Emoji Button',
+      description: 'Falcon uses Picmo as a emoji picker component. It displays a panel of emojis where one can be selected. What is done with the selected emoji is up to you.',
+      url: `https://picmojs.com/docs/api/overview`,
+      linkText: 'Documentation for Picmo'
+    }
+prepend scripts
+  script(src='https://unpkg.com/picmo@5.7.6/dist/umd/index.js')
+  script(src='https://unpkg.com/@picmo/popup-picker@5.7.6/dist/umd/index.js')
+
+
+append content
+  +PageHeader(pageHeader)
+
+  
+  +ComponentCard({
+    title: 'Example',
+    anchor: true,
+  }).mb-3
+    .position-relative#emoji-button
+      .btn.btn-info(data-picmo!={ position: 'bottom-start' })
+        span.far.fa-laugh-beam
+
+  .card.mb-3
+    .card-header
+      h5.mb-0 Javascript
+    .card-body.bg-light   
+      +ComponentCardLib
+        script(src='https://unpkg.com/picmo@5.7.2/dist/umd/index.js')
+        script(src='https://unpkg.com/@picmo/popup-picker@5.7.2/dist/umd/index.js')

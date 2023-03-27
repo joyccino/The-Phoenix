@@ -1,0 +1,73 @@
+extends ../../../layouts/LayoutComponent
+
+block append variables
+  - 
+    var pageHeader = {
+      title: 'Range Slider',
+      description: `${name} uses <b>noUiSlider</b> for advance range slider. noUiSlider is a lightweight range slider with multi-touch support and a ton of features.`,
+      url: `https://refreshless.com/nouislider/`,
+      linkText: 'Documentation for noUiSlider'
+    }
+
+block prepend styles
+  link(href=`${CWD}vendors/nouislider/nouislider.min.css`, rel='stylesheet')
+
+block prepend scripts
+  script(src=`${CWD}vendors/nouislider/nouislider.min.js`)
+
+block append content
+  +PageHeader(pageHeader)
+  
+  +ComponentCard({
+    title: 'Default',
+    anchor: true,
+  }).mb-3
+    div(data-nouislider)
+  +ComponentCard({
+    title: 'Range Connect',
+    anchor: true,
+  }).mb-3
+    div(data-nouislider!={start: [20, 80], connect: true })
+  +ComponentCard({
+    title: 'With Pips',
+    anchor: true,
+  }).mb-3
+    .mb-5(data-nouislider!={step: 10, pips: { mode: 'steps', stepped: true }})
+  +ComponentCard({
+    title: 'Colored Sliders',
+    anchor: true,
+  }).mb-3
+    .noUi-primary.mb-4(data-nouislider!={start: [45] })
+    .noUi-success.mb-4(data-nouislider!={start: [35] })
+    .noUi-secondary.mb-4(data-nouislider!={start: [55] })
+    .noUi-info.mb-4(data-nouislider!={start: [40] })
+    .noUi-warning.mb-4(data-nouislider!={start: [70] })
+    .noUi-danger(data-nouislider!={start: [65] })
+  +ComponentCard({
+    title: 'Styling',
+    anchor: true,
+  }).mb-3
+    h6.mb-2 Circle handle
+    .noUi-handle-circle.noUi-danger.mb-4(data-nouislider!={start: [55]})
+    h6.mb-2 Square handle
+    .noUi-handle-square.mb-4(data-nouislider!={start: [25]})
+    h6.mb-2 Control height
+    .noUi-slider-slim.mb-3(data-nouislider!={start: [25]})
+    p.mb-0 Update 
+      code --falcon-noUi-track-height 
+      | and 
+      code --falcon-noUi-handle-top 
+      | variables to control the track height and handle position.
+
+  .card.mb-3
+    .card-header
+      h5.mb-0 Stylesheet
+    .card-body.bg-light
+      +ComponentCardLib
+        link(href=`vendors/nouislider/nouislider.min.css`, rel='stylesheet')
+  .card.mb-3
+    .card-header
+      h5.mb-0 Javascript
+    .card-body.bg-light   
+      +ComponentCardLib
+        script(src=`vendors/nouislider/nouislider.min.js`)
