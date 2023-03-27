@@ -1,0 +1,199 @@
+mixin NavbarStyleHeader(config)
+  .d-flex.align-items-start
+    img(src=`${CWD}assets/img/generic/${config.img}.png`, alt="" width=100).me-3.border.border-2.rounded-3.bg-200
+    .flex-1
+      h5.mb-0(data-anchor)=config.title
+      p.mb-1!=config.description
+      a(href=config.url target='_blank').btn.btn-link.btn-sm.ps-0  See the implementation here 
+        span.fas.fa-chevron-right.ms-1.fs--2
+
+mixin StyleVarBlock(config)
+  h6.fs-0=config.title
+  p.mb-2 To change the 
+    | #{config.title.toLowerCase()}
+    | of the 
+    | #{config.variant}
+    | , update the SCSS variable 
+    code=config.scssVar 
+    |  in your 
+    code _user-variables.scss 
+    | or CSS variable 
+    code=config.cssVar  
+    |  in your 
+    code public/assets/css/user.css
+    |. Example: 
+  +ComponentCardLib('css').mb-4.
+    //- _user-variables.scss
+    #{config.scssVar}: #{config.egValue};
+    or,
+    //- public/assets/css/user.css
+    #{config.cssVar}: #{config.egValue};
+
+mixin CustomizeBlock(variant, type)
+  - 
+    var customizeTypes = [
+      {
+        title: `${type == 'vibrant' ? 'Background' : 'Background color'}`, 
+        varSuffix: `${type == 'vibrant' ? 'bg-image' : 'bg-color'}`,
+        egValue: `${type == 'vibrant' ? 'linear-gradient(-45deg,rgba(0, 160, 255, 0.86),#0048a2)' : '#ff0000'}`
+      },
+      {
+        title: 'Link color', 
+        varSuffix: 'link-color',
+        egValue: '#ff0000'
+      },
+      {
+        title: 'Link hover color', 
+        varSuffix: 'link-hover-color',
+        egValue: '#ff0000'
+      },
+      {
+        title: 'Link active color', 
+        varSuffix: 'link-active-color',
+        egValue: '#ff0000'
+      },
+      {
+        title: 'Divider color', 
+        varSuffix: 'hr-color',
+        egValue: '#ff0000'
+      },
+      {
+        title: 'Scrollbar color',
+        varSuffix: 'scrollbar-color',
+        egValue: '#ff0000'
+      }
+    ]
+
+  p #{name} allow you to customize your Navbar Vertical with SCSS or CSS variables. The available options are listed below: 
+  each customizeType in customizeTypes
+    +StyleVarBlock({
+      title: customizeType.title,
+      variant,
+      cssVar: `--falcon-navbar-vertical-${type}-${customizeType.varSuffix}`,
+      scssVar: `$navbar-vertical-${type}-${customizeType.varSuffix}`,
+      egValue: customizeType.egValue
+    })
+
+mixin NavbarVerticalDefaultHtmlDemo
+  p Class 
+    code .navbar-vertical 
+    | represents the default Transparent Vertical Navbar.
+
+  +ComponentCardLib.mb-3
+    nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light
+      // Content
+      .collapse.navbar-collapse
+        .navbar-vertical-content.scrollbar
+          // Navbar content
+
+  p You can change 
+    code background-color 
+    | by adding 
+    code .bg-* 
+    | utility classes in 
+    code .navbar-collapse 
+    | element or you can update globally using the SCSS or CSS variable which is described in Customize section below.
+
+  +ComponentCardLib 
+    .collapse.navbar-collapse.bg-1000
+      .navbar-vertical-content.scrollbar
+
+        // Navbar content
+
+mixin NavbarVerticalDefaultSCSSDocs
+  +CustomizeBlock('Navbar Vertical', 'default')
+
+mixin NavbarInvertedHtmlDemo
+  p Add 
+    code .navbar-inverted 
+    | class to 
+    code .navbar-vertical 
+    | element to convert Transparent Vertical Navbar to Inverted Vertical Navbar.
+
+  +ComponentCardLib.mb-3
+    nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light.navbar-inverted
+      // Content
+      .collapse.navbar-collapse
+        .navbar-vertical-content.scrollbar
+          // Navbar content
+
+  p You can change 
+    code background-color 
+    | by adding 
+    code .bg-* 
+    | utility classes in 
+    code .navbar-collapse 
+    | element or you can update globally using the SCSS variable which is described in SCSS section below.
+
+  +ComponentCardLib 
+    .collapse.navbar-collapse.bg-1000
+      .navbar-vertical-content.scrollbar
+
+        // Navbar content
+
+mixin NavbarInvertedSCSSDocs
+  +CustomizeBlock('Navbar Vertical Inverted', 'inverted')
+
+mixin NavbarVibrantHtmlDemo
+  p Add 
+    code .navbar-vibrant 
+    | class to 
+    code .navbar-vertical 
+    | element which will set a 
+    code gradient-color 
+    | and a 
+    code background-image  
+    | to the 
+    code .navbar-collapse 
+    | element. This style come from 
+    code theme.css
+    |.
+  +ComponentCardLib.mb-3
+    nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light.navbar-vibrant
+      // Content
+      .collapse.navbar-collapse
+        .navbar-vertical-content.scrollbar
+          // Navbar content
+  p You can change the background of navbar vibrant using inline style. Add style attribute to 
+    code .navbar-collapse 
+    | element to change the backgruond image property. Otherwise, you can change background using SCSS variable.
+
+  +ComponentCardLib
+    .collapse.navbar-collapse(style="background-image: linear-gradient(-45deg, rgba(0, 160, 255, 0.86), #0048a2), url(assets/img/generic/bg-navbar.png)")
+      .navbar-vertical-content.scrollbar
+        // Navbar content
+
+mixin NavbarVibrantScssDocs
+  +CustomizeBlock('Navbar Vertical Vibrant', 'vibrant')
+
+mixin NavbarCardHtmlDemo
+  p Add 
+    code .navbar-card 
+    | class to 
+    code .navbar-vertical 
+    | element to set white background and card shadow to the 
+    code .navbar-collapse 
+    | element to convert Transparent Navbar Vertical to Card Navbar Vertical.
+
+  +ComponentCardLib.mb-4
+    nav.navbar.navbar-vertical.navbar-expand-xl.navbar-light.navbar-card
+      // Content
+      .collapse.navbar-collapse
+        .navbar-vertical-content.scrollbar
+          // Navbar content
+
+  p You can change 
+    code background-color 
+    | by adding 
+    code .bg-* 
+    | utility classes in 
+    code .navbar-collapse 
+    | element or you can update globally using the SCSS variable which is described in SCSS section below.
+
+  +ComponentCardLib 
+    .collapse.navbar-collapse.bg-white  
+      .navbar-vertical-content.scrollbar  
+        // Navbar content  
+
+mixin NavbarCardSCSSDocs
+  +CustomizeBlock('Navbar Vertical Card', 'card')
