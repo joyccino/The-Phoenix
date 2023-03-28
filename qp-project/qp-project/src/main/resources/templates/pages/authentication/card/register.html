@@ -10,12 +10,12 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
+    <title>큐피 프로젝트 | 회원가입</title>
 
 
     <!-- ===============================================-->
     <!--    Favicons-->
-    <!-- ===============================================-->
+    <!-- ===============================================
     <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/img/favicons/favicon-16x16.png">
@@ -24,14 +24,15 @@
     <meta name="msapplication-TileImage" content="../../../assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
-    <script src="../../../vendors/simplebar/simplebar.min.js"></script>
+    <script src="../../../vendors/simplebar/simplebar.min.js"></script>-->
 
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">-->
+    <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
     <link href="../../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
     <link href="../../../assets/css/theme-rtl.css" rel="stylesheet" id="style-rtl">
     <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
@@ -52,6 +53,11 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+    <style>
+    * {
+      font-family: 'NanumSquareNeo' !important;
+    }
+    </style>
   </head>
 
 
@@ -73,51 +79,66 @@
                       </div>
                       <!--/.bg-holder-->
 
-                      <div class="z-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="../../../index.html">falcon</a>
-                        <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on functionaries for your digital products, while leaving the UI design on us!</p>
+                      <div class="z-1 position-relative"><a class="link-light mb-4 fs-4 d-inline-block fw-bolder" href="../../../index.html">Qeasy Peasy</a>
+                        <p class="opacity-85 text-white">🗺️교양부터 전공 과목까지🧬</p>
+                        <p class="opacity-85 text-white">📚다함께 만드는 문제 은행!🐷</p>
+                        <p class="opacity-85 text-white">🧠AI 공부 페이스메이커와 함께🏃</p>
+                        <p class="opacity-85 text-white">🎵학점 관리, 큐피가 도와줄게🎶</p>
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="../../../pages/authentication/card/login.html">Log In</a></p>
+                      <p class="pt-3 text-white">이미 큐피의 회원인가요?<br><a class="btn btn-outline-light mt-2 px-4" href="/">큐피 로그인</a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">
                     <div class="p-4 p-md-5 flex-grow-1">
-                      <h3>Register</h3>
+                      <h3>회원가입</h3>
                       <form>
-                        <div class="mb-3">
-                          <label class="form-label" for="card-name">Name</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-name" />
+                        <div class="row gx-2">
+                          <div class="mb-3 col-sm-6">
+                            <label class="form-label" for="card-surname">성</label>
+                            <input class="form-control" type="text" autocomplete="on" id="card-surname" required/>
+                          </div>
+                          <div class="mb-3 col-sm-6">
+                            <label class="form-label" for="card-firstname">이름</label>
+                            <input class="form-control" type="text" autocomplete="on" id="card-firstname" required/>
+                          </div>
                         </div>
                         <div class="mb-3">
-                          <label class="form-label" for="card-email">Email address</label>
-                          <input class="form-control" type="email" autocomplete="on" id="card-email" />
+                          <label class="form-label" for="card-nickname">닉네임</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-nickname" />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="card-email">이메일 주소</label>
+                          <input class="form-control" type="email" autocomplete="on" id="card-email" required/>
                         </div>
                         <div class="row gx-2">
                           <div class="mb-3 col-sm-6">
-                            <label class="form-label" for="card-password">Password</label>
-                            <input class="form-control" type="password" autocomplete="on" id="card-password" />
+                            <label class="form-label" for="card-password">패스워드</label>
+                            <input class="form-control" type="password" autocomplete="on" id="card-password" required>
                           </div>
                           <div class="mb-3 col-sm-6">
-                            <label class="form-label" for="card-confirm-password">Confirm Password</label>
-                            <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" />
+                            <label class="form-label" for="card-confirm-password">패스워드 확인</label>
+                            <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
                           </div>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="card-register-checkbox" />
-                          <label class="form-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
+                          <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
+                          <label class="form-label" for="card-register-checkbox"><a href="#!">이용약관</a>과 <a href="#!">개인정보취급방침</a>에 동의합니다.</label>
                         </div>
                         <div class="mb-3">
-                          <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
+                          <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">큐피 시작하기</button>
                         </div>
                       </form>
                       <div class="position-relative mt-4">
                         <hr />
-                        <div class="divider-content-center">or register with</div>
+                        <div class="divider-content-center">or</div>
                       </div>
                       <div class="row g-2 mt-2">
-                        <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
+                        <!--<div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
+                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>-->
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
                       </div>
                     </div>
                   </div>
