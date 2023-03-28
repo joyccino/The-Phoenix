@@ -92,6 +92,10 @@
                       <h3>회원가입</h3>
                       <form>
                         <div class="row gx-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="card-email">이메일 주소</label>
+                            <input class="form-control" type="email" autocomplete="on" id="card-email" required/>
+                          </div>
                           <div class="mb-3 col-sm-6">
                             <label class="form-label" for="card-surname">성</label>
                             <input class="form-control" type="text" autocomplete="on" id="card-surname" required/>
@@ -106,9 +110,10 @@
                           <input class="form-control" type="text" autocomplete="on" id="card-nickname" />
                         </div>
                         <div class="mb-3">
-                          <label class="form-label" for="card-email">이메일 주소</label>
-                          <input class="form-control" type="email" autocomplete="on" id="card-email" required/>
+                          <label class="form-label" for="card-gender">성별</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-gender" placeholder = "라디오 타입으로 수정하기." required />
                         </div>
+
                         <div class="row gx-2">
                           <div class="mb-3 col-sm-6">
                             <label class="form-label" for="card-password">패스워드</label>
@@ -119,6 +124,27 @@
                             <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
                           </div>
                         </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-birthdate">생년 월일</label>
+                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-schoolEmail">학교 인증</label>
+                          <input class="form-control" type="email" autocomplete="on" id="card-schoolEmail" placeholder="인증 버튼 추가해서 클릭하면 인증코드가 나오는 걸로 반영." />
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-major">전공</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-major" />
+                        </div>
+
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
                           <label class="form-label" for="card-register-checkbox"><a href="#!">이용약관</a>과 <a href="#!">개인정보취급방침</a>에 동의합니다.</label>
