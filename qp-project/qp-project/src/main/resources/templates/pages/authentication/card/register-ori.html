@@ -10,12 +10,12 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>큐피 프로젝트</title>
+    <title>Falcon | Dashboard &amp; Web App Template</title>
 
 
     <!-- ===============================================-->
     <!--    Favicons-->
-    <!-- ===============================================
+    <!-- ===============================================-->
     <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/img/favicons/favicon-16x16.png">
@@ -24,15 +24,14 @@
     <meta name="msapplication-TileImage" content="../../../assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
-    <script src="../../../vendors/simplebar/simplebar.min.js"></script> -->
+    <script src="../../../vendors/simplebar/simplebar.min.js"></script>
 
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">-->
-    <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="../../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
     <link href="../../../assets/css/theme-rtl.css" rel="stylesheet" id="style-rtl">
     <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
@@ -53,13 +52,6 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-
-    <style>
-    * {
-      font-family: 'NanumSquareNeo' !important;
-    }
-    </style>
-
   </head>
 
 
@@ -81,63 +73,51 @@
                       </div>
                       <!--/.bg-holder-->
 
-                      <div class="z-1 position-relative"><a class="link-light mb-4 fs-4 d-inline-block fw-bolder" href="../../../index.html">Qeasy Peasy</a>
-                        <p class="opacity-85 text-white">🗺️교양부터 전공 과목까지🧬</p>
-                        <p class="opacity-85 text-white">📚다함께 만드는 문제 은행!🐷</p>
-                        <p class="opacity-85 text-white">🧠AI 공부 페이스메이커와 함께🏃</p>
-                        <p class="opacity-85 text-white">🎵학점 관리, 큐피가 도와줄게🎶</p>
+                      <div class="z-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="../../../index.html">falcon</a>
+                        <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on functionaries for your digital products, while leaving the UI design on us!</p>
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                      <p class="text-white">안녕, 큐피는 처음이지?👋<br>
-
-                        <a class="text-decoration-underline link-light" href="../authentication/register">회원가입 하기</a>
-
-                      </p>
-                      <!--<p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a class="text-decoration-underline text-white" href="#!">terms</a> and <a class="text-decoration-underline text-white" href="#!">conditions </a></p>-->
+                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="../../../pages/authentication/card/login.html">Log In</a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">
                     <div class="p-4 p-md-5 flex-grow-1">
-                      <div class="row flex-between-center">
-                        <div class="col-auto">
-                          <!--<h3>Account Login</h3>-->
-                          <h3>큐피 로그인</h3>
-                        </div>
-                      </div>
+                      <h3>Register</h3>
                       <form>
                         <div class="mb-3">
+                          <label class="form-label" for="card-name">Name</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-name" />
+                        </div>
+                        <div class="mb-3">
                           <label class="form-label" for="card-email">Email address</label>
-                          <input class="form-control" id="card-email" type="email" />
+                          <input class="form-control" type="email" autocomplete="on" id="card-email" />
                         </div>
-                        <div class="mb-3">
-                          <div class="d-flex justify-content-between">
+                        <div class="row gx-2">
+                          <div class="mb-3 col-sm-6">
                             <label class="form-label" for="card-password">Password</label>
+                            <input class="form-control" type="password" autocomplete="on" id="card-password" />
                           </div>
-                          <input class="form-control" id="card-password" type="password" />
+                          <div class="mb-3 col-sm-6">
+                            <label class="form-label" for="card-confirm-password">Confirm Password</label>
+                            <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" />
+                          </div>
                         </div>
-                        <div class="row flex-between-center">
-                          <div class="col-auto">
-                            <div class="form-check mb-0">
-                              <input class="form-check-input" type="checkbox" id="card-checkbox" checked="checked" />
-                              <label class="form-check-label mb-0" for="card-checkbox">로그인 유지</label>
-                            </div>
-                          </div>
-                          <div class="col-auto"><a class="fs--1" href="../authentication/forgotPassword">비밀번호 찾기</a></div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="card-register-checkbox" />
+                          <label class="form-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
                         </div>
                         <div class="mb-3">
-                          <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">로그인</button>
+                          <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
                         </div>
                       </form>
                       <div class="position-relative mt-4">
                         <hr />
-                        <div class="divider-content-center">or log in with</div>
+                        <div class="divider-content-center">or register with</div>
                       </div>
                       <div class="row g-2 mt-2">
-                        <!--<div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>-->
-                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
-                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
+                        <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
+                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
                       </div>
                     </div>
                   </div>
