@@ -3,3 +3,16 @@
 /* -------------------------------------------------------------------------- */
 /* prettier-ignore */
 /*# sourceMappingURL=user.css.map */
+@font-face {
+    font-family: 'NanumSquareNeo';
+    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot');
+    src: url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.eot?#iefix') format('embedded-opentype'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff2') format('woff2'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.woff') format('woff'),
+         url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-aLt.ttf') format("truetype");
+    font-display: swap;
+}
+
+* {
+  font-family: 'NanumSquareNeo' !important;
+}
