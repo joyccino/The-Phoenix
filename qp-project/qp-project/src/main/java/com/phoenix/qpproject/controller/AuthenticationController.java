@@ -23,6 +23,11 @@ public class AuthenticationController {
         return "/pages/authentication/card/forgot-password";
     }
 
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public String test() {
+        return "/app/e-learning/course/create-a-course";
+    }
+
 
 
 
