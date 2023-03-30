@@ -55,8 +55,6 @@
     </script>
 
     <style>
-
-
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -68,6 +66,9 @@
 }
 
 .checkmark {
+  top: -33%;
+  position: relative;
+  left: 90%;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -179,10 +180,7 @@
                             <label class="form-label" for="card-confirm-password">패스워드 확인</label>
                             <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
                           </div>
-                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                          </svg>
+
                         </div>
 
                         <div class="mb-3">
@@ -193,19 +191,11 @@
                         <div class="mb-3">
                           <label class="form-label" for="card-schoolEmail">학교 인증</label>
                           <input class="form-control" type="email" autocomplete="on" id="card-schoolEmail" placeholder="인증 버튼 추가해서 클릭하면 인증코드가 나오는 걸로 반영." />
-                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                          </svg>
                         </div>
 
                         <div class="mb-3">
                           <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
                           <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
-                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                          </svg>
                         </div>
 
                         <div class="mb-3">
