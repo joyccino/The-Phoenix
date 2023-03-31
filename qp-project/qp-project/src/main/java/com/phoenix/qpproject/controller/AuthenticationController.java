@@ -1,15 +1,31 @@
 package com.phoenix.qpproject.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class AuthenticationController {
+    @GetMapping("/authentication/join")
+    public void Join() {
+
+    }
+    @GetMapping("/authentication/checkJoin")
+    public void checkJoin() {
+
+    }
+
+    @GetMapping("/authentication/login")
+    public void login() {
+
+    }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String login() {
+    public String index() {
         return "/pages/authentication/card/login";
     }
 
