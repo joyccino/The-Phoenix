@@ -170,9 +170,14 @@
                         <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
                       </div>
                       <div class="mb-3">
-                        <label class="form-label" for="card-gender">성별</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-gender" placeholder = "라디오 타입으로 수정하기." required />
+                        <label class=>성별</label>
+                        <select class="form-select mb-3">
+                          <option value="2" selected>선택 안함</option>
+                          <option value=0>남</option>
+                          <option value="1">여</option>
+                        </select>
                       </div>
+
                       <div class="mb-3">
                         <label class="form-label" for="card-birthdate">생년 월일</label>
                         <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
