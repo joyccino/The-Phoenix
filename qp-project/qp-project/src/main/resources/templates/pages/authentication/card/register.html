@@ -157,8 +157,8 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="card-nickname">아이디</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-nickname" placeholder="자동생성 기능 추가" />
+                      <label class="form-label" for="card-userId">아이디</label>
+                      <input class="form-control" type="text" autocomplete="on" id="card-userId" placeholder="중복체크 기능 추가" />
                     </div>
                     <div class="row gx-2">
                       <div class="mb-3 col-sm-6">
@@ -169,6 +169,7 @@
                         <label class="form-label" for="card-confirm-password">패스워드 확인</label>
                         <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
                       </div>
+                    </div>
                       <div class="mb-3">
                         <label class=>성별</label>
                         <select class="form-select mb-3">
@@ -184,6 +185,11 @@
                       </div>
 
                       <div class="mb-3">
+                        <label class="form-label" for="card-contact-number">전화번호</label>
+                        <input class="form-control" type="text" autocomplete="on" id="card-contact-number" placeholder="전화번호 정규식 추가" />
+                      </div>
+
+                      <div class="mb-3">
                         <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
                         <input class="form-control" type="email" autocomplete="on" id="card-email"/>
                         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none">
@@ -191,7 +197,12 @@
                           <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
                         </svg>
                       </div>
+
+                    <div class="mb-3" style = "display: none" id = "uni-name">
+                      <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
+                      <input class="form-control" type="text" autocomplete="on" id="card-uni" readonly placeholder="학교이름 인식기능 추가" />
                     </div>
+
 
 
                       <div class="form-check">
@@ -366,13 +377,25 @@
 
   var chkIsUniStudent = document.querySelector("#chkUniStudent");
   var emailAddress = document.querySelector("#email-address");
+  var emailInputTag = document.querySelector("#card-email");
+  var divUniName = document.querySelector("#uni-name");
+  var uniName = document.querySelector("#card-uni");
   chkIsUniStudent.addEventListener('change', function() {
     if (this.checked) {
       emailAddress.innerHTML = "학교 이메일 주소";
+      divUniName.style.display = "block";
     } else {
       emailAddress.innerHTML = "이메일 주소";
+      divUniName.style.display = "none";
     }
   });
+
+  emailInputTag.addEventListener("input", updateEmail);
+
+  function updateEmail(e) {
+    // 이메일 도메인 비교 알고리즘 추가
+    uniName.value = "학교 정보를 알 수 없습니다.";
+}
 </script>
 
 </body>
