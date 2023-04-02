@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html">
 
 <head>
   <meta charset="utf-8">
@@ -55,6 +55,9 @@
     </script>
 
   <style>
+.inputs {
+  position: relative;
+}
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -66,9 +69,9 @@
 }
 
 .checkmark {
-  top: -33%;
-  position: relative;
-  left: 90%;
+  position: absolute;
+  left : 90%;
+  top : 53.8%;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -186,16 +189,22 @@
 
                       <div class="mb-3">
                         <label class="form-label" for="card-contact-number">전화번호</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-contact-number" placeholder="전화번호 정규식 추가" />
+                        <input class="form-control" type="text" autocomplete="on" id="card-contact-number" maxlength="11" oninput="check_phoneNumber()">
+                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                          </svg>
+                        </input>
                       </div>
 
                       <div class="mb-3">
                         <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                        <input class="form-control" type="email" autocomplete="on" id="card-email"/>
-                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none">
-                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                        </svg>
+                        <input class="form-control" type="email" autocomplete="on" id="card-email">
+                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                          </svg>
+                        </input>
                       </div>
 
                     <div class="mb-3" style = "display: none" id = "uni-name">
@@ -396,6 +405,32 @@
     // 이메일 도메인 비교 알고리즘 추가
     uniName.value = "학교 정보를 알 수 없습니다.";
 }
+
+function check_phoneNumber() {
+
+  var phone = document.querySelector("#card-contact-number").value;
+
+  var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+  var contactNoVerified = document.querySelector("#contact-no-verified");
+
+  if (phone.length == 11) {
+
+    if (regPhone.test(phone) == true) {
+      contactNoVerified.style.display = "block";
+    }
+    else {
+      contactNoVerified.insertAdjacentHTML("afterend", "<label class='form-label' style='color:red'>전화번호를 확인해주세요.</label>");
+    }
+  }
+}
+
+function check_email() {
+
+}
+
+
+
 </script>
 
 </body>
