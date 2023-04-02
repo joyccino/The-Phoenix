@@ -182,8 +182,9 @@ input[type=number] {
                       </div>
                       <div class="mb-3 col-sm-6">
                         <label class="form-label" for="card-confirm-password">패스워드 확인</label>
-                        <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
+                        <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput="passCheck();" required/>
                       </div>
+                      <label class='form-label' id = "psCheck" style="display: none"></label>
                     </div>
                       <div class="mb-3">
                         <label class=>성별</label>
@@ -201,7 +202,7 @@ input[type=number] {
 
                       <div class="mb-3">
                         <label class="form-label" for="card-contact-number">전화번호</label>
-                        <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" oninput="check_phoneNumber()">
+                        <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                           <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
                             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
@@ -213,7 +214,6 @@ input[type=number] {
                       <div class="mb-3">
                         <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
                         <input class="form-control" type="email" autocomplete="on" id="card-email" oninput="check_email()">
-                        </input>
                         <label class='form-label' id = "emailCheck" style="display: none"></label>
                       </div>
 
@@ -226,8 +226,6 @@ input[type=number] {
                         <input class="form-check-input" type="checkbox" id="chkUniStudent" required/>
                         <label class="form-label" for="chkUniStudent">대학생입니다.</label>
                       </div>
-
-
                     <div class="mb-3"  style ="display: none">
                       <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
                       <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
@@ -271,9 +269,10 @@ input[type=number] {
             <h5 class="modal-title">큐피 이용약관</h5>
             <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-
-          <div class="modal-footer d-flex justify-content-end align-items-center bg-light border-0"><a class="me-3 text-600" href="../app/events/create-an-event.html">More options</a>
-            <button class="btn btn-primary px-4">Save</button>
+          <div class="modal-body p-x1">
+            <div class="mb-3">
+              <p class="fs-0">내용 추가 바람.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -281,13 +280,14 @@ input[type=number] {
     <div class="modal fade" id="privacyStatement" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content border">
-            <div class="modal-header px-x1 bg-light border-bottom-0">
-              <h5 class="modal-title">큐피 개인정보 취급방침</h5>
-              <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-header px-x1 bg-light border-bottom-0">
+            <h5 class="modal-title">큐피 개인정보 취급방침</h5>
+            <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-x1">
+            <div class="mb-3">
+              <p class="fs-0">내용 추가 바람.</p>
             </div>
-
-          <div class="modal-footer d-flex justify-content-end align-items-center bg-light border-0"><a class="me-3 text-600" href="../app/events/create-an-event.html">More options</a>
-            <button class="btn btn-primary px-4">Save</button>
           </div>
         </div>
       </div>
@@ -501,6 +501,10 @@ function check_email() {
       eCheck.innerHTML = "이메일 형식을 확인해주세요.";
     }
   }
+}
+
+function passCheck() {
+  console.log("pass check logic 추가");
 }
 
 
