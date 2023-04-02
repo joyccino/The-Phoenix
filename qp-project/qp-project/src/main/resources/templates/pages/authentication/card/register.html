@@ -55,6 +55,18 @@
     </script>
 
   <style>
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .inputs {
   position: relative;
 }
@@ -189,22 +201,20 @@
 
                       <div class="mb-3">
                         <label class="form-label" for="card-contact-number">전화번호</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-contact-number" maxlength="11" oninput="check_phoneNumber()">
+                        <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" oninput="check_phoneNumber()">
                           <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
                             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
                           </svg>
                         </input>
+                        <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
                       </div>
 
                       <div class="mb-3">
                         <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                        <input class="form-control" type="email" autocomplete="on" id="card-email">
-                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                          </svg>
+                        <input class="form-control" type="email" autocomplete="on" id="card-email" oninput="check_email()">
                         </input>
+                        <label class='form-label' id = "emailCheck" style="display: none"></label>
                       </div>
 
                     <div class="mb-3" style = "display: none" id = "uni-name">
@@ -408,24 +418,54 @@
 
 function check_phoneNumber() {
 
-  var phone = document.querySelector("#card-contact-number").value;
+  var phoneInput = document.querySelector("#card-contact-number").value;
 
   var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
-  var contactNoVerified = document.querySelector("#contact-no-verified");
+  var pCheck = document.querySelector("#phoneNoCheck");
 
-  if (phone.length == 11) {
-
-    if (regPhone.test(phone) == true) {
-      contactNoVerified.style.display = "block";
+  if(phoneInput.length == 0) {
+    pCheck.style.display = "none";
+  }
+  else if (phoneInput.length > 0 && phoneInput.length < 11) {
+    pCheck.style.display = "inline-block";
+    pCheck.style.color = "red";
+    pCheck.innerHTML = "전화번호를 확인해주세요."
+  }
+  else if (phoneInput.length == 11) {
+    if (regPhone.test(phoneInput) == true) {
+      pCheck.style.display = "inline-block";
+      pCheck.style.color = "blue";
+      pCheck.innerHTML = "올바른 전화번호 형식입니다."
     }
     else {
-      contactNoVerified.insertAdjacentHTML("afterend", "<label class='form-label' style='color:red'>전화번호를 확인해주세요.</label>");
+      pCheck.style.display = "inline-block";
+      pCheck.style.color = "red";
+      pCheck.innerHTML = "전화번호를 확인해주세요.";
     }
   }
 }
 
 function check_email() {
+  var email = document.querySelector("#card-email").value;
+  var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var eCheck = document.querySelector("#emailCheck");
+  if (email.length == 0) {
+    eCheck.style.display = "none";
+  }
+  else if (email.length > 0) {
+    eCheck.style.display = "block";
+    if (regEmail.test(email) == true) {
+      eCheck.style.color = "blue";
+      eCheck.innerHTML = "올바른 이메일 형식입니다.";
+    }
+    else {
+      eCheck.style.color = "red";
+      eCheck.innerHTML = "이메일 형식을 확인해주세요.";
+    }
+  }
+
+
 
 }
 
