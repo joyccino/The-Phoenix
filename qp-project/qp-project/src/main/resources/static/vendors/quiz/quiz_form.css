@@ -1,0 +1,22 @@
+
+#editor-bar {
+position : absolute;
+right:25%;
+top:50%;
+
+
+}
+.p-2 {
+background :#BEEFFF;
+}
+.p-2:hover {
+background:#e0ffff;
+}
+
+
+.btnRemove {
+    margin-top : 10px;
+}
+
+
+
