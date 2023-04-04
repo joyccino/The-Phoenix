@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html">
 
 <head>
   <meta charset="utf-8">
@@ -55,6 +55,21 @@
     </script>
 
   <style>
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.inputs {
+  position: relative;
+}
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -66,9 +81,9 @@
 }
 
 .checkmark {
-  top: -33%;
-  position: relative;
-  left: 90%;
+  position: absolute;
+  left : 90%;
+  top : 53.8%;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -108,11 +123,12 @@
 
     </style>
 
+
+
 </head>
 
 
 <body>
-
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
@@ -145,14 +161,7 @@
                   <h3>회원가입</h3>
                   <form>
                     <div class="row gx-2">
-                      <div class="mb-3">
-                        <label class="form-label" for="card-email">이메일 주소</label>
-                        <input class="form-control" type="email" autocomplete="on" id="card-email" required/>
-                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                        </svg>
-                      </div>
+
                       <div class="mb-3 col-sm-6">
                         <label class="form-label" for="card-surname">성</label>
                         <input class="form-control" type="text" autocomplete="on" id="card-surname" required/>
@@ -163,14 +172,9 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="card-nickname">닉네임</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-nickname" placeholder="자동생성 기능 추가" />
+                      <label class="form-label" for="card-userId">아이디</label>
+                      <input class="form-control" type="text" autocomplete="on" id="card-userId" placeholder="중복체크 기능 추가" />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="card-gender">성별</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-gender" placeholder = "라디오 타입으로 수정하기." required />
-                    </div>
-
                     <div class="row gx-2">
                       <div class="mb-3 col-sm-6">
                         <label class="form-label" for="card-password">패스워드</label>
@@ -178,35 +182,65 @@
                       </div>
                       <div class="mb-3 col-sm-6">
                         <label class="form-label" for="card-confirm-password">패스워드 확인</label>
-                        <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" required/>
+                        <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput="passCheck();" required/>
+                      </div>
+                      <label class='form-label' id = "psCheck" style="display: none"></label>
+                    </div>
+                      <div class="mb-3">
+                        <label class=>성별</label>
+                        <select class="form-select mb-3">
+                          <option value="2" selected>선택 안함</option>
+                          <option value=0>남</option>
+                          <option value="1">여</option>
+                        </select>
                       </div>
 
+                      <div class="mb-3">
+                        <label class="form-label" for="card-birthdate">생년 월일</label>
+                        <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label" for="card-contact-number">전화번호</label>
+                        <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                          </svg>
+                        </input>
+                        <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
+                        <input class="form-control" type="email" autocomplete="on" id="card-email" oninput="check_email()">
+                        <label class='form-label' id = "emailCheck" style="display: none"></label>
+                      </div>
+
+                    <div class="mb-3" style = "display: none" id = "uni-name">
+                      <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
+                      <input class="form-control" type="text" autocomplete="on" id="card-uni" readonly/>
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label" for="card-birthdate">생년 월일</label>
-                      <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label" for="card-schoolEmail">학교 인증</label>
-                      <input class="form-control" type="email" autocomplete="on" id="card-schoolEmail" placeholder="인증 버튼 추가해서 클릭하면 인증코드가 나오는 걸로 반영." />
-                    </div>
-
-                    <div class="mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="chkUniStudent" required/>
+                        <label class="form-label" for="chkUniStudent">대학생입니다.</label>
+                      </div>
+                    <div class="mb-3"  style ="display: none">
                       <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
                       <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style ="display: none">
                       <label class="form-label" for="card-major">전공</label>
                       <input class="form-control" type="text" autocomplete="on" id="card-major" placeholder = "디폴트 설정으로 숨겨져 있을것."/>
                     </div>
 
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
-                      <label class="form-label" for="card-register-checkbox"><a href="#!">이용약관</a>과 <a href="#!">개인정보취급방침</a>에 동의합니다.</label>
-                    </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
+                        <label class="form-label" for="card-register-checkbox"><a data-bs-toggle="modal" href="#registrationTerms">이용약관</a>과 <a data-bs-toggle="modal" href="#privacyStatement">개인정보취급방침</a>에 동의합니다.</label>
+                      </div>
+
                     <div class="mb-3">
                       <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">큐피 시작하기</button>
                     </div>
@@ -223,6 +257,36 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="registrationTerms" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content border">
+          <div class="modal-header px-x1 bg-light border-bottom-0">
+            <h5 class="modal-title">큐피 이용약관</h5>
+            <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-x1">
+            <div class="mb-3">
+              <p class="fs-0">내용 추가 바람.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="privacyStatement" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content border">
+          <div class="modal-header px-x1 bg-light border-bottom-0">
+            <h5 class="modal-title">큐피 개인정보 취급방침</h5>
+            <button class="btn-close me-n1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-x1">
+            <div class="mb-3">
+              <p class="fs-0">내용 추가 바람.</p>
             </div>
           </div>
         </div>
@@ -353,6 +417,99 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
 <script src="../../../vendors/list.js/list.min.js"></script>
 <script src="../../../assets/js/theme.js"></script>
+
+<script>
+
+  var chkIsUniStudent = document.querySelector("#chkUniStudent");
+  var emailAddress = document.querySelector("#email-address");
+  var emailInputTag = document.querySelector("#card-email");
+  var divUniName = document.querySelector("#uni-name");
+  var uniName = document.querySelector("#card-uni");
+  chkIsUniStudent.addEventListener('change', function() {
+    if (this.checked) {
+      emailAddress.innerHTML = "학교 이메일 주소";
+      divUniName.style.display = "block";
+    } else {
+      emailAddress.innerHTML = "이메일 주소";
+      divUniName.style.display = "none";
+    }
+  });
+
+  emailInputTag.addEventListener("input", updateEmail);
+
+  function updateEmail() {
+    // 이메일 도메인 비교 알고리즘 추가
+    var inputEmail = document.querySelector("#card-email").value;
+    var res = inputEmail.split("@");
+
+    console.log(res[1]);
+
+    if (res[1] == "uni.sydney.edu.au") { // 시드니 대학교
+      uniName.value = "The University of Sydney";
+    }
+    else {
+      uniName.value = "학교 이름 결과가 없습니다.";
+    }
+
+}
+
+function check_phoneNumber() {
+
+  var phoneInput = document.querySelector("#card-contact-number").value;
+
+  var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+  var pCheck = document.querySelector("#phoneNoCheck");
+
+  if(phoneInput.length == 0) {
+    pCheck.style.display = "none";
+  }
+  else if (phoneInput.length > 0 && phoneInput.length < 11) {
+    pCheck.style.display = "inline-block";
+    pCheck.style.color = "red";
+    pCheck.innerHTML = "전화번호를 확인해주세요."
+  }
+  else if (phoneInput.length == 11) {
+    if (regPhone.test(phoneInput) == true) {
+      pCheck.style.display = "inline-block";
+      pCheck.style.color = "blue";
+      pCheck.innerHTML = "올바른 전화번호 형식입니다."
+    }
+    else {
+      pCheck.style.display = "inline-block";
+      pCheck.style.color = "red";
+      pCheck.innerHTML = "전화번호를 확인해주세요.";
+    }
+  }
+}
+
+function check_email() {
+  var email = document.querySelector("#card-email").value;
+  var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var eCheck = document.querySelector("#emailCheck");
+  if (email.length == 0) {
+    eCheck.style.display = "none";
+  }
+  else if (email.length > 0) {
+    eCheck.style.display = "block";
+    if (regEmail.test(email) == true) {
+      eCheck.style.color = "blue";
+      eCheck.innerHTML = "올바른 이메일 형식입니다.";
+    }
+    else {
+      eCheck.style.color = "red";
+      eCheck.innerHTML = "이메일 형식을 확인해주세요.";
+    }
+  }
+}
+
+function passCheck() {
+  console.log("pass check logic 추가");
+}
+
+
+
+</script>
 
 </body>
 
