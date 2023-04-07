@@ -29,6 +29,6 @@ public class AuthenticationController {
 
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String test() {
-        return "/app/e-learning/course/create-a-course";
+        return "/pages/quiz/quiz_form";
     }
 }
