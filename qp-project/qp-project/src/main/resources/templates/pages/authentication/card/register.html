@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html">
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -159,94 +159,97 @@ input[type=number] {
               <div class="col-md-7 d-flex flex-center">
                 <div class="p-4 p-md-5 flex-grow-1">
                   <h3>회원가입</h3>
-                  <form>
-                    <div class="row gx-2">
+                  <th:block layout:fragment="customContents">
+                    <form th:action="@{/member/addMember}" method="post">
+                      <div class="row gx-2">
 
-                      <div class="mb-3 col-sm-6">
-                        <label class="form-label" for="card-surname">성</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-surname" required/>
+                        <div class="mb-3 col-sm-6">
+                          <label class="form-label" for="card-surname">성</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-surname" required/>
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                          <label class="form-label" for="card-firstname">이름</label>
+                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" required/>
+                        </div>
                       </div>
-                      <div class="mb-3 col-sm-6">
-                        <label class="form-label" for="card-firstname">이름</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-firstname" required/>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="card-userId">아이디</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-userId" placeholder="중복체크 기능 추가" />
-                    </div>
-                    <div class="row gx-2">
-                      <div class="mb-3 col-sm-6">
-                        <label class="form-label" for="card-password">패스워드</label>
-                        <input class="form-control" type="password" autocomplete="on" id="card-password" required>
-                      </div>
-                      <div class="mb-3 col-sm-6">
-                        <label class="form-label" for="card-confirm-password">패스워드 확인</label>
-                        <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput="passCheck();" required/>
-                      </div>
-                      <label class='form-label' id = "psCheck" style="display: none"></label>
-                    </div>
                       <div class="mb-3">
-                        <label class=>성별</label>
-                        <select class="form-select mb-3">
-                          <option value="2" selected>선택 안함</option>
-                          <option value=0>남</option>
-                          <option value="1">여</option>
-                        </select>
+                        <label class="form-label" for="card-userId">아이디</label>
+                        <input class="form-control" type="text" autocomplete="on" id="card-userId" placeholder="중복체크 기능 추가" />
+                      </div>
+                      <div class="row gx-2">
+                        <div class="mb-3 col-sm-6">
+                          <label class="form-label" for="card-password">패스워드</label>
+                          <input class="form-control" type="password" autocomplete="on" id="card-password" required>
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                          <label class="form-label" for="card-confirm-password">패스워드 확인</label>
+                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput="passCheck();" required/>
+                        </div>
+                        <label class='form-label' id = "psCheck" style="display: none"></label>
+                      </div>
+                        <div class="mb-3">
+                          <label class=>성별</label>
+                          <select class="form-select mb-3">
+                            <option value="2" selected>선택 안함</option>
+                            <option value=0>남</option>
+                            <option value="1">여</option>
+                          </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-birthdate">생년 월일</label>
+                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-contact-number">전화번호</label>
+                          <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
+                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                          </input>
+                          <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
+                          <input class="form-control" type="email" autocomplete="on" id="card-email" oninput="check_email()">
+                          <label class='form-label' id = "emailCheck" style="display: none"></label>
+                        </div>
+
+                      <div class="mb-3" style = "display: none" id = "uni-name">
+                        <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
+                        <input class="form-control" type="text" autocomplete="on" id="card-uni" readonly/>
                       </div>
 
-                      <div class="mb-3">
-                        <label class="form-label" for="card-birthdate">생년 월일</label>
-                        <input class="form-control" type="date" autocomplete="on" id="card-birthdate" required/>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="chkUniStudent"/>
+                          <label class="form-label" for="chkUniStudent">대학생입니다.</label>
+                        </div>
+                      <div class="mb-3"  style ="display: none">
+                        <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
+                        <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
                       </div>
 
-                      <div class="mb-3">
-                        <label class="form-label" for="card-contact-number">전화번호</label>
-                        <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                          </svg>
-                        </input>
-                        <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
+                      <div class="mb-3" style ="display: none">
+                        <label class="form-label" for="card-major">전공</label>
+                        <input class="form-control" type="text" autocomplete="on" id="card-major" placeholder = "디폴트 설정으로 숨겨져 있을것."/>
                       </div>
 
-                      <div class="mb-3">
-                        <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                        <input class="form-control" type="email" autocomplete="on" id="card-email" oninput="check_email()">
-                        <label class='form-label' id = "emailCheck" style="display: none"></label>
-                      </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
+                          <label class="form-label" for="card-register-checkbox"><a data-bs-toggle="modal" href="#registrationTerms">이용약관</a>과 <a data-bs-toggle="modal" href="#privacyStatement">개인정보취급방침</a>에 동의합니다.</label>
+                        </div>
 
-                    <div class="mb-3" style = "display: none" id = "uni-name">
-                      <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-uni" readonly/>
-                    </div>
+                  <div class="mb-3">
+                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">큐피 시작하기</button>
+                  </div>
+                    </form>
+                  </th:block>
 
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="chkUniStudent" required/>
-                        <label class="form-label" for="chkUniStudent">대학생입니다.</label>
-                      </div>
-                    <div class="mb-3"  style ="display: none">
-                      <label class="form-label" for="card-schoolEmailCode">학교 인증 코드</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-schoolEmailCode" placeholder="완료 버튼 추가해서 인증 성공하면 전공 필드가 나오는걸로 반영." />
-                    </div>
-
-                    <div class="mb-3" style ="display: none">
-                      <label class="form-label" for="card-major">전공</label>
-                      <input class="form-control" type="text" autocomplete="on" id="card-major" placeholder = "디폴트 설정으로 숨겨져 있을것."/>
-                    </div>
-
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="card-register-checkbox" required/>
-                        <label class="form-label" for="card-register-checkbox"><a data-bs-toggle="modal" href="#registrationTerms">이용약관</a>과 <a data-bs-toggle="modal" href="#privacyStatement">개인정보취급방침</a>에 동의합니다.</label>
-                      </div>
-
-                    <div class="mb-3">
-                      <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">큐피 시작하기</button>
-                    </div>
-                  </form>
                   <div class="position-relative mt-4">
-                    <hr />
+                    <hr/>
                     <div class="divider-content-center">or</div>
                   </div>
                   <div class="row g-2 mt-2">
