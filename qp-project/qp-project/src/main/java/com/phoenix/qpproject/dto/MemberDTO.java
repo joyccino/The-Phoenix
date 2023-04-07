@@ -1,11 +1,13 @@
-package com.phoenix.qpproject.model;
+package com.phoenix.qpproject.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Getter
-public class MemberModel {
+@Setter
+public class MemberDTO {
     private int id;
     private String Email;
     private String SurName;
