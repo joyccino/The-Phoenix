@@ -2054,8 +2054,8 @@
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">성</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">이름</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">등급</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">주소</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입 날짜</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">생년월일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">최근 접속일</th>
@@ -2081,8 +2081,9 @@
                       <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
                       <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
                       <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">등급</td>
-                        <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
                         <td th:text="${l.memberCity}" class="joined align-middle py-2">주소</td>
+                        <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
+
                         <td th:text="${l.memberRegDate}" class="joined align-middle white-space-nowrap py-2">날짜</td>
                         <td th:text="${l.memberBDate}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
                         <td th:text="${l.memberVisit}" class="joined align-middle white-space-nowrap py-2">최근 접속</td>
