@@ -11,20 +11,22 @@
     <table border="1">
         <thead>
         <tr>
-            <th>회원아이디</th>
-            <th>회원비밀번호</th>
-            <th>회원이름</th>
-            <th>회원등급</th>
-            <th>회원이메일</th>
-            <th>회원주소</th>
-            <th>회원등록날짜</th>
+            <th>회원 아이디</th>
+            <th>회원 패스워드</th>
+            <th>회원 성</th>
+            <th>회원 이름</th>
+            <th>회원 등급</th>
+            <th>회원 이메일</th>
+            <th>회원 주소</th>
+            <th>가입 날짜</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}">
             <td th:text="${l.memberId}"></td>
             <td th:text="${l.memberPw}"></td>
-            <td th:text="${l.memberLastname}"></td>
+            <td th:text="${l.memberSurname}"></td>
+            <td th:text="${l.memberFirstname}"></td>
             <td th:text="${l.memberMemberTypeId}"></td>
             <td th:text="${l.memberEmail}"></td>
             <td th:text="${l.memberCity}"></td>

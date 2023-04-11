@@ -18,10 +18,7 @@ public class MemberService {
     }
 
     public List<MemberDTO> getMemberList(){
-        System.out.println("before test");
         List<MemberDTO> memberList = memberMapper.getMemberList();
-        System.out.println(memberList.get(0).getMemberId());
-
         return memberList;
     }
 
