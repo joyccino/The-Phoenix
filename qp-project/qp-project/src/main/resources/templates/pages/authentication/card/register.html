@@ -167,16 +167,16 @@ input[type=number] {
 
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-surname">성</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" required/>
                         </div>
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-firstname">이름</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" required/>
                         </div>
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="card-userId">아이디</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-userId" name ="memberId" placeholder="중복체크 기능 추가" />
+                        <input class="form-control" type="text" autocomplete="on" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" placeholder="중복체크 기능 추가" />
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
@@ -428,6 +428,21 @@ input[type=number] {
 
 <script>
 
+ function nameCheck(input) {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
+  if (regExp.test(input.value)) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  } else if (input.value.search(/\s/) != -1) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  }
+ }
+
+ function idCheck(input) {
+    if (input.value.search(/\s/) != -1) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  }
+ }
+
   let bdate = document.querySelector("#card-birthdate");
   bdate.max = new Date().toISOString().split("T")[0];
 
@@ -503,7 +518,7 @@ function check_email() {
   }
   else if (email.length > 0) {
     eCheck.style.display = "block";
-    if (regEmail.test(email) == true) {
+    if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
     }
