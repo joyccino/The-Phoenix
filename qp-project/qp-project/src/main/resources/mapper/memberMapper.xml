@@ -12,6 +12,7 @@
             ,m.Firstname		AS memberFirstname
             ,m.BirthDate	AS memberBDate
             ,m.RegisterDate	AS memberRegDate
+            ,m.RecentVisit	AS memberVisit
             ,m.Gender	    AS memberGender
             ,m.MemberTypeId	AS memberMemberTypeId
             ,m.InstitutionId AS memberInstitutionId
@@ -34,6 +35,7 @@
         , Firstname
         , BirthDate
         , RegisterDate
+        , RecentVisit
         , Gender
         , MemberTypeId
         , Password
@@ -45,6 +47,7 @@
         , #{memberSurname}
         , #{memberFirstname}
         , #{memberBDate}
+        , NOW()
         , NOW()
         , #{memberGender}
         , 2

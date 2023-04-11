@@ -20,7 +20,7 @@ public class AuthenticationController {
     @Autowired
     public MemberService memberService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "/pages/authentication/card/login";
     }
@@ -35,11 +35,6 @@ public class AuthenticationController {
         return "/pages/authentication/card/forgot-password";
     }
 
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public String test() {
-        return "/pages/quiz/quiz_form";
-    }
-
     @GetMapping(value="/memberList")
     public String getMemberList(Model model) {
         List<MemberDTO> memberList = memberService.getMemberList();
@@ -49,7 +44,7 @@ public class AuthenticationController {
         model.addAttribute("title", "회원목록조회");
         model.addAttribute("memberList", memberList);
 
-        return "/memberList";
+        return "/members";
     }
 
     @PostMapping("/addMember")
@@ -57,6 +52,6 @@ public class AuthenticationController {
         log.info("회원가입폼에서 입력받은 데이터: {}", member);
         memberService.addMember(member);
 
-        return "redirect:/memberList";
+        return "redirect:/login";
     }
 }

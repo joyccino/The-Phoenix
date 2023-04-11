@@ -17,6 +17,7 @@ public class MemberDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date memberBDate;
     private Date memberRegDate;
+    private Date memberVisit;
     private int memberGender;
     private int memberMemberTypeId;
     private int memberInstitutionId;
@@ -81,6 +82,14 @@ public class MemberDTO {
 
     public void setMemberRegDate(Date memberRegDate) {
         this.memberRegDate = memberRegDate;
+    }
+
+    public Date getMemberVisit() {
+        return memberVisit;
+    }
+
+    public void setMemberVisit(Date memberVisit) {
+        this.memberVisit = memberVisit;
     }
 
     public int getMemberGender() {
