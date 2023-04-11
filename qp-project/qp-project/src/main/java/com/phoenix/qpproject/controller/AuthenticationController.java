@@ -52,6 +52,6 @@ public class AuthenticationController {
         log.info("회원가입폼에서 입력받은 데이터: {}", member);
         memberService.addMember(member);
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
