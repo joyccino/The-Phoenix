@@ -3,18 +3,22 @@ package com.phoenix.qpproject.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 public class MemberDTO {
-    private int memberId;
+    private int Id;
+    private String memberId;
     private String memberEmail;
     private String memberSurname;
-    private String memberLastname;
+    private String memberFirstname;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date memberBDate;
     private Date memberRegDate;
-    private Boolean memberGender;
+    private Date memberVisit;
+    private int memberGender;
     private int memberMemberTypeId;
     private int memberInstitutionId;
     private Date memberMembershipDate;
@@ -24,11 +28,19 @@ public class MemberDTO {
     private int memberGrade;
     private String memberPw;
 
-    public int getMemberId() {
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(int memberId) {
+    public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
 
@@ -48,12 +60,12 @@ public class MemberDTO {
         this.memberSurname = memberSurname;
     }
 
-    public String getMemberLastname() {
-        return memberLastname;
+    public String getMemberFirstname() {
+        return memberFirstname;
     }
 
-    public void setMemberLastname(String memberLastname) {
-        this.memberLastname = memberLastname;
+    public void setMemberFirstname(String memberFirstname) {
+        this.memberFirstname = memberFirstname;
     }
 
     public Date getMemberBDate() {
@@ -72,11 +84,19 @@ public class MemberDTO {
         this.memberRegDate = memberRegDate;
     }
 
-    public Boolean getMemberGender() {
+    public Date getMemberVisit() {
+        return memberVisit;
+    }
+
+    public void setMemberVisit(Date memberVisit) {
+        this.memberVisit = memberVisit;
+    }
+
+    public int getMemberGender() {
         return memberGender;
     }
 
-    public void setMemberGender(Boolean memberGender) {
+    public void setMemberGender(int memberGender) {
         this.memberGender = memberGender;
     }
 
@@ -142,26 +162,5 @@ public class MemberDTO {
 
     public void setMemberPw(String memberPw) {
         this.memberPw = memberPw;
-    }
-
-    @Override
-    public String toString() {
-        return "MemberDTO{" +
-                "memberId=" + memberId +
-                ", memberEmail='" + memberEmail + '\'' +
-                ", memberSurname='" + memberSurname + '\'' +
-                ", memberLastname='" + memberLastname + '\'' +
-                ", memberBDate=" + memberBDate +
-                ", memberRegDate=" + memberRegDate +
-                ", memberGender=" + memberGender +
-                ", memberMemberTypeId=" + memberMemberTypeId +
-                ", memberInstitutionId=" + memberInstitutionId +
-                ", memberMembershipDate=" + memberMembershipDate +
-                ", memberCountry='" + memberCountry + '\'' +
-                ", memberCity='" + memberCity + '\'' +
-                ", memberMajorId=" + memberMajorId +
-                ", memberGrade=" + memberGrade +
-                ", memberPw='" + memberPw + '\'' +
-                '}';
     }
 }
