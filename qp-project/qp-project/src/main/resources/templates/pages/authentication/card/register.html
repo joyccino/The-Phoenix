@@ -31,7 +31,6 @@
   <!--    Stylesheets-->
   <!-- ===============================================-->
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
   <link href="../../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
   <link href="../../../assets/css/theme-rtl.css" rel="stylesheet" id="style-rtl">
   <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
@@ -181,13 +180,13 @@ input[type=number] {
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
-                          <label class="form-label" for="card-password">패스워드</label>
+                          <label class="form-label" for="card-password">비밀번호</label>
                           <input class="form-control" type="password" autocomplete="on" id="card-password" name ="memberPw" oninput="passCheck();" required>
                           <label class='form-label' id = "psCheck" style="display: none"></label>
                           <label class='form-label' id = "pCheck" style="display: none"></label>
                         </div>
                         <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
-                          <label class="form-label" for="card-confirm-password">패스워드 확인</label>
+                          <label class="form-label" for="card-confirm-password">비밀번호 확인</label>
                           <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required/>
                           <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
@@ -203,7 +202,7 @@ input[type=number] {
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label" for="card-birthdate">생년 월일</label>
+                          <label class="form-label" for="card-birthdate">생년월일</label>
                           <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required/>
                         </div>
 
@@ -530,25 +529,23 @@ function passCheck() {
   if (pw.length < 8 || pw.length > 20) {
       passWarning.style.display = "block";
       passWarning.style.color = "red";
-      passWarning.innerHTML = "8자리 ~ 20자리 이내로 입력해주세요.";
+      passWarning.innerHTML = "8자에서 20자 사이의 비밀번호를 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
 
   } else if (pw.search(/\s/) != -1) {
+      passWarning.style.display = "block";
       passWarning.innerHTML = "비밀번호는 공백 없이 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
   } else if (number < 0 || english < 0 || spece < 0) {
+      passWarning.style.display = "block";
       passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
   } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
+      passWarning.style.display = "block";
       passWarning.innerHTML = "영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.";
-      confirmPass.style.display = "none";
-        $('#submit-btn').prop('disabled', true);
-  } else if (pw.search(id) > -1) {
-      alert("비밀번호에 아이디가 포함되었습니다.");
-      passWarning.innerHTML = "비밀번호에 아이디가 포함되었습니다.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
   } else {
@@ -557,7 +554,7 @@ function passCheck() {
       if (cPassVal.length == 0){
         matchWarning.style.display = "block";
         matchWarning.style.color = "red";
-        matchWarning.innerHTML = "패스워드를 입력해주세요.";
+        matchWarning.innerHTML = "비밀번호를 입력해주세요.";
         $('#submit-btn').prop('disabled', true);
       }
       else if (pw !== cPassVal) {
