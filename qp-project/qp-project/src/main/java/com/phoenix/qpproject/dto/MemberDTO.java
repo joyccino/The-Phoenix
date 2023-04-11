@@ -3,6 +3,7 @@ package com.phoenix.qpproject.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ public class MemberDTO {
     private String memberEmail;
     private String memberSurname;
     private String memberLastname;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date memberBDate;
     private Date memberRegDate;
     private Boolean memberGender;

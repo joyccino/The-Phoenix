@@ -23,4 +23,31 @@
         FROM
             members AS m;
     </select>
+
+    <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MemberDTO">
+        /* 회원가입 */
+        INSERT INTO members
+        (	  Email
+        , SurName
+        , LastName
+        , BirthDate
+        , RegisterDate
+        , Gender
+        , MemberTypeId
+        , Password
+        , Country
+        , City
+        )VALUES (
+        #{memberEmail}
+        , #{memberSurname}
+        , #{memberLastname}
+        , #{memberBDate}
+        , CURDATE()
+        , #{memberGender}
+        , 2
+        , #{memberPw}
+        , "대한민국"
+        , "서울"
+        );
+    </insert>
 </mapper>

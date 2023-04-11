@@ -20,10 +20,12 @@ public class MemberService {
     public List<MemberDTO> getMemberList(){
         System.out.println("before test");
         List<MemberDTO> memberList = memberMapper.getMemberList();
-        System.out.println("after test");
-        System.out.println("members");
         System.out.println(memberList.get(0).getMemberId());
 
         return memberList;
+    }
+
+    public void addMember(MemberDTO member) {
+        memberMapper.addMember(member);
     }
 }

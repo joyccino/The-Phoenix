@@ -1,12 +1,10 @@
 package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MemberDTO;
-import com.phoenix.qpproject.mapper.MemberMapper;
 import com.phoenix.qpproject.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +41,7 @@ public class AuthenticationController {
     }
 
     @GetMapping(value="/memberList")
-    public List<MemberDTO> getMemberList(Model model) {
+    public String getMemberList(Model model) {
         List<MemberDTO> memberList = memberService.getMemberList();
 
         System.out.println("회원 목록을 요청합니다: "+memberList.toString());
@@ -51,6 +49,14 @@ public class AuthenticationController {
         model.addAttribute("title", "회원목록조회");
         model.addAttribute("memberList", memberList);
 
-        return memberList;
+        return "/memberList";
+    }
+
+    @PostMapping("/addMember")
+    public String addMember(MemberDTO member) {
+        log.info("회원가입폼에서 입력받은 데이터: {}", member);
+        memberService.addMember(member);
+
+        return "redirect:/memberList";
     }
 }
