@@ -428,6 +428,9 @@ input[type=number] {
 
 <script>
 
+  let bdate = document.querySelector("#card-birthdate");
+  bdate.max = new Date().toISOString().split("T")[0];
+
   var chkIsUniStudent = document.querySelector("#chkUniStudent");
   var emailAddress = document.querySelector("#email-address");
   var emailInputTag = document.querySelector("#card-email");
