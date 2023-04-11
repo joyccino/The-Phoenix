@@ -1,0 +1,59 @@
+extends ../../../layouts/LayoutComponent
+
+block append variables
+  - 
+    var pageHeader = {
+      title: 'Input Mask',
+      description: `${name} uses <b>inputmask</b> for advance input masking. Inputmask is a javascript library that creates an input mask. Inputmask can run against vanilla javascript, jQuery, and jqlite.`,
+      url: `https://github.com/RobinHerbots/Inputmask`,
+      linkText: 'Documentation for inputmask'
+    }
+
+block prepend scripts
+  script(src=`${CWD}vendors/inputmask/inputmask.min.js`)
+
+
+block append content
+  +PageHeader(pageHeader)
+  
+  +ComponentCard({
+    title: 'Inputmask Examples',
+    anchor: true,
+  }).mb-3
+    .mb-3
+      label.form-label(for="dateInputmask") Date
+      input#dateInputmask.form-control(data-input-mask!={alias: "datetime", inputFormat: "dd/mm/yyyy"} placeholder="DD/MM/YYYY" type="text")
+    .mb-3
+      label(for="time24Inputmask") Time (24-hour format)
+      input#time24Inputmask.form-control(data-input-mask!={alias: "datetime", inputFormat: "HH:MM:ss", hourFormat: 24} placeholder="HH:MM:SS" type="text")
+    .mb-3
+      label(for="time12Inputmask") Time (12-hour format)
+      input#time12Inputmask.form-control(data-input-mask!={alias: "datetime", inputFormat: "HH:MM:ss TT", hourFormat: 12} placeholder="HH:MM:SS TT" type="text")
+    .mb-3
+      label(for="usPhoneInputmask") US Phone Number
+      input#usPhoneInputmask.form-control(data-input-mask!={mask: "+1 999-999-9999"} placeholder="+1 XXX-XXX-XXXX" type="tel")
+    .mb-3
+      label(for="telephoneInputmask") US Telephone
+      input#telephoneInputmask.form-control(data-input-mask!={mask: "(999) 999-9999"} placeholder="(XXX) XXX-XXXX" type="tel")
+    .mb-3
+      label(for="currencyInputmask") Currency (maximum 999.99)
+      input#currencyInputmask.form-control(data-input-mask!={alias: "decimal", allowMinus: flase, digits: 2, rightAlign: false, max: 999.99, jitMasking: false, prefix: "$"} placeholder="$999.99" type="text")
+    .mb-3
+      label(for="creditCardInputmask") Credit Card
+      input#creditCardInputmask.form-control(data-input-mask!={mask: "9999 9999 9999 9999"} placeholder="XXXX XXXX XXXX XXXX" type="text")
+    .mb-3
+      label(for="urlInputmask") URL
+      input#urlInputmask.form-control(data-input-mask!={alias: "url", casing: "lower"} placeholder="https://abc.com" type="text")
+    .mb-3
+      label(for="zipcodeInputmask") ZIP Code
+      input#zipcodeInputmask.form-control(data-input-mask!={mask: "99999-999"} placeholder="XXXXX-XXX" type="text")
+    .mb-3
+      label(for="ipInputmask") IP Address
+      input#ipInputmask.form-control(data-input-mask!={mask: "999.99.99.99"} placeholder="XXX.XX.XX.XX" type="text")
+
+  .card.mb-3
+    .card-header
+      h5.mb-0 Javascript
+    .card-body.bg-light   
+      +ComponentCardLib
+        script(src=`vendors/inputmask/inputmask.min.js`)

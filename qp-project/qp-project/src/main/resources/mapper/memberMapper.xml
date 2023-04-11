@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phoenix.qpproject.mapper.MemberMapper">
+    <select id="getMemberList" resultType="com.phoenix.qpproject.dto.MemberDTO">
+        SELECT
+            m.id			AS Id
+            ,m.userId		AS memberId
+            ,m.Email        AS memberEmail
+            ,m.Surname		AS memberSurname
+            ,m.Firstname		AS memberFirstname
+            ,m.BirthDate	AS memberBDate
+            ,m.RegisterDate	AS memberRegDate
+            ,m.RecentVisit	AS memberVisit
+            ,m.Gender	    AS memberGender
+            ,m.MemberTypeId	AS memberMemberTypeId
+            ,m.InstitutionId AS memberInstitutionId
+            ,m.MembershipExpirationDate	AS memberMembershipDate
+            ,m.Country	    AS memberCountry
+            ,m.City	        AS memberCity
+            ,m.MajorId	    AS memberMajorId
+            ,m.Grade	    AS memberGrade
+            ,m.Password	    AS memberPw
+        FROM
+            members AS m;
+    </select>
+
+    <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MemberDTO">
+        /* 회원가입 */
+        INSERT INTO members
+        (	  Email
+        , UserId
+        , Surname
+        , Firstname
+        , BirthDate
+        , RegisterDate
+        , RecentVisit
+        , Gender
+        , MemberTypeId
+        , Password
+        , Country
+        , City
+        )VALUES (
+        #{memberEmail}
+        , #{memberId}
+        , #{memberSurname}
+        , #{memberFirstname}
+        , #{memberBDate}
+        , NOW()
+        , NOW()
+        , #{memberGender}
+        , 2
+        , #{memberPw}
+        , "대한민국"
+        , "서울"
+        );
+    </insert>
+</mapper>
