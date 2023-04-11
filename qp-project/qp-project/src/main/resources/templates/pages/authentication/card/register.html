@@ -31,7 +31,6 @@
   <!--    Stylesheets-->
   <!-- ===============================================-->
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
   <link href="../../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
   <link href="../../../assets/css/theme-rtl.css" rel="stylesheet" id="style-rtl">
   <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
@@ -168,26 +167,26 @@ input[type=number] {
 
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-surname">성</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" required/>
                         </div>
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-firstname">이름</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" required/>
                         </div>
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="card-userId">아이디</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-userId" name ="memberId" placeholder="중복체크 기능 추가" />
+                        <input class="form-control" type="text" autocomplete="on" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" placeholder="중복체크 기능 추가" />
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
-                          <label class="form-label" for="card-password">패스워드</label>
+                          <label class="form-label" for="card-password">비밀번호</label>
                           <input class="form-control" type="password" autocomplete="on" id="card-password" name ="memberPw" oninput="passCheck();" required>
                           <label class='form-label' id = "psCheck" style="display: none"></label>
                           <label class='form-label' id = "pCheck" style="display: none"></label>
                         </div>
                         <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
-                          <label class="form-label" for="card-confirm-password">패스워드 확인</label>
+                          <label class="form-label" for="card-confirm-password">비밀번호 확인</label>
                           <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required/>
                           <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
@@ -203,7 +202,7 @@ input[type=number] {
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label" for="card-birthdate">생년 월일</label>
+                          <label class="form-label" for="card-birthdate">생년월일</label>
                           <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required/>
                         </div>
 
@@ -429,6 +428,21 @@ input[type=number] {
 
 <script>
 
+ function nameCheck(input) {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
+  if (regExp.test(input.value)) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  } else if (input.value.search(/\s/) != -1) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  }
+ }
+
+ function idCheck(input) {
+    if (input.value.search(/\s/) != -1) {
+    input.value = input.value.substring( 0 , input.value.length - 1 );
+  }
+ }
+
   let bdate = document.querySelector("#card-birthdate");
   bdate.max = new Date().toISOString().split("T")[0];
 
@@ -504,7 +518,7 @@ function check_email() {
   }
   else if (email.length > 0) {
     eCheck.style.display = "block";
-    if (regEmail.test(email) == true) {
+    if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
     }
@@ -530,25 +544,18 @@ function passCheck() {
   if (pw.length < 8 || pw.length > 20) {
       passWarning.style.display = "block";
       passWarning.style.color = "red";
-      passWarning.innerHTML = "8자리 ~ 20자리 이내로 입력해주세요.";
+      passWarning.innerHTML = "8자에서 20자 사이의 비밀번호를 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
 
   } else if (pw.search(/\s/) != -1) {
+      passWarning.style.display = "block";
       passWarning.innerHTML = "비밀번호는 공백 없이 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
   } else if (number < 0 || english < 0 || spece < 0) {
+      passWarning.style.display = "block";
       passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
-      confirmPass.style.display = "none";
-        $('#submit-btn').prop('disabled', true);
-  } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
-      passWarning.innerHTML = "영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.";
-      confirmPass.style.display = "none";
-        $('#submit-btn').prop('disabled', true);
-  } else if (pw.search(id) > -1) {
-      alert("비밀번호에 아이디가 포함되었습니다.");
-      passWarning.innerHTML = "비밀번호에 아이디가 포함되었습니다.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
   } else {
@@ -557,7 +564,7 @@ function passCheck() {
       if (cPassVal.length == 0){
         matchWarning.style.display = "block";
         matchWarning.style.color = "red";
-        matchWarning.innerHTML = "패스워드를 입력해주세요.";
+        matchWarning.innerHTML = "비밀번호를 입력해주세요.";
         $('#submit-btn').prop('disabled', true);
       }
       else if (pw !== cPassVal) {
