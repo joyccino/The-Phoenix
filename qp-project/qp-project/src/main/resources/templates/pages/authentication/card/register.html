@@ -37,6 +37,8 @@
   <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
   <link href="../../../assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
   <link href="../../../assets/css/user.css" rel="stylesheet" id="user-style-default">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -153,7 +155,7 @@ input[type=number] {
                   </div>
                 </div>
                 <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/login">큐피 로그인</a></p>
+                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/">큐피 로그인</a></p>
                 </div>
               </div>
               <div class="col-md-7 d-flex flex-center">
@@ -179,13 +181,16 @@ input[type=number] {
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-password">패스워드</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-password" name ="memberPw" required>
+                          <input class="form-control" type="password" autocomplete="on" id="card-password" name ="memberPw" oninput="passCheck();" required>
+                          <label class='form-label' id = "psCheck" style="display: none"></label>
+                          <label class='form-label' id = "pCheck" style="display: none"></label>
                         </div>
-                        <div class="mb-3 col-sm-6">
+                        <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
                           <label class="form-label" for="card-confirm-password">패스워드 확인</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput="passCheck();" required/>
+                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required/>
+                          <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
-                        <label class='form-label' id = "psCheck" style="display: none"></label>
+
                       </div>
                         <div class="mb-3">
                           <label class=>성별</label>
@@ -243,7 +248,7 @@ input[type=number] {
                         </div>
 
                   <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">큐피 시작하기</button>
+                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit" id="submit-btn" disabled>큐피 시작하기</button>
                   </div>
                     </form>
                   </th:block>
@@ -507,7 +512,61 @@ function check_email() {
 }
 
 function passCheck() {
-  console.log("pass check logic 추가");
+  let id = $("#card-userId").val();
+  let pw = $("#card-password").val();
+  let number = pw.search(/[0-9]/g);
+  let english = pw.search(/[a-z]/ig);
+  let spece = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+  let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  let confirmPass = document.querySelector("#div-cpass");
+  let passWarning = document.querySelector("#pCheck");
+  let matchWarning = document.querySelector("#matchCheck");
+  let cPassVal = $("#card-confirm-password").val();
+
+  if (pw.length < 8 || pw.length > 20) {
+      passWarning.style.display = "block";
+      passWarning.style.color = "red";
+      passWarning.innerHTML = "8자리 ~ 20자리 이내로 입력해주세요.";
+      confirmPass.style.display = "none";
+        $('#submit-btn').prop('disabled', true);
+
+  } else if (pw.search(/\s/) != -1) {
+      passWarning.innerHTML = "비밀번호는 공백 없이 입력해주세요.";
+      confirmPass.style.display = "none";
+        $('#submit-btn').prop('disabled', true);
+  } else if (number < 0 || english < 0 || spece < 0) {
+      passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
+      confirmPass.style.display = "none";
+        $('#submit-btn').prop('disabled', true);
+  } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
+      passWarning.innerHTML = "영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.";
+      confirmPass.style.display = "none";
+        $('#submit-btn').prop('disabled', true);
+  } else if (pw.search(id) > -1) {
+      alert("비밀번호에 아이디가 포함되었습니다.");
+      passWarning.innerHTML = "비밀번호에 아이디가 포함되었습니다.";
+      confirmPass.style.display = "none";
+        $('#submit-btn').prop('disabled', true);
+  } else {
+      passWarning.style.display = "none";
+      confirmPass.style.display = "block";
+      if (cPassVal.length == 0){
+        matchWarning.style.display = "block";
+        matchWarning.style.color = "red";
+        matchWarning.innerHTML = "패스워드를 입력해주세요.";
+        $('#submit-btn').prop('disabled', true);
+      }
+      else if (pw !== cPassVal) {
+        matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
+        $('#submit-btn').prop('disabled', true);
+      }
+      else{
+        matchWarning.style.display = "none";
+        $('#submit-btn').prop('disabled', false);
+      }
+  }
+
+
 }
 
 </script>

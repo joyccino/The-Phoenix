@@ -21,13 +21,6 @@ public class AuthenticationController {
     public MemberService memberService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-
-    public String index(Model model) {
-        model.addAttribute("title", "Quiz List 가 될 곳");
-        return "/index";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "/pages/authentication/card/login";
     }
