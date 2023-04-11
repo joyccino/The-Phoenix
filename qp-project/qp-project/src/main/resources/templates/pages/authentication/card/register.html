@@ -558,11 +558,6 @@ function passCheck() {
       passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
       confirmPass.style.display = "none";
         $('#submit-btn').prop('disabled', true);
-  } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
-      passWarning.style.display = "block";
-      passWarning.innerHTML = "영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.";
-      confirmPass.style.display = "none";
-        $('#submit-btn').prop('disabled', true);
   } else {
       passWarning.style.display = "none";
       confirmPass.style.display = "block";
