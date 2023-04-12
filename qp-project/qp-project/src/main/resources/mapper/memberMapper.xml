@@ -26,6 +26,10 @@
             members AS m;
     </select>
 
+    <select id="findMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM members WHERE UserId = #{memberId};
+    </select>
+
     <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MemberDTO">
         /* 회원가입 */
         INSERT INTO members

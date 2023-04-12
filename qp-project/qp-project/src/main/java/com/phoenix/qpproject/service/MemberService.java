@@ -25,4 +25,9 @@ public class MemberService {
     public void addMember(MemberDTO member) {
         memberMapper.addMember(member);
     }
+
+    public Integer findMemberById(String memberId) {
+        return memberMapper.findMemberById(memberId);
+    }
+
 }
