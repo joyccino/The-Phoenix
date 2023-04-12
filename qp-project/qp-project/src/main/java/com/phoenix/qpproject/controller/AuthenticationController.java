@@ -54,4 +54,28 @@ public class AuthenticationController {
 
         return "redirect:/";
     }
+    @PostMapping("/memberLogin")
+    public String memberLogin(MemberDTO member, Model model) {
+        log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
+        
+        // id 비교
+        int memberCount = memberService.findMemberById(member.getMemberId());
+        System.out.println("조회된 멤버수: " + memberCount);
+
+        if (memberCount > 0) {
+            // pw 비교
+
+            // admin 여부 확인
+
+            // recent visit 기록
+
+            return "redirect:/memberList";
+        }
+        else {
+            String msg = "아이디 또는 비밀번호를 확인해주세요.";
+            model.addAttribute("msgLoginFailed",msg);
+            return "/pages/authentication/card/login";
+        }
+
+    }
 }
