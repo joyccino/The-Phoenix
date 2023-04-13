@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
   <head>
     <meta charset="utf-8">
@@ -10,12 +10,12 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
+    <title>큐피 프로젝트</title>
 
 
     <!-- ===============================================-->
     <!--    Favicons-->
-    <!-- ===============================================-->
+    <!-- ===============================================
     <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/img/favicons/favicon-16x16.png">
@@ -24,14 +24,14 @@
     <meta name="msapplication-TileImage" content="../../../assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
-    <script src="../../../vendors/simplebar/simplebar.min.js"></script>
+    <script src="../../../vendors/simplebar/simplebar.min.js"></script> -->
 
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">-->
     <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
     <link href="../../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
     <link href="../../../assets/css/theme-rtl.css" rel="stylesheet" id="style-rtl">
@@ -53,17 +53,9 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-
-    <style>
-    * {
-      font-family: 'NanumSquareNeo' !important;
-    }
-    </style>
-
   </head>
-
-
   <body>
+
 
     <!-- ===============================================-->
     <!--    Main Content-->
@@ -81,17 +73,17 @@
                       </div>
                       <!--/.bg-holder-->
 
-                      <div class="z-1 position-relative"><a class="link-light mb-4 fs-4 d-inline-block fw-bolder" href="../../../index.html">Qeasy Peasy</a>
-                        <p class="opacity-85 text-white">📌핵심만 쏙쏙! 맞춤형 퀴즈들🎉</p>
-                        <p class="opacity-85 text-white">📚교양부터 전공 과목까지🧬</p>
-                        <p class="opacity-85 text-white">🧠AI 공부 페이스 메이커🏃</p>
-                        <p class="opacity-85 text-white">🎵넌 큐피에 푹 빠지게 될거야🎶</p>
+                      <div class="z-1 position-relative">
+                        <p class="link-light mb-4 fs-4 d-inline-block"><b>Qeasy Peasy</b></p>
+                        <p class="opacity-85 text-white">🗺️ <b>교양</b>부터 <b>전공</b> 과목까지 🧬</p>
+                        <p class="opacity-85 text-white">💞 차곡차곡 쌓이는 <b>문제 은행</b>! 📚</p>
+                        <p class="opacity-85 text-white">🧠 이런 <b>AI 공부 플랫폼</b> 봤나요? 👀</p>
+                        <p class="opacity-85 text-white">🎵 학점 관리, <b>큐피</b>와 함께해요! 🎶</p>
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                      <p class="text-white">안녕, 큐피는 처음이지?👋<br>
-
-                        <a class="text-decoration-underline link-light" href="../../../pages/authentication/card/register.html">회원가입 하기</a>
+                      <p class="text-white">반가워요, 큐피는 처음이죠?👋<br>
+                        <a class="btn btn-outline-light mt-2 px-4" href="../authentication/register">큐피 회원가입</a>
                       </p>
                       <!--<p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a class="text-decoration-underline text-white" href="#!">terms</a> and <a class="text-decoration-underline text-white" href="#!">conditions </a></p>-->
                     </div>
@@ -104,16 +96,23 @@
                           <h3>큐피 로그인</h3>
                         </div>
                       </div>
-                      <form>
+                      <form th:action="@{/memberLogin}" method="post">
                         <div class="mb-3">
-                          <label class="form-label" for="card-email">Email address</label>
-                          <input class="form-control" id="card-email" type="email" />
+                          <label class="form-label" for="card-mid">아이디</label>
+                          <input class="form-control" name = "memberId" id="card-mid" type="text" required/>
                         </div>
                         <div class="mb-3">
                           <div class="d-flex justify-content-between">
-                            <label class="form-label" for="card-password">Password</label>
+                            <label class="form-label" for="card-password">비밀번호</label>
                           </div>
-                          <input class="form-control" id="card-password" type="password" />
+                          <input class="form-control" name ="memberPw" id="card-password" type="password" required/>
+                        </div>
+                        <div class="mb-3">
+                          <div class="d-flex justify-content-between">
+                            <label style="color: red" th:text="${msgLoginFailed}">
+                              메세지 위치
+                            </label>
+                          </div>
                         </div>
                         <div class="row flex-between-center">
                           <div class="col-auto">
@@ -122,7 +121,7 @@
                               <label class="form-check-label mb-0" for="card-checkbox">로그인 유지</label>
                             </div>
                           </div>
-                          <div class="col-auto"><a class="fs--1" href="../../../pages/authentication/card/forgot-password.html">비밀번호 찾기</a></div>
+                          <div class="col-auto"><a class="fs--1" href="../authentication/forgotPassword">비밀번호 찾기</a></div>
                         </div>
                         <div class="mb-3">
                           <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">로그인</button>
@@ -130,7 +129,7 @@
                       </form>
                       <div class="position-relative mt-4">
                         <hr />
-                        <div class="divider-content-center">or log in with</div>
+                        <div class="divider-content-center">혹은</div>
                       </div>
                       <div class="row g-2 mt-2">
                         <!--<div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
