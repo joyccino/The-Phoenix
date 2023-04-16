@@ -2050,16 +2050,15 @@
                         </div>
                       </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">등급</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">아이디</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">패스워드</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">성</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">이름</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">주소</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입 날짜</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">생년월일</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">최근 접속일</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">작성자</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">제목</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">키워드</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">보상여부</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">응시자 수</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">생성 날짜</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">데드라인</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">공개여부</th>
+
                         <th class="align-middle no-sort"></th>
                     </tr>
                   </thead>
@@ -2089,7 +2088,6 @@
 
                         <td th:text="${l.memberRegDate}" class="joined align-middle white-space-nowrap py-2">날짜</td>
                         <td th:text="${l.memberBDate}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
-                        <td th:text="${l.memberVisit}" class="joined align-middle white-space-nowrap py-2">최근 접속</td>
                       <td class="align-middle white-space-nowrap py-2 text-end">
                         <div class="dropdown font-sans-serif position-static">
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
