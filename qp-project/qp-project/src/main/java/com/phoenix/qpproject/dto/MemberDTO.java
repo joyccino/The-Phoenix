@@ -27,6 +27,7 @@ public class MemberDTO {
     private int memberMajorId;
     private int memberGrade;
     private String memberPw;
+    private int accessCount;
 
     public int getId() {
         return Id;
@@ -162,5 +163,13 @@ public class MemberDTO {
 
     public void setMemberPw(String memberPw) {
         this.memberPw = memberPw;
+    }
+
+    public int getAccessCount() {
+        return accessCount;
+    }
+
+    public void setAccessCount(int accessCount) {
+        this.accessCount = accessCount;
     }
 }
