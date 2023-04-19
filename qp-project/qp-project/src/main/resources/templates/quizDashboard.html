@@ -2021,20 +2021,16 @@
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0"><b>퀴즈 대시보드</b></h5>
                 </div>
                 <div class="col-8 col-sm-auto text-end ps-2">
-                  <div class="d-none" id="table-customers-actions">
+                  <div id="table-customers-actions">
                     <div class="d-flex">
-                      <select class="form-select form-select-sm" aria-label="Bulk actions">
-                        <option selected="">Bulk actions</option>
-                        <option value="Refund">Refund</option>
-                        <option value="Delete">Delete</option>
-                        <option value="Archive">Archive</option>
+                      <select class="form-select form-select-sm" aria-label="문제목록">
+                        <option selected="">전체 문제</option>
+                        <option value="Refund">응시한 퀴즈</option>
+                        <option value="Refund">저장한 퀴즈</option>
+                        <option value="Delete">제작한 문제</option>
                       </select>
                       <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
                     </div>
-                  </div>
-                  <div id="table-customers-replace-element">
-                    <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">추가</span></button>
-                    <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">필터</span></button>
                   </div>
                 </div>
               </div>
@@ -2044,58 +2040,38 @@
                 <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                   <thead class="bg-200 text-900">
                     <tr>
-                      <th>
-                        <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
-                        </div>
-                      </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">작성자</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">제목</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">키워드</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">응시 횟수</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">나의 평균 점수</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">제목</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">과목명</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">응시 횟수</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">나의 평균 점수</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">전체 평균 점수</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">나의 랭킹</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">최근 응시날짜</th>
                         <th class="align-middle no-sort"></th>
                     </tr>
                   </thead>
                   <tbody class="list" id="table-customers-body">
-                    <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger">
-                      <td class="align-middle py-2" style="width: 28px;">
-                        <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
-                        </div>
-                      </td>
+                    <tr th:if="${not #lists.isEmpty(quizList)}" th:each="l : ${quizList}" class="btn-reveal-trigger">
                       <td class="name align-middle white-space-nowrap py-2"><a href="app/e-commerce/customer-details.html">
                           <div class="d-flex d-flex align-items-center">
                             <div class="flex-1">
-                              <h5 th:text="${l.Id}" class="mb-0 fs--1">이름</h5>
+                              <h5 th:text="${l.quizId}" class="mb-0 fs--1">ID</h5>
                             </div>
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">등급</td>
-                        <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
-                        <td th:text="${l.memberPw}" class="email align-middle py-2">1234</td>
-                      <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
-                      <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
-
-                        <td th:text="${l.memberCity}" class="joined align-middle py-2">주소</td>
-                        <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
-
-                        <td th:text="${l.memberRegDate}" class="joined align-middle white-space-nowrap py-2">날짜</td>
-                      <td class="align-middle white-space-nowrap py-2 text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
-                            <div class="py-2"><a class="dropdown-item" href="#!">수정</a><a class="dropdown-item text-danger" href="#!">삭제</a></div>
-                          </div>
-                        </div>
-                      </td>
+                        <td th:text="${l.memberId}" class="joined align-middle py-2">작성자</td>
+                        <td th:text="${l.quizTitle}" class="email align-middle py-2">제목</td>
+                        <td th:text="${l.quizSubject}" class="email align-middle py-2">과목명</td>
+                        <td th:text="${l.quizSubject}" class="email align-middle py-2">응시 횟수</td>
+                        <td th:text="${l.quizSubject}" class="email align-middle py-2">나의 평균 점수</td>
+                        <td th:text="${l.quizSubject}" class="email align-middle py-2">전체 평균 점수</td>
+                        <td th:text="${l.quizSubject}" class="email align-middle py-2">랭킹</td>
                     </tr>
-                    <tr th:unless="${not #lists.isEmpty(memberList)}">
-                        <td colspan="7">등록된 회원의 정보가 없습니다.</td>
+                    <tr th:unless="${not #lists.isEmpty(quizList)}">
+                        <td colspan="7">등록된 퀴즈 정보가 없습니다.</td>
                     </tr>
                   </tbody>
                 </table>
