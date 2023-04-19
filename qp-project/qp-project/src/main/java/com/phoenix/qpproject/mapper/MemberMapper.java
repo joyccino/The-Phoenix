@@ -8,5 +8,8 @@ import java.util.List;
 public interface MemberMapper {
 
     public List<MemberDTO> getMemberList();
+    //회원 가입
+    public int addMember(MemberDTO member);
 
+    public int findMemberById(String findById);
 }
