@@ -1,12 +1,10 @@
 package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MemberDTO;
-import com.phoenix.qpproject.mapper.MemberMapper;
 import com.phoenix.qpproject.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +20,7 @@ public class AuthenticationController {
     @Autowired
     public MemberService memberService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login() {
         return "/pages/authentication/card/login";
     }
@@ -37,13 +35,8 @@ public class AuthenticationController {
         return "/pages/authentication/card/forgot-password";
     }
 
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public String test() {
-        return "/pages/quiz/quiz_form";
-    }
-
     @GetMapping(value="/memberList")
-    public List<MemberDTO> getMemberList(Model model) {
+    public String getMemberList(Model model) {
         List<MemberDTO> memberList = memberService.getMemberList();
 
         System.out.println("회원 목록을 요청합니다: "+memberList.toString());
@@ -51,6 +44,38 @@ public class AuthenticationController {
         model.addAttribute("title", "회원목록조회");
         model.addAttribute("memberList", memberList);
 
-        return memberList;
+        return "/members";
+    }
+
+    @PostMapping("/addMember")
+    public String addMember(MemberDTO member) {
+        log.info("회원가입폼에서 입력받은 데이터: {}", member);
+        memberService.addMember(member);
+
+        return "redirect:/";
+    }
+    @PostMapping("/memberLogin")
+    public String memberLogin(MemberDTO member, Model model) {
+        log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
+        
+        // id 비교
+        int memberCount = memberService.findMemberById(member.getMemberId());
+        System.out.println("조회된 멤버수: " + memberCount);
+
+        if (memberCount > 0) {
+            // pw 비교
+
+            // admin 여부 확인
+
+            // recent visit 기록
+
+            return "redirect:/memberList";
+        }
+        else {
+            String msg = "아이디 또는 비밀번호를 확인해주세요.";
+            model.addAttribute("msgLoginFailed",msg);
+            return "/pages/authentication/card/login";
+        }
+
     }
 }

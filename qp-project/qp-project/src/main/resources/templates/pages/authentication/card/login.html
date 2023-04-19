@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
   <head>
     <meta charset="utf-8">
@@ -53,11 +53,9 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-
   </head>
-
-
   <body>
+
 
     <!-- ===============================================-->
     <!--    Main Content-->
@@ -75,7 +73,8 @@
                       </div>
                       <!--/.bg-holder-->
 
-                      <div class="z-1 position-relative"><a class="link-light mb-4 fs-4 d-inline-block fw-bolder" href="../../../index.html">Qeasy Peasy</a>
+                      <div class="z-1 position-relative">
+                        <p class="link-light mb-4 fs-4 d-inline-block">큐피 프로젝트</p>
                         <p class="opacity-85 text-white">🗺️ <b>교양</b>부터 <b>전공</b> 과목까지 🧬</p>
                         <p class="opacity-85 text-white">💞 차곡차곡 쌓이는 <b>문제 은행</b>! 📚</p>
                         <p class="opacity-85 text-white">🧠 이런 <b>AI 공부 플랫폼</b> 봤나요? 👀</p>
@@ -97,16 +96,23 @@
                           <h3>큐피 로그인</h3>
                         </div>
                       </div>
-                      <form>
+                      <form th:action="@{/memberLogin}" method="post">
                         <div class="mb-3">
-                          <label class="form-label" for="card-email">이메일 주소</label>
-                          <input class="form-control" id="card-email" type="email" />
+                          <label class="form-label" for="card-mid">아이디</label>
+                          <input class="form-control" name = "memberId" id="card-mid" type="text" required/>
                         </div>
                         <div class="mb-3">
                           <div class="d-flex justify-content-between">
-                            <label class="form-label" for="card-password">패스워드</label>
+                            <label class="form-label" for="card-password">비밀번호</label>
                           </div>
-                          <input class="form-control" id="card-password" type="password" />
+                          <input class="form-control" name ="memberPw" id="card-password" type="password" required/>
+                        </div>
+                        <div class="mb-3">
+                          <div class="d-flex justify-content-between">
+                            <label style="color: red" th:text="${msgLoginFailed}">
+                              메세지 위치
+                            </label>
+                          </div>
                         </div>
                         <div class="row flex-between-center">
                           <div class="col-auto">
