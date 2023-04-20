@@ -2102,50 +2102,63 @@
                         <form>
                             <div class="row gx-2">
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="allowed-attempts">응시 횟수 제한</label>
-                                    <div class="col-md-8 d-flex">
-                                        <div>
-                                            <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
-                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="minus">-</button>
-                                                <input class="form-control text-center px-2 input-spin-none" id="allowed-attempts" type="number" min="1" value="1" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
-                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="plus">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    <label class="form-label">제출 마감 기한 지정하기</label>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="deadline">제출 마감 기한</label>
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" id="deadlineSwitch" type="checkbox" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3" id="labelDeadline" style="display:none">
+                                    <label class="form-label" for="deadline">제출 마감 기한<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-6 mb-3" id="divDeadline" style="display:none">
                                     <input class="form-control datetimepicker" id="deadline" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
                                 </div>
-                                <div class="row gx-2">
-                                    <div class="col">
-                                        <label class="form-label" for="shuffle-quiz">문제 순서 섞기</label>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="shuffle-quiz" type="checkbox" checked="checked" />
-                                        </div>
+                                <script>
+                                function deadlineSwitch(input) {
+                                    if(input.value.search(/\s/) !=-1) {
+                                        input.value = input.value.substring(0, input.value.length -1);
+                                    }
+                                }
+
+                                var deadlineSwitch = document.querySelector("#deadlineSwitch");
+                                var labelDeadline = document.querySelector("#labelDeadline");
+                                var divDeadline = document.querySelector("#divDeadline");
+
+                                deadlineSwitch.addEventListener('change', function() {
+                                    if (this.checked) {
+                                        labelDeadline.style.display = "block";
+                                        divDeadline.style.display = "block";
+                                    }
+                                    else {
+                                        labelDeadline.style.display = "none";
+                                        divDeadline.style.display = "none";
+                                    }
+                                });
+                                </script>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="shuffle-quiz">문제 순서 섞기</label>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" id="shuffle-quiz" type="checkbox" checked="checked" />
                                     </div>
                                 </div>
-                                <div class="row gx-2">
-                                    <div class="col">
-                                        <label class="form-label" for="shuffle-options">객관식 문제 선택지 순서 섞기</label>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="shuffle-options" type="checkbox" checked="checked" />
-                                        </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="shuffle-options">객관식 문제 선택지 순서 섞기</label>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" id="shuffle-options" type="checkbox" checked="checked" />
                                     </div>
                                 </div>
-                                <div class="row gx-2">
-                                    <div class="col">
-                                        <label class="form-label" for="exam-mode">시험모드 적용 (활성화 할 경우, 응시 기간과 시간을 설정할 수 있습니다.)</label>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="exam-mode" type="checkbox"/>
-                                        </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="exam-mode">시험용으로 사용<span class="text-danger">*</span><br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" id="exam-mode" type="checkbox"/>
                                     </div>
                                 </div>
                             </div>
@@ -2157,20 +2170,55 @@
                         <form>
                             <div class="row gx-2">
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="start-date">시작 날짜</label>
-                                    <input class="form-control datetimepicker" id="start-date" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                    <label class="form-label" for="allowedAttempts">응시 횟수 제한<span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="start-time">시작 시간</label>
-                                    <input class="form-control datetimepicker" id="start-time" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
+                                    <div class="col-md-8 d-flex">
+                                        <div>
+                                            <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
+                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="minus">-</button>
+                                                <input class="form-control text-center px-2 input-spin-none" id="allowedAttempts" type="number" min="1" value="1" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
+                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="plus">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                  const minusButton = document.querySelector('button[data-type="minus"]');
+                                  const plusButton = document.querySelector('button[data-type="plus"]');
+                                  const inputField = document.querySelector('input[type="number"]');
+
+                                  minusButton.addEventListener('click', function() {
+                                    if (parseInt(inputField.value) > inputField.min) {
+                                      inputField.value = parseInt(inputField.value) - 1;
+                                    }
+                                  });
+
+                                  plusButton.addEventListener('click', function() {
+                                    if (parseInt(inputField.value) < inputField.max) {
+                                      inputField.value = parseInt(inputField.value) + 1;
+                                    }
+                                  });
+                                });
+                            </script>
+                            <div class="row gx-2">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="startDate">시작 날짜<span class="text-danger">*</span></label>
+                                    <input class="form-control datetimepicker" id="startDate" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="end-date">마감 날짜</label>
-                                    <input class="form-control datetimepicker" id="end-date" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                    <label class="form-label" for="startTime">시작 시간<span class="text-danger">*</span></label>
+                                    <input class="form-control datetimepicker" id="startTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="end-time">마감 시간</label>
-                                    <input class="form-control datetimepicker" id="end-time" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
+                                    <label class="form-label" for="endDate">마감 날짜<span class="text-danger">*</span></label>
+                                    <input class="form-control datetimepicker" id="endDate" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="endTime">마감 시간<span class="text-danger">*</span></label>
+                                    <input class="form-control datetimepicker" id="endTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
                                 </div>
                             </div>
                         </form>
@@ -2533,7 +2581,6 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
-
   </body>
 
 </html>
