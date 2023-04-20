@@ -13,8 +13,7 @@
             ,qh.endDateTime         AS quizEndTime
             ,qh.grade               AS quizGrade
         FROM
-            quiz AS q
-            INNER JOIN quizHistory as qh ON q.id = qh.quizId;
+            quiz AS q;
     </select>
 
 </mapper>
