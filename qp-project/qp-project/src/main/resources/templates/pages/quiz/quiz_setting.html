@@ -40,6 +40,8 @@
     <link href="../../../assets/css/theme.css" rel="stylesheet" id="style-default">
     <link href="../../../assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
     <link href="../../../assets/css/user.css" rel="stylesheet" id="user-style-default">
+
+    <link href="../../../vendors/prism/prism-okaidia.css" rel="stylesheet">
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -55,6 +57,7 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+
   </head>
 
 
@@ -2026,117 +2029,127 @@
                   <p class="mb-0">새로운 퀴즈를 생성합니다. 그리고 다른 세부 설명 추가</p>
                 </div>
               </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <h5 class="mb-0">퀴즈 설정</h5>
-                </div>
-                <div class="card-body bg-light">
-                  <form class="row gx-2" name="quiz-category">
-                    <div class="col-12 mb-3">
-                      <label class="form-label" for="quiz-title">퀴즈 제목<span class="text-danger">*</span></label>
-                      <input class="form-control" id="quiz-title" type="text" required="required" />
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                      <label class="form-label" for="eduCategory">카테고리<span class="text-danger">*</span></label>
-                      <select class="form-select" id="eduCategory" name="eduCategory">
-                          <option disabled selected value="">초/중/고/대 선택</option>
-                          <option value="elementary">초등</option>
-                          <option value="middle">중등</option>
-                          <option value="high">고등</option>
-                          <option value="university">대학</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-6 mb-3" id="years">
-                      <label class="form-label" for="yearCategory">학년<span class="text-danger">*</span></label>
-                      <select class="form-select" id="yearCategory" name="yearCategory">
-                          <option disabled selected value=""> 학년 선택</option>
-                          <option value="1">1학년</option>
-                          <option value="2">2학년</option>
-                          <option value="3">3학년</option>
-                          <option value="4">4학년</option>
-                          <option value="5">5학년</option>
-                          <option value="6">6학년</option>
-                      </select>
-                    </div>
-
-                      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                      <script>
-                        $(document).ready(function() {
-                          $('#eduCategory').change(function() {
-                            var selectedCategory = $(this).val();
-                            if (selectedCategory === 'elementary') {
-                              $('#yearCategory option').each(function() {
-                                var value = $(this).val();
-                                if (value === '' || value <= 6) {
-                                  $('#years').show();
-                                  $(this).show();
-                                } else {
-                                  $(this).hide();
-                                }
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 설정</a></li>
+                  <li class="nav-item"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
+              </ul>
+              <!-- 퀴즈설정 -->
+              <div class ="tab-content border-x border-bottom p-3" id="myTabContent">
+                  <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
+                      <div class="card mb-3">
+                        <div class="card-header">
+                          <h5 class="mb-0">퀴즈 설정</h5>
+                        </div>
+                        <div class="card-body bg-light">
+                          <form class="row gx-2" name="quiz-category">
+                            <div class="col-12 mb-3">
+                              <label class="form-label" for="quiz-title">퀴즈 제목<span class="text-danger">*</span></label>
+                              <input class="form-control" id="quiz-title" type="text" required="required" />
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                              <label class="form-label" for="eduCategory">카테고리<span class="text-danger">*</span></label>
+                              <select class="form-select" id="eduCategory" name="eduCategory">
+                                <option disabled selected value="">초/중/고/대 선택</option>
+                                <option value="elementary">초등</option>
+                                <option value="middle">중등</option>
+                                <option value="high">고등</option>
+                                <option value="university">대학</option>
+                              </select>
+                            </div>
+                            <div class="col-sm-6 mb-3" id="years">
+                              <label class="form-label" for="yearCategory">학년<span class="text-danger">*</span></label>
+                              <select class="form-select" id="yearCategory" name="yearCategory">
+                                <option disabled selected value=""> 학년 선택</option>
+                                <option value="1">1학년</option>
+                                <option value="2">2학년</option>
+                                <option value="3">3학년</option>
+                                <option value="4">4학년</option>
+                                <option value="5">5학년</option>
+                                <option value="6">6학년</option>
+                              </select>
+                            </div>
+                              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                              <script>
+                              $(document).ready(function() {
+                                $('#eduCategory').change(function() {
+                                  var selectedCategory = $(this).val();
+                                  if (selectedCategory === 'elementary') {
+                                    $('#yearCategory option').each(function() {
+                                      var value = $(this).val();
+                                      if (value === '' || value <= 6) {
+                                        $('#years').show();
+                                        $(this).show();
+                                      } else {
+                                        $(this).hide();
+                                      }
+                                    });
+                                  } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
+                                    $('#yearCategory option').each(function() {
+                                      var value = $(this).val();
+                                      if (value === '' || value <= 3) {
+                                        $('#years').show();
+                                        $(this).show();
+                                      } else {
+                                        $(this).hide();
+                                      }
+                                    });
+                                  } else {
+                                    $('#years').hide();
+                                  }
+                                });
                               });
-                            } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-                              $('#yearCategory option').each(function() {
-                                var value = $(this).val();
-                                if (value === '' || value <= 3) {
-                                  $('#years').show();
-                                  $(this).show();
-                                } else {
-                                  $(this).hide();
-                                }
-                              });
-                            } else {
-                              $('#years').hide();
-                            }
-                          });
-                        });
-                        </script>
-                    <div class="col-12 mb-3">
-                      <label class="form-label" for="course-tags">태그<span class="text-danger">*</span></label>
-                      <input class="form-control js-choice" id="course-tags" type="text" name="tags" required="required" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
-                    </div>
-                  </form>
-                </div>
-              </div>
-                <div class="card mb-3">
-                    <div class="card-body bg-light">
-                        <form>
+                            </script>
+                            <div class="col-12 mb-3">
+                              <label class="form-label" for="course-tags">태그<span class="text-danger">*</span></label>
+                              <input class="form-control js-choice" id="course-tags" type="text" name="tags" required="required" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="card mb-3">
+                        <div class="card-body bg-light">
+                          <form>
                             <div class="row gx-2">
+                              <div class="col-sm-6 mb-3">
+                                <label class="form-label">제출 마감 기한 지정하기</label>
+                              </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label">제출 마감 기한 지정하기</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="deadlineSwitch" type="checkbox" />
-                                    </div>
+                                  <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" id="deadlineSwitch" type="checkbox" />
+                                  </div>
                                 </div>
                                 <div class="col-sm-6 mb-3" id="labelDeadline" style="display:none">
-                                    <label class="form-label" for="deadline">제출 마감 기한<span class="text-danger">*</span></label>
+                                  <label class="form-label" for="deadline">제출 마감 기한<span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-6 mb-3" id="divDeadline" style="display:none">
-                                    <input class="form-control datetimepicker" id="deadline" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                  <input class="form-control" type="date" autocomplete="on" id="deadline" required/>
                                 </div>
                                 <script>
-                                function deadlineSwitch(input) {
-                                    if(input.value.search(/\s/) !=-1) {
-                                        input.value = input.value.substring(0, input.value.length -1);
+                                    function deadlineSwitch(input) {
+                                        if(input.value.search(/\s/) !=-1) {
+                                            input.value = input.value.substring(0, input.value.length -1);
+                                        }
                                     }
-                                }
 
-                                var deadlineSwitch = document.querySelector("#deadlineSwitch");
-                                var labelDeadline = document.querySelector("#labelDeadline");
-                                var divDeadline = document.querySelector("#divDeadline");
+                                    var deadlineSwitch = document.querySelector("#deadlineSwitch");
+                                    var labelDeadline = document.querySelector("#labelDeadline");
+                                    var divDeadline = document.querySelector("#divDeadline");
 
-                                deadlineSwitch.addEventListener('change', function() {
-                                    if (this.checked) {
-                                        labelDeadline.style.display = "block";
-                                        divDeadline.style.display = "block";
-                                    }
-                                    else {
-                                        labelDeadline.style.display = "none";
-                                        divDeadline.style.display = "none";
-                                    }
-                                });
+                                    deadlineSwitch.addEventListener('change', function() {
+                                        if (this.checked) {
+                                            labelDeadline.style.display = "block";
+                                            divDeadline.style.display = "block";
+                                        }
+                                        else {
+                                            labelDeadline.style.display = "none";
+                                            divDeadline.style.display = "none";
+                                        }
+                                    });
+
+                                    let deadlineDate = document.querySelector("#deadline");
+                                    deadlineDate.min = new Date().toISOString().split("T")[0];
                                 </script>
+
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="shuffle-quiz">문제 순서 섞기</label>
                                 </div>
@@ -2154,6 +2167,14 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="allowed-attempts">응시 횟수 제한<br>(응시 횟수를 1회로 제한합니다.)</label>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="form-check form-switch mb-0">
+                                        <input class="form-check-input" id="allowed-attempts" type="checkbox"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="exam-mode">시험용으로 사용<span class="text-danger">*</span><br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
                                 </div>
                                 <div class="col-sm-6 mb-3">
@@ -2162,89 +2183,110 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="card mb-3" style="display:none" id="examModeSetting">
-                    <div class="card-body bg-light">
-                        <form>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="card mb-3" style="display:none" id="examModeSetting">
+                        <div class="card-body bg-light">
+                          <form>
                             <div class="row gx-2">
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="allowedAttempts">응시 횟수 제한<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="col-md-8 d-flex">
-                                        <div>
-                                            <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
-                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="minus">-</button>
-                                                <input class="form-control text-center px-2 input-spin-none" id="allowedAttempts" type="number" min="1" value="1" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
-                                                <button class="btn btn-sm btn-outline-secondary border-300 px-2 shadow-none" data-type="plus">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                  const minusButton = document.querySelector('button[data-type="minus"]');
-                                  const plusButton = document.querySelector('button[data-type="plus"]');
-                                  const inputField = document.querySelector('input[type="number"]');
-
-                                  minusButton.addEventListener('click', function() {
-                                    if (parseInt(inputField.value) > inputField.min) {
-                                      inputField.value = parseInt(inputField.value) - 1;
-                                    }
-                                  });
-
-                                  plusButton.addEventListener('click', function() {
-                                    if (parseInt(inputField.value) < inputField.max) {
-                                      inputField.value = parseInt(inputField.value) + 1;
-                                    }
-                                  });
-                                });
-                            </script>
-                            <div class="row gx-2">
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="startDate">시작 날짜<span class="text-danger">*</span></label>
-                                    <input class="form-control datetimepicker" id="startDate" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                    <label class="form-label" for="form-start-date">시작 날짜<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="date" autocomplete="on" id="form-start-date" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="startTime">시작 시간<span class="text-danger">*</span></label>
                                     <input class="form-control datetimepicker" id="startTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="endDate">마감 날짜<span class="text-danger">*</span></label>
-                                    <input class="form-control datetimepicker" id="endDate" type="text" placeholder="년/월/일" data-options='{"dateFormat":"y/m/d","disableMobile":true}' />
+                                    <label class="form-label" for="form-end-date">마감 날짜<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="date" autocomplete="on" id="form-end-date" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="endTime">마감 시간<span class="text-danger">*</span></label>
                                     <input class="form-control datetimepicker" id="endTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <script>
-                function examMode(input) {
-                    if(input.value.search(/\s/) !=-1) {
-                        input.value = input.value.substring(0, input.value.length -1);
-                    }
-                }
+                          </form>
+                        </div>
+                      </div>
+                      <script>
+                          function examMode(input) {
+                              if(input.value.search(/\s/) !=-1) {
+                                  input.value = input.value.substring(0, input.value.length -1);
+                              }
+                          }
 
-                var examMode = document.querySelector("#exam-mode");
-                var examModeSetting = document.querySelector("#examModeSetting");
+                          var examMode = document.querySelector("#exam-mode");
+                          var examModeSetting = document.querySelector("#examModeSetting");
 
-                examMode.addEventListener('change', function() {
-                    if (this.checked) {
-                        examModeSetting.style.display = "block";
-                    }
-                    else {
-                        examModeSetting.style.display = "none";
-                    }
-                });
-                </script>
+                          examMode.addEventListener('change', function() {
+                              if (this.checked) {
+                                  examModeSetting.style.display = "block";
+                              }
+                              else {
+                                  examModeSetting.style.display = "none";
+                              }
+                          });
+                      </script>
+                      <script>
+                         const startDate = document.querySelector("#form-start-date");
+                         const endDate = document.querySelector("#form-end-date");
 
+                         startDate.min = new Date().toISOString().split("T")[0];
+                         endDate.min = new Date().toISOString().split("T")[0];
+
+                         endDate.addEventListener("change", () => {
+                             if (new Date(endDate.value) < new Date(startDate.value)) {
+                               endDate.value = "";
+                               alert("마감일은 시작일보다 이를 수 없습니다.");
+                             }
+                         });
+
+                         startDate.addEventListener("change", () => {
+                             if (new Date(endDate.value) < new Date(startDate.value)) {
+                               startDate.value = "";
+                               alert("시작일이 마감일보다 늦을 수 없습니다.");
+                             }
+                         });
+                      </script>
+                  </div>
+                  <!--퀴즈설정 끝-->
+
+                  <!--문제생성-->
+                  <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledy="formTab">
+                      <div class="wrapper" >
+                          <div class="card mb-3" >
+                              <div class="card-body bg-light">
+                                  <form class="row gx-2">
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label" for="course-name">질문<span class="text-danger">*</span></label>
+                                          <input class="form-control" id="course-name" type="text" placeholder="퀴즈 질문" required="required" />
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+
+                                          <select class="form-select" id="quiz-type" name="select A Quiz Type" style="width:50%">
+                                              <option style="font-family: 'Font Awesome\ 5 Free'" >&#xf058 체크박스</option>
+                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf140 객관식</option>
+                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf13a 드롭다운</option>
+                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf52c 단답형</option>
+                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf039 장문형</option>
+                                          </select>
+
+                                      </div>
+                                      <div class="form-floating" ><textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea></div>
+
+                                  </form>
+                                  <input type="button" class="btnRemove" value="삭제" id="removebtn">
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
+          <div>
+
 
           <div class="card rounded-0 bottom-bar d-lg-none" data-bottom-bar='{"target":"course-publish-btn","breakPoint":"lg"}'>
             <div class="card-body py-2 px-0">
@@ -2581,6 +2623,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
+    <script src="../../../vendors/prism/prism.js"></script>
   </body>
 
 </html>
