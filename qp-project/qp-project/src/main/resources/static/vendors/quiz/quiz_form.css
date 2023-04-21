@@ -17,6 +17,19 @@ background:#e0ffff;
 .btnRemove {
     margin-top : 10px;
 }
+#course-tags {
+width:100%;
+}
 
-
-
+.quesBtn {
+    color:#2C7BE5;
+    background:white;
+    padding : 5px 16px;
+    box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+    falcon-btn-border-radius: 0.25rem;
+    border: var(--falcon-btn-border-width) solid var(--falcon-btn-border-color);
+}
+.clicked {
+    background:#2C7BE5;
+    color:black;
+}
