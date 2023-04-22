@@ -40,7 +40,7 @@ public class AuthenticationController {
         memberService.addMember(member);
         return "redirect:/";
     }
-    @PostMapping("/memberLogin")
+    @PostMapping("/authentication/memberLogin")
     public String memberLogin(MemberDTO member, Model model) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
         
