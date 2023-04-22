@@ -21,4 +21,9 @@ public class QuizController {
         return "/pages/quiz/quiz_setting";
     }
 
+    @RequestMapping(value = "dashboard", method = RequestMethod.GET)
+    public String quizDashboard() {
+        return "/quizDashboard";
+    }
+
 }
