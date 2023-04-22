@@ -162,7 +162,7 @@ input[type=number] {
                 <div class="p-4 p-md-5 flex-grow-1">
                   <h3>회원가입</h3>
                   <th:block layout:fragment="customContents">
-                    <form th:action="@{/addMember}" method="post">
+                    <form th:action="@{/authentication/addMember}" method="post">
                       <div class="row gx-2">
 
                         <div class="mb-3 col-sm-6">
@@ -187,7 +187,7 @@ input[type=number] {
                         </div>
                         <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
                           <label class="form-label" for="card-confirm-password">비밀번호 확인</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required/>
+                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required>
                           <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
 
@@ -568,6 +568,7 @@ function passCheck() {
         $('#submit-btn').prop('disabled', true);
       }
       else if (pw !== cPassVal) {
+        matchWarning.style.display = "block";
         matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
         $('#submit-btn').prop('disabled', true);
       }

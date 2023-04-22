@@ -44,5 +44,8 @@ public class QuizController {
         return "/quizDashboard";
     }
 
-
+    @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
+    public String quizDetailsTest() {
+        return "/pages/quiz/quizDetailsTest";
+    }
 }
