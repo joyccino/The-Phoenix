@@ -35,11 +35,9 @@ public class AuthenticationController {
         return "/pages/authentication/card/forgot-password";
     }
 
-    @PostMapping("/addMember")
+    @PostMapping("/authentication/addMember")
     public String addMember(MemberDTO member) {
-        log.info("회원가입폼에서 입력받은 데이터: {}", member);
         memberService.addMember(member);
-
         return "redirect:/";
     }
     @PostMapping("/memberLogin")
