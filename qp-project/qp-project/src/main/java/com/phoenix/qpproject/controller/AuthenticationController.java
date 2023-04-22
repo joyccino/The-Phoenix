@@ -25,6 +25,11 @@ public class AuthenticationController {
         return "/pages/authentication/card/login";
     }
 
+    @RequestMapping(value = "/admin/memberList", method = RequestMethod.GET)
+    public String adminDashboard() {
+        return "/members";
+    }
+
     @RequestMapping(value = "authentication/register", method = RequestMethod.GET)
     public String registerDefault() {
         return "/pages/authentication/card/register";
@@ -40,7 +45,7 @@ public class AuthenticationController {
         memberService.addMember(member);
         return "redirect:/";
     }
-    @PostMapping("/memberLogin")
+    @PostMapping("/authentication/memberLogin")
     public String memberLogin(MemberDTO member, Model model) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
         
@@ -55,7 +60,7 @@ public class AuthenticationController {
 
             // recent visit 기록
 
-            return "redirect:/memberList";
+            return "redirect:/admin/memberList";
         }
         else {
             String msg = "아이디 또는 비밀번호를 확인해주세요.";
