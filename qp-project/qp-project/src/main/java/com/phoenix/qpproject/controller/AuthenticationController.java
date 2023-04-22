@@ -35,18 +35,6 @@ public class AuthenticationController {
         return "/pages/authentication/card/forgot-password";
     }
 
-    @GetMapping(value="/memberList")
-    public String getMemberList(Model model) {
-        List<MemberDTO> memberList = memberService.getMemberList();
-
-        System.out.println("회원 목록을 요청합니다: "+memberList.toString());
-
-        model.addAttribute("title", "회원목록조회");
-        model.addAttribute("memberList", memberList);
-
-        return "/members";
-    }
-
     @PostMapping("/addMember")
     public String addMember(MemberDTO member) {
         log.info("회원가입폼에서 입력받은 데이터: {}", member);
