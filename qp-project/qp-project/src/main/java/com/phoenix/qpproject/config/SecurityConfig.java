@@ -18,7 +18,7 @@ public class SecurityConfig {
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/authentication/**", "/", "/quiz/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/resources/**/**", "application.properties")
+                        .requestMatchers("/authentication/**", "/", "/quiz/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/resources/**/**")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/db/**").access(new WebExpressionAuthorizationManager("hasRole('ADMIN') and hasRole('DBA')"))
