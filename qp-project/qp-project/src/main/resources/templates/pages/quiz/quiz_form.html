@@ -2048,18 +2048,21 @@
 
                                    <div class="col-sm-6 mb-3" style="width:100%">
                                        <label class="form-label" for="course-tags">퀴즈 유형<span class="text-danger">*</span></label>
-                                       <button class="quesBtn" type="button" id="check"  ><span class="far fa-check-circle"></span>객관식</button>
-                                       <button class="quesBtn" type="button" id="multi"><span class="far fa-dot-circle" ></span>체크박스</button>
-                                       <button class="quesBtn" type="button" id="drop"><span class="far fa-caret-square-down" ></span>드롭다운</button>
+                                       <button class="quesBtn" type="button" id="check"  ><span class="far fa-check-circle"></span>체크박스</button>
+                                       <button class="quesBtn" type="button" id="multi"><span class="far fa-dot-circle" ></span>객관식</button>
+                                       <button class="quesBtn" type="button" id="short"><span class="fas fa-bars" ></span>단답형</button>
                                    </div>
                                </div>
                                <div class="contents"></div>
-
+                                <button class="btn btn-primary me-1 mb-1" type="button" id="add" style="width:80px; margin-top:15px">
+                                    추가
+                                </button>
                                <div class="donebtn" style="text-align:right">
-                                   <button class="btn btn-primary me-1 mb-1" type="button"  style="width:80px">
+                                   <button class="btn btn-primary me-1 mb-1" type="button"  style="width:80px" id="submit">
                                        완료
                                    </button>
                                </div>
+
                            </form>
                        </div>
 
@@ -2120,57 +2123,84 @@
                !-->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                 <script>
-                        $(document).ready(function(){
-                          var currentPosition = parseInt($("#editor-bar").css("top"));
-                          $(window).scroll(function() {
-                            var position = $(window).scrollTop();
-                            $("#editor-bar").stop().animate({"top":position+currentPosition+"px"},500);
-                          });
-                        });
+                      $(document).ready(function() {
+  var isFirstClick = true;
 
-                        // 문제유형 버튼
-                         $(document).ready(function() {
+  function updateQuestionNumbers() {
+    var i = 1;
+    $('.ques-number').each(function() {
+      $(this).text(i + ".");
+      i++;
+    });
+  }
 
-                          $('#multi, #check, #drop').on('click', function() {
-                            $(this).addClass('active').siblings().removeClass('active').prop('disabled', true);
-                          });
+  $('.quesBtn').on('click', function() {
+    if (isFirstClick) {
+      // 첫 번째 클릭일 경우
+      $('.contents').show();
+      var questionType = $(this).attr('id');
+      var inputType = '';
+      if (questionType === 'check') {
+        inputType = 'radio';
+      } else if (questionType === 'multi') {
+        inputType = 'checkbox';
+      } else if (questionType === 'short') {
+        inputType = 'text';
+        $('.contents').append(
+          '<div class="ques"><span class="ques-number"></span><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
+        );
+      }
+      if (questionType !== 'short') {
+        $('.contents').append(
+          '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" /><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+        );
+      }
+      updateQuestionNumbers();
+      $('#add').show(); // 추가 버튼 보이기
+      isFirstClick = false;
+    }
+    $('.quesBtn').not(this).hide();
+  });
 
-                          $('.contents').on('click', '.btnRemove', function() {
-                            $(this).parent().remove();
-                            updateQuestionNumbers();
-                            // Check if there are any questions left, and enable the buttons if there are none
-                            if($('.ques').length === 0) {
-                              $('#multi, #check, #drop').prop('disabled', false);
-                            }
-                          });
+  $('#add').on('click', function() {
+    var questionType = $('.quesBtn:visible').attr('id');
+    var inputType = '';
+    if (questionType === 'check') {
+      inputType = 'radio';
+    } else if (questionType === 'multi') {
+      inputType = 'checkbox';
+    } else if (questionType === 'short') {
+      inputType = 'text';
+      $('.contents').append(
+        '<div class="ques"><span class="ques-number"></span><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
+      );
+    }
+    if (questionType !== 'short') {
+      $('.contents').append(
+        '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" value="" /><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; padding: 5px; width:80%"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+      );
+    }
+    updateQuestionNumbers();
+  });
 
-                          function updateQuestionNumbers() {
-                            $('.ques').each(function(index) {
-                              $(this).find('span').text(index + 1);
-                              $(this).find('textarea').attr('id', 'floatingTextarea' + (index + 1));
-                            });
-                          }
+  $('.contents').on('click', '.btnRemove', function() {
+    $(this).closest('.ques').remove();
+    updateQuestionNumbers();
+    if ($('.contents').is(':empty')) {
+      $('.quesBtn').show();
+      $('#add').hide();
+      $('.contents').hide();
+      isFirstClick = true;
+    }
+  });
 
-                          $('#multi').on('click', function() {
-                            $('.contents').append(
-                              '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="checkbox" value="" /><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; padding: 5px; width:80%"></textarea></div></div><input type="button" class="btnRemove" value="삭제" id="removebtn"></div>'
-                            );
-                            updateQuestionNumbers();
-                          });
+  $('.contents').on('change', ':radio', function() {
+    // 체크박스 클릭 시 다른 체크박스들의 체크 상태를 해제
+    $('.contents :radio').not(this).prop('checked', false);
+  });
 
-                          $('#check').on('click', function() {
-                            $('.contents').append(
-                              '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" /><div class="form-floating"><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%"></textarea></div></div><input type="button" class="btnRemove" value="삭제" id="removebtn"></div>'
-                            );
-                            updateQuestionNumbers();
-                          });
-
-                          $('#drop').on('click', function() {
-                            var count = $('.ques').length;
-                            $('.contents').append('<div class="ques"><span class="ques-number">' + (count + 1) + '</span><textarea class="form-control" placeholder="입력해주세요.." style="height: 8px; padding: 5px; width:80%"></textarea><input type="button" class="btnRemove" value="삭제" id="removebtn"></div>');
-                            updateQuestionNumbers();
-                          });
-                        });
+  $('#add').hide();
+});
 
 
 
