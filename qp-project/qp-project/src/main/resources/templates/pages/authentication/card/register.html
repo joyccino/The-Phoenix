@@ -147,7 +147,7 @@ input[type=number] {
                   <!--/.bg-holder-->
 
                   <div class="z-1 position-relative">
-                    <p class="link-light mb-4 fs-4 d-inline-block"><b>Qeasy Peasy</b></p>
+                    <p class="link-light mb-4 fs-4 d-inline-block">큐피 프로젝트</p>
                     <p class="opacity-85 text-white">🗺️ <b>교양</b>부터 <b>전공</b> 과목까지 🧬</p>
                     <p class="opacity-85 text-white">💞 차곡차곡 쌓이는 <b>문제 은행</b>! 📚</p>
                     <p class="opacity-85 text-white">🧠 이런 <b>AI 공부 플랫폼</b> 봤나요? 👀</p>
@@ -162,7 +162,7 @@ input[type=number] {
                 <div class="p-4 p-md-5 flex-grow-1">
                   <h3>회원가입</h3>
                   <th:block layout:fragment="customContents">
-                    <form th:action="@{/addMember}" method="post">
+                    <form th:action="@{/authentication/addMember}" method="post">
                       <div class="row gx-2">
 
                         <div class="mb-3 col-sm-6">
@@ -187,7 +187,7 @@ input[type=number] {
                         </div>
                         <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
                           <label class="form-label" for="card-confirm-password">비밀번호 확인</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required/>
+                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required>
                           <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
 
@@ -568,6 +568,7 @@ function passCheck() {
         $('#submit-btn').prop('disabled', true);
       }
       else if (pw !== cPassVal) {
+        matchWarning.style.display = "block";
         matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
         $('#submit-btn').prop('disabled', true);
       }

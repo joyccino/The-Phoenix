@@ -21,4 +21,14 @@ public class QuizController {
         return "/pages/quiz/quiz_setting";
     }
 
+    @RequestMapping(value = "dashboard", method = RequestMethod.GET)
+    public String quizDashboard() {
+        return "/quizDashboard";
+    }
+
+    @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
+    public String quizDetailsTest() {
+        return "/pages/quiz/quizDetailsTest";
+    }
+
 }
