@@ -167,11 +167,11 @@ input[type=number] {
 
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-surname">성</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" onblur = "validateSurName(document.getElementById('card-surname'))" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" required/>
                         </div>
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-firstname">이름</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" onblur = "validateFirstName(document.getElementById('card-firstname'))" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" required/>
                         </div>
                       </div>
                       <div class="mb-3">
@@ -203,10 +203,7 @@ input[type=number] {
 
                         <div class="mb-3">
                           <label class="form-label" for="card-birthdate">생년월일</label>
-                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required oninput="birthdateCheck()"/>
-                          <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">잘못된 생년월일입니다.</label>
-
-
+                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required/>
                         </div>
 
                         <div class="mb-3">
@@ -431,17 +428,6 @@ input[type=number] {
 
 <script>
 
-  // 모든 입력 필드의 상태
-  let inputs = {
-    surName: false, // done
-    firstName: false, //done
-    id: false, // done
-    password: false, // done
-    birthdate: false, // done
-    email: false, // done
-    agree: false
-  };
-
  function nameCheck(input) {
     let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
   if (regExp.test(input.value)) {
@@ -455,15 +441,6 @@ input[type=number] {
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
-     // 아이디 유효성 검사 코드
-     if (!isNaN(input.value)){
-       inputs.id = false;
-       enableSignupButton();
-     }
-     else{
-       inputs.id = true;
-       enableSignupButton();
-     }
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -499,6 +476,7 @@ input[type=number] {
     else {
       uniName.value = "학교 이름 결과가 없습니다.";
     }
+
 }
 
 function check_phoneNumber() {
@@ -543,18 +521,10 @@ function check_email() {
     if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
-
-      // 이메일 유효성 검사 true
-      inputs.email = true;
-      enableSignupButton();
     }
     else {
       eCheck.style.color = "red";
       eCheck.innerHTML = "이메일 형식을 확인해주세요.";
-
-      // 이메일 유효성 검사 false
-      inputs.email = false;
-      enableSignupButton();
     }
   }
 }
@@ -601,108 +571,15 @@ function passCheck() {
         matchWarning.style.display = "block";
         matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
         $('#submit-btn').prop('disabled', true);
-
-        // 비밀번호 유효성 검사 false
-        inputs.password = false;
-        enableSignupButton();
       }
       else{
         matchWarning.style.display = "none";
-        // $('#submit-btn').prop('disabled', false);
-
-        // 비밀번호 유효성 검사 true
-        inputs.password = true;
-        enableSignupButton();
+        $('#submit-btn').prop('disabled', false);
       }
   }
+
+
 }
-
- function birthdateCheck() {
-   // 현재 날짜 생성
-   let today = new Date();
-   let dd = today.getDate();
-   let mm = today.getMonth()+1; // 0부터 시작하므로 1을 더해줍니다.
-   let yyyy = today.getFullYear();
-   if(dd<10) dd='0'+dd;
-   if(mm<10) mm='0'+mm;
-   let todayString = yyyy+'-'+mm+'-'+dd;
-
-   // 입력된 날짜 가져오기
-   let inputDate = document.getElementById("card-birthdate").value;
-
-   // 현재 날짜와 입력 날짜 비교
-   if (inputDate > todayString) {
-     document.getElementById("birthdate-error-msg").style.display = "block";
-
-     // 생년월일 유효성 검사 false
-     inputs.birthdate = false;
-     enableSignupButton();
-   } else {
-     document.getElementById("birthdate-error-msg").style.display = "none";
-
-     // 생년월일 유효성 검사 true
-     inputs.birthdate = true;
-     enableSignupButton();
-   }
- }
-
-
-  function validateSurName(input){
-    // 성 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.surName = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.surName = true;
-      enableSignupButton();
-    }
-  }
-  function validateFirstName(input){
-    // 이름 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.firstName = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.firstName = true;
-      enableSignupButton();
-    }
-  }
-  function validatePassword(input){
-    // 비밀번호 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.password = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.password = true;
-      enableSignupButton();
-    }
-  }
-
-  // 이용약관 유효성 검사
-  const agreeCheckbox = document.getElementById('card-register-checkbox');
-  agreeCheckbox.addEventListener('click', function() {
-    if (agreeCheckbox.checked) {
-      inputs.agree = true;
-      enableSignupButton()
-    } else {
-      inputs.agree = false;
-      enableSignupButton()
-    }
-  });
-
-
-  function enableSignupButton() {
-    // console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password, " Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
-
-    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.birthdate && inputs.email &&inputs.agree) {
-      document.getElementById("submit-btn").disabled = false;
-    } else {
-      document.getElementById("submit-btn").disabled = true;
-    }
-  }
 
 </script>
 
