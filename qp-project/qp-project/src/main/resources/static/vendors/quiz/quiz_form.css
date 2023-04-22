@@ -1,11 +1,5 @@
 
-#editor-bar {
-position : absolute;
-right:25%;
-top:50%;
 
-
-}
 .p-2 {
 background :#BEEFFF;
 }
@@ -29,7 +23,16 @@ width:100%;
     falcon-btn-border-radius: 0.25rem;
     border: var(--falcon-btn-border-width) solid var(--falcon-btn-border-color);
 }
-.clicked {
-    background:#2C7BE5;
-    color:black;
+.input {
+    display:block;
+    width:100%;
+    font-size:1rem;
+    font-weight:400;
+    color: var(--falcon-input-color);
+    background-color: var(--falcon-input-bg);
+    background-clip: padding-box;
+    border: var(--falcon-border-width) solid var(--falcon-input-border-color);
+    border-radius: 0.25rem;
+    min-height: calc(1.5em + 0.625rem + calc(var(--falcon-border-width) * 2));
+
 }
