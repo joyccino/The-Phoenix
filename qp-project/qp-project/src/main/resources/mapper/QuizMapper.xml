@@ -9,9 +9,6 @@
             ,q.memberId		AS memberId
             ,q.title        AS quizTitle
             ,q.subject	    AS quizSubject
-            ,qh.startDateTime 	    AS quizStartTime
-            ,qh.endDateTime         AS quizEndTime
-            ,qh.grade               AS quizGrade
         FROM
             quiz AS q;
     </select>
