@@ -11,23 +11,20 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @EnableWebSecurity
 public class SecurityConfig {
     private static final String[] AUTH_WHITELIST = {
-            "/", "/authentication/**"
+            "/", "/authentication/**", "/quiz/**"
     };
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/authentication/**", "/", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**")
+                        .requestMatchers("/authentication/**", "/", "/quiz/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/db/**").access(new WebExpressionAuthorizationManager("hasRole('ADMIN') and hasRole('DBA')"))
                         // .requestMatchers("/db/**").access(AuthorizationManagers.allOf(AuthorityAuthorizationManager.hasRole("ADMIN"), AuthorityAuthorizationManager.hasRole("DBA")))
                         .anyRequest().denyAll()
                 );
-
-
         return http.build();
     }
-
 }
