@@ -24,4 +24,4 @@
 - 생성한 퀴즈 목록
 
 [Survey Dashboard]
-- 생성한 서베이 목록 => Brief summary 
+- 생성한 서베이 목록 => Brief summary 제공
