@@ -11,14 +11,14 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @EnableWebSecurity
 public class SecurityConfig {
     private static final String[] AUTH_WHITELIST = {
-            "/", "/authentication/**", "/quiz/**"
+            "/", "/authentication/**", "/quiz/**", "/admin/**"
     };
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/authentication/**", "/", "/quiz/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/resources/**/**")
+                        .requestMatchers("/admin/**","/authentication/**", "/", "/quiz/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/resources/**/**")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/db/**").access(new WebExpressionAuthorizationManager("hasRole('ADMIN') and hasRole('DBA')"))
