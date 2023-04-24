@@ -167,11 +167,11 @@ input[type=number] {
 
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-surname">성</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" onblur = "validateSurName(document.getElementById('card-surname'))" required/>
                         </div>
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-firstname">이름</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" required/>
+                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" onblur = "validateFirstName(document.getElementById('card-firstname'))" required/>
                         </div>
                       </div>
                       <div class="mb-3">
@@ -194,7 +194,7 @@ input[type=number] {
                       </div>
                         <div class="mb-3">
                           <label class=>성별</label>
-                          <select class="form-select mb-3" name ="memberGender">
+                          <select class="form-select mb-3" name ="memberGender" onchange="validateGender(this.value)">
                             <option value="2" selected>선택 안함</option>
                             <option value=0>남</option>
                             <option value="1">여</option>
@@ -203,7 +203,10 @@ input[type=number] {
 
                         <div class="mb-3">
                           <label class="form-label" for="card-birthdate">생년월일</label>
-                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required/>
+                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required oninput="birthdateCheck()"/>
+                          <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">잘못된 생년월일입니다.</label>
+
+
                         </div>
 
                         <div class="mb-3">
@@ -428,6 +431,19 @@ input[type=number] {
 
 <script>
 
+  // 모든 입력 필드의 상태
+  let inputs = {
+    surName: false, // done
+    firstName: false, //done
+    id: false, // done
+    password: false, // done
+    gender : false,
+    birthdate: false, // done
+    phone: false,
+    email: false, // done
+    agree: false // done
+  };
+
  function nameCheck(input) {
     let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
   if (regExp.test(input.value)) {
@@ -441,6 +457,9 @@ input[type=number] {
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
+     // 아이디 유효성 검사 코드
+   !isNaN(input.value) ? inputs.id = false : inputs.id = true;
+   enableSignupButton();
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -476,16 +495,14 @@ input[type=number] {
     else {
       uniName.value = "학교 이름 결과가 없습니다.";
     }
-
 }
 
 function check_phoneNumber() {
-
   var phoneInput = document.querySelector("#card-contact-number").value;
-
   var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-
   var pCheck = document.querySelector("#phoneNoCheck");
+  // 전화번호 유효성 검사 false
+  validatePhone(false);
 
   if(phoneInput.length == 0) {
     pCheck.style.display = "none";
@@ -500,6 +517,8 @@ function check_phoneNumber() {
       pCheck.style.display = "inline-block";
       pCheck.style.color = "blue";
       pCheck.innerHTML = "올바른 전화번호 형식입니다."
+      // 전화번호 유효성 검사 true
+      validatePhone(true);
     }
     else {
       pCheck.style.display = "inline-block";
@@ -513,6 +532,11 @@ function check_email() {
   var email = document.querySelector("#card-email").value;
   var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var eCheck = document.querySelector("#emailCheck");
+
+  // 이메일 유효성 검사 false
+  validateEmail(false);
+
+  // 이메일 정규식
   if (email.length == 0) {
     eCheck.style.display = "none";
   }
@@ -521,6 +545,8 @@ function check_email() {
     if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
+      // 이메일 유효성 검사 true
+      validateEmail(true);
     }
     else {
       eCheck.style.color = "red";
@@ -541,6 +567,10 @@ function passCheck() {
   let matchWarning = document.querySelector("#matchCheck");
   let cPassVal = $("#card-confirm-password").val();
 
+  // 비밀번호 유효성 검사 false
+  validatePassword(false);
+
+  // 비밀번호 정규식
   if (pw.length < 8 || pw.length > 20) {
       passWarning.style.display = "block";
       passWarning.style.color = "red";
@@ -574,12 +604,92 @@ function passCheck() {
       }
       else{
         matchWarning.style.display = "none";
-        $('#submit-btn').prop('disabled', false);
+        // $('#submit-btn').prop('disabled', false);
+
+        // 비밀번호 유효성 검사 true
+        validatePassword(true);
       }
   }
-
-
 }
+
+ function birthdateCheck() {
+   // 현재 날짜 생성
+   let today = new Date();
+   let dd = today.getDate();
+   let mm = today.getMonth()+1; // 0부터 시작하므로 1을 더해줍니다.
+   let yyyy = today.getFullYear();
+   if(dd<10) dd='0'+dd;
+   if(mm<10) mm='0'+mm;
+   let todayString = yyyy+'-'+mm+'-'+dd;
+
+   // 입력된 날짜 가져오기
+   let inputDate = document.getElementById("card-birthdate").value;
+
+   // 현재 날짜와 입력 날짜 비교
+   if (inputDate > todayString) {
+     document.getElementById("birthdate-error-msg").style.display = "block";
+     // 생년월일 유효성 검사 false
+     validateBirthday(false);
+   } else {
+     document.getElementById("birthdate-error-msg").style.display = "none";
+     // 생년월일 유효성 검사 true
+     validateBirthday(true);
+   }
+ }
+
+  function validateSurName(input){
+    // 성 유효성 검사
+    isNaN(input.value) ? inputs.surName = true : inputs.surName = false;
+    enableSignupButton();
+  }
+  function validateFirstName(input){
+    // 이름 유효성 검사
+    isNaN(input.value) ? inputs.firstName = true : inputs.firstName = false;
+    enableSignupButton();
+  }
+  function validatePassword(truth){
+    // 비밀번호 유효성 검사
+    truth ? inputs.password = true : inputs.password = false;
+    enableSignupButton();
+  }
+  function validateGender(genderSelect){
+    // 성별 유효성 검사
+    (genderSelect == 0 || genderSelect == 1) ? inputs.gender = true : inputs.gender = false;
+    enableSignupButton();
+  }
+  function validateBirthday(truth){
+    // 생일 유효성 검사
+    truth ? inputs.birthdate = true : inputs.birthdate = false;
+    enableSignupButton();
+  }
+  function validatePhone(truth){
+    // 전화번호 유효성 검사
+    truth ? inputs.phone = true : inputs.phone = false;
+    enableSignupButton();
+  }
+  function validateEmail(truth){
+    // 이메일 유효성 검사
+    truth ? inputs.email = true : inputs.firstName = false;
+    enableSignupButton();
+  }
+
+  // 이용약관 유효성 검사
+  const agreeCheckbox = document.getElementById('card-register-checkbox');
+  agreeCheckbox.addEventListener('click', function() {
+    agreeCheckbox.checked ? inputs.agree = true : inputs.agree = false;
+    enableSignupButton()
+  });
+
+  function enableSignupButton() {
+    console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password,  " Gender: ", inputs.gender, " Phone: ", inputs.phone," Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
+
+    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.gender && inputs.birthdate && inputs.phone && inputs.email && inputs.agree) {
+      document.getElementById("submit-btn").disabled = false;
+    } else {
+      document.getElementById("submit-btn").disabled = true;
+    }
+  }
+
 
 </script>
 
