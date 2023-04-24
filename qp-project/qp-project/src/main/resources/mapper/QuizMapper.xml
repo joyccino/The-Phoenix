@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phoenix.qpproject.mapper.QuizMapper">
+    <select id="getQuizList" resultType="com.phoenix.qpproject.dto.QuizDTO">
+        SELECT
+            q.id			AS quizId
+            ,q.memberId		AS memberId
+            ,q.title        AS quizTitle
+            ,q.subject	    AS quizSubject
+        FROM
+            quiz AS q;
+    </select>
+
+</mapper>
