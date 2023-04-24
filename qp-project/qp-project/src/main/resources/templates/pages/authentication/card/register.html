@@ -194,7 +194,7 @@ input[type=number] {
                       </div>
                         <div class="mb-3">
                           <label class=>성별</label>
-                          <select class="form-select mb-3" name ="memberGender">
+                          <select class="form-select mb-3" name ="memberGender" onchange="validateGender(this.value)">
                             <option value="2" selected>선택 안함</option>
                             <option value=0>남</option>
                             <option value="1">여</option>
@@ -437,9 +437,11 @@ input[type=number] {
     firstName: false, //done
     id: false, // done
     password: false, // done
+    gender : false,
     birthdate: false, // done
+    phone: false,
     email: false, // done
-    agree: false
+    agree: false // done
   };
 
  function nameCheck(input) {
@@ -456,14 +458,8 @@ input[type=number] {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
      // 아이디 유효성 검사 코드
-     if (!isNaN(input.value)){
-       inputs.id = false;
-       enableSignupButton();
-     }
-     else{
-       inputs.id = true;
-       enableSignupButton();
-     }
+   !isNaN(input.value) ? inputs.id = false : inputs.id = true;
+   enableSignupButton();
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -502,12 +498,11 @@ input[type=number] {
 }
 
 function check_phoneNumber() {
-
   var phoneInput = document.querySelector("#card-contact-number").value;
-
   var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-
   var pCheck = document.querySelector("#phoneNoCheck");
+  // 전화번호 유효성 검사 false
+  validatePhone(false);
 
   if(phoneInput.length == 0) {
     pCheck.style.display = "none";
@@ -522,6 +517,8 @@ function check_phoneNumber() {
       pCheck.style.display = "inline-block";
       pCheck.style.color = "blue";
       pCheck.innerHTML = "올바른 전화번호 형식입니다."
+      // 전화번호 유효성 검사 true
+      validatePhone(true);
     }
     else {
       pCheck.style.display = "inline-block";
@@ -535,6 +532,11 @@ function check_email() {
   var email = document.querySelector("#card-email").value;
   var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var eCheck = document.querySelector("#emailCheck");
+
+  // 이메일 유효성 검사 false
+  validateEmail(false);
+
+  // 이메일 정규식
   if (email.length == 0) {
     eCheck.style.display = "none";
   }
@@ -543,18 +545,12 @@ function check_email() {
     if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
-
       // 이메일 유효성 검사 true
-      inputs.email = true;
-      enableSignupButton();
+      validateEmail(true);
     }
     else {
       eCheck.style.color = "red";
       eCheck.innerHTML = "이메일 형식을 확인해주세요.";
-
-      // 이메일 유효성 검사 false
-      inputs.email = false;
-      enableSignupButton();
     }
   }
 }
@@ -571,6 +567,10 @@ function passCheck() {
   let matchWarning = document.querySelector("#matchCheck");
   let cPassVal = $("#card-confirm-password").val();
 
+  // 비밀번호 유효성 검사 false
+  validatePassword(false);
+
+  // 비밀번호 정규식
   if (pw.length < 8 || pw.length > 20) {
       passWarning.style.display = "block";
       passWarning.style.color = "red";
@@ -601,18 +601,13 @@ function passCheck() {
         matchWarning.style.display = "block";
         matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
         $('#submit-btn').prop('disabled', true);
-
-        // 비밀번호 유효성 검사 false
-        inputs.password = false;
-        enableSignupButton();
       }
       else{
         matchWarning.style.display = "none";
         // $('#submit-btn').prop('disabled', false);
 
         // 비밀번호 유효성 검사 true
-        inputs.password = true;
-        enableSignupButton();
+        validatePassword(true);
       }
   }
 }
@@ -633,71 +628,62 @@ function passCheck() {
    // 현재 날짜와 입력 날짜 비교
    if (inputDate > todayString) {
      document.getElementById("birthdate-error-msg").style.display = "block";
-
      // 생년월일 유효성 검사 false
-     inputs.birthdate = false;
-     enableSignupButton();
+     validateBirthday(false);
    } else {
      document.getElementById("birthdate-error-msg").style.display = "none";
-
      // 생년월일 유효성 검사 true
-     inputs.birthdate = true;
-     enableSignupButton();
+     validateBirthday(true);
    }
  }
 
-
   function validateSurName(input){
     // 성 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.surName = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.surName = true;
-      enableSignupButton();
-    }
+    isNaN(input.value) ? inputs.surName = true : inputs.surName = false;
+    enableSignupButton();
   }
   function validateFirstName(input){
     // 이름 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.firstName = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.firstName = true;
-      enableSignupButton();
-    }
+    isNaN(input.value) ? inputs.firstName = true : inputs.firstName = false;
+    enableSignupButton();
   }
-  function validatePassword(input){
+  function validatePassword(truth){
     // 비밀번호 유효성 검사
-    if (!isNaN(input.value)){
-      inputs.password = false;
-      enableSignupButton();
-    }
-    else{
-      inputs.password = true;
-      enableSignupButton();
-    }
+    truth ? inputs.password = true : inputs.password = false;
+    enableSignupButton();
+  }
+  function validateGender(genderSelect){
+    // 성별 유효성 검사
+    (genderSelect == 0 || genderSelect == 1) ? inputs.gender = true : inputs.gender = false;
+    enableSignupButton();
+  }
+  function validateBirthday(truth){
+    // 생일 유효성 검사
+    truth ? inputs.birthdate = true : inputs.birthdate = false;
+    enableSignupButton();
+  }
+  function validatePhone(truth){
+    // 전화번호 유효성 검사
+    truth ? inputs.phone = true : inputs.phone = false;
+    enableSignupButton();
+  }
+  function validateEmail(truth){
+    // 이메일 유효성 검사
+    truth ? inputs.email = true : inputs.firstName = false;
+    enableSignupButton();
   }
 
   // 이용약관 유효성 검사
   const agreeCheckbox = document.getElementById('card-register-checkbox');
   agreeCheckbox.addEventListener('click', function() {
-    if (agreeCheckbox.checked) {
-      inputs.agree = true;
-      enableSignupButton()
-    } else {
-      inputs.agree = false;
-      enableSignupButton()
-    }
+    agreeCheckbox.checked ? inputs.agree = true : inputs.agree = false;
+    enableSignupButton()
   });
 
-
   function enableSignupButton() {
-    // console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password, " Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
+    console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password,  " Gender: ", inputs.gender, " Phone: ", inputs.phone," Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
 
-    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.birthdate && inputs.email &&inputs.agree) {
+    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.gender && inputs.birthdate && inputs.phone && inputs.email && inputs.agree) {
       document.getElementById("submit-btn").disabled = false;
     } else {
       document.getElementById("submit-btn").disabled = true;
