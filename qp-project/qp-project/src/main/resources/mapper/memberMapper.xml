@@ -26,8 +26,12 @@
             members AS m;
     </select>
 
-    <select id="findMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="checkMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM members WHERE UserId = #{memberId};
+    </select>
+
+    <select id="checkMemberByEmail"  parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM members WHERE Email = #{memberEmail};
     </select>
 
     <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MemberDTO">
