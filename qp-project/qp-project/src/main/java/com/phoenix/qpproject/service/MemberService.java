@@ -26,8 +26,8 @@ public class MemberService {
         memberMapper.addMember(member);
     }
 
-    public Integer findMemberById(String memberId) {
-        return memberMapper.findMemberById(memberId);
+    public Integer checkMemberById(String memberId) {
+        return memberMapper.checkMemberById(memberId);
     }
 
 }
