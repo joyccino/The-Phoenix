@@ -11,5 +11,7 @@ public interface MemberMapper {
     //회원 가입
     public int addMember(MemberDTO member);
 
-    public int findMemberById(String findById);
+    public int checkMemberById(String findById);
+
+    //public int checkMemberByEmail(String findById);
 }
