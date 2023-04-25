@@ -155,46 +155,46 @@ input[type=number] {
                   </div>
                 </div>
                 <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/">큐피 로그인</a></p>
+                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/authentication/login">큐피 로그인</a></p>
                 </div>
               </div>
               <div class="col-md-7 d-flex flex-center">
                 <div class="p-4 p-md-5 flex-grow-1">
                   <h3>회원가입</h3>
                   <th:block layout:fragment="customContents">
-                    <form th:action="@{/authentication/addMember}" method="post">
+                    <form autocomplete="off" th:action="@{/authentication/addMember}" method="post">
                       <div class="row gx-2">
 
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-surname">성</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" required/>
+                          <input class="form-control" type="text" autocomplete="none" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" onblur = "validateSurName(document.getElementById('card-surname'))" required readonly onfocus="this.removeAttribute('readonly');"/>
                         </div>
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-firstname">이름</label>
-                          <input class="form-control" type="text" autocomplete="on" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" required/>
+                          <input class="form-control" type="text" autocomplete="none" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" onblur = "validateFirstName(document.getElementById('card-firstname'))" required readonly onfocus="this.removeAttribute('readonly');"/>
                         </div>
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="card-userId">아이디</label>
-                        <input class="form-control" type="text" autocomplete="on" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" placeholder="중복체크 기능 추가" />
+                        <input class="form-control" type="text" autocomplete="off" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" placeholder="중복체크 기능 추가" required readonly onfocus="this.removeAttribute('readonly');"/>
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
                           <label class="form-label" for="card-password">비밀번호</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-password" name ="memberPw" oninput="passCheck();" required>
+                          <input class="form-control" type="password" autocomplete="none" id="card-password" name ="memberPw" oninput="passCheck();" required readonly onfocus="this.removeAttribute('readonly');">
                           <label class='form-label' id = "psCheck" style="display: none"></label>
                           <label class='form-label' id = "pCheck" style="display: none"></label>
                         </div>
                         <div id ="div-cpass" class="mb-3 col-sm-6" style = "display: none">
                           <label class="form-label" for="card-confirm-password">비밀번호 확인</label>
-                          <input class="form-control" type="password" autocomplete="on" id="card-confirm-password" oninput ="passCheck();" required>
+                          <input class="form-control" type="password" autocomplete="none" id="card-confirm-password" oninput ="passCheck();" required readonly onfocus="this.removeAttribute('readonly');">
                           <label class='form-label' id = "matchCheck" style="display: none"></label>
                         </div>
 
                       </div>
                         <div class="mb-3">
                           <label class=>성별</label>
-                          <select class="form-select mb-3" name ="memberGender">
+                          <select class="form-select mb-3" name ="memberGender" onchange="validateGender(this.value)">
                             <option value="2" selected>선택 안함</option>
                             <option value=0>남</option>
                             <option value="1">여</option>
@@ -203,12 +203,18 @@ input[type=number] {
 
                         <div class="mb-3">
                           <label class="form-label" for="card-birthdate">생년월일</label>
-                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required/>
+                          <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required oninput="birthdateCheck()"/>
+                          <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">생년월일을 확인해주세요.</label>
+
+
                         </div>
 
                         <div class="mb-3">
                           <label class="form-label" for="card-contact-number">전화번호</label>
-                          <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                          <input class="form-control" type="number" step="1" autocomplete="none" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11"
+                                 onkeydown="return event.keyCode !== 69"
+                                 oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                 readonly onfocus="this.removeAttribute('readonly');">
                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
                               <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                               <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
@@ -219,7 +225,7 @@ input[type=number] {
 
                         <div class="mb-3">
                           <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                          <input class="form-control" type="email" autocomplete="on" id="card-email" name ="memberEmail" oninput="check_email()">
+                          <input class="form-control" type="email" autocomplete="none" id="card-email" name ="memberEmail" oninput="check_email()" required readonly onfocus="this.removeAttribute('readonly');">
                           <label class='form-label' id = "emailCheck" style="display: none"></label>
                         </div>
 
@@ -253,16 +259,16 @@ input[type=number] {
                     </form>
                   </th:block>
 
-                  <div class="position-relative mt-4">
-                    <hr/>
-                    <div class="divider-content-center">or</div>
-                  </div>
-                  <div class="row g-2 mt-2">
-                    <!--<div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                    <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>-->
-                    <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
-                    <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
-                  </div>
+                  <!--
+                      <div class="position-relative mt-4">
+                        <hr />
+                        <div class="divider-content-center">혹은</div>
+                      </div>
+
+                      <div class="row g-2 mt-2">
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
+                      </div> -->
                 </div>
               </div>
             </div>
@@ -428,6 +434,19 @@ input[type=number] {
 
 <script>
 
+  // 모든 입력 필드의 상태
+  let inputs = {
+    surName: false, // done
+    firstName: false, //done
+    id: false, // done
+    password: false, // done
+    gender : false,
+    birthdate: false, // done
+    phone: false,
+    email: false, // done
+    agree: false // done
+  };
+
  function nameCheck(input) {
     let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=0-9]/gi;
   if (regExp.test(input.value)) {
@@ -441,6 +460,9 @@ input[type=number] {
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
+     // 아이디 유효성 검사 코드
+   !isNaN(input.value) ? inputs.id = false : inputs.id = true;
+   enableSignupButton();
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -476,16 +498,18 @@ input[type=number] {
     else {
       uniName.value = "학교 이름 결과가 없습니다.";
     }
-
+}
+function preventKCharacter(){
+  var phoneInput = document.querySelector("#card-contact-number").value;
+  console.log(phoneInput);
 }
 
 function check_phoneNumber() {
-
   var phoneInput = document.querySelector("#card-contact-number").value;
-
   var regPhone= /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-
   var pCheck = document.querySelector("#phoneNoCheck");
+  // 전화번호 유효성 검사 false
+  validatePhone(false);
 
   if(phoneInput.length == 0) {
     pCheck.style.display = "none";
@@ -497,9 +521,12 @@ function check_phoneNumber() {
   }
   else if (phoneInput.length == 11) {
     if (regPhone.test(phoneInput) == true) {
-      pCheck.style.display = "inline-block";
-      pCheck.style.color = "blue";
-      pCheck.innerHTML = "올바른 전화번호 형식입니다."
+      //pCheck.style.display = "inline-block";
+      pCheck.style.display = "none";
+      //pCheck.style.color = "blue";
+      //pCheck.innerHTML = "올바른 전화번호 형식입니다."
+      // 전화번호 유효성 검사 true
+      validatePhone(true);
     }
     else {
       pCheck.style.display = "inline-block";
@@ -513,6 +540,11 @@ function check_email() {
   var email = document.querySelector("#card-email").value;
   var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var eCheck = document.querySelector("#emailCheck");
+
+  // 이메일 유효성 검사 false
+  validateEmail(false);
+
+  // 이메일 정규식
   if (email.length == 0) {
     eCheck.style.display = "none";
   }
@@ -521,6 +553,8 @@ function check_email() {
     if (regEmail.test(email)) {
       eCheck.style.color = "blue";
       eCheck.innerHTML = "올바른 이메일 형식입니다.";
+      // 이메일 유효성 검사 true
+      validateEmail(true);
     }
     else {
       eCheck.style.color = "red";
@@ -541,6 +575,10 @@ function passCheck() {
   let matchWarning = document.querySelector("#matchCheck");
   let cPassVal = $("#card-confirm-password").val();
 
+  // 비밀번호 유효성 검사 false
+  validatePassword(false);
+
+  // 비밀번호 정규식
   if (pw.length < 8 || pw.length > 20) {
       passWarning.style.display = "block";
       passWarning.style.color = "red";
@@ -574,12 +612,92 @@ function passCheck() {
       }
       else{
         matchWarning.style.display = "none";
-        $('#submit-btn').prop('disabled', false);
+        // $('#submit-btn').prop('disabled', false);
+
+        // 비밀번호 유효성 검사 true
+        validatePassword(true);
       }
   }
-
-
 }
+
+ function birthdateCheck() {
+   // 현재 날짜 생성
+   let today = new Date();
+   let dd = today.getDate();
+   let mm = today.getMonth()+1; // 0부터 시작하므로 1을 더해줍니다.
+   let yyyy = today.getFullYear();
+   if(dd<10) dd='0'+dd;
+   if(mm<10) mm='0'+mm;
+   let todayString = yyyy+'-'+mm+'-'+dd;
+
+   // 입력된 날짜 가져오기
+   let inputDate = document.getElementById("card-birthdate").value;
+
+   // 현재 날짜와 입력 날짜 비교
+   if (inputDate > todayString) {
+     document.getElementById("birthdate-error-msg").style.display = "block";
+     // 생년월일 유효성 검사 false
+     validateBirthday(false);
+   } else {
+     document.getElementById("birthdate-error-msg").style.display = "none";
+     // 생년월일 유효성 검사 true
+     validateBirthday(true);
+   }
+ }
+
+  function validateSurName(input){
+    // 성 유효성 검사
+    isNaN(input.value) ? inputs.surName = true : inputs.surName = false;
+    enableSignupButton();
+  }
+  function validateFirstName(input){
+    // 이름 유효성 검사
+    isNaN(input.value) ? inputs.firstName = true : inputs.firstName = false;
+    enableSignupButton();
+  }
+  function validatePassword(truth){
+    // 비밀번호 유효성 검사
+    truth ? inputs.password = true : inputs.password = false;
+    enableSignupButton();
+  }
+  function validateGender(genderSelect){
+    // 성별 유효성 검사
+    (genderSelect == 0 || genderSelect == 1) ? inputs.gender = true : inputs.gender = false;
+    enableSignupButton();
+  }
+  function validateBirthday(truth){
+    // 생일 유효성 검사
+    truth ? inputs.birthdate = true : inputs.birthdate = false;
+    enableSignupButton();
+  }
+  function validatePhone(truth){
+    // 전화번호 유효성 검사
+    truth ? inputs.phone = true : inputs.phone = false;
+    enableSignupButton();
+  }
+  function validateEmail(truth){
+    // 이메일 유효성 검사
+    truth ? inputs.email = true : inputs.firstName = false;
+    enableSignupButton();
+  }
+
+  // 이용약관 유효성 검사
+  const agreeCheckbox = document.getElementById('card-register-checkbox');
+  agreeCheckbox.addEventListener('click', function() {
+    agreeCheckbox.checked ? inputs.agree = true : inputs.agree = false;
+    enableSignupButton()
+  });
+
+  function enableSignupButton() {
+    console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password,  " Gender: ", inputs.gender, " Phone: ", inputs.phone," Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
+
+    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.gender && inputs.birthdate && inputs.phone && inputs.email && inputs.agree) {
+      document.getElementById("submit-btn").disabled = false;
+    } else {
+      document.getElementById("submit-btn").disabled = true;
+    }
+  }
+
 
 </script>
 
