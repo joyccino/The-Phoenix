@@ -204,14 +204,14 @@ input[type=number] {
                         <div class="mb-3">
                           <label class="form-label" for="card-birthdate">생년월일</label>
                           <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required oninput="birthdateCheck()"/>
-                          <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">잘못된 생년월일입니다.</label>
+                          <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">생년월일을 확인해주세요.</label>
 
 
                         </div>
 
                         <div class="mb-3">
                           <label class="form-label" for="card-contact-number">전화번호</label>
-                          <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                          <input class="form-control" type="number" step="1" autocomplete="on" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11" onkeydown="return event.keyCode !== 69"  oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
                               <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
                               <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
@@ -256,16 +256,16 @@ input[type=number] {
                     </form>
                   </th:block>
 
-                  <div class="position-relative mt-4">
-                    <hr/>
-                    <div class="divider-content-center">or</div>
-                  </div>
-                  <div class="row g-2 mt-2">
-                    <!--<div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                    <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>-->
-                    <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
-                    <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
-                  </div>
+                  <!--
+                      <div class="position-relative mt-4">
+                        <hr />
+                        <div class="divider-content-center">혹은</div>
+                      </div>
+
+                      <div class="row g-2 mt-2">
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/kakao/kakao.png" width="100%" alt="" ></a> <br>
+                        <a href="../../../pages/authentication/card/register.html"><img src="../../../assets/img/logos/naver/naver.png" width="100%" alt="" ></a>
+                      </div> -->
                 </div>
               </div>
             </div>
@@ -496,6 +496,10 @@ input[type=number] {
       uniName.value = "학교 이름 결과가 없습니다.";
     }
 }
+function preventKCharacter(){
+  var phoneInput = document.querySelector("#card-contact-number").value;
+  console.log(phoneInput);
+}
 
 function check_phoneNumber() {
   var phoneInput = document.querySelector("#card-contact-number").value;
@@ -514,9 +518,10 @@ function check_phoneNumber() {
   }
   else if (phoneInput.length == 11) {
     if (regPhone.test(phoneInput) == true) {
-      pCheck.style.display = "inline-block";
-      pCheck.style.color = "blue";
-      pCheck.innerHTML = "올바른 전화번호 형식입니다."
+      //pCheck.style.display = "inline-block";
+      pCheck.style.display = "none";
+      //pCheck.style.color = "blue";
+      //pCheck.innerHTML = "올바른 전화번호 형식입니다."
       // 전화번호 유효성 검사 true
       validatePhone(true);
     }
