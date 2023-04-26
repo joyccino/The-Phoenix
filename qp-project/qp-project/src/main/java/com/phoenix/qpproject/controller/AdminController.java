@@ -6,39 +6,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
 
 @Controller
-@RequestMapping("/authentication")
-public class AuthenticationController {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+@RequestMapping("/admin")
+public class AdminController {
+    private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     public MemberService memberService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "/pages/authentication/card/login";
+    @RequestMapping(value = "/memberList", method = RequestMethod.GET)
+    public String adminDashboard() {
+        return "/members";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerDefault() {
-        return "/pages/authentication/card/register";
-    }
-
-    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-    public String forgotPassword() {
-        return "/pages/authentication/card/forgot-password";
-    }
-
-    @PostMapping("/addMember")
-    public String addMember(MemberDTO member) {
-        memberService.addMember(member);
-        return "redirect:/";
-    }
     /**
     @PostMapping("/authentication/memberLogin")
     public String memberLogin(MemberDTO member, Model model) {
