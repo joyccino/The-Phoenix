@@ -1,8 +1,7 @@
 package com.phoenix.qpproject.service;
 
-import com.phoenix.qpproject.dto.MemberDTO;
+import com.phoenix.qpproject.dto.MembersDTO;
 import com.phoenix.qpproject.mapper.MemberMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -17,12 +16,12 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
-    public List<MemberDTO> getMemberList(){
-        List<MemberDTO> memberList = memberMapper.getMemberList();
+    public List<MembersDTO> getMemberList(){
+        List<MembersDTO> memberList = memberMapper.getMemberList();
         return memberList;
     }
 
-    public void addMember(MemberDTO member) {
+    public void addMember(MembersDTO member) {
         memberMapper.addMember(member);
     }
 
