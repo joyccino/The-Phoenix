@@ -1,13 +1,12 @@
 package com.phoenix.qpproject.controller;
 
-import com.phoenix.qpproject.dto.QuizDTO;
+import com.phoenix.qpproject.dto.QuizzesDTO;
 import com.phoenix.qpproject.service.QuizService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,7 +40,7 @@ public class QuizController {
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model) {
 
-        List<QuizDTO> quizList = quizService.getQuizList();
+        List<QuizzesDTO> quizList = quizService.getQuizList();
 
         System.out.println("퀴즈 목록을 요청합니다: "+quizList.toString());
 
