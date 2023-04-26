@@ -2038,12 +2038,12 @@
                   <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
                       <div class="card mb-3">
                         <div class="card-header">
-                          <h5 class="mb-0">퀴즈 설정</h5>
+                          <h5 class="mb-0">퀴즈 정보</h5>
                         </div>
                         <div class="card-body bg-light">
                           <form class="row gx-2">
                             <div class="col-12 mb-3">
-                              <label class="form-label" for="quiz-title">퀴즈 제목<span class="text-danger">*</span></label>
+                              <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span></label>
                               <input class="form-control" id="quiz-title" type="text" name="title" required />
                             </div>
                             <div class="col-sm-6 mb-3">
@@ -2118,6 +2118,9 @@
                         </div>
                       </div>
                       <div class="card mb-3">
+                          <div class="card-header">
+                              <h5 class="mb-0">퀴즈 설정</h5>
+                          </div>
                         <div class="card-body bg-light">
                           <form>
                             <div class="row gx-2">
@@ -2145,26 +2148,31 @@
                                         <input class="form-check-input" id="allowed-attempts" type="checkbox"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="exam-mode">시험용으로 사용<br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="exam-mode" type="checkbox"/>
-                                    </div>
-                                </div>
                             </div>
                           </form>
                         </div>
                       </div>
-                      <div class="card mb-3" style="display:none" id="examModeSetting">
+                      <div class="card mb-3">
+                          <div class="card-header">
+                              <h5 class="mb-0">시험모드 설정</h5>
+                          </div>
                         <div class="card-body bg-light">
                           <form>
-                            <div class="col-sm-12 mb-3">
+                              <div class="row gx-2">
+                                  <div class="col-sm-6 mb-3">
+                                      <label class="form-label" for="exam-mode">시험용으로 사용<br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
+                                  </div>
+                                  <div class="col-sm-6 mb-3">
+                                      <div class="form-check form-switch mb-0">
+                                          <input class="form-check-input" id="exam-mode" type="checkbox"/>
+                                      </div>
+                                  </div>
+                              </div>
+                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-start">
                                 <label class="form-label" for="quiz-start">시작 시간<span class="text-danger">*</span></label>
                                 <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-start" required/>
                             </div>
-                            <div class="col-sm-12 mb-3">
+                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-end">
                                 <label class="form-label" for="quiz-end">마감 시간<span class="text-danger">*</span></label>
                                 <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-end" required/>
                             </div>
@@ -2179,14 +2187,17 @@
                           }
 
                           var examMode = document.querySelector("#exam-mode");
-                          var examModeSetting = document.querySelector("#examModeSetting");
+                          var divExamStart = document.querySelector("#div-exam-start");
+                          var divExamEnd = document.querySelector("#div-exam-end");
 
                           examMode.addEventListener('change', function() {
                               if (this.checked) {
-                                  examModeSetting.style.display = "block";
+                                  divExamStart.style.display = "block";
+                                  divExamEnd.style.display = "block";
                               }
                               else {
-                                  examModeSetting.style.display = "none";
+                                  divExamStart.style.display = "none";
+                                  divExamEnd.style.display = "none";
                               }
                           });
                       </script>
