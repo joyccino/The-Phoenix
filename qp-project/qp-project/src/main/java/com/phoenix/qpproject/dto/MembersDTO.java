@@ -1,14 +1,10 @@
 package com.phoenix.qpproject.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-public class MemberDTO {
+public class MembersDTO {
     private int Id;
     private String memberId;
     private String memberEmail;

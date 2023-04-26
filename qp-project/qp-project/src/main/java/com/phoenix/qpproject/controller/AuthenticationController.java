@@ -1,15 +1,12 @@
 package com.phoenix.qpproject.controller;
 
-import com.phoenix.qpproject.dto.MemberDTO;
+import com.phoenix.qpproject.dto.MembersDTO;
 import com.phoenix.qpproject.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/authentication")
@@ -35,7 +32,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/addMember")
-    public String addMember(MemberDTO member) {
+    public String addMember(MembersDTO member) {
         memberService.addMember(member);
         return "redirect:/";
     }
