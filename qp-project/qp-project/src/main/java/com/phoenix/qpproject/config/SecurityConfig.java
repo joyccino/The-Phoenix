@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .requestMatchers("/authentication/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
+                .requestMatchers("/quiz/**", "/survey/**", "/authentication/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable()
