@@ -1,8 +1,6 @@
 package com.phoenix.qpproject.service;
 
-import com.phoenix.qpproject.dto.MemberDTO;
-import com.phoenix.qpproject.dto.QuizDTO;
-import com.phoenix.qpproject.mapper.MemberMapper;
+import com.phoenix.qpproject.dto.QuizzesDTO;
 import com.phoenix.qpproject.mapper.QuizMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +18,8 @@ public class QuizService {
         this.quizMapper = quizMapper;
     }
 
-    public List<QuizDTO> getQuizList(){
-        List<QuizDTO> quizList = quizMapper.getQuizList();
+    public List<QuizzesDTO> getQuizList(){
+        List<QuizzesDTO> quizList = quizMapper.getQuizList();
         return quizList;
     }
 
