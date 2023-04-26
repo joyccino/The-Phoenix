@@ -14,7 +14,7 @@
     </select>
 
 </mapper>
-/***package com.phoenix.qpproject.dto;
+<!--package com.phoenix.qpproject.dto;
 
         import lombok.Data;
         import org.springframework.format.annotation.DateTimeFormat;
@@ -37,4 +37,4 @@
         private Date quizzesExamEndDateTime;
 
 
-        }***/
+        }-->
