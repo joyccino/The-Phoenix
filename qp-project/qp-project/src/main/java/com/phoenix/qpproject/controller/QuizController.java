@@ -31,6 +31,13 @@ public class QuizController {
         return "/pages/quiz/quiz_setting";
     }
 
+
+    @RequestMapping(value = "quizList", method = RequestMethod.GET)
+    public String quizList() {
+        return "/pages/quiz/quiz_list";
+    }
+
+
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model) {
 
@@ -49,3 +56,6 @@ public class QuizController {
         return "/pages/quiz/quizDetailsTest";
     }
 }
+
+
+
