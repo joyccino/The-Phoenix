@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phoenix.qpproject.mapper.MemberMapper">
-    <select id="getMemberList" resultType="com.phoenix.qpproject.dto.MemberDTO">
+    <select id="getMemberList" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
             m.id			AS Id
             ,m.userId		AS memberId
@@ -34,7 +34,7 @@
         SELECT COUNT(*) FROM members WHERE Email = #{memberEmail};
     </select>
 
-    <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MemberDTO">
+    <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MembersDTO">
         /* 회원가입 */
         INSERT INTO members
         (	  Email

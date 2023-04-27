@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phoenix.qpproject.mapper.QuizMapper">
-    <select id="getQuizList" resultType="com.phoenix.qpproject.dto.QuizDTO">
+    <select id="getQuizList" resultType="com.phoenix.qpproject.dto.QuizzesDTO">
         SELECT
             q.id			AS quizId
             ,q.memberId		AS memberId
@@ -14,3 +14,27 @@
     </select>
 
 </mapper>
+<!--package com.phoenix.qpproject.dto;
+
+        import lombok.Data;
+        import org.springframework.format.annotation.DateTimeFormat;
+
+        import java.util.Date;
+        @Data
+        public class QuizzesDTO {
+        private int quizzesId;
+        private int quizzesMemberId;
+        private String quizzesTitle;
+        private int quizzesSubjectId;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private Date quizzesQuizCreateDateTime;
+        private boolean quizzesShuffleQuestions;
+        private boolean quizzesShuffleOptions;
+        private boolean quizzesAllowedAttempts;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private Date quizzesExamStartDateTime;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private Date quizzesExamEndDateTime;
+
+
+        }-->
