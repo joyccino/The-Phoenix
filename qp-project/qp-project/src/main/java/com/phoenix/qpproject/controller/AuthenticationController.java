@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -36,14 +37,13 @@ public class AuthenticationController {
         memberService.addMember(member);
         return "redirect:/";
     }
-    /**
-    @PostMapping("/authentication/memberLogin")
-    public String memberLogin(MemberDTO member, Model model) {
+
+    @PostMapping("/memberLogin")
+    public String memberLogin(MembersDTO member, Model model) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
 
-
         // id 비교
-        int memberCount = memberService.findMemberById(member.getMemberId());
+        int memberCount = memberService.checkMemberById(member.getMemberId());
         System.out.println("조회된 멤버수: " + memberCount);
 
         if (memberCount > 0) {
@@ -53,14 +53,14 @@ public class AuthenticationController {
 
             // recent visit 기록
 
-            return "redirect:/admin/memberList";
+            return "redirect:/quiz/quizList";
         }
         else {
             String msg = "아이디 또는 비밀번호를 확인해주세요.";
             model.addAttribute("msgLoginFailed",msg);
-            return "/pages/authentication/card/login";
+            return "redirect:/authentication/login?error=true";
         }
 
     }
-     **/
+
 }
