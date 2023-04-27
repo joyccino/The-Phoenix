@@ -3,42 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-        <!-- SQL문과 resultMap을 포함한 Mybatis XML 설정파일의 내용 -->
+<!-- SQL문과 resultMap을 포함한 Mybatis XML 설정파일의 내용 -->
 <mapper namespace="com.phoenix.qpproject.mapper.QuizMapper">
 
-<!-- resultMap 설정 -->
-<resultMap type="com.phoenix.qpproject.dto.QuizzesDTO" id="QuizDashboardMap">
-    <id column="id" property="quizzesId" />
-    <result column="memberId" property="quizzesMemberId" />
-    <result column="title" property="quizzesTitle" />
-    <result column="subjectId" property="quizzesSubjectId" />
-    <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime" />
-    <result column="shuffleQuestions" property="quizzesShuffleQuestions" />
-    <result column="shuffleOptions" property="quizzesShuffleOptions" />
-    <result column="allowedAttempts" property="quizzesAllowedAttempts" />
-    <result column="examStartDateTime" property="quizzesExamStartDateTime" />
-    <result column="examEndDateTime" property="quizzesExamEndDateTime" />
-    <collection property="quizHistoryDTO" resultMap="quizHistoryResultMap" />
-</resultMap>
+    <!-- resultMap 설정 -->
+    <resultMap type="com.phoenix.qpproject.dto.QuizzesDTO" id="QuizDashboardMap">
+        <id column="id" property="quizzesId"/>
+        <result column="memberId" property="quizzesMemberId"/>
+        <result column="title" property="quizzesTitle"/>
+        <result column="subjectId" property="quizzesSubjectId"/>
+        <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime"/>
+        <result column="shuffleQuestions" property="quizzesShuffleQuestions"/>
+        <result column="shuffleOptions" property="quizzesShuffleOptions"/>
+        <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
+        <result column="examStartDateTime" property="quizzesExamStartDateTime"/>
+        <result column="examEndDateTime" property="quizzesExamEndDateTime"/>
+        <association property="quizHistoryDTO" resultMap="quizHistoryResultMap"/>
+        <association property="membersDTO" resultMap="membersResultMap"/>
+    </resultMap>
 
-<resultMap type="com.phoenix.qpproject.dto.QuizHistoryDTO" id="quizHistoryResultMap">
-    <id column="id" property="quizHistoryId" />
-    <result column="memberId" property="quizHistoryMemberId" />
-    <result column="quizId" property="quizHistoryQuizId" />
-    <result column="startDateTime" property="quizHistoryStartDateTime" />
-    <result column="endDateTime" property="quizHistoryEndDateTime" />
-    <result column="grade" property="quizHistoryGrade" />
-</resultMap>
+    <resultMap type="com.phoenix.qpproject.dto.QuizHistoryDTO" id="quizHistoryResultMap">
+        <id column="id" property="quizHistoryId"/>
+        <result column="memberId" property="quizHistoryMemberId"/>
+        <result column="quizId" property="quizHistoryQuizId"/>
+        <result column="startDateTime" property="quizHistoryStartDateTime"/>
+        <result column="endDateTime" property="quizHistoryEndDateTime"/>
+        <result column="grade" property="quizHistoryGrade"/>
+    </resultMap>
 
-<!-- SQL문 설정 -->
-<select id="getQuizList" resultMap="QuizDashboardMap">
-    SELECT
-    *
-    FROM
-    quizzes q
-    RIGHT JOIN
-    quizhistory qh
-    ON
-    q.id = qh.quizId;
-</select>
+    <resultMap type="com.phoenix.qpproject.dto.MembersDTO" id="membersResultMap">
+        <id column="id" property="Id"/>
+        <result column="email" property="memberEmail"/>
+        <result column="surname" property="memberSurname"/>
+        <result column="firstname" property="memberFirstname"/>
+        <result column="birthDate" property="memberBDate"/>
+        <result column="registerDate" property="memberRegDate"/>
+        <result column="gender" property="memberGender"/>
+        <result column="memberTypeId" property="memberMemberTypeId"/>
+        <result column="institutionId" property="memberInstitutionId"/>
+        <result column="membershipExpirationDate" property="memberMembershipDate"/>
+        <result column="country" property="memberCountry"/>
+        <result column="city" property="memberCity"/>
+        <result column="majorId" property="memberMajorId"/>
+        <result column="grade" property="memberGrade"/>
+        <result column="password" property="memberPw"/>
+        <result column="userId" property="memberId"/>
+        <result column="accessCount" property="accessCount"/>
+    </resultMap>
+
+    <!-- SQL문 설정 -->
+    <select id="getQuizList" resultMap="QuizDashboardMap">
+        SELECT *
+        FROM quizzes q
+        RIGHT JOIN quizhistory qh ON q.id = qh.quizId
+        LEFT JOIN members m ON qh.memberId = m.id;
+    </select>
 </mapper>

@@ -1812,7 +1812,7 @@
                       </div>
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
-                      <div class="list-group list-group-flush fw-normal fs--1">
+                       <div class="list-group list-group-flush fw-normal fs--1">
                         <div class="list-group-title border-bottom">추가</div>
                         <div class="list-group-item">
                           <a class="notification notification-flush notification-unread" href="#!">
@@ -2024,7 +2024,7 @@
                   <div id="table-customers-actions">
                     <div class="d-flex">
                       <select class="form-select form-select-sm" aria-label="문제목록">
-                        <option selected="">전체 문제</option>
+                        <option selected="">선택</option>
                         <option value="Refund">응시한 퀴즈</option>
                         <option value="Refund">저장한 퀴즈</option>
                         <option value="Delete">제작한 문제</option>
@@ -2061,15 +2061,14 @@
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.quizzesId}" class="joined align-middle py-2">ID</td>
-                        <td th:text="${l.quizzesMemberId}" class="joined align-middle py-2">작성자</td>
-                        <td th:text="${l.quizzesTitle}" class="email align-middle py-2">제목</td>
+                        <td th:text="${l.membersDTO.memberSurname} + ' ' + ${l.membersDTO.memberFirstname}" class="joined align-middle white-space-nowrap py-2">작성자</td>
+                        <td th:text="${l.quizzesTitle}" class="joined align-middle white-space-nowrap py-2">제목</td>
                         <td th:text="${l.quizzesSubjectId}" class="email align-middle py-2">과목명</td>
                         <td th:text="${l.quizzesSubjectId}" class="email align-middle py-2">응시 횟수</td>
                         <td th:text="${l.quizHistoryDTO.quizHistoryGrade}" class="email align-middle py-2">나의 평균 점수</td>
-                        <td th:text="${l.quizzesSubjectId}" class="email align-middle py-2">전체 평균 점수</td>
-                        <td th:text="${l.quizHistoryDTO.quizHistoryEndDateTime}" class="email align-middle py-2">나의 랭킹</td>
-                        <td th:text="${l.quizHistoryDTO.quizHistoryEndDateTime}" class="joined align-middle white-space-nowrap py-2">최근응시날짜</td>
+                        <td th:text="${l.quizHistoryDTO.quizHistoryGrade}" class="email align-middle py-2">전체 평균 점수</td>
+                        <td th:text="${l.quizHistoryDTO.quizHistoryGrade}" class="email align-middle py-2">나의 랭킹</td>
+                        <td th:text="${#dates.format(l.quizHistoryDTO.quizHistoryEndDateTime,'yyyy년 MM월 dd일 HH:mm')}" class="joined align-middle white-space-nowrap py-2">최근응시날짜</td>
                     </tr>
                     <tr th:unless="${not #lists.isEmpty(quizList)}">
                         <td colspan="7">등록된 퀴즈 정보가 없습니다.</td>
