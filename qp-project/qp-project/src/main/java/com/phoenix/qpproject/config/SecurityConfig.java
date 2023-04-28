@@ -46,7 +46,7 @@ public class SecurityConfig {
 //                                .requestMatchers("/quiz/quizList").hasRole("ADMIN")
                 )
                 .formLogin()
-                    .loginPage("/authentication/login") // 사용자 정의 로그인 페이지
+                    .loginPage("/auth/login") // 사용자 정의 로그인 페이지
                     .usernameParameter("memberId")
                     .passwordParameter("memberPw")
                     .loginProcessingUrl("auth/memberLogin") // 로그인 Form Action Url
@@ -68,10 +68,10 @@ public class SecurityConfig {
 //                .permitAll()	// 대시보드 이동이 막히면 안되므로 얘는 허용
                 .and()
                 .logout(logout -> logout
-                    .logoutUrl("/authentication/logout")
+                    .logoutUrl("/auth/logout")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/authentication/login?logout"));
+                    .logoutSuccessUrl("/auth/login?logout"));
         return http.build();
 
     }
