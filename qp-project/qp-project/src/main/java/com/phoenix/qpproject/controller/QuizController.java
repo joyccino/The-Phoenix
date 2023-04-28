@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/quiz")
 public class QuizController {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     public QuizService quizService;
@@ -33,6 +33,7 @@ public class QuizController {
 
     @RequestMapping(value = "quizList", method = RequestMethod.GET)
     public String quizList() {
+        System.out.println("퀴즈리스트 호출");
         return "/pages/quiz/quiz_list";
     }
 
@@ -55,6 +56,3 @@ public class QuizController {
         return "/pages/quiz/quizDetailsTest";
     }
 }
-
-
-

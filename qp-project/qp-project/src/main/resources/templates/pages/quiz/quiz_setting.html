@@ -2038,17 +2038,17 @@
                   <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
                       <div class="card mb-3">
                         <div class="card-header">
-                          <h5 class="mb-0">퀴즈 설정</h5>
+                          <h5 class="mb-0">퀴즈 정보</h5>
                         </div>
                         <div class="card-body bg-light">
-                          <form class="row gx-2" name="quiz-category">
+                          <form class="row gx-2">
                             <div class="col-12 mb-3">
-                              <label class="form-label" for="quiz-title">퀴즈 제목<span class="text-danger">*</span></label>
-                              <input class="form-control" id="quiz-title" type="text" required="required" />
+                              <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span></label>
+                              <input class="form-control" id="quiz-title" type="text" name="title" required />
                             </div>
                             <div class="col-sm-6 mb-3">
-                              <label class="form-label" for="eduCategory">카테고리<span class="text-danger">*</span></label>
-                              <select class="form-select" id="eduCategory" name="eduCategory">
+                              <label class="form-label" for="edu-category">카테고리<span class="text-danger">*</span></label>
+                              <select class="form-select" id="edu-category" name="educationLevel" required="required">
                                 <option disabled selected value="">초/중/고/대 선택</option>
                                 <option value="elementary">초등</option>
                                 <option value="middle">중등</option>
@@ -2057,9 +2057,10 @@
                               </select>
                             </div>
                             <div class="col-sm-6 mb-3" id="years">
-                              <label class="form-label" for="yearCategory">학년<span class="text-danger">*</span></label>
-                              <select class="form-select" id="yearCategory" name="yearCategory">
+                              <label class="form-label" for="year-category">학년<span class="text-danger">*</span></label>
+                              <select class="form-select" id="year-category" required="required">
                                 <option disabled selected value=""> 학년 선택</option>
+                                <option value="0">선택 안함</option>
                                 <option value="1">1학년</option>
                                 <option value="2">2학년</option>
                                 <option value="3">3학년</option>
@@ -2071,10 +2072,10 @@
                               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                               <script>
                               $(document).ready(function() {
-                                $('#eduCategory').change(function() {
+                                $('#edu-category').change(function() {
                                   var selectedCategory = $(this).val();
                                   if (selectedCategory === 'elementary') {
-                                    $('#yearCategory option').each(function() {
+                                    $('#year-category option').each(function() {
                                       var value = $(this).val();
                                       if (value === '' || value <= 6) {
                                         $('#years').show();
@@ -2084,7 +2085,7 @@
                                       }
                                     });
                                   } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-                                    $('#yearCategory option').each(function() {
+                                    $('#year-category option').each(function() {
                                       var value = $(this).val();
                                       if (value === '' || value <= 3) {
                                         $('#years').show();
@@ -2099,57 +2100,30 @@
                                 });
                               });
                             </script>
-                            <div class="col-12 mb-3">
-                              <label class="form-label" for="course-tags">태그<span class="text-danger">*</span></label>
-                              <input class="form-control js-choice" id="course-tags" type="text" name="tags" required="required" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
+                          </form>
+                          <form class="row gx-2">
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label" for="general-subject">과목<span class="text-danger">*</span></label>
+                                <select class="form-select" id="general-subject" required="required">
+                                    <option disabled selected value="">과목 선택</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label" for="detail-subject">세부 과목<span class="text-danger">*</span></label>
+                                <select class="form-select" id="detail-subject" required="required">
+                                    <option disabled selected value="">세부 과목 선택</option>
+                                </select>
                             </div>
                           </form>
                         </div>
                       </div>
                       <div class="card mb-3">
+                          <div class="card-header">
+                              <h5 class="mb-0">퀴즈 설정</h5>
+                          </div>
                         <div class="card-body bg-light">
                           <form>
                             <div class="row gx-2">
-                              <div class="col-sm-6 mb-3">
-                                <label class="form-label">제출 마감 기한 지정하기</label>
-                              </div>
-                                <div class="col-sm-6 mb-3">
-                                  <div class="form-check form-switch mb-0">
-                                    <input class="form-check-input" id="deadlineSwitch" type="checkbox" />
-                                  </div>
-                                </div>
-                                <div class="col-sm-6 mb-3" id="labelDeadline" style="display:none">
-                                  <label class="form-label" for="deadline">제출 마감 기한<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-6 mb-3" id="divDeadline" style="display:none">
-                                  <input class="form-control" type="date" autocomplete="on" id="deadline" required/>
-                                </div>
-                                <script>
-                                    function deadlineSwitch(input) {
-                                        if(input.value.search(/\s/) !=-1) {
-                                            input.value = input.value.substring(0, input.value.length -1);
-                                        }
-                                    }
-
-                                    var deadlineSwitch = document.querySelector("#deadlineSwitch");
-                                    var labelDeadline = document.querySelector("#labelDeadline");
-                                    var divDeadline = document.querySelector("#divDeadline");
-
-                                    deadlineSwitch.addEventListener('change', function() {
-                                        if (this.checked) {
-                                            labelDeadline.style.display = "block";
-                                            divDeadline.style.display = "block";
-                                        }
-                                        else {
-                                            labelDeadline.style.display = "none";
-                                            divDeadline.style.display = "none";
-                                        }
-                                    });
-
-                                    let deadlineDate = document.querySelector("#deadline");
-                                    deadlineDate.min = new Date().toISOString().split("T")[0];
-                                </script>
-
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="shuffle-quiz">문제 순서 섞기</label>
                                 </div>
@@ -2174,40 +2148,36 @@
                                         <input class="form-check-input" id="allowed-attempts" type="checkbox"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="exam-mode">시험용으로 사용<span class="text-danger">*</span><br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="exam-mode" type="checkbox"/>
-                                    </div>
-                                </div>
                             </div>
                           </form>
                         </div>
                       </div>
-                      <div class="card mb-3" style="display:none" id="examModeSetting">
+                      <div class="card mb-3">
+                          <div class="card-header">
+                              <h5 class="mb-0">시험모드 설정</h5>
+                          </div>
                         <div class="card-body bg-light">
                           <form>
-                            <div class="row gx-2">
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="form-start-date">시작 날짜<span class="text-danger">*</span></label>
-                                    <input class="form-control" type="date" autocomplete="on" id="form-start-date" required/>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="startTime">시작 시간<span class="text-danger">*</span></label>
-                                    <input class="form-control datetimepicker" id="startTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="form-end-date">마감 날짜<span class="text-danger">*</span></label>
-                                    <input class="form-control" type="date" autocomplete="on" id="form-end-date" required/>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="endTime">마감 시간<span class="text-danger">*</span></label>
-                                    <input class="form-control datetimepicker" id="endTime" type="text" placeholder="시:분" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                                </div>
+                              <div class="row gx-2">
+                                  <div class="col-sm-6 mb-3">
+                                      <label class="form-label" for="exam-mode">시험용으로 사용<br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
+                                  </div>
+                                  <div class="col-sm-6 mb-3">
+                                      <div class="form-check form-switch mb-0">
+                                          <input class="form-check-input" id="exam-mode" type="checkbox"/>
+                                      </div>
+                                  </div>
+                              </div>
+                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-start">
+                                <label class="form-label" for="quiz-start">시작 시간<span class="text-danger">*</span></label>
+                                <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-start" required/>
+                            </div>
+                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-end">
+                                <label class="form-label" for="quiz-end">마감 시간<span class="text-danger">*</span></label>
+                                <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-end" required/>
                             </div>
                           </form>
+
                         </div>
                       </div>
                       <script>
@@ -2218,34 +2188,37 @@
                           }
 
                           var examMode = document.querySelector("#exam-mode");
-                          var examModeSetting = document.querySelector("#examModeSetting");
+                          var divExamStart = document.querySelector("#div-exam-start");
+                          var divExamEnd = document.querySelector("#div-exam-end");
 
                           examMode.addEventListener('change', function() {
                               if (this.checked) {
-                                  examModeSetting.style.display = "block";
+                                  divExamStart.style.display = "block";
+                                  divExamEnd.style.display = "block";
                               }
                               else {
-                                  examModeSetting.style.display = "none";
+                                  divExamStart.style.display = "none";
+                                  divExamEnd.style.display = "none";
                               }
                           });
                       </script>
                       <script>
-                         const startDate = document.querySelector("#form-start-date");
-                         const endDate = document.querySelector("#form-end-date");
+                         const startDatetime = document.querySelector("#quiz-start");
+                         const endDatetime = document.querySelector("#quiz-end");
 
-                         startDate.min = new Date().toISOString().split("T")[0];
-                         endDate.min = new Date().toISOString().split("T")[0];
+                         startDatetime.min = new Date().toISOString().substring(0,16);
+                         endDatetime.min = new Date().toISOString().substring(0,16);
 
-                         endDate.addEventListener("change", () => {
-                             if (new Date(endDate.value) < new Date(startDate.value)) {
-                               endDate.value = "";
-                               alert("마감일은 시작일보다 이를 수 없습니다.");
+                         endDatetime.addEventListener("change", () => {
+                             if (new Date(endDatetime.value) < new Date(startDatetime.value)) {
+                               endDatetime.value = "";
+                               alert("마감일이 시작일보다 이를 수 없습니다.");
                              }
                          });
 
-                         startDate.addEventListener("change", () => {
-                             if (new Date(endDate.value) < new Date(startDate.value)) {
-                               startDate.value = "";
+                         startDatetime.addEventListener("change", () => {
+                             if (new Date(endDatetime.value) < new Date(startDatetime.value)) {
+                               startDatetime.value = "";
                                alert("시작일이 마감일보다 늦을 수 없습니다.");
                              }
                          });
@@ -2284,8 +2257,42 @@
                       </div>
                   </div>
               </div>
+              <!-- 탭 끝 -->
+              <div for="post-quiz" style="float:right">
+                  <button class="btn btn-primary me-1 mb-1" id="post-quiz" type="button" disabled>게시</button>
+              </div>
+              <script>
+                  const postBtn = document.getElementById("post-quiz");
+                  const quizTitle = document.getElementById("quiz-title");
+                  const eduCate = document.getElementById("edu-category");
+                  const yearCate = document.getElementById("year-category");
+
+                  quizTitle.addEventListener("input", validateFields);
+                  eduCate.addEventListener("change", validateFields);
+                  yearCate.addEventListener("change", validateFields);
+
+                  function validateFields() {
+                    if (eduCate.value === "university") {
+                      if (quizTitle.value !== "" &&
+                          eduCate.value !== "") {
+                        postBtn.disabled = false;
+                      } else {
+                        postBtn.disabled = true;
+                      }
+                    } else {
+                      if (quizTitle.value !== "" &&
+                          eduCate.value !== "" &&
+                          yearCate.value !== "") {
+                        postBtn.disabled = false;
+                      } else {
+                        postBtn.disabled = true;
+                      }
+                  };
+
+
+              </script>
             </div>
-          <div>
+          </div>
 
 
           <div class="card rounded-0 bottom-bar d-lg-none" data-bottom-bar='{"target":"course-publish-btn","breakPoint":"lg"}'>

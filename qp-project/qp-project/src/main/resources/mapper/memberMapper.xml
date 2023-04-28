@@ -3,9 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phoenix.qpproject.mapper.MemberMapper">
+    <select id="login" resultType="com.phoenix.qpproject.dto.MembersDTO">
+        SELECT
+        m.id
+        ,m.userId		AS memberId
+        ,m.Email        AS memberEmail
+        ,m.Surname		AS memberSurname
+        ,m.Firstname		AS memberFirstname
+        ,m.BirthDate	AS memberBDate
+        ,m.RegisterDate	AS memberRegDate
+        ,m.RecentVisit	AS memberVisit
+        ,m.Gender	    AS memberGender
+        ,m.MemberTypeId	AS memberMemberTypeId
+        ,m.InstitutionId AS memberInstitutionId
+        ,m.MembershipExpirationDate	AS memberMembershipDate
+        ,m.Country	    AS memberCountry
+        ,m.City	        AS memberCity
+        ,m.MajorId	    AS memberMajorId
+        ,m.Grade	    AS memberGrade
+        ,m.Password	    AS memberPw
+        FROM
+        members AS m
+        WHERE
+        userId = #{memberId}
+        AND
+        Password = #{memberPw};
+    </select>
     <select id="getMemberList" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
-            m.id			AS Id
+            m.id
             ,m.userId		AS memberId
             ,m.Email        AS memberEmail
             ,m.Surname		AS memberSurname
@@ -24,6 +50,30 @@
             ,m.Password	    AS memberPw
         FROM
             members AS m;
+    </select>
+
+    <select id="getUserAccount" resultType="com.phoenix.qpproject.dto.MembersDTO">
+        SELECT
+        m.id
+        ,m.userId		AS memberId
+        ,m.Email        AS memberEmail
+        ,m.Surname		AS memberSurname
+        ,m.Firstname		AS memberFirstname
+        ,m.BirthDate	AS memberBDate
+        ,m.RegisterDate	AS memberRegDate
+        ,m.RecentVisit	AS memberVisit
+        ,m.Gender	    AS memberGender
+        ,m.MemberTypeId	AS memberMemberTypeId
+        ,m.InstitutionId AS memberInstitutionId
+        ,m.MembershipExpirationDate	AS memberMembershipDate
+        ,m.Country	    AS memberCountry
+        ,m.City	        AS memberCity
+        ,m.MajorId	    AS memberMajorId
+        ,m.Grade	    AS memberGrade
+        ,m.Password	    AS memberPw
+        FROM
+        members AS m
+        WHERE userId = #{memberId};
     </select>
 
     <select id="checkMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -64,4 +114,15 @@
         , "서울"
         );
     </insert>
+
+    <insert id="addVisitHistory" parameterType="java.lang.Integer">
+        INSERT INTO visitHistory
+        (	  memberId,
+        visitDateTime
+        )VALUES (
+        #{memberId}
+        , NOW()
+        );
+    </insert>
+
 </mapper>
