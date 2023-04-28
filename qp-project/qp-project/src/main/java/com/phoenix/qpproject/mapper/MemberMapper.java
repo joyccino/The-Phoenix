@@ -1,6 +1,7 @@
 package com.phoenix.qpproject.mapper;
 
 import com.phoenix.qpproject.dto.MembersDTO;
+import com.phoenix.qpproject.dto.VisitHistoryDTO;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface MemberMapper {
     public List<MembersDTO> getMemberList();
     //회원 가입
     public int addMember(MembersDTO member);
+
+    public int addVisitHistory(int mId);
 
     public int checkMemberById(String findById);
 

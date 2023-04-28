@@ -32,8 +32,6 @@ import java.lang.reflect.Member;
 public class SecurityConfig {
     private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
-    //private final MemberService memberService;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable()
@@ -51,7 +49,7 @@ public class SecurityConfig {
                     .loginPage("/authentication/login") // 사용자 정의 로그인 페이지
                     .usernameParameter("memberId")
                     .passwordParameter("memberPw")
-                    .loginProcessingUrl("/authentication/memberLogin") // 로그인 Form Action Url
+                    .loginProcessingUrl("authentication/memberLogin") // 로그인 Form Action Url
                     .failureUrl("/authentication/login?error=true") // 로그인 실패 후 이동 페이지
 //                    .successHandler(
 //                            (request, response, authentication) -> {

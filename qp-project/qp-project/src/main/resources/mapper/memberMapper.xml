@@ -114,4 +114,15 @@
         , "서울"
         );
     </insert>
+
+    <insert id="addVisitHistory" parameterType="java.lang.Integer">
+        INSERT INTO visitHistory
+        (	  memberId,
+        visitDateTime
+        )VALUES (
+        #{memberId}
+        , NOW()
+        );
+    </insert>
+
 </mapper>
