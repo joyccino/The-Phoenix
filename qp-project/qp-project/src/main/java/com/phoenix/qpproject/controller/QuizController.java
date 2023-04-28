@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/quiz")
 public class QuizController {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     public QuizService quizService;

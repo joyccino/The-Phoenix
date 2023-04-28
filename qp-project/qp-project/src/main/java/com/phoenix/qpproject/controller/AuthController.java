@@ -2,7 +2,6 @@ package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MailDTO;
 import com.phoenix.qpproject.dto.MembersDTO;
-import com.phoenix.qpproject.dto.VisitHistoryDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/authentication")
-public class AuthenticationController {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+@RequestMapping("/auth")
+public class AuthController {
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -91,7 +90,7 @@ public class AuthenticationController {
     }
 
     private final EmailService emailService;
-    public AuthenticationController(EmailService emailService) {
+    public AuthController(EmailService emailService) {
         this.emailService = emailService;
     }
     //@PostMapping("/passReset")
