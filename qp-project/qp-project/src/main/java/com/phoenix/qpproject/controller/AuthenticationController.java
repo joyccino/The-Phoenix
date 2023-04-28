@@ -1,10 +1,13 @@
 package com.phoenix.qpproject.controller;
 
+import com.phoenix.qpproject.dto.MailDTO;
 import com.phoenix.qpproject.dto.MembersDTO;
 import com.phoenix.qpproject.dto.VisitHistoryDTO;
+import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,4 +90,27 @@ public class AuthenticationController {
 
     }
 
+    private final EmailService emailService;
+    public AuthenticationController(EmailService emailService) {
+        this.emailService = emailService;
+    }
+    //@PostMapping("/passReset")
+    @GetMapping("/passReset")
+    public String sendPasswordResetEmail(MailDTO mailDTO) {
+        char[] possibleCharacters = (new String("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")).toCharArray();
+        //String newPass = RandomStringUtils.random( randomStrLength, 0, possibleCharacters.length-1, false, false, possibleCharacters, new SecureRandom() );
+        String newPass = RandomStringUtils.random( 20, possibleCharacters );
+        //String newPass ="q9r890qadfaiklsjdfilashj";
+        mailDTO.setAddress("sbins402@naver.com");
+        mailDTO.setTitle("[큐피] 비밀번호 재설정");
+        mailDTO.setContent("재생성된 비밀번호는 "+newPass+" 입니다.");
+        emailService.sendPassResetEmail(mailDTO);
+        System.out.println("passReset 메일 전송 완료");
+        //newPass 암호화 과정 추가 예정
+        //DB member table 의 password 컬럼 newPass 로 update 추가 예정
+        System.out.println("DB 업데이트 완료");
+        // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
+        return "redirect:/authentication/forgotPassword";
+
+    }
 }
