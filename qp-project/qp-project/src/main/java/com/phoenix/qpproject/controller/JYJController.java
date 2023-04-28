@@ -1,6 +1,5 @@
 package com.phoenix.qpproject.controller;
 
-import com.phoenix.qpproject.dto.MemberDTO;
 import com.phoenix.qpproject.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
