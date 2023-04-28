@@ -8,9 +8,7 @@ background:#e0ffff;
 }
 
 
-.btnRemove {
-    margin-top : 10px;
-}
+
 #course-tags {
 width:100%;
 }
@@ -35,4 +33,82 @@ width:100%;
     border-radius: 0.25rem;
     min-height: calc(1.5em + 0.625rem + calc(var(--falcon-border-width) * 2));
 
+}
+
+.createQuiz {
+    width:100%;
+}
+
+input::placeholder {
+  color: black;
+}
+.btnRemove {
+    color:#2C7BE5;
+    background:white;
+    padding : 5px 16px;
+    box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+    falcon-btn-border-radius: 0.25rem;
+    border: var(--falcon-btn-border-width) solid var(--falcon-btn-border-color);
+    height:36px;
+}
+
+.form-floating {
+    display : block;
+    width:100%;
+    flex:1;
+    box-sizing : border-box;
+}
+.ques {
+    display: flex!important;
+    width:80%;
+    box-sizing : border-box;
+    margin-bottom:10px;
+}
+.form-control {
+    width:1000px!important;
+    margin-right:5px!important;
+
+}
+.ques-number{
+    width:15px!important;
+}
+.form-floating textarea::-webkit-scrollbar {
+  display: none;
+}
+.form-floating input {
+  margin-left: 10px;
+}
+.form-floating > textarea {
+    margin-right: 10px;
+      height: auto;
+      color: black;
+      padding: 5px;
+      width: 100%;
+      resize: none;
+      overflow: hidden;
+      border: none;
+      outline: none;
+      white-space: nowrap;
+      rows="1";
+}
+
+.question {
+    display:block;
+    width:100%;
+    font-size:1rem;
+    font-weight:400;
+    color: var(--falcon-input-color);
+    background-color: var(--falcon-input-bg);
+    background-clip: padding-box;
+    border: var(--falcon-border-width) solid var(--falcon-input-border-color);
+    border-radius: 0.25rem;
+    min-height: calc(1.5em + 0.625rem + calc(var(--falcon-border-width) * 2));
+}
+#submit:disabled {
+  background-color: #ccc; /* 회색 */
+  cursor: not-allowed; /* 마우스 커서가 포인터가 아닌 금지표시로 변경 */
+}
+#submit:not(:disabled) {
+  background-color: #007bff; /* 원래의 색상 */
+  cursor: pointer; /* 마우스 커서가 포인터로 변경 */
 }
