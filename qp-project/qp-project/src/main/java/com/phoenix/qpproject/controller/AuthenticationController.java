@@ -1,6 +1,7 @@
 package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MembersDTO;
+import com.phoenix.qpproject.dto.VisitHistoryDTO;
 import com.phoenix.qpproject.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -69,6 +70,12 @@ public class AuthenticationController {
 
             // recent visit 기록
             session.setAttribute("qpUser", membersInfo);
+
+            int mId = membersInfo.getId();
+
+            memberService.addVisitHistory(mId);
+
+            System.out.println(mId+" 로그인 history insterted");
 
             return "redirect:/quiz/quizList";
         }

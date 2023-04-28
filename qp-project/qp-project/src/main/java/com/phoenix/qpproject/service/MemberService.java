@@ -1,6 +1,7 @@
 package com.phoenix.qpproject.service;
 
 import com.phoenix.qpproject.dto.MembersDTO;
+import com.phoenix.qpproject.dto.VisitHistoryDTO;
 import com.phoenix.qpproject.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.cursor.Cursor;
@@ -48,6 +49,10 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public void addMember(MembersDTO member) {
         memberMapper.addMember(member);
+    }
+
+    public void addVisitHistory(int mId) {
+        memberMapper.addVisitHistory(mId);
     }
 
     public Integer checkMemberById(String memberId) {
