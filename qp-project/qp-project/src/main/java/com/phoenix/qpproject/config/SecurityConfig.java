@@ -37,7 +37,7 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/authentication/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/quiz/**").permitAll()
+                                .requestMatchers("/auth/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/quiz/**").permitAll()
                                 .requestMatchers("/quiz/**").hasRole("USER")
                                 .requestMatchers("/survey/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -49,8 +49,8 @@ public class SecurityConfig {
                     .loginPage("/authentication/login") // 사용자 정의 로그인 페이지
                     .usernameParameter("memberId")
                     .passwordParameter("memberPw")
-                    .loginProcessingUrl("authentication/memberLogin") // 로그인 Form Action Url
-                    .failureUrl("/authentication/login?error=true") // 로그인 실패 후 이동 페이지
+                    .loginProcessingUrl("auth/memberLogin") // 로그인 Form Action Url
+                    .failureUrl("/auth/login?error=true") // 로그인 실패 후 이동 페이지
 //                    .successHandler(
 //                            (request, response, authentication) -> {
 //                                MemberDetail userDetails = (MemberDetail) authentication.getPrincipal();

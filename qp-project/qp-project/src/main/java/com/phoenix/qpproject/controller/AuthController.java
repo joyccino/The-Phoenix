@@ -2,7 +2,6 @@ package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MailDTO;
 import com.phoenix.qpproject.dto.MembersDTO;
-import com.phoenix.qpproject.dto.VisitHistoryDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/authentication")
-public class AuthenticationController {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+@RequestMapping("/auth")
+public class AuthController {
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -85,13 +84,13 @@ public class AuthenticationController {
         else {
             String msg = "아이디 또는 비밀번호를 확인해주세요.";
             model.addAttribute("msgLoginFailed",msg);
-            return "redirect:/authentication/login?error=true";
+            return "redirect:/auth/login?error=true";
         }
 
     }
 
     private final EmailService emailService;
-    public AuthenticationController(EmailService emailService) {
+    public AuthController(EmailService emailService) {
         this.emailService = emailService;
     }
     //@PostMapping("/passReset")
@@ -110,7 +109,7 @@ public class AuthenticationController {
         //DB member table 의 password 컬럼 newPass 로 update 추가 예정
         System.out.println("DB 업데이트 완료");
         // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
-        return "redirect:/authentication/forgotPassword";
+        return "redirect:/auth/forgotPassword";
 
     }
 }
