@@ -49,8 +49,8 @@ public class SecurityConfig {
                     .loginPage("/authentication/login") // 사용자 정의 로그인 페이지
                     .usernameParameter("memberId")
                     .passwordParameter("memberPw")
-                    .loginProcessingUrl("authentication/memberLogin") // 로그인 Form Action Url
-                    .failureUrl("/authentication/login?error=true") // 로그인 실패 후 이동 페이지
+                    .loginProcessingUrl("auth/memberLogin") // 로그인 Form Action Url
+                    .failureUrl("/auth/login?error=true") // 로그인 실패 후 이동 페이지
 //                    .successHandler(
 //                            (request, response, authentication) -> {
 //                                MemberDetail userDetails = (MemberDetail) authentication.getPrincipal();
