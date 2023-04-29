@@ -112,3 +112,14 @@ input::placeholder {
   background-color: #007bff; /* 원래의 색상 */
   cursor: pointer; /* 마우스 커서가 포인터로 변경 */
 }
+.listdlt{
+border: none;
+padding: 0;
+background: none;
+margin-left:8px;
+}
+
+.listdlt span {
+    width:14px;
+    height:16px;
+}

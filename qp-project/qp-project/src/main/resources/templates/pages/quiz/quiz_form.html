@@ -461,6 +461,7 @@
                                        </div>
                                    </div>
                                    <div class="contents"></div>
+                                    <div class="warning alert alert-danger" style="display: none;"></div>
                                     <button class="btn btn-primary me-1 mb-1" type="button" id="add" style="width:80px; margin-top:15px">
                                         추가
                                     </button>
@@ -491,28 +492,12 @@
                                    <tr>
                                        <th scope="col" style="width:10%">순서</th>
                                        <th scope="col">내용</th>
-                                       <th class="text-end" scope="col">편집</th>
+                                       <th class="text-end" scope="col" style="width:100px">편집</th>
                                    </tr>
                                    </thead>
                                    <tbody>
-                                   <tr>
-                                       <td>1</td>
-                                       <td><a href="#">qp는 무엇을 줄임말 일까요?</a></td>
-                                       <td class="text-end">
-                                           <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></button></div>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>2</td>
-                                       <td><a href="#">q우리 사이트는 무엇을 위한 사이트인가요?</a></td>
-                                       <td class="text-end">
-                                           <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></button></div>
-                                       </td>
-                                   </tr>
-
 
                                    </tbody>
-
                                </table>
                            </div>
                            <div class="paging">
@@ -544,173 +529,167 @@
                !-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
+        // quesBtn 버튼 클릭할때 발생하는 append 클릭이벤트 및 quesBtn 비활성화
+        $(document).ready(function() {
+            var isFirstClick = true;
 
-                $(document).ready(function() {
+            function updateQuestionNumbers() {
+                var i = 1;
+                $('.ques-number').each(function() {
+                    $(this).text(i + ".");
+                    i++;
+                 });
+            }
 
-
-                    var isFirstClick = true;
-
-
-                  function updateQuestionNumbers() {
-                    var i = 1;
-                    $('.ques-number').each(function() {
-                      $(this).text(i + ".");
-                      i++;
-                    });
-                  }
-
-                  $('.quesBtn').on('click', function() {
-                    if (isFirstClick) {
-                      // 첫 번째 클릭일 경우
-                      $('.contents').show();
-                      var questionType = $(this).attr('id');
-                      var inputType = '';
-                      if (questionType === 'check') {
+            $('.quesBtn').on('click', function() {
+                if (isFirstClick) {
+                    // 첫 번째 클릭일 경우
+                    $('.contents').show();
+                    var questionType = $(this).attr('id');
+                    var inputType = '';
+                    if (questionType === 'check') {
                         inputType = 'radio';
-                      } else if (questionType === 'multi') {
+                    } else if (questionType === 'multi') {
                         inputType = 'checkbox';
-                      } else if (questionType === 'short') {
+                    } else if (questionType === 'short') {
                         inputType = 'text';
                         $('.contents').append(
-                          '<div class="ques"><span class="ques-number"></span><div class="form-floating"style="display: block;"><textarea class="form-control" id="option" style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
-
+                            '<div class="ques"><span class="ques-number"></span><div class="form-floating"style="display: block;"><textarea class="form-control" id="option" style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
                         );
-                      }
-                      if (questionType !== 'short') {
+                    }
+                    if (questionType !== 'short') {
                         $('.contents').append(
-                          '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" /><div class="form-floating"><textarea class="form-control" id="option" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                            '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" /><div class="form-floating"><textarea class="form-control" id="option" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
                         );
-                      }
-                      updateQuestionNumbers();
-                      $('#add').show(); // 추가 버튼 보이기
-                      isFirstClick = false;
                     }
-                    $('.quesBtn').not(this).hide();
-                     isFirstClick = true;
-                  });
-
-             function checkSubmitEnabled() {
-                  var quesCount = $('.ques').length;
-                  var isSubmitEnabled = true;
-
-
-                  $('.ques textarea').each(function() {
-                    if ($(this).val().trim() === '') {
-                      isSubmitEnabled = false;
-                      return false; // exit the loop early if we find an empty textarea
-                    }
-                  });
-
-                  if (quesCount < 2 || !isSubmitEnabled) {
-                    $('#submit').attr('disabled', true);
-                  } else {
-                    $('#submit').attr('disabled', false);
-                  }
+                    updateQuestionNumbers();
+                    $('#add').show(); // 추가 버튼 보이기
+                    isFirstClick = false;
                 }
+                $('.quesBtn').not(this).hide();
+                isFirstClick = true;
+            });
 
-$('.contents').on('click', '.btnRemove', function() {
-  $(this).closest('.ques').remove();
-  checkSubmitEnabled();
-  updateQuestionNumbers();
-  if ($('.contents').is(':empty')) {
-    $('.quesBtn').show();
-    $('#submit').css('color', '#2C7BE5');
-    $('#submit').prop('disabled', true);
-    $('#submit').css('background-color', '#d2d2d2');
-    $('.quesBtn').css('color', '#2C7BE5');
-    $('#add').hide();
-    $('.contents').hide();
-    isFirstClick = true;
-  }
-});
+            function checkSubmitEnabled() {
+                var quesCount = $('.ques').length;
+                var isSubmitEnabled = true;
 
-$('#add').on('click', function() {
-  var questionType = $('.quesBtn:visible').attr('id');
-  var inputType = '';
-
-  if (questionType === 'check') {
-    inputType = 'radio';
-  } else if (questionType === 'multi') {
-    inputType = 'checkbox';
-  } else if (questionType === 'short') {
-    inputType = 'text';
-    $('.contents').append(
-      '<div class="ques"><span class="ques-number"></span><div class="form-floating" style="display:block"><textarea class="form-control"  id="option" style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
-    );
-  }
-
-  if (questionType !== 'short') {
-    $('.contents').append(
-      '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" value="" /><div class="form-floating" style="display:block"><textarea class="form-control" id="option"  style="height: 8px; padding: 5px; width:80%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
-    );
-  }
-
-  updateQuestionNumbers();
-  checkSubmitEnabled(); // add this line
-});
-
-$('.contents').on('keyup', 'textarea', function() {
-  checkSubmitEnabled();
-});
-
-
-
-              $('.contents').on('change', ':radio', function() {
-                // 체크박스 클릭 시 다른 체크박스들의 체크 상태를 해제
-                $('.contents :radio').not(this).prop('checked', false);
-              });
-
-              $('#add').hide();
+                $('.ques textarea').each(function() {
+                    if ($(this).val().trim() === '') {
+                        isSubmitEnabled = false;
+                        return false; // exit the loop early if we find an empty textarea
+                    }
                 });
 
+                if (quesCount < 2 || !isSubmitEnabled) {
+                    $('#submit').attr('disabled', true);
+                } else {
+                    $('#submit').attr('disabled', false);
+                }
+            }
+
+            $('.contents').on('click', '.btnRemove', function() {
+                $(this).closest('.ques').remove();
+                checkSubmitEnabled();
+                updateQuestionNumbers();
+                if ($('.contents').is(':empty')) {
+                    $('.quesBtn').show();
+                    $('#submit').css('color', '#2C7BE5');
+                    $('#submit').prop('disabled', true);
+                    $('#submit').css('background-color', '#d2d2d2');
+                    $('.quesBtn').css('color', '#2C7BE5');
+                    $('#add').hide();
+                    $('.contents').hide();
+                    isFirstClick = true;
+                }
+            });
+
+            $('#add').on('click', function() {
+                var questionType = $('.quesBtn:visible').attr('id');
+                var inputType = '';
+
+                if (questionType === 'check') {
+                    inputType = 'radio';
+                } else if (questionType === 'multi') {
+                    inputType = 'checkbox';
+                } else if (questionType === 'short') {
+                    inputType = 'text';
+                    $('.contents').append(
+                        '<div class="ques"><span class="ques-number"></span><div class="form-floating" style="display:block"><textarea class="form-control"  id="option" style="height: 8px; color: black; padding: 5px; width:80%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
+                    );
+                }
+
+                if (questionType !== 'short') {
+                    $('.contents').append(
+                        '<div class="ques"><span class="ques-number"></span><div class="form-check"><input class="form-check-input" type="' + inputType + '" value="" /><div class="form-floating" style="display:block"><textarea class="form-control" id="option"  style="height: 8px; padding: 5px; width:80%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                    );
+                }
+
+                updateQuestionNumbers();
+                checkSubmitEnabled(); // add this line
+            });
+
+            $('.contents').on('keyup', 'textarea', function() {
+                checkSubmitEnabled();
+            });
+
+
+
+            $('.contents').on('change', ':radio', function() {
+                // 체크박스 클릭 시 다른 체크박스들의 체크 상태를 해제
+                $('.contents :radio').not(this).prop('checked', false);
+            });
+
+            $('#add').hide();
+        });
 
 
 
 
-            $(document).ready(function() {
-  $('#submit').prop('disabled', true); // submit 버튼을 비활성화 상태로 설정
-  $('#submit, .quesBtn').prop('disabled', true);
-          $('#submit, .quesBtn').css('background-color', '#d2d2d2');
-          $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
 
+        $(document).ready(function() {
+            $('#submit').prop('disabled', true); // submit 버튼을 비활성화 상태로 설정
+            $('#submit, .quesBtn').prop('disabled', true);
+            $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+            $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
 
-    $('.contents').on('input', 'textarea', function() {
-    // contents 클래스에 속한 모든 textarea 요소를 선택합니다.
-    var textareas = $('.contents textarea');
-    // 하나라도 입력값이 없으면 submit 버튼을 비활성화합니다.
-    var disable = false;
-    textareas.each(function() {
-      if ($(this).val().trim() === '') {
-        disable = true;
-        return false; // 하나라도 비어있으면 반복문을 멈춥니다.
-        $('#submit').css('background-color', '#d2d2d2');
-        $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
-      }
-    });
-    $('#submit').prop('disabled', disable);
-    $('#submit').css('background-color', '#2C7BE5');
-    $('#submit').css('color', 'white');
-  });
+            $('.contents').on('input', 'textarea', function() {
+                // contents 클래스에 속한 모든 textarea 요소를 선택합니다.
+                var textareas = $('.contents textarea');
+                // 하나라도 입력값이 없으면 submit 버튼을 비활성화합니다.
+                var disable = false;
+                textareas.each(function() {
+                    if ($(this).val().trim() === '') {
+                        disable = true;
+                        return false; // 하나라도 비어있으면 반복문을 멈춥니다.
+                        $('#submit').css('background-color', '#d2d2d2');
+                        $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+                    }
+            });
+            $('#submit').prop('disabled', disable);
+            $('#submit').css('background-color', '#2C7BE5');
+            $('#submit').css('color', 'white');
+          });
 
-  $('input[type="checkbox"], input[type="radio"]').on('change', function() { // checkbox나 radio button의 값이 변경될 때마다 검사
-    if ($('input[type="checkbox"]:checked').length >= 2 && $('input[type="radio"]:checked').length > 0) {
-      checkConditions();
-    } else {
-      $('#submit').prop('disabled', true);
-    }
-  });
+          $('input[type="checkbox"], input[type="radio"]').on('change', function() { // checkbox나 radio button의 값이 변경될 때마다 검사
+            if ($('input[type="checkbox"]:checked').length >= 2 && $('input[type="radio"]:checked').length > 0) {
+              checkConditions();
+            } else {
+              $('#submit').prop('disabled', true);
+            }
+          });
 
-     $('.question').on('input', function() {
+          $('.question').on('input', function() {
             if ($(this).val().trim() === '') { // 질문 텍스트 박스의 값이 비어있는 경우
-              $('#submit, .quesBtn').prop('disabled', true);
-              $('#submit, .quesBtn').css('background-color', '#d2d2d2');
-              $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
-              $('.btn-group').find('.quesBtn').removeClass('active'); // 버튼의 active 상태 제거
-              $('.quesBtn').css('background-color', 'd2d2d2'); // 모든 버튼을 화이트로 바꿈
+                $('#submit, .quesBtn').prop('disabled', true);
+                $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+                $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+                $('.btn-group').find('.quesBtn').removeClass('active'); // 버튼의 active 상태 제거
+                $('.quesBtn').css('background-color', 'd2d2d2'); // 모든 버튼을 화이트로 바꿈
             } else { // 질문 텍스트 박스에 값이 있는 경우
-            $( '.quesBtn').prop('disabled', false);
-            $('.quesBtn').css('background-color', 'white');
-            $('.quesBtn').css('color', '#007bff');
+                $( '.quesBtn').prop('disabled', false);
+                $('.quesBtn').css('background-color', 'white');
+                $('.quesBtn').css('color', '#007bff');
 
               // quesBtn이 클릭되었는지 확인하고 #submit 버튼 활성화/비활성화
               if ($('.btn-group').find('.quesBtn').hasClass('active')) {
@@ -724,95 +703,132 @@ $('.contents').on('keyup', 'textarea', function() {
               }
             }
           });
-$('#submit').prop('disabled', true);
 
-$(document).on('input', '.question textarea', function() {
-  if ($(this).val().trim() === '') {
-    $('#submit').prop('disabled', true);
-  } else {
-    var quesCount = $('.ques').length;
-    if (quesCount >= 2) {
-      $('#submit').prop('disabled', false);
-    }
-  }
-});
+       $('#submit').prop('disabled', true);
 
-$('#floatingTextarea2').on('input', function() {
-  if($('.ques').length < 2 || $('.floatingTextarea2').filter(function() {
-      return $(this).val() == '';
-    }).length > 0) {
-    $('#submit').attr('disabled', true);
-  } else {
-    $('#submit').attr('disabled', false);
-  }
-});
- $('.contents').on('input', 'textarea', function() {
-    checkSubmitButton();
-  });
+       $(document).on('input', '.question textarea', function() {
+        if ($(this).val().trim() === '') {
+         $('#submit').prop('disabled', true);
+        } else {
+            var quesCount = $('.ques').length;
+            if (quesCount >= 2) {
+              $('#submit').prop('disabled', false);
+            }
+          }
+        });
 
-           // submit 버튼을 클릭했을 때의 이벤트를 등록합니다.
-$('#submit').click(function(e) {
-  var radioChecked = true;
-  var multiChecked = true;
-
-  // Check if checkbox element exists before performing validation
-  if ($(".ques input[type='checkbox']").length) {
-    multiChecked = $(".ques input[type='checkbox']").is(":checked");
-    if (!multiChecked) {
-      alert("정답인 옵션에 체크박스를 클릭해주세요.");
-      return;
-    }
-  }
-
-  // Check if radio button element exists before performing validation
-  if ($(".ques input[type='radio']").length) {
-    radioChecked = $(".ques input[type='radio']").is(":checked");
-    if (!radioChecked) {
-      alert("정답인 옵션에 라디오 버튼을 클릭해주세요.");
-      return;
-    }
-  }
+        function checkSubmitButton() {
+          if($('.ques').length < 2 || $('.floatingTextarea2').filter(function() {
+                return $(this).val() == '';
+            }).length > 0) {
+            $('#submit').attr('disabled', true);
+          } else {
+            $('#submit').attr('disabled', false);
+          }
+        }
+        function updateListNumbers() {
+            var i = 1;
+            $('.ques-number').each(function() {
+              $(this).text(i + ".");
+              i++;
+            });
+        }
 
 
-    e.preventDefault(); // 폼 전송을 막습니다.
-    // 알러트 창을 띄우고 페이지를 리셋합니다.
-    alert('저장되었습니다');
-     $('.contents').empty();
-    $('#floatingTextarea2').val('');
-    $('.quesBtn').show();
-    $('#submit').css('color', '#2C7BE5');
-    $('#submit').prop('disabled', true);
-    $('#submit').css('background-color', '#d2d2d2');
-    $('.quesBtn').css('color', '#2C7BE5');
-    $('#add').hide();
-    $('.contents').hide();
-    isFirstClick = true;
-    $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+        // submit 버튼을 클릭했을때 조건검사 및 리스트로 이동.
+        $('#submit').click(function(e) {
+            var radioChecked = true;
+            var multiChecked = true;
 
-     if ($('.ques').length > 1) {
-    $('#submit').prop('disabled', false);
-    $('#submit').css('background-color', '#2C7BE5');
-  }
-  });
-});
+            // Check if checkbox element exists before performing validation
+            if ($(".ques input[type='checkbox']").length) {
+                multiChecked = $(".ques input[type='checkbox']").is(":checked");
+                if (!multiChecked) {
+                    $('.warning').text("정답인 옵션에 체크박스를 클릭해주세요.").show();
+                    setTimeout(function() {
+                        $('.warning').hide();
+                    }, 3000);
+                    return;
+                } else {
+                    $('.warning').hide();
+                }
+            }
+
+            // Check if radio button element exists before performing validation
+            if ($(".ques input[type='radio']").length) {
+                radioChecked = $(".ques input[type='radio']").is(":checked");
+                if (!radioChecked) {
+                    $('.warning').text("정답인 옵션에 라디오 버튼을 클릭해주세요.").show();
+                    setTimeout(function() {
+                        $('.warning').hide();
+                    }, 3000);
+                    return;
+                } else {
+                    $('.warning').hide();
+                }
+            }
+
+
+            e.preventDefault(); // 폼 전송을 막음
+
+            // 버튼 클릭시 하단 list 로 질문 입력된 값 출력.
+            var question = $("#floatingTextarea2").val();
+            var isFirstClick = true;
+
+            $('.table-bordered').append($('<tr>').append($('<td>').html('<span class="list-number"></span>')).append($('<td>').html('<a href="#">' + question + '</a>')).append($('<td>').html('<button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit" style="margin-bottom:2.5px;"></span></button><button class="listdlt" type="button"title="Delete"><span class="text-500 fas fa-trash"></span></button>')));
+            updateListNumbers();
+
+            function updateListNumbers() {
+                var i = 1;
+                $('.list-number').each(function() {
+                    $(this).text(i + ".");
+                    i++;
+                });
+            }
+
+            $(document).on('click', '.listdlt', function() {
+                $(this).closest('tr').remove();
+                updateListNumbers();
+            });
+
+            // 페이지를 리셋
+            $('#floatingTextarea2').val('');
+            $('.contents').empty();
+            $('#floatingTextarea2').val('');
+            $('.quesBtn').show();
+            $('#submit').css('color', '#2C7BE5');
+            $('#submit').prop('disabled', true);
+            $('#submit').css('background-color', '#d2d2d2');
+            $('.quesBtn').css('color', '#2C7BE5');
+            $('#add').hide();
+            $('.contents').hide();
+            isFirstClick = true;
+            $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+
+            if ($('.ques').length > 1) {
+                $('#submit').prop('disabled', false);
+                $('#submit').css('background-color', '#2C7BE5');
+            }
+            });
+            checkSubmitButton();
+            });
 
 
 
 
-                    </script>
+            </script>
 
 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function() {
                 // 텍스트박스 입력한 길이에 따라 자동으로 높이값 조절되게.
-                            $(document).ready(function() {
-                                $('#floatingTextarea2').on('keyup keypress', function() {
-                                    $(this).height(0);
-                                    $(this).height(this.scrollHeight);
-                                });
-                            });
-
-                </script>
+                    $('#floatingTextarea2').on('keyup keypress', function() {
+                        $(this).height(0);
+                        $(this).height(this.scrollHeight);
+                    });
+                });
+            </script>
 
 
                 <div class="modal fade" id="schedule-discount-modal" tabindex="-1" role="dialog" aria-labelledby="schedule-discount-modal-label" aria-hidden="true">
