@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" dir="ltr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
   <head>
     <meta charset="utf-8">
@@ -2026,7 +2029,7 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">새로운 퀴즈를 생성합니다. 그리고 다른 세부 설명 추가</p>
+                  <p class="mb-0">새로운 퀴즈를 생성합니다. 퀴즈 설정란을 먼저 입력하고, 문제를 생성해주세요.<br>필수 항목과 문제가 입력되지 않은 경우, 게시할 수 없습니다.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -2043,7 +2046,8 @@
                         <div class="card-body bg-light">
                           <form class="row gx-2">
                             <div class="col-12 mb-3">
-                              <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span></label>
+                              <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
+                              </label>
                               <input class="form-control" id="quiz-title" type="text" name="title" required />
                             </div>
                             <div class="col-sm-6 mb-3">
@@ -2103,16 +2107,28 @@
                           </form>
                           <form class="row gx-2">
                             <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="general-subject">과목<span class="text-danger">*</span></label>
-                                <select class="form-select" id="general-subject" required="required">
+                                <label class="form-label" for="general-subject">과목/학부<span class="text-danger">*</span></label>
+                                <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'required="required">
                                     <option disabled selected value="">과목 선택</option>
+                                    <option th:each="l : ${subjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
                                 </select>
+                            </select>
                             </div>
                             <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="detail-subject">세부 과목<span class="text-danger">*</span></label>
-                                <select class="form-select" id="detail-subject" required="required">
+                                <label class="form-label" for="detail-subject">세부 과목/전공<span class="text-danger">*</span></label>
+                                <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'required="required">
                                     <option disabled selected value="">세부 과목 선택</option>
+                                    <option th:each="l : ${subjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>
                                 </select>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label" for="course-tags" >태그<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
+                                </label>
+                                <input class="form-control js-choice" id="course-tags" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label" for="expected-time">예상 풀이시간</label>
+                                <div class="input-group"><input class="form-control" id="expected-time" type="number" min="0" aria-describedby="minutes"/><span class="input-group-text" id="minutes">분</span></div>
                             </div>
                           </form>
                         </div>
@@ -2152,77 +2168,6 @@
                           </form>
                         </div>
                       </div>
-                      <div class="card mb-3">
-                          <div class="card-header">
-                              <h5 class="mb-0">시험모드 설정</h5>
-                          </div>
-                        <div class="card-body bg-light">
-                          <form>
-                              <div class="row gx-2">
-                                  <div class="col-sm-6 mb-3">
-                                      <label class="form-label" for="exam-mode">시험용으로 사용<br>(지정된 시간에만 퀴즈를 응시할 수 있습니다.)</label>
-                                  </div>
-                                  <div class="col-sm-6 mb-3">
-                                      <div class="form-check form-switch mb-0">
-                                          <input class="form-check-input" id="exam-mode" type="checkbox"/>
-                                      </div>
-                                  </div>
-                              </div>
-                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-start">
-                                <label class="form-label" for="quiz-start">시작 시간<span class="text-danger">*</span></label>
-                                <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-start" required/>
-                            </div>
-                            <div class="col-sm-12 mb-3" style="display:none" id="div-exam-end">
-                                <label class="form-label" for="quiz-end">마감 시간<span class="text-danger">*</span></label>
-                                <input class="form-control" type="datetime-local" autocomplete="on" id="quiz-end" required/>
-                            </div>
-                          </form>
-
-                        </div>
-                      </div>
-                      <script>
-                          function examMode(input) {
-                              if(input.value.search(/\s/) !=-1) {
-                                  input.value = input.value.substring(0, input.value.length -1);
-                              }
-                          }
-
-                          var examMode = document.querySelector("#exam-mode");
-                          var divExamStart = document.querySelector("#div-exam-start");
-                          var divExamEnd = document.querySelector("#div-exam-end");
-
-                          examMode.addEventListener('change', function() {
-                              if (this.checked) {
-                                  divExamStart.style.display = "block";
-                                  divExamEnd.style.display = "block";
-                              }
-                              else {
-                                  divExamStart.style.display = "none";
-                                  divExamEnd.style.display = "none";
-                              }
-                          });
-                      </script>
-                      <script>
-                         const startDatetime = document.querySelector("#quiz-start");
-                         const endDatetime = document.querySelector("#quiz-end");
-
-                         startDatetime.min = new Date().toISOString().substring(0,16);
-                         endDatetime.min = new Date().toISOString().substring(0,16);
-
-                         endDatetime.addEventListener("change", () => {
-                             if (new Date(endDatetime.value) < new Date(startDatetime.value)) {
-                               endDatetime.value = "";
-                               alert("마감일이 시작일보다 이를 수 없습니다.");
-                             }
-                         });
-
-                         startDatetime.addEventListener("change", () => {
-                             if (new Date(endDatetime.value) < new Date(startDatetime.value)) {
-                               startDatetime.value = "";
-                               alert("시작일이 마감일보다 늦을 수 없습니다.");
-                             }
-                         });
-                      </script>
                   </div>
                   <!--퀴즈설정 끝-->
 
@@ -2261,7 +2206,9 @@
               <div for="post-quiz" style="float:right">
                   <button class="btn btn-primary me-1 mb-1" id="post-quiz" type="button" disabled>게시</button>
               </div>
-              <script>
+            </div>
+          </div>
+            <script>
                   const postBtn = document.getElementById("post-quiz");
                   const quizTitle = document.getElementById("quiz-title");
                   const eduCate = document.getElementById("edu-category");
@@ -2287,12 +2234,9 @@
                       } else {
                         postBtn.disabled = true;
                       }
+                    }
                   };
-
-
               </script>
-            </div>
-          </div>
 
 
           <div class="card rounded-0 bottom-bar d-lg-none" data-bottom-bar='{"target":"course-publish-btn","breakPoint":"lg"}'>
