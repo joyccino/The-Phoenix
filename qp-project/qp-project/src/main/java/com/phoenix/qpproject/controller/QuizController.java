@@ -25,6 +25,11 @@ public class QuizController {
         return "/pages/quiz/quiz_form";
     }
 
+    @RequestMapping(value = "createQuiz1", method = RequestMethod.GET)
+    public String test1() {
+        return "/pages/quiz/quizFrom";
+    }
+
     @RequestMapping(value = "settingQuiz", method = RequestMethod.GET)
     public String quizsetting() {
         return "/pages/quiz/quiz_setting";
