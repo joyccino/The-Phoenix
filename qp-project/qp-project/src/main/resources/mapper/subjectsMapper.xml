@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phoenix.qpproject.mapper.SubjectsMapper">
+    <select id="getSubjectList" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+        SELECT
+        s.id                    AS subjectId
+        ,s.institutionLevel		AS subjectInstitutionLevel
+        ,s.year                 AS subjectYear
+        ,s.generalSubject		AS subjectGeneralSubject
+        ,s.detailSubject		AS subjectDetailSubject
+        ,s.subjectCode	        AS subjectSubjectCode
+        FROM
+        subjects AS s;
+    </select>
+</mapper>
