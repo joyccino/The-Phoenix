@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,8 @@ public class MemberService implements UserDetailsService {
 
     @Autowired
     private MemberMapper memberMapper;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     SqlSession sqlSession;
 
@@ -36,7 +39,13 @@ public class MemberService implements UserDetailsService {
     }
 
     public MembersDTO login(String memberId, String memberPw) {
-        return memberMapper.login(memberId, memberPw);
+        MembersDTO mDTO = memberMapper.getUserAccount(memberId);
+        if (mDTO != null && passwordEncoder.matches(memberPw, mDTO.getMemberPw())) {
+            return mDTO;
+        }
+        else {
+            return mDTO;
+        }
     }
 //    public MembersDTO getUserById(String memberId) {
 //        return memberMapper.getUserById(memberId);

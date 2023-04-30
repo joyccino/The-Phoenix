@@ -50,7 +50,7 @@ public class AuthController {
         member.setMemberPw(encPassword);
         member.setMemberMemberTypeId(1);
         memberService.addMember(member);
-        return "redirect:/";
+        return "redirect:/auth/login";
     }
 
     @PostMapping("/memberLogin")
@@ -59,6 +59,10 @@ public class AuthController {
 
         HttpSession session = request.getSession();
 
+        String rawPassword = member.getMemberPw();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        member.setMemberPw(encPassword);
+
         MembersDTO membersInfo = memberService.login(member.getMemberId(), member.getMemberPw());
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
@@ -66,7 +70,6 @@ public class AuthController {
         if (membersInfo != null) {
             log.info("멤버 not null");
             System.out.println("membersInfo: " + membersInfo.getMemberFirstname());
-            // pw 비교
 
             // admin 여부 확인
 
