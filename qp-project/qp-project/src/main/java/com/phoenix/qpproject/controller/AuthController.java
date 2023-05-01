@@ -53,6 +53,15 @@ public class AuthController {
         return "redirect:/auth/login";
     }
 
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public int idCheck(String memberId) {
+        System.out.println("넘겨받은 아이디: "+memberId);
+        int isIdDupl = memberService.checkMemberById(memberId);
+        System.out.println("idCheck 실행중"+isIdDupl);
+        return isIdDupl;
+    }
+
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
