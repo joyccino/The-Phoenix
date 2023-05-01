@@ -460,9 +460,30 @@ input[type=number] {
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
+    // 아이디 중복검사도 추가해 주세요.
+
      // 아이디 유효성 검사 코드
    !isNaN(input.value) ? inputs.id = false : inputs.id = true;
    enableSignupButton();
+
+   // 아이디, 전화번호, 이메일주소에 class add/remove
+    let userId = document.getElementById('card-userId');
+    if(inputs.id) {
+      if(userId.classList.contains("is-invalid")) {
+        userId.classList.remove("is-invalid");
+      }
+      if(!userId.classList.contains("is-valid")) {
+        userId.classList.add("is-valid");
+      }
+    }
+    else {
+      if(userId.classList.contains("is-valid")) {
+        userId.classList.remove("is-valid");
+      }
+      if(!userId.classList.contains("is-invalid")) {
+        userId.classList.add("is-invalid");
+      }
+    }
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -674,11 +695,49 @@ function passCheck() {
     // 전화번호 유효성 검사
     truth ? inputs.phone = true : inputs.phone = false;
     enableSignupButton();
+
+    // 아이디, 전화번호, 이메일주소에 class add/remove
+    let contactNo = document.getElementById('card-contact-number');
+    if(inputs.phone) {
+      if(contactNo.classList.contains("is-invalid")) {
+        contactNo.classList.remove("is-invalid");
+      }
+      if(!contactNo.classList.contains("is-valid")) {
+        contactNo.classList.add("is-valid");
+      }
+    }
+    else {
+      if(contactNo.classList.contains("is-valid")) {
+        contactNo.classList.remove("is-valid");
+      }
+      if(!contactNo.classList.contains("is-invalid")) {
+        contactNo.classList.add("is-invalid");
+      }
+    }
   }
   function validateEmail(truth){
     // 이메일 유효성 검사
     truth ? inputs.email = true : inputs.firstName = false;
     enableSignupButton();
+
+    // 아이디, 전화번호, 이메일주소에 class add/remove
+    let emailAddr = document.getElementById('card-email');
+    if(inputs.email) {
+      if(emailAddr.classList.contains("is-invalid")) {
+        emailAddr.classList.remove("is-invalid");
+      }
+      if(!emailAddr.classList.contains("is-valid")) {
+        emailAddr.classList.add("is-valid");
+      }
+    }
+    else {
+      if(emailAddr.classList.contains("is-valid")) {
+        emailAddr.classList.remove("is-valid");
+      }
+      if(!emailAddr.classList.contains("is-invalid")) {
+        emailAddr.classList.add("is-invalid");
+      }
+    }
   }
 
   // 이용약관 유효성 검사
