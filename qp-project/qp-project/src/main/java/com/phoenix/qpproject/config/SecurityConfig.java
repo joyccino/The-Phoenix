@@ -41,7 +41,9 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 //                                .requestMatchers("/quiz/quizList").hasRole("USER")
 //                                .requestMatchers("/quiz/quizList").hasRole("ADMIN")
-                );
+
+                ).formLogin().loginPage("/auth/login").permitAll(); // 기본 로그인 페이지
+//
         return http.build();
 
     }
