@@ -19,7 +19,7 @@ public interface MemberMapper {
 
     public int checkMemberById(String findById);
 
-    //public int checkMemberByEmail(String findById);
+    public int checkMemberByEmail(String findByEmail);
 
-
+    public  void passReset(String resetPass, String memberEmail);
 }

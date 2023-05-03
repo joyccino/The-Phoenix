@@ -68,6 +68,11 @@ public class MemberService implements UserDetailsService {
         return memberMapper.checkMemberById(memberId);
     }
 
+    public Integer checkMemberByEmail(String memberEmail) {
+        return memberMapper.checkMemberByEmail(memberEmail);
+    }
+
+    public void resetPass(String newPassword, String memberEmail) { memberMapper.passReset(newPassword, memberEmail); }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //여기서 받은 유저 패스워드와 비교하여 로그인 인증
