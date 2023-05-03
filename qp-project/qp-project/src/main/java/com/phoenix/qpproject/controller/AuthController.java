@@ -62,6 +62,13 @@ public class AuthController {
         return isIdDupl;
     }
 
+    @PostMapping("/emailCheck")
+    @ResponseBody
+    public int emailCheck(@RequestParam("email") String email) {
+        int memberCnt = memberService.checkMemberByEmail(email);
+        return memberCnt;
+    }
+
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
@@ -105,14 +112,15 @@ public class AuthController {
     public AuthController(EmailService emailService) {
         this.emailService = emailService;
     }
-    //@PostMapping("/passReset")
-    @GetMapping("/passReset")
+    @PostMapping("/passReset")
+//    @GetMapping("/passReset")
     public String sendPasswordResetEmail(MailDTO mailDTO) {
         char[] possibleCharacters = (new String("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")).toCharArray();
         //String newPass = RandomStringUtils.random( randomStrLength, 0, possibleCharacters.length-1, false, false, possibleCharacters, new SecureRandom() );
         String newPass = RandomStringUtils.random( 20, possibleCharacters );
         //String newPass ="q9r890qadfaiklsjdfilashj";
-        mailDTO.setAddress("sbins402@naver.com");
+        String encodeNewPass = bCryptPasswordEncoder.encode(newPass);
+//        mailDTO.setAddress("sbins402@naver.com");
         mailDTO.setTitle("[큐피] 비밀번호 재설정");
         mailDTO.setContent("재생성된 비밀번호는 "+newPass+" 입니다.");
         emailService.sendPassResetEmail(mailDTO);
@@ -120,8 +128,9 @@ public class AuthController {
         //newPass 암호화 과정 추가 예정
         //DB member table 의 password 컬럼 newPass 로 update 추가 예정
         System.out.println("DB 업데이트 완료");
+        memberService.resetPass(encodeNewPass, mailDTO.getAddress());
         // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
-        return "redirect:/auth/forgotPassword";
+        return "redirect:/auth/login";
 
     }
 }

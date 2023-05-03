@@ -125,4 +125,7 @@
         );
     </insert>
 
+    <update id="passReset" parameterType="java.lang.String">
+        UPDATE members SET Password = #{resetPass} WHERE Email = #{memberEmail};
+    </update>
 </mapper>
