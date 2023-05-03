@@ -176,7 +176,8 @@ input[type=number] {
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="card-userId">아이디</label>
-                        <input class="form-control" type="text" autocomplete="off" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" placeholder="중복체크 기능 추가" required readonly onfocus="this.removeAttribute('readonly');"/>
+                        <input class="form-control" type="text" autocomplete="off" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" required readonly onfocus="this.removeAttribute('readonly');"/>
+                        <label class='form-label' id = "userIdCheckMsg"></label>
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
@@ -205,8 +206,6 @@ input[type=number] {
                           <label class="form-label" for="card-birthdate">생년월일</label>
                           <input class="form-control" type="date" autocomplete="on" id="card-birthdate" name ="memberBDate" required oninput="birthdateCheck()"/>
                           <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">생년월일을 확인해주세요.</label>
-
-
                         </div>
 
                         <div class="mb-3">
@@ -431,9 +430,9 @@ input[type=number] {
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
 <script src="../../../vendors/list.js/list.min.js"></script>
 <script src="../../../assets/js/theme.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-
   // 모든 입력 필드의 상태
   let inputs = {
     surName: false, // done
@@ -457,12 +456,63 @@ input[type=number] {
  }
 
  function idCheck(input) {
+   var idCheckMsg = document.getElementById("userIdCheckMsg");
+
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
      // 아이디 유효성 검사 코드
    !isNaN(input.value) ? inputs.id = false : inputs.id = true;
    enableSignupButton();
+
+   // 아이디, 전화번호, 이메일주소에 class add/remove
+    let userId = document.getElementById('card-userId');
+    if(inputs.id) {
+      if(userId.classList.contains("is-invalid")) {
+        userId.classList.remove("is-invalid");
+      }
+      if(!userId.classList.contains("is-valid")) {
+        userId.classList.add("is-valid");
+      }
+      let userCount;
+      // 여기 중복체크 기능을 추가합니다.
+      $.ajax({
+                type : "POST", // http 방식
+                url : "/auth/idCheck", // ajax 통신 url
+                data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                    "memberId" : input.value,
+                },
+                success : function(data) {
+                    console.log("data: ");
+                    console.log(data);
+                    if (data > 0 ) { // 0 이상 이면 중복
+                        console.log("이미 존재하는 아이디");
+                        inputs.id = false;
+                        enableSignupButton();
+
+                        idCheckMsg.display = "inline-block";
+                        idCheckMsg.innerHTML = "아이디가 중복됩니다.";
+                        idCheckMsg.style.color = "red";
+
+                        if(!userId.classList.contains("is-invalid")) {
+                        userId.classList.add("is-invalid");
+                         }
+                    } else { // 아니면 중복아님
+                        console.log("사용 가능한 아이디입니다");
+
+                    }
+                }
+            })
+
+    }
+    else {
+      if(userId.classList.contains("is-valid")) {
+        userId.classList.remove("is-valid");
+      }
+      if(!userId.classList.contains("is-invalid")) {
+        userId.classList.add("is-invalid");
+      }
+    }
  }
 
   let bdate = document.querySelector("#card-birthdate");
@@ -674,11 +724,49 @@ function passCheck() {
     // 전화번호 유효성 검사
     truth ? inputs.phone = true : inputs.phone = false;
     enableSignupButton();
+
+    // 아이디, 전화번호, 이메일주소에 class add/remove
+    let contactNo = document.getElementById('card-contact-number');
+    if(inputs.phone) {
+      if(contactNo.classList.contains("is-invalid")) {
+        contactNo.classList.remove("is-invalid");
+      }
+      if(!contactNo.classList.contains("is-valid")) {
+        contactNo.classList.add("is-valid");
+      }
+    }
+    else {
+      if(contactNo.classList.contains("is-valid")) {
+        contactNo.classList.remove("is-valid");
+      }
+      if(!contactNo.classList.contains("is-invalid")) {
+        contactNo.classList.add("is-invalid");
+      }
+    }
   }
   function validateEmail(truth){
     // 이메일 유효성 검사
     truth ? inputs.email = true : inputs.firstName = false;
     enableSignupButton();
+
+    // 아이디, 전화번호, 이메일주소에 class add/remove
+    let emailAddr = document.getElementById('card-email');
+    if(inputs.email) {
+      if(emailAddr.classList.contains("is-invalid")) {
+        emailAddr.classList.remove("is-invalid");
+      }
+      if(!emailAddr.classList.contains("is-valid")) {
+        emailAddr.classList.add("is-valid");
+      }
+    }
+    else {
+      if(emailAddr.classList.contains("is-valid")) {
+        emailAddr.classList.remove("is-valid");
+      }
+      if(!emailAddr.classList.contains("is-invalid")) {
+        emailAddr.classList.add("is-invalid");
+      }
+    }
   }
 
   // 이용약관 유효성 검사
