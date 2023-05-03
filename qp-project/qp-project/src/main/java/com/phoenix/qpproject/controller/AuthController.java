@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.lang.reflect.Member;
 
 @Controller
 @RequestMapping("/auth")
@@ -28,19 +32,47 @@ public class AuthController {
     public MemberService memberService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "/pages/authentication/card/login";
+    public String login( HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        else {
+            return "redirect:/quiz/quizList";
+        }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerDefault() {
+    public String register( HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
 
-        return "/pages/authentication/card/register";
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in. get register page %%");
+            return "/pages/authentication/card/register";
+        }
+        else {
+            return "redirect:/quiz/quizList";
+        }
     }
 
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-    public String forgotPassword() {
-        return "/pages/authentication/card/forgot-password";
+    public String forgotPassword( HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in. get password page %%");
+            return "/pages/authentication/card/forgot-password";
+        }
+        else {
+            return "redirect:/quiz/quizList";
+        }
     }
 
     @PostMapping("/addMember")
@@ -61,6 +93,21 @@ public class AuthController {
         System.out.println("idCheck 실행중"+isIdDupl);
         return isIdDupl;
     }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout( HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+
+        if(!ObjectUtils.isEmpty(qpUser)) {
+            // 세션값 삭제
+            session.removeAttribute("user_id");
+            // 세션 전체 제거, 무효화
+            session.invalidate();
+            return "/pages/authentication/card/login";
+        }
+        return "redirect:/auth/login";
+    }
 
     @PostMapping("/emailCheck")
     @ResponseBody
@@ -72,8 +119,6 @@ public class AuthController {
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
         log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
-
-        HttpSession session = request.getSession();
 
         String rawPassword = member.getMemberPw();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
@@ -90,7 +135,14 @@ public class AuthController {
             // admin 여부 확인
 
             // recent visit 기록
+            //session.setAttribute("qpUser", membersInfo);
+            membersInfo.setMemberPw("masked");
+
+            HttpSession session = request.getSession();
+
             session.setAttribute("qpUser", membersInfo);
+
+            session.setMaxInactiveInterval(-1);
 
             int mId = membersInfo.getId();
 
@@ -106,6 +158,29 @@ public class AuthController {
             return "redirect:/auth/login?error=true";
         }
 
+    }
+
+    @RequestMapping(value = "/memberList", method = RequestMethod.GET)
+    public String adminDashboard(HttpServletRequest request, RedirectAttributes rttr) {
+        // 세션에 멤버 존재 여부
+        HttpSession session = request.getSession();
+
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+
+        System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
+
+        // 어드민인지 여부.
+
+        //System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
+
+
+        if(qpUser.getMemberMemberTypeId() == 0) {
+            return "/members";
+        }
+        else {
+            // alert 하나 띄워줌.
+            return "/pages/errors/500.html";
+        }
     }
 
     private final EmailService emailService;
