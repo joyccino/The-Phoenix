@@ -155,14 +155,14 @@ input[type=number] {
                   </div>
                 </div>
                 <div class="mt-3 mb-4 mt-md-4 mb-md-5" data-bs-theme="light">
-                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/authentication/login">큐피 로그인</a></p>
+                  <p class="pt-3 text-white">이미 큐피의 회원이라면?<br><a class="btn btn-outline-light mt-2 px-4" href="/auth/login">큐피 로그인</a></p>
                 </div>
               </div>
               <div class="col-md-7 d-flex flex-center">
                 <div class="p-4 p-md-5 flex-grow-1">
                   <h3>회원가입</h3>
                   <th:block layout:fragment="customContents">
-                    <form autocomplete="off" th:action="@{/authentication/addMember}" method="post">
+                    <form autocomplete="off" th:action="@{/auth/addMember}" method="post">
                       <div class="row gx-2">
 
                         <div class="mb-3 col-sm-6">
