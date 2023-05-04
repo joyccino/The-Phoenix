@@ -1,7 +1,9 @@
 package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.QuizzesDTO;
+import com.phoenix.qpproject.dto.SubjectsDTO;
 import com.phoenix.qpproject.service.QuizService;
+import com.phoenix.qpproject.service.SubjectsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class QuizController {
 
     @Autowired
     public QuizService quizService;
+    @Autowired
+    public SubjectsService subjectsService;
 
     @RequestMapping(value = "createQuiz", method = RequestMethod.GET)
     public String test() {
@@ -31,7 +35,10 @@ public class QuizController {
     }
 
     @RequestMapping(value = "settingQuiz", method = RequestMethod.GET)
-    public String quizsetting() {
+    public String quizsetting(Model model) {
+        List<SubjectsDTO> subjectList = subjectsService.getSubjectList();
+        System.out.println("조회된 과목들 수: "+subjectList.size());
+        model.addAttribute("subjectList", subjectList);
         return "/pages/quiz/quiz_setting";
     }
 
