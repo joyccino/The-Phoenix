@@ -151,7 +151,13 @@ public class AuthController {
 
             System.out.println(mId+" 로그인 history insterted");
 
-            return "redirect:/quiz/quizList";
+            if(membersInfo.getMemberMemberTypeId() == 0) {
+                return "redirect:/auth/analytics";
+            }
+            else {
+                return "redirect:/quiz/quizList";
+            }
+
         }
         else {
             String msg = "아이디 또는 비밀번호를 확인해주세요.";
@@ -183,7 +189,29 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/pages/errors/500.html";
+            return "/quiz/quizList";
+        }
+    }
+
+    @RequestMapping(value = "/analytics", method = RequestMethod.GET)
+    public String adminAnalytics(HttpServletRequest request, RedirectAttributes rttr,  Model model) {
+        // 세션에 멤버 존재 여부
+        HttpSession session = request.getSession();
+
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+
+        System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
+
+
+        if(qpUser.getMemberMemberTypeId() == 0) {
+            // 전체 멤버 호출 및 전달.
+            List<MembersDTO> memberList = memberService.getMemberList();
+            model.addAttribute("memberList",memberList);
+            return "/dashboard/analytics";
+        }
+        else {
+            // alert 하나 띄워줌.
+            return "/quiz/quizList";
         }
     }
 

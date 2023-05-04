@@ -39,6 +39,7 @@
       <link href="../../assets/css/theme.css" rel="stylesheet" id="style-default">
       <link href="../../assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
       <link href="../../assets/css/user.css" rel="stylesheet" id="user-style-default">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       <script>
           var isRTL = JSON.parse(localStorage.getItem('isRTL'));
           if (isRTL) {
@@ -1909,21 +1910,16 @@
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0"><b>회원 목록 조회</b></h5>
                 </div>
                 <div class="col-8 col-sm-auto text-end ps-2">
-                  <div class="d-none" id="table-customers-actions">
-                    <div class="d-flex">
-                      <select class="form-select form-select-sm" aria-label="Bulk actions">
-                        <option selected="">Bulk actions</option>
-                        <option value="Refund">Refund</option>
-                        <option value="Delete">Delete</option>
-                        <option value="Archive">Archive</option>
-                      </select>
-                      <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
-                    </div>
-                  </div>
+
                   <div id="table-customers-replace-element">
-                    <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">추가</span></button>
-                    <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">필터</span></button>
-                    <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">추출</span></button>
+                      <button class="btn btn-falcon-default btn-sm" type="button">
+                          <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="권한 설정">supervisor_account</span>
+                      </button>
+
+                      <button class="btn btn-falcon-default btn-sm" type="button">
+                          <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="멤버 삭제">person_remove</span>
+                      </button>
+
                   </div>
                 </div>
               </div>
@@ -1935,21 +1931,18 @@
                     <tr>
                       <th>
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
+                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" />
                         </div>
                       </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">등급</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">권한 레벨</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">아이디</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">패스워드</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">성</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">이름</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">주소</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입 날짜</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">생년월일</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">최근 접속일</th>
-                        <th class="align-middle no-sort"></th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입 날짜</th>
                     </tr>
                   </thead>
                   <tbody class="list" id="table-customers-body">
@@ -1967,26 +1960,17 @@
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">등급</td>
+                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한 레벨</td>
                         <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
                         <td th:text="${l.memberPw}" class="email align-middle py-2">1234</td>
                       <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
                       <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
 
-                        <td th:text="${l.memberCity}" class="joined align-middle py-2">주소</td>
                         <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
+                        <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
 
-                        <td th:text="${l.memberRegDate}" class="joined align-middle white-space-nowrap py-2">날짜</td>
-                        <td th:text="${l.memberBDate}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
-                        <td th:text="${l.memberVisit}" class="joined align-middle white-space-nowrap py-2">최근 접속</td>
-                      <td class="align-middle white-space-nowrap py-2 text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
-                            <div class="py-2"><a class="dropdown-item" href="#!">수정</a><a class="dropdown-item text-danger" href="#!">삭제</a></div>
-                          </div>
-                        </div>
-                      </td>
+                        <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2">날짜</td>
+
                     </tr>
                     <tr th:unless="${not #lists.isEmpty(memberList)}">
                         <td colspan="7">등록된 회원의 정보가 없습니다.</td>
@@ -2001,6 +1985,7 @@
               <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
             </div>
           </div>
+
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -2063,6 +2048,7 @@
           </div>
         </div>
       </div>
+
     </main>
 
     <!-- ===============================================-->
