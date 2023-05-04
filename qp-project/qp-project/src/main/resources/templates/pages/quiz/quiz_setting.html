@@ -32,7 +32,7 @@
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
-    <!-- ===============================================-->
+    <!-- ===============================================--><link href="../../../../vendors/quiz/quiz_form.css" rel="stylesheet">
     <link href="../../../vendors/choices/choices.min.css" rel="stylesheet">
     <link href="../../../vendors/dropzone/dropzone.min.css" rel="stylesheet">
     <link href="../../../vendors/flatpickr/flatpickr.min.css" rel="stylesheet">
@@ -2041,7 +2041,7 @@
                   <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
                       <div class="card mb-3">
                         <div class="card-header">
-                          <h5 class="mb-0">퀴즈 정보</h5>
+                          <h5 class="mb-0">퀴즈 생성</h5>
                         </div>
                         <div class="card-body bg-light">
                           <form class="row gx-2">
@@ -2175,29 +2175,81 @@
                   <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledy="formTab">
                       <div class="wrapper" >
                           <div class="card mb-3" >
-                              <div class="card-body bg-light">
-                                  <form class="row gx-2">
+                                      <div class="card-header" id="questioninfo" style="padding:16px 20px;">
+                                          <h5 class="mb-0">질문 생성</h5>
+                                      </div>
+                                      <div class="card-body bg-light">
+                                          <form class="row gx-2">
                                       <div class="col-12 mb-3">
-                                          <label class="form-label" for="course-name">질문<span class="text-danger">*</span></label>
-                                          <input class="form-control" id="course-name" type="text" placeholder="퀴즈 질문" required="required" />
+                                          <label class="form-label" for="floatingTextarea2">질문<span class="text-danger">*</span></label>
+                                          <textarea class="question" id="floatingTextarea2" placeholder="질문을 입력해주세요." style="height: 8px; padding: 5px; " ></textarea>
                                       </div>
-                                      <div class="col-sm-6 mb-3">
+                                      <div class="questionbox">
+                                          <div class="col-sm-6 mb-3">
+                                              <label class="form-label" for="check">퀴즈 유형</label>
+                                              <div class="col-sm-6 mb-3" style="width:200%">
 
-                                          <select class="form-select" id="quiz-type" name="select A Quiz Type" style="width:50%">
-                                              <option style="font-family: 'Font Awesome\ 5 Free'" >&#xf058 체크박스</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf140 객관식</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf13a 드롭다운</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf52c 단답형</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf039 장문형</option>
-                                          </select>
+                                                  <button class="quesBtn" type="button" id="check"  ><span class="far fa-check-circle"></span>체크박스</button>
+                                                  <button class="quesBtn" type="button" id="multi"><span class="far fa-dot-circle" ></span>객관식</button>
+                                                  <button class="quesBtn" type="button" id="short"><span class="fas fa-bars" ></span>단답형</button>
+                                              </div>
+                                          </div>
+                                          <div class="contents"></div>
+                                          <div class="warning alert alert-danger" style="display: none;"></div>
+                                          <button class="btn btn-primary me-1 mb-1" type="button" id="add" style="width:80px; margin-top:15px">
+                                              추가
+                                          </button>
+
+                                          <div class="donebtn" style="text-align:right">
+                                              <button class="btn btn-primary me-1 mb-1" type="button"  style="width:80px" id="submit">
+                                                  완료
+                                              </button>
+                                          </div>
 
                                       </div>
-                                      <div class="form-floating" ><textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea></div>
-
                                   </form>
-                                  <input type="button" class="btnRemove" value="삭제" id="removebtn">
-
                               </div>
+
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <div class="quiz_list">
+                      <div class="card mb-3" >
+                          <div class="card-header" style="padding:16px 20px;">
+                              <h5 class="mb-0">질문 목록</h5>
+                          </div>
+                          <div class="card-body bg-light">
+                              <form class="row gx-2">
+
+                                  <div class="table-responsive scrollbar">
+                                      <table class="table table-bordered">
+                                          <thead>
+                                          <tr>
+                                              <th scope="col" style="width:10%">순서</th>
+                                              <th scope="col">내용</th>
+                                              <th class="text-end" scope="col" style="width:100px">편집</th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  <div class="paging">
+                                      <!-- Center-->
+                                      <nav aria-label="Page navigation example">
+                                          <ul class="pagination justify-content-center">
+                                              <li class="page-item"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+                                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                          </ul>
+                                      </nav>
+                                      <!-- End-->
+
+                                  </div>
+                              </form>
                           </div>
                       </div>
                   </div>
@@ -2209,33 +2261,44 @@
             </div>
           </div>
             <script>
-                  const postBtn = document.getElementById("post-quiz");
-                  const quizTitle = document.getElementById("quiz-title");
-                  const eduCate = document.getElementById("edu-category");
-                  const yearCate = document.getElementById("year-category");
+              // 첫 번째 행을 생성하는 함수
+function addFirstRow() {
+  // 첫 번째 행을 생성하고, 내용과 삭제 버튼을 추가
+  const row = $('<tr>');
+  const contentCell = $('<td>');
+  const deleteCell = $('<td>');
+  const deleteButton = $('<button class="delete">삭제</button>');
 
-                  quizTitle.addEventListener("input", validateFields);
-                  eduCate.addEventListener("change", validateFields);
-                  yearCate.addEventListener("change", validateFields);
+  contentCell.attr('contenteditable', true); // 내용 셀을 수정 가능하도록 속성 추가
+  deleteCell.append(deleteButton); // 삭제 버튼을 삭제 셀에 추가
 
-                  function validateFields() {
-                    if (eduCate.value === "university") {
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "") {
-                        postBtn.disabled = false;
-                      } else {
-                        postBtn.disabled = true;
-                      }
-                    } else {
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "" &&
-                          yearCate.value !== "") {
-                        postBtn.disabled = false;
-                      } else {
-                        postBtn.disabled = true;
-                      }
-                    }
-                  };
+  row.append(contentCell);
+  row.append(deleteCell);
+  $('.list table').append(row);
+}
+
+// 새로운 행을 추가하는 함수
+function addRow() {
+  // 행을 생성하고, 내용과 삭제 버튼을 추가
+  const row = $('<tr>');
+  const contentCell = $('<td>');
+  const deleteCell = $('<td>');
+  const deleteButton = $('<button class="delete">삭제</button>');
+  const rowCount = $('.list table tr').length; // 테이블에 있는 행의 개수
+
+  contentCell.attr('contenteditable', true); // 내용 셀을 수정 가능하도록 속성 추가
+  deleteCell.append(deleteButton); // 삭제 버튼을 삭제 셀에 추가
+
+  // 첫 번째 행에는 인풋박스를 추가하지 않음
+  if (rowCount > 1) {
+    const input = $('<input class="input" type="text">');
+    contentCell.append(input); // 첫 번째 셀에 인풋박스 추가
+  }
+
+  row.append(contentCell);
+  row.append(deleteCell);
+  $('.list table').append(row);
+}
               </script>
 
 
@@ -2575,6 +2638,319 @@
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
     <script src="../../../vendors/prism/prism.js"></script>
+    <script src="path/to/autosize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        // quesBtn 버튼 클릭할때 발생하는 append 클릭이벤트 및 quesBtn 비활성화
+         $(document).ready(function() {
+            var isFirstClick = true;
+
+            function updateQuestionNumbers() {
+                var i = 1;
+                $('.ques-number').each(function() {
+                    $(this).text(i + ".");
+                    i++;
+                 });
+            }
+
+            $('.quesBtn').on('click', function() {
+                if (isFirstClick) {
+                    // 첫 번째 클릭일 경우
+                    $('.contents').show();
+                    $('.quesBtn').prop('disabled', true);
+                    var questionType = $(this).attr('id');
+                    var inputType = '';
+                    if (questionType === 'check') {
+                        inputType = 'radio';
+                    } else if (questionType === 'multi') {
+                        inputType = 'checkbox';
+                    } else if (questionType === 'short') {
+                        inputType = 'text';
+                        $('.contents').append(
+                            '<div class="ques"><span class="ques-number"></span><div class="form-floating"style="margin-right:10px;"><textarea class="form-control" id="option" style="height: 8px; color: black; padding: 5px; width:100%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
+                        );
+                    }
+                    if (questionType !== 'short') {
+                        $('.contents').append(
+                            '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" /><div class="form-floating" style="margin-right:10px"><textarea class="form-control" id="option" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:100%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                        );
+                    }
+                    updateQuestionNumbers();
+                    $('#add').show(); // 추가 버튼 보이기
+                    isFirstClick = false;
+                }
+                $('.quesBtn').not(this).hide();
+                isFirstClick = true;
+            });
+
+            function checkSubmitEnabled() {
+                var quesCount = $('.ques').length;
+                var isSubmitEnabled = true;
+
+                $('.ques textarea').each(function() {
+                    if ($(this).val().trim() === '') {
+                        isSubmitEnabled = false;
+                        return false; // exit the loop early if we find an empty textarea
+                    }
+                });
+
+                if (quesCount < 2 || !isSubmitEnabled) {
+                    $('#submit').attr('disabled', true);
+                } else {
+                    $('#submit').attr('disabled', false);
+                }
+            }
+
+            $('.contents').on('click', '.btnRemove', function() {
+                $(this).closest('.ques').remove();
+                checkSubmitEnabled();
+                updateQuestionNumbers();
+                if ($('.contents').is(':empty')) {
+                    $('.quesBtn').show();
+                    $('#submit').css('color', '#2C7BE5');
+                    $('#submit').prop('disabled', true);
+                    $('.quesBtn').prop('disabled', false);
+                    $('#submit').css('background-color', '#d2d2d2');
+                    $('.quesBtn').css('color', '#2C7BE5');
+                    $('#add').hide();
+                    $('.contents').hide();
+                    isFirstClick = true;
+                }
+            });
+
+            $('#add').on('click', function() {
+                var questionType = $('.quesBtn:visible').attr('id');
+                var inputType = '';
+
+                if (questionType === 'check') {
+                    inputType = 'radio';
+                } else if (questionType === 'multi') {
+                    inputType = 'checkbox';
+                } else if (questionType === 'short') {
+                    inputType = 'text';
+                    $('.contents').append(
+                        '<div class="ques"><span class="ques-number"></span><div class="form-floating" style=" margin-right:10px;"><textarea class="form-control"  id="option" style="height: 8px; color: black; padding: 5px; width:100%; display:block"></textarea></div><input type="button" class="btnRemove" value="삭제"></div>'
+                    );
+                }
+
+                if (questionType !== 'short') {
+                    $('.contents').append(
+                        '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important"><input class="form-check-input" type="' + inputType + '" value="" /><div class="form-floating" style="display:block; margin-right:10px;"><textarea class="form-control" id="option"  style="height: 8px; padding: 5px; width:100%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                    );
+                }
+
+                updateQuestionNumbers();
+                checkSubmitEnabled(); // add this line
+            });
+
+            $('.contents').on('keyup', 'textarea', function() {
+                checkSubmitEnabled();
+            });
+
+
+
+            $('.contents').on('change', ':radio', function() {
+                // 체크박스 클릭 시 다른 체크박스들의 체크 상태를 해제
+                $('.contents :radio').not(this).prop('checked', false);
+            });
+
+            $('#add').hide();
+        });
+
+
+
+
+
+        $(document).ready(function() {
+            $('#submit').prop('disabled', true); // submit 버튼을 비활성화 상태로 설정
+            $('#submit, .quesBtn').prop('disabled', true);
+            $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+            $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+
+            $('.contents').on('input', 'textarea', function() {
+                // contents 클래스에 속한 모든 textarea 요소를 선택합니다.
+                var textareas = $('.contents textarea');
+                // 하나라도 입력값이 없으면 submit 버튼을 비활성화합니다.
+                var disable = false;
+                textareas.each(function() {
+                    if ($(this).val().trim() === '') {
+                        disable = true;
+                        return false; // 하나라도 비어있으면 반복문을 멈춥니다.
+                        $('#submit').css('background-color', '#d2d2d2');
+                        $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+                    }
+            });
+            $('#submit').prop('disabled', disable);
+            $('#submit').css('background-color', '#2C7BE5');
+            $('#submit').css('color', 'white');
+          });
+
+          $('input[type="checkbox"], input[type="radio"]').on('change', function() { // checkbox나 radio button의 값이 변경될 때마다 검사
+            if ($('input[type="checkbox"]:checked').length >= 2 && $('input[type="radio"]:checked').length > 0) {
+              checkConditions();
+            } else {
+              $('#submit').prop('disabled', true);
+            }
+          });
+
+          $('.question').on('input', function() {
+            if ($(this).val().trim() === '') { // 질문 텍스트 박스의 값이 비어있는 경우
+                $('#submit, .quesBtn').prop('disabled', true);
+                $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+                $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+                $('.btn-group').find('.quesBtn').removeClass('active'); // 버튼의 active 상태 제거
+                $('.quesBtn').css('background-color', 'd2d2d2'); // 모든 버튼을 화이트로 바꿈
+            } else { // 질문 텍스트 박스에 값이 있는 경우
+                $( '.quesBtn').prop('disabled', false);
+                $('.quesBtn').css('background-color', 'white');
+                $('.quesBtn').css('color', '#007bff');
+
+              // quesBtn이 클릭되었는지 확인하고 #submit 버튼 활성화/비활성화
+              if ($('.btn-group').find('.quesBtn').hasClass('active')) {
+                $('#submit').prop('disabled', false);
+                $('#submit').css('background-color', '#007bff');
+                $('#submit').css('color', 'white'); // #submit 버튼 글씨 색상 변경
+              } else {
+                $('#submit').prop('disabled', true);
+                $('#submit').css('background-color', '#d2d2d2');
+                $('#submit').css('color', '#2C7BE5'); // #submit 버튼 글씨 색상 변경
+              }
+            }
+          });
+
+       $('#submit').prop('disabled', true);
+
+       $(document).on('input', '.question textarea', function() {
+        if ($(this).val().trim() === '') {
+         $('#submit').prop('disabled', true);
+        } else {
+            var quesCount = $('.ques').length;
+            if (quesCount >= 2) {
+              $('#submit').prop('disabled', false);
+            }
+          }
+        });
+
+        function checkSubmitButton() {
+          if($('.ques').length < 2 || $('.floatingTextarea2').filter(function() {
+                return $(this).val() == '';
+            }).length > 0) {
+            $('#submit').attr('disabled', true);
+          } else {
+            $('#submit').attr('disabled', false);
+          }
+        }
+        function updateListNumbers() {
+            var i = 1;
+            $('.ques-number').each(function() {
+              $(this).text(i + ".");
+              i++;
+            });
+        }
+
+
+
+        // submit 버튼을 클릭했을때 조건검사 및 리스트로 이동.
+        $('#submit').click(function(e) {
+            var radioChecked = true;
+            var multiChecked = true;
+
+            // Check if checkbox element exists before performing validation
+            if ($(".ques input[type='checkbox']").length) {
+                multiChecked = $(".ques input[type='checkbox']").is(":checked");
+                if (!multiChecked) {
+                    $('.warning').text("정답인 옵션에 체크박스를 클릭해주세요.").show();
+                    setTimeout(function() {
+                        $('.warning').hide();
+                    }, 3000);
+                    return;
+                } else {
+                    $('.warning').hide();
+                }
+            }
+
+            // Check if radio button element exists before performing validation
+            if ($(".ques input[type='radio']").length) {
+                radioChecked = $(".ques input[type='radio']").is(":checked");
+                if (!radioChecked) {
+                    $('.warning').text("정답인 옵션에 라디오 버튼을 클릭해주세요.").show();
+                    setTimeout(function() {
+                        $('.warning').hide();
+                    }, 3000);
+                    return;
+                } else {
+                    $('.warning').hide();
+                }
+            }
+
+
+            e.preventDefault(); // 폼 전송을 막음
+
+            // 버튼 클릭시 하단 list 로 질문 입력된 값 출력.
+            var question = $("#floatingTextarea2").val();
+            var isFirstClick = true;
+
+            $('.table-bordered').append($('<tr class="tabletr">').append($('<td>').html('<span class="list-number"></span>')).append($('<td>').html('<a href="#">' + question + '</a>')).append($('<td>').html('<button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit" style="margin-bottom:2.5px;"></span></button><button class="listdlt" type="button"title="Delete"><span class="text-500 fas fa-trash"></span></button>')));
+            updateListNumbers();
+
+            function updateListNumbers() {
+                var i = 1;
+                $('.list-number').each(function() {
+                    $(this).text(i + ".");
+                    i++;
+                });
+
+                if ($('.tabletr').length < 2) {
+                    $('.listdlt').hide();
+                } else {
+                    $('.listdlt').show();
+                }
+            }
+
+            $(document).on('click', '.listdlt', function() {
+                $(this).closest('tr').remove();
+                updateListNumbers();
+            });
+
+            // 페이지를 리셋
+            $('#floatingTextarea2').val('');
+            $('.contents').empty();
+            $('#floatingTextarea2').val('');
+            $('.quesBtn').show();
+            $('#submit').css('color', '#2C7BE5');
+            $('#submit').prop('disabled', true);
+            $('#submit').css('background-color', '#d2d2d2');
+            $('.quesBtn').css('color', '#2C7BE5');
+            $('#add').hide();
+            $('.contents').hide();
+            isFirstClick = true;
+            $('#submit, .quesBtn').css('background-color', '#d2d2d2');
+
+            if ($('.ques').length > 1) {
+                $('#submit').prop('disabled', false);
+                $('#submit').css('background-color', '#2C7BE5');
+            }
+            });
+            checkSubmitButton();
+            });
+
+
+
+
+            </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+                $(document).ready(function() {
+                // 텍스트박스 입력한 길이에 따라 자동으로 높이값 조절되게.
+                    $('#floatingTextarea2').on('keyup keypress', function() {
+                        $(this).height(0);
+                        $(this).height(this.scrollHeight);
+                    });
+
+                });
+            </script>
   </body>
 
 </html>
