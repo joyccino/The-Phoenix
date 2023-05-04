@@ -601,10 +601,46 @@ function check_email() {
   else if (email.length > 0) {
     eCheck.style.display = "block";
     if (regEmail.test(email)) {
-      eCheck.style.color = "blue";
-      eCheck.innerHTML = "올바른 이메일 형식입니다.";
+
       // 이메일 유효성 검사 true
       validateEmail(true);
+      let userCount;
+      eCheck.display = "none";
+      // 여기 중복체크 기능을 추가합니다.
+      let emailAddr = document.getElementById('card-email');
+      let emailCheck = document.querySelector("#emailCheck");
+
+
+      $.ajax({
+                type : "POST", // http 방식
+                url : "/auth/emailCheck", // ajax 통신 url
+                data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                    "email" : document.querySelector("#card-email").value,
+                },
+                success : function(data) {
+                    console.log("data: ");
+                    console.log(data);
+                    if (data > 0 ) { // 0 이상 이면 중복
+                        console.log("이미 존재하는 이메일");
+                        eCheck.style.color = "blue";
+                        eCheck.innerHTML = "올바른 이메일 형식입니다.";
+                        inputs.email = false;
+                        validateEmail(true);
+                        enableSignupButton();
+
+                        eCheck.display = "inline-block";
+                        eCheck.innerHTML = "이메일이 중복됩니다.";
+                        eCheck.style.color = "red";
+
+                        if(!emailAddr.classList.contains("is-invalid")) {
+                        emailAddr.classList.add("is-invalid");
+                         }
+                    } else { // 아니면 중복아님
+                        console.log("사용 가능한 이메일입니다.");
+                        emailCheck.display = "none";
+                    }
+                }
+            })
     }
     else {
       eCheck.style.color = "red";
