@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phoenix.qpproject.mapper.UnisMapper">
+    <select id="getUniList" resultType="com.phoenix.qpproject.dto.UnisDTO">
+        SELECT
+        u.id        AS UId
+        ,s.name		AS unisName
+        ,s.logoUrl  AS unisLogoUrl
+        ,s.domain   AS unisDomain
+        FROM
+        unis AS u;
+    </select>
+
+    <select id="getUniByDomain" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.UnisDTO">
+        SELECT
+        u.id        AS UId
+        ,u.name		AS unisName
+        ,u.logoUrl  AS unisLogoUrl
+        ,u.domain   AS unisDomain
+        FROM
+        unis AS u
+        WHERE domain = #{unisDomain};
+    </select>
+</mapper>

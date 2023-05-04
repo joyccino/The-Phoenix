@@ -2,8 +2,10 @@ package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MailDTO;
 import com.phoenix.qpproject.dto.MembersDTO;
+import com.phoenix.qpproject.dto.UnisDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
+import com.phoenix.qpproject.service.UnisService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.lang.reflect.Member;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
@@ -31,6 +34,9 @@ public class AuthController {
 
     @Autowired
     public MemberService memberService;
+
+    @Autowired
+    public UnisService unisService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login( HttpServletRequest request) {
@@ -82,7 +88,18 @@ public class AuthController {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         member.setMemberPw(encPassword);
         member.setMemberMemberTypeId(1);
+        String uuid = UUID.randomUUID().toString();
+        member.setMemberUUId(uuid);
         memberService.addMember(member);
+
+        // 인증 이메일 전송하기
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setTitle("[큐피] 이메일 인증");
+        mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+uuid);
+        mailDTO.setAddress(member.getMemberEmail());
+        emailService.sendPassResetEmail(mailDTO);
+        System.out.println("register 메일 전송 완료");
+
         return "redirect:/auth/login";
     }
 
@@ -93,6 +110,16 @@ public class AuthController {
         int isIdDupl = memberService.checkMemberById(memberId);
         System.out.println("idCheck 실행중"+isIdDupl);
         return isIdDupl;
+    }
+
+    @GetMapping("/user/verify/{memberUUId}")
+    public void memberVerify(@PathVariable("memberUUId") String memberUUId){
+        MembersDTO member = memberService.checkMemberByUUId(memberUUId);
+        System.out.println("memberUUID: "+ memberUUId);
+        memberService.memberVerify(memberUUId);
+        System.out.println("이메일 인증 성공");
+
+        // 대학생 여부 체크 후 institution id 에 반영하는 로직 추가 예정.
     }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout( HttpServletRequest request) {
@@ -116,6 +143,22 @@ public class AuthController {
         int memberCnt = memberService.checkMemberByEmail(email);
         return memberCnt;
     }
+    @PostMapping("/uniCheck")
+    @ResponseBody
+    public String getUniByDomain(@RequestParam("uniDomain") String domain){
+        UnisDTO uni = unisService.getUniByDomain(domain);
+        String uniName = "";
+
+        if(uniName == null || uniName.length() == 0) {
+            uniName = "empty";
+        }
+        else {
+            uniName = uni.getUnisName();
+            System.out.println("대학교이름: "+uniName);
+
+        }
+        return uniName;
+    }
 
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
@@ -129,9 +172,12 @@ public class AuthController {
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
+        System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
+        System.out.println("isMemberIsRemoved: "+member.isMemberIsRemoved());
+
+
         if (membersInfo != null) {
             log.info("멤버 not null");
-            System.out.println("membersInfo: " + membersInfo.getMemberFirstname());
 
             // admin 여부 확인
 
@@ -160,12 +206,21 @@ public class AuthController {
 
         }
         else {
-            String msg = "아이디 또는 비밀번호를 확인해주세요.";
-            model.addAttribute("msgLoginFailed",msg);
+            if (member.isMemberIsBlocked()) {
+                String msg = "차단된 회원입니다.";
+                model.addAttribute("msgLoginFailed",msg);
+            }
+            else {
+                String msg = "아이디 또는 비밀번호를 확인해주세요.";
+                model.addAttribute("msgLoginFailed",msg);
+            }
+
             return "redirect:/auth/login?error=true";
         }
 
     }
+
+
 
     @RequestMapping(value = "/memberList", method = RequestMethod.GET)
     public String adminDashboard(HttpServletRequest request, RedirectAttributes rttr,  Model model) {
