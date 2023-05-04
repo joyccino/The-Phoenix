@@ -111,6 +111,16 @@ public class AuthController {
         System.out.println("idCheck 실행중"+isIdDupl);
         return isIdDupl;
     }
+
+    @GetMapping("/user/verify/{memberUUId}")
+    public void memberVerify(@PathVariable("memberUUId") String memberUUId){
+        MembersDTO member = memberService.checkMemberByUUId(memberUUId);
+        System.out.println("memberUUID: "+ memberUUId);
+        memberService.memberVerify(memberUUId);
+        System.out.println("이메일 인증 성공");
+
+        // 대학생 여부 체크 후 institution id 에 반영하는 로직 추가 예정.
+    }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout( HttpServletRequest request) {
         HttpSession session = request.getSession();
