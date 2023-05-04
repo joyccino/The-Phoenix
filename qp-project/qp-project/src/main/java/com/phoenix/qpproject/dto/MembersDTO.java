@@ -11,7 +11,6 @@ public class MembersDTO {
     private String memberEmail;
     private String memberSurname;
     private String memberFirstname;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date memberBDate;
     private Date memberRegDate;
     private Date memberVisit;
@@ -24,5 +23,11 @@ public class MembersDTO {
     private int memberMajorId;
     private int memberGrade;
     private String memberPw;
-    private int accessCount;
+    private Boolean memberIsReported;
+    private Boolean memberIsBlocked;
+    private Boolean memberIsRemoved;
+    private Date memberIsReportedDateTime;
+    private Date memberIsBlockedDateTime;
+    private Date memberIsRemovedDateTime;
+    private int memberReportedMemberId;
 }
