@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.lang.reflect.Member;
+import java.util.List;
 
 @Controller
 @RequestMapping("/auth")
@@ -161,7 +162,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/memberList", method = RequestMethod.GET)
-    public String adminDashboard(HttpServletRequest request, RedirectAttributes rttr) {
+    public String adminDashboard(HttpServletRequest request, RedirectAttributes rttr,  Model model) {
         // 세션에 멤버 존재 여부
         HttpSession session = request.getSession();
 
@@ -175,6 +176,9 @@ public class AuthController {
 
 
         if(qpUser.getMemberMemberTypeId() == 0) {
+            // 전체 멤버 호출 및 전달.
+            List<MembersDTO> memberList = memberService.getMemberList();
+            model.addAttribute("memberList",memberList);
             return "/members";
         }
         else {
