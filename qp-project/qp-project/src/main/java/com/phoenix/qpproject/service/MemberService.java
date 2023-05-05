@@ -79,6 +79,11 @@ public class MemberService implements UserDetailsService {
         return member;
     }
 
+    public void memberDeactivateByUserId(String memberId){
+        memberMapper.memberDeactivateByUserId(memberId);
+    }
+
+
     public void memberVerify(String memberUUId){
         memberMapper.memberVerify(memberUUId);
     };

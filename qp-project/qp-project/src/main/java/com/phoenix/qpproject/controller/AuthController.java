@@ -110,6 +110,23 @@ public class AuthController {
         return isIdDupl;
     }
 
+    @GetMapping("/deactivate")
+    public String deactivate( HttpServletRequest request) {
+        // 회원 탈퇴를 시작합니다.ㅠㅠ
+
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser;
+
+        memberService.memberDeactivateByUserId(member.getMemberId());
+        
+        System.out.println("탈퇴 완료.ㅠㅠ");
+
+        return "redirect:/auth/logout";
+    }
+
     @GetMapping("/user/verify/{memberUUId}")
     public void memberVerify(@PathVariable("memberUUId") String memberUUId){
         MembersDTO member = memberService.checkMemberByUUId(memberUUId);
@@ -173,16 +190,12 @@ public class AuthController {
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
         System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
-        System.out.println("isMemberIsRemoved: "+member.isMemberIsRemoved());
-
 
         if (membersInfo != null) {
             log.info("멤버 not null");
 
-            // admin 여부 확인
+            System.out.println(member.getMemberId()+" 탈퇴여부: "+member.getMemberIsRemovedDateTime());
 
-            // recent visit 기록
-            //session.setAttribute("qpUser", membersInfo);
             membersInfo.setMemberPw("masked");
 
             HttpSession session = request.getSession();
