@@ -117,7 +117,8 @@ public class AuthController {
         memberService.memberVerify(memberUUId);
         System.out.println("이메일 인증 성공");
 
-        // 대학생 여부 체크 후 institution id 에 반영하는 로직 추가 예정.
+        // 이메일 도메인 잘라서 university 목록에서 비교 후
+        // 존재하는 경우 member 의 institutionId 에 해당 대학교 id 넣기.
     }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout( HttpServletRequest request) {
