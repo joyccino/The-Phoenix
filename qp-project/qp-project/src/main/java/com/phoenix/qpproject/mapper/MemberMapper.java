@@ -25,5 +25,7 @@ public interface MemberMapper {
 
     public MembersDTO checkMemberByUUId(String uuid);
 
+    public void memberDeactivateByUserId(String memberId);
+
     public void memberVerify(String memberUUId);
 }
