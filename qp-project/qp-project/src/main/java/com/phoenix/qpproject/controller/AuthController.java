@@ -2,10 +2,10 @@ package com.phoenix.qpproject.controller;
 
 import com.phoenix.qpproject.dto.MailDTO;
 import com.phoenix.qpproject.dto.MembersDTO;
-import com.phoenix.qpproject.dto.UnisDTO;
+import com.phoenix.qpproject.dto.UniversitiesDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
-import com.phoenix.qpproject.service.UnisService;
+import com.phoenix.qpproject.service.UniversitiesService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,11 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,7 +34,7 @@ public class AuthController {
     public MemberService memberService;
 
     @Autowired
-    public UnisService unisService;
+    public UniversitiesService unisService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login( HttpServletRequest request) {
@@ -146,14 +144,15 @@ public class AuthController {
     @PostMapping("/uniCheck")
     @ResponseBody
     public String getUniByDomain(@RequestParam("uniDomain") String domain){
-        UnisDTO uni = unisService.getUniByDomain(domain);
+        System.out.println("uniDomain: "+domain);
+        UniversitiesDTO uni = unisService.getUniByDomain(domain);
         String uniName = "";
 
-        if(uniName == null || uniName.length() == 0) {
+        if(uni == null) {
             uniName = "empty";
         }
         else {
-            uniName = uni.getUnisName();
+            uniName = uni.getUniversitiesSchoolName();
             System.out.println("대학교이름: "+uniName);
 
         }
