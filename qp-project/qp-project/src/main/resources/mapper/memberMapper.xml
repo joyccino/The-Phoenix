@@ -9,7 +9,7 @@
         ,m.userId		AS memberId
         ,m.Email        AS memberEmail
         ,m.Surname		AS memberSurname
-        ,m.Firstname		AS memberFirstname
+        ,m.Firstname	AS memberFirstname
         ,m.BirthDate	AS memberBDate
         ,m.RegisterDate	AS memberRegDate
         ,m.RecentVisit	AS memberVisit
@@ -22,6 +22,14 @@
         ,m.MajorId	    AS memberMajorId
         ,m.Grade	    AS memberGrade
         ,m.Password	    AS memberPw
+        ,m.isReported   AS memberIsReported
+        ,m.isBlocked    AS memberIsBlocked
+        ,m.isRemoved    AS memberIsRemoved
+        ,m.reportedDateTime  AS memberIsReportedDateTime
+        ,m.blockedDateTime  AS memberIsBlockedDateTime
+        ,m.removedDateTime  AS memberIsRemovedDateTime
+        ,m.reportedMemberId AS memberReportedMemberId
+        ,m.uuid AS memberUUId
         FROM
         members AS m
         WHERE
@@ -48,6 +56,14 @@
             ,m.MajorId	    AS memberMajorId
             ,m.Grade	    AS memberGrade
             ,m.Password	    AS memberPw
+        ,m.isReported   AS memberIsReported
+        ,m.isBlocked    AS memberIsBlocked
+        ,m.isRemoved    AS memberIsRemoved
+        ,m.reportedDateTime  AS memberIsReportedDateTime
+        ,m.blockedDateTime  AS memberIsBlockedDateTime
+        ,m.removedDateTime  AS memberIsRemovedDateTime
+        ,m.reportedMemberId AS memberReportedMemberId
+        ,m.uuid AS memberUUId
         FROM
             members AS m;
     </select>
@@ -71,6 +87,14 @@
         ,m.MajorId	    AS memberMajorId
         ,m.Grade	    AS memberGrade
         ,m.Password	    AS memberPw
+        ,m.isReported   AS memberIsReported
+        ,m.isBlocked    AS memberIsBlocked
+        ,m.isRemoved    AS memberIsRemoved
+        ,m.reportedDateTime  AS memberIsReportedDateTime
+        ,m.blockedDateTime  AS memberIsBlockedDateTime
+        ,m.removedDateTime  AS memberIsRemovedDateTime
+        ,m.reportedMemberId AS memberReportedMemberId
+        ,m.uuid AS memberUUId
         FROM
         members AS m
         WHERE userId = #{memberId};
@@ -82,6 +106,38 @@
 
     <select id="checkMemberByEmail"  parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM members WHERE Email = #{memberEmail};
+    </select>
+
+    <select id="checkMemberByUUId"  parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.MembersDTO">
+        SELECT
+        m.id
+        ,m.userId		AS memberId
+        ,m.Email        AS memberEmail
+        ,m.Surname		AS memberSurname
+        ,m.Firstname	AS memberFirstname
+        ,m.BirthDate	AS memberBDate
+        ,m.RegisterDate	AS memberRegDate
+        ,m.RecentVisit	AS memberVisit
+        ,m.Gender	    AS memberGender
+        ,m.MemberTypeId	AS memberMemberTypeId
+        ,m.InstitutionId AS memberInstitutionId
+        ,m.MembershipExpirationDate	AS memberMembershipDate
+        ,m.Country	    AS memberCountry
+        ,m.City	        AS memberCity
+        ,m.MajorId	    AS memberMajorId
+        ,m.Grade	    AS memberGrade
+        ,m.Password	    AS memberPw
+        ,m.isReported   AS memberIsReported
+        ,m.isBlocked    AS memberIsBlocked
+        ,m.isRemoved    AS memberIsRemoved
+        ,m.reportedDateTime  AS memberIsReportedDateTime
+        ,m.blockedDateTime  AS memberIsBlockedDateTime
+        ,m.removedDateTime  AS memberIsRemovedDateTime
+        ,m.reportedMemberId AS memberReportedMemberId
+        ,m.uuid AS memberUUId
+        FROM
+        members AS m
+        WHERE uuid = #{memberUUId};
     </select>
 
     <insert id="addMember" parameterType="com.phoenix.qpproject.dto.MembersDTO">
@@ -99,6 +155,7 @@
         , Password
         , Country
         , City
+        , uuid
         )VALUES (
         #{memberEmail}
         , #{memberId}
@@ -108,10 +165,11 @@
         , NOW()
         , NOW()
         , #{memberGender}
-        , 2
+        , 1
         , #{memberPw}
         , "대한민국"
         , "서울"
+        , #{memberUUId}
         );
     </insert>
 
@@ -127,5 +185,9 @@
 
     <update id="passReset" parameterType="java.lang.String">
         UPDATE members SET Password = #{resetPass} WHERE Email = #{memberEmail};
+    </update>
+
+    <update id="memberVerify" parameterType="java.lang.String">
+        UPDATE members SET MemberTypeId = 2 WHERE uuid = #{memberUUId};
     </update>
 </mapper>
