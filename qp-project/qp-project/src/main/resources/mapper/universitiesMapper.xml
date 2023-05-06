@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phoenix.qpproject.mapper.UniversitiesMapper">
+    <select id="getUniList" resultType="com.phoenix.qpproject.dto.UniversitiesDTO">
+        SELECT
+        u.id        AS UId
+        ,u.schoolSystem AS universitiesSchoolSystem
+        ,u.schoolName	AS universitiesSchoolName
+        ,u.mainOrBranch  AS universitiesMainOrBranch
+        ,u.province   AS universitiesProvince
+        ,u.city   AS universitiesCity
+        ,u.foundation   AS universitiesFoundation
+        ,u.totalFaculty   AS universitiesTotalFaculty
+        ,u.totalStudents   AS universitiesTotalStudents
+        ,u.totalFemales   AS universitiesTotalFemales
+        ,u.totalMales   AS universitiesTotalMales
+        ,u.websiteDomain   AS universitiesWebsiteDomain
+        FROM
+        universities AS u;
+    </select>
+
+    <select id="getUniByDomain" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.UniversitiesDTO">
+        SELECT
+        u.id        AS UId
+        ,u.schoolSystem AS universitiesSchoolSystem
+        ,u.schoolName	AS universitiesSchoolName
+        ,u.mainOrBranch  AS universitiesMainOrBranch
+        ,u.province   AS universitiesProvince
+        ,u.city   AS universitiesCity
+        ,u.foundation   AS universitiesFoundation
+        ,u.totalFaculty   AS universitiesTotalFaculty
+        ,u.totalStudents   AS universitiesTotalStudents
+        ,u.totalFemales   AS universitiesTotalFemales
+        ,u.totalMales   AS universitiesTotalMales
+        ,u.websiteDomain   AS universitiesWebsiteDomain
+        FROM
+        universities AS u
+        WHERE websiteDomain = #{unisDomain};
+    </select>
+</mapper>
