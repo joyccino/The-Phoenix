@@ -190,4 +190,11 @@
     <update id="memberVerify" parameterType="java.lang.String">
         UPDATE members SET MemberTypeId = 2 WHERE uuid = #{memberUUId};
     </update>
+
+    <update id="memberDeactivateByUserId" parameterType="java.lang.String">
+        UPDATE members
+        SET isRemoved = true,
+        removedDateTime = Now()
+        WHERE UserId = #{memberId};
+    </update>
 </mapper>

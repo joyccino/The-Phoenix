@@ -110,6 +110,23 @@ public class AuthController {
         return isIdDupl;
     }
 
+    @GetMapping("/deactivate")
+    public String deactivate( HttpServletRequest request) {
+        // 회원 탈퇴를 시작합니다.ㅠㅠ
+
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser;
+
+        memberService.memberDeactivateByUserId(member.getMemberId());
+        
+        System.out.println("탈퇴 완료.ㅠㅠ");
+
+        return "redirect:/auth/logout";
+    }
+
     @GetMapping("/user/verify/{memberUUId}")
     public void memberVerify(@PathVariable("memberUUId") String memberUUId){
         MembersDTO member = memberService.checkMemberByUUId(memberUUId);
@@ -117,7 +134,8 @@ public class AuthController {
         memberService.memberVerify(memberUUId);
         System.out.println("이메일 인증 성공");
 
-        // 대학생 여부 체크 후 institution id 에 반영하는 로직 추가 예정.
+        // 이메일 도메인 잘라서 university 목록에서 비교 후
+        // 존재하는 경우 member 의 institutionId 에 해당 대학교 id 넣기.
     }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout( HttpServletRequest request) {
@@ -172,16 +190,12 @@ public class AuthController {
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
         System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
-        System.out.println("isMemberIsRemoved: "+member.isMemberIsRemoved());
-
 
         if (membersInfo != null) {
             log.info("멤버 not null");
 
-            // admin 여부 확인
+            System.out.println(member.getMemberId()+" 탈퇴여부: "+member.getMemberIsRemovedDateTime());
 
-            // recent visit 기록
-            //session.setAttribute("qpUser", membersInfo);
             membersInfo.setMemberPw("masked");
 
             HttpSession session = request.getSession();
