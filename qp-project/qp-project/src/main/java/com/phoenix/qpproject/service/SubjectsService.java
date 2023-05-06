@@ -14,8 +14,13 @@ public class SubjectsService {
     @Autowired
     private SubjectsMapper subjectsMapper;
 
-    public List<SubjectsDTO> getSubjectList(){
-        List<SubjectsDTO> subjectList = subjectsMapper.getSubjectList();
-        return subjectList;
+    public List<SubjectsDTO> getGeneralSubjectList(){
+        List<SubjectsDTO> generalSubjectList = subjectsMapper.getGeneralSubjectList();
+        return generalSubjectList;
+    }
+
+    public List<SubjectsDTO> getDetailSubjectList(String selectedGeneralSubject){
+        List<SubjectsDTO> detailSubjectList = subjectsMapper.getDetailSubjectList(selectedGeneralSubject);
+        return detailSubjectList;
     }
 }
