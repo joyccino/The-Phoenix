@@ -2073,52 +2073,21 @@
                                 <option value="6">6학년</option>
                               </select>
                             </div>
-                              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                              <script>
-                              $(document).ready(function() {
-                                $('#edu-category').change(function() {
-                                  var selectedCategory = $(this).val();
-                                  if (selectedCategory === 'elementary') {
-                                    $('#year-category option').each(function() {
-                                      var value = $(this).val();
-                                      if (value === '' || value <= 6) {
-                                        $('#years').show();
-                                        $(this).show();
-                                      } else {
-                                        $(this).hide();
-                                      }
-                                    });
-                                  } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-                                    $('#year-category option').each(function() {
-                                      var value = $(this).val();
-                                      if (value === '' || value <= 3) {
-                                        $('#years').show();
-                                        $(this).show();
-                                      } else {
-                                        $(this).hide();
-                                      }
-                                    });
-                                  } else {
-                                    $('#years').hide();
-                                  }
-                                });
-                              });
-                            </script>
                           </form>
                           <form class="row gx-2">
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="general-subject">과목/학부<span class="text-danger">*</span></label>
-                                <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'required="required">
+                                <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}' required="required">
                                     <option disabled selected value="">과목 선택</option>
-                                    <option th:each="l : ${subjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
+                                    <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
                                 </select>
                             </select>
                             </div>
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="detail-subject">세부 과목/전공<span class="text-danger">*</span></label>
-                                <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'required="required">
+                                <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}' required="required">
                                     <option disabled selected value="">세부 과목 선택</option>
-                                    <option th:each="l : ${subjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>
+                                    <!--<option th:each="l : ${detailSubjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>-->
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
@@ -2575,6 +2544,68 @@
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
     <script src="../../../vendors/prism/prism.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#edu-category').change(function() {
+          var selectedCategory = $(this).val();
+          if (selectedCategory === 'elementary') {
+            $('#year-category option').each(function() {
+              var value = $(this).val();
+              if (value === '' || value <= 6) {
+                $('#years').show();
+                $(this).show();
+              } else {
+                $(this).hide();
+              }
+            });
+          } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
+            $('#year-category option').each(function() {
+              var value = $(this).val();
+              if (value === '' || value <= 3) {
+                $('#years').show();
+                $(this).show();
+              } else {
+                $(this).hide();
+              }
+            });
+          } else {
+            $('#years').hide();
+          }
+        });
+      });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // general subject 선택 시 detail subject 목록 조회
+            $('#general-subject').on('change', function() {
+                var selectedGeneralSubject = $(this).val();
+                $('#detail-subject').empty();
+                if (selectedGeneralSubject != "") {
+                    $.ajax({
+                        type : "POST",
+                        url : "/quiz/getDetailSubjects",
+                        data : { "selectedGeneralSubject" : selectedGeneralSubject },
+                        success : function(data) {
+                             $.each(data, function(index, value) {
+                                //$("#detail-subject").append('<option value="' + value.subjectId + '">' + value.subjectDetailSubject + '</option>');
+                                /*document.evaluate('/html/body/main/div/div[1]/div[1]/div/div[2]/div[1]/div[1]/div[2]/form[2]/div[2]/div/div[2]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).append(
+                                '<div id="choices--detail-subject-item-choice-2" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled" role="option" data-choice="" data-id="2" data-value="" data-select-text="" data-choice-disabled="" aria-disabled="true">세부 과목 선택</div>'
+                                );*/
+                                let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
+                                let childTemplate = document.querySelector('#choices--detail-subject-item-choice-1');
+                                childTemplate.innerHTML = value.subjectDetailSubject;
+                                parent.appendChild(childTemplate);
+                            });
+                            console.log(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
   </body>
 
 </html>
