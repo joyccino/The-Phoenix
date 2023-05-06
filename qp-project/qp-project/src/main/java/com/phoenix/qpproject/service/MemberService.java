@@ -73,6 +73,21 @@ public class MemberService implements UserDetailsService {
     }
 
     public void resetPass(String newPassword, String memberEmail) { memberMapper.passReset(newPassword, memberEmail); }
+
+    public MembersDTO checkMemberByUUId(String uuid) {
+        MembersDTO member = memberMapper.checkMemberByUUId(uuid);
+        return member;
+    }
+
+    public void memberDeactivateByUserId(String memberId){
+        memberMapper.memberDeactivateByUserId(memberId);
+    }
+
+
+    public void memberVerify(String memberUUId){
+        memberMapper.memberVerify(memberUUId);
+    };
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //여기서 받은 유저 패스워드와 비교하여 로그인 인증
