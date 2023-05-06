@@ -358,8 +358,7 @@ input[type=number] {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
      // 아이디 유효성 검사 코드
-   !isNaN(input.value) ? inputs.id = false : inputs.id = true;
-   enableSignupButton();
+   validateId(true);
 
    // 아이디, 전화번호, 이메일주소에 class add/remove
     let userId = document.getElementById('card-userId');
@@ -660,6 +659,11 @@ function passCheck() {
     isNaN(input.value) ? inputs.firstName = true : inputs.firstName = false;
     enableSignupButton();
   }
+  function validateId(truth){
+    // 아이디 유효성 검사
+    truth ? inputs.id = true : inputs.id = false;
+    enableSignupButton();
+  }
   function validatePassword(truth){
     // 비밀번호 유효성 검사
     truth ? inputs.password = true : inputs.password = false;
@@ -701,7 +705,7 @@ function passCheck() {
   }
   function validateEmail(truth){
     // 이메일 유효성 검사
-    truth ? inputs.email = true : inputs.firstName = false;
+    truth ? inputs.email = true : inputs.email = false;
     enableSignupButton();
 
     // 아이디, 전화번호, 이메일주소에 class add/remove
