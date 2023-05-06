@@ -22,4 +22,10 @@ public interface MemberMapper {
     public int checkMemberByEmail(String findByEmail);
 
     public  void passReset(String resetPass, String memberEmail);
+
+    public MembersDTO checkMemberByUUId(String uuid);
+
+    public void memberDeactivateByUserId(String memberId);
+
+    public void memberVerify(String memberUUId);
 }
