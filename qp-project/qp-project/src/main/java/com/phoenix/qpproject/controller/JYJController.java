@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/authentication")
+@RequestMapping("/auth")
 public class JYJController {
     private static final Logger log = LoggerFactory.getLogger(JYJController.class);
 
@@ -38,13 +38,21 @@ public class JYJController {
     }
     **/
 
-    @PostMapping("/idCheck")
-    @ResponseBody
-    public int idCheck(@RequestParam("id") String id) {
+//    @PostMapping("/idCheck")
+//    @ResponseBody
+//    public int idCheck(@RequestParam("id") String id) {
+//
+//        int memberCnt = memberService.checkMemberById(id);
+//
+//        return memberCnt;
+//    }
 
-        int memberCnt = memberService.checkMemberById(id);
-
-        return memberCnt;
-    }
-
+//    @PostMapping("/emailCheck")
+//    @ResponseBody
+//    public int emailCheck(@RequestParam("email") String email) {
+//
+//        int memberCnt = memberService.checkMemberByEmail(email);
+//
+//        return memberCnt;
+//    }
 }

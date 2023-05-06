@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.UUID;
+
 @Data
 public class MembersDTO {
     private int Id;
@@ -24,5 +26,12 @@ public class MembersDTO {
     private int memberMajorId;
     private int memberGrade;
     private String memberPw;
-    private int accessCount;
+    private boolean memberIsReported;
+    private boolean memberIsBlocked;
+    private boolean memberIsRemoved;
+    private Date memberIsReportedDateTime;
+    private Date memberIsBlockedDateTime;
+    private Date memberIsRemovedDateTime;
+    private int memberReportedMemberId;
+    private String memberUUId;
 }
