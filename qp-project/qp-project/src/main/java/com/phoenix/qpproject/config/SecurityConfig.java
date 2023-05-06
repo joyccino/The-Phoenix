@@ -37,41 +37,13 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/auth/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/quiz/**").permitAll()
-                                .requestMatchers("/quiz/**").hasRole("USER")
-                                .requestMatchers("/survey/**").hasRole("USER")
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/auth/**", "/resources/**", "/vendors/**", "/assets/**", "/favicon/**", "/quiz/**", "/survey/**", "/mypage/**", "/admin/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 //                                .requestMatchers("/quiz/quizList").hasRole("USER")
 //                                .requestMatchers("/quiz/quizList").hasRole("ADMIN")
-                )
-                .formLogin()
-                    .loginPage("/auth/login") // 사용자 정의 로그인 페이지
-                    .usernameParameter("memberId")
-                    .passwordParameter("memberPw")
-                    .loginProcessingUrl("auth/memberLogin") // 로그인 Form Action Url
-                    .failureUrl("/auth/login?error=true") // 로그인 실패 후 이동 페이지
-//                    .successHandler(
-//                            (request, response, authentication) -> {
-//                                MemberDetail userDetails = (MemberDetail) authentication.getPrincipal();
-//                                String username = userDetails.getUsername();
-//                                System.out.println(username + " 로그인 성공");
-//                                response.sendRedirect("/quiz/quizList22"); // 인증이 성공한 후에는 root로 이동
-//                            }
-//                    )		// 로그인 성공 후 핸들러
-//                    .failureHandler((request, response, exception) -> {
-//                        System.out.println("exception : " + exception.getMessage());
-//                        response.sendRedirect("/login");
-//                    }
-//                    )		// 로그인 실패 후 핸들러// form 방식 로그인 사용
+
+                ).formLogin().loginPage("/auth/login").permitAll(); // 기본 로그인 페이지
 //
-//                .permitAll()	// 대시보드 이동이 막히면 안되므로 얘는 허용
-                .and()
-                .logout(logout -> logout
-                    .logoutUrl("/auth/logout")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/auth/login?logout"));
         return http.build();
 
     }
