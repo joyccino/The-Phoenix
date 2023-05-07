@@ -38,6 +38,8 @@
     <link href="../../assets/css/theme.css" rel="stylesheet" id="style-default">
     <link href="../../assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
     <link href="../../assets/css/user.css" rel="stylesheet" id="user-style-default">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -2126,21 +2128,19 @@
                             <h5 class="mb-0"><b>비밀번호</b></h5>
                         </div>
                         <div class="card-body bg-light">
-                            <form>
-                                <div class="mb-3">
-                                    <label class="form-label" for="old-password">기존 비밀번호</label>
-                                    <input class="form-control" id="old-password" type="password" required/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="new-password">새 비밀번호</label>
-                                    <input class="form-control" id="new-password" type="password" required/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="confirm-password">비밀번호 확인</label>
-                                    <input class="form-control" id="confirm-password" type="password" required/>
-                                </div>
-                                <button class="btn btn-primary d-block w-100" onclick="passUpdate();">비밀번호 변경</button>
-                            </form>
+                            <div class="mb-3">
+                                <label class="form-label" for="old-password">기존 비밀번호</label>
+                                <input class="form-control" id="old-password" type="password" required/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="new-password">새 비밀번호</label>
+                                <input class="form-control" id="new-password" type="password" required/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="confirm-password">비밀번호 확인</label>
+                                <input class="form-control" id="confirm-password" type="password" required/>
+                            </div>
+                            <button class="btn btn-primary d-block w-100" onclick="passUpdate();">비밀번호 변경</button>
                         </div>
                     </div>
                 </div>
@@ -2570,6 +2570,8 @@
 <script src="../../vendors/list.js/list.min.js"></script>
 <script src="../../assets/js/theme.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
     function deactivate(){
         if (confirm('회원 탈퇴 작업은 취소할 수 없습니다. 정말로 탈퇴하시겠습니까?')) {
@@ -2579,37 +2581,33 @@
 
           window.location.href='http://localhost:8080/auth/deactivate';
         }
-    }
+    };
 
     function passUpdate(){
         let oldPass = document.querySelector('#old-password');
         let newPass = document.querySelector('#new-password');
         let confirmPass = document.querySelector('#confirm-password');
 
-        // if oldPass matches
-
-        /**
-
         $.ajax({
-                type : "POST", // http 방식
-                url : "/auth/passCheck", // ajax 통신 url
-                data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-                    "memberId" : oldPass.value,
-                },
-                success : function(data) {
-                    console.log("data: ");
-                    console.log(data);
-                    if (data > 0 ) { // 0 이상 이면 중복
-                        console.log("패스워드 일치");
-                         }
-                    } else { // 아니면 중복아님
-                        console.log("패스워드 일치하지 않음");
-                    }
-                }
-            })
-**/
+            type : "POST", // http 방식
+            url : "/auth/passCheck", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "pass" : oldPass.value,
+            },
+            success : function(data) {
+                console.log("data: "+data);
 
-    }
+                if (data > 0) {
+                    // 새 비밀번호 update 로직 추가
+                }
+                else {
+                    alert("비밀번호를 확인해주세요.");
+                    oldPass.value = "";
+                    $('#old-password').focus();
+                }
+            }
+        })
+    };
 </script>
 
 </body>

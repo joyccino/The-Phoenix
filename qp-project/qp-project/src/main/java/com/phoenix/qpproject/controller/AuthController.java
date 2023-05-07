@@ -116,15 +116,6 @@ public class AuthController {
         return isIdDupl;
     }
 
-    @PostMapping("/passCheck")
-    @ResponseBody
-    public int passCheck(String oldPass) {
-        System.out.println("넘겨받은 pw: "+oldPass);
-        //int isIdDupl = memberService.checkMemberById(memberId);
-        //System.out.println("idCheck 실행중"+isIdDupl);
-        return 0;
-    }
-
     @GetMapping("/deactivate")
     public String deactivate( HttpServletRequest request) {
         // 회원 탈퇴를 시작합니다.ㅠㅠ
@@ -174,6 +165,31 @@ public class AuthController {
         int memberCnt = memberService.checkMemberByEmail(email);
         return memberCnt;
     }
+
+    @PostMapping("/passCheck")
+    @ResponseBody
+    public int passCheck(@RequestParam("pass") String oldPass, HttpServletRequest request, RedirectAttributes rttr,  Model model) {
+        System.out.println("넘겨받은 pw: "+oldPass);
+        
+        // 세션에 저장된 멤버 id 로 login 시도
+        HttpSession session = request.getSession();
+
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+
+        System.out.println("서비스로 넘기기 전 패스워드:"+oldPass);
+
+        qpUser.setMemberPw(oldPass);
+
+        MembersDTO memberInfo = memberService.login(qpUser);
+
+        if (memberInfo.getMemberId() != null) {
+            System.out.println("멤버: "+memberInfo. getMemberId());
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
     @PostMapping("/uniCheck")
     @ResponseBody
     public String getUniByDomain(@RequestParam("uniDomain") String domain){
@@ -194,19 +210,18 @@ public class AuthController {
 
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
-        log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
 
         String rawPassword = member.getMemberPw();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setMemberPw(encPassword);
+        member.setMemberPw(rawPassword);
 
-        MembersDTO membersInfo = memberService.login(member.getMemberId(), member.getMemberPw());
+        MembersDTO membersInfo = memberService.login(member);
+
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
         System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
 
-        if (membersInfo != null) {
+        if (membersInfo.getMemberId() != null) {
             log.info("멤버 not null");
 
             System.out.println(member.getMemberId()+" 탈퇴여부: "+member.getMemberIsRemovedDateTime());
@@ -234,18 +249,18 @@ public class AuthController {
 
         }
         else {
-            if (member.isMemberIsBlocked()) {
-                String msg = "차단된 회원입니다.";
-                model.addAttribute("msgLoginFailed",msg);
-            }
-            else {
-                String msg = "아이디 또는 비밀번호를 확인해주세요.";
-                model.addAttribute("msgLoginFailed",msg);
-            }
-
+//            if (member.isMemberIsBlocked()) {
+//                String msg = "차단된 회원입니다.";
+//                model.addAttribute("msgLoginFailed",msg);
+//            }
+//            else {
+//                String msg = "아이디 또는 비밀번호를 확인해주세요.";
+//                model.addAttribute("msgLoginFailed",msg);
+//            }
+            String msg = "아이디 또는 비밀번호를 확인해주세요.";
+            model.addAttribute("msgLoginFailed",msg);
             return "redirect:/auth/login?error=true";
         }
-
     }
 
 
