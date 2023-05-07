@@ -100,12 +100,6 @@ public class AuthController {
 
         return "redirect:/auth/login";
     }
-    @PostMapping("/updateMember")
-    public String updateMember(MembersDTO member) {
-        // 새로 업데이트 과정 추가
-        // 업데이트 된 멤버 세션에 추가
-        return "redirect:/mypage/edit";
-    }
 
     @PostMapping("/idCheck")
     @ResponseBody
@@ -338,6 +332,39 @@ public class AuthController {
         return "redirect:/auth/login";
 
     }
+    @PostMapping("/memberUpdate")
+    public String memberInfoModify(MembersDTO member, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO originalMemberInfo = (MembersDTO) qpUser;
+
+        member.setId(originalMemberInfo.getId());
+
+
+        memberService.memberInfoUpdate(member);
+        System.out.println("멤버 정보 update done");
+
+
+        session.removeAttribute("qpUser");
+        session.invalidate();
+
+        member.setMemberPw("masked");
+        session = request.getSession();
+
+        session.setAttribute("qpUser", member);
+        session.setMaxInactiveInterval(-1);
+
+        // 인증 이메일 전송하기
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setTitle("[큐피] 이메일 인증");
+        mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
+        mailDTO.setAddress(member.getMemberEmail());
+        emailService.sendPassResetEmail(mailDTO);
+        System.out.println("register 메일 전송 완료");
+
+        return "redirect:/mypage/edit";
+    }
     @PostMapping("/passUpdate")
     public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -349,23 +376,16 @@ public class AuthController {
 
         memberService.resetPass(encodeNewPass, member.getMemberEmail());
 
-        //DB member table 의 password 컬럼 newPass 로 update 추가 예정
         System.out.println("DB 업데이트 완료");
-        // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
+
         session.removeAttribute("qpUser");
-        // 세션 전체 제거, 무효화
         session.invalidate();
 
         member = memberService.getUserAccount(memberId);
-
         MembersDTO membersInfo = memberService.login(member);
-
         membersInfo.setMemberPw("masked");
-
         session = request.getSession();
-
         session.setAttribute("qpUser", membersInfo);
-
         session.setMaxInactiveInterval(-1);
 
         return "redirect:/mypage/edit";

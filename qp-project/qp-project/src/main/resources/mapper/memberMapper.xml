@@ -193,4 +193,18 @@
         removedDateTime = Now()
         WHERE UserId = #{memberId};
     </update>
+
+    <update id="memberInfoUpdate" parameterType="com.phoenix.qpproject.dto.MembersDTO">
+        UPDATE members
+        SET
+        Surname = #{memberSurname},
+        Firstname = #{memberFirstname},
+        UserId = #{memberId},
+        Gender = #{memberGender},
+        BirthDate = #{memberBDate},
+        Email = #{memberEmail},
+        MemberTypeId = 1,
+        InstitutionId = NULL
+        WHERE Id = #{Id};
+    </update>
 </mapper>

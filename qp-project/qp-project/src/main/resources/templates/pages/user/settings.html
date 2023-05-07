@@ -2037,7 +2037,7 @@
                             <h5 class="mb-0"><b>기본정보</b></h5>
                         </div>
                         <div class="card-body bg-light">
-                            <form autocomplete="off" th:action="@{/auth/updateMember}" method="post">
+                            <form autocomplete="off" th:action="@{/auth/memberUpdate}" method="post">
                                 <div class="row gx-2">
 
                                     <div class="mb-3 col-sm-6">
@@ -2109,7 +2109,7 @@
                                     <label class="form-label" for="chkUniStudent">대학생입니다.</label>
                                 </div>
 
-                                <button class="btn btn-primary d-block w-100" type="submit">회원 정보 저장</button>
+                                <button class="btn btn-primary d-block w-100" type="submit" onclick="memberUpdate();">회원 정보 저장</button>
 
                                 <div class="mb-3" style ="display: none">
                                     <label class="form-label" for="card-major">전공</label>
@@ -2573,6 +2573,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
+    function memberUpdate(){
+        // 이메일 변경된 경우에만 이메일 전송하기.
+        alert("인증 코드가 이메일로 전송되었습니다.");
+    }
     function deactivate(){
         if (confirm('회원 탈퇴 작업은 취소할 수 없습니다. 정말로 탈퇴하시겠습니까?')) {
           // 이 자리에 탈퇴 사유 드롭다운 추가.
@@ -2587,7 +2591,6 @@
         let oldPass = document.querySelector('#old-password');
         let newPass = document.querySelector('#new-password');
         let confirmPass = document.querySelector('#confirm-password');
-
         $.ajax({
             type : "POST", // http 방식
             url : "/auth/passCheck", // ajax 통신 url
@@ -2596,7 +2599,6 @@
             },
             success : function(data) {
                 console.log("data: "+data);
-
                 if (data > 0) {
                     // 새 비밀번호와 비밀번호 확인 일치하는지
 
@@ -2612,7 +2614,6 @@
                             console.log("password updated");
                         }
                     })
-
                 }
                 else {
                     alert("비밀번호를 확인해주세요.");

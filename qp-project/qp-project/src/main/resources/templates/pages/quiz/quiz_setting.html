@@ -2086,7 +2086,7 @@
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="detail-subject">세부 과목/전공<span class="text-danger">*</span></label>
                                 <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}' required="required">
-                                    <option disabled selected value="">세부 과목 선택</option>
+                                    <option selected value="">세부 과목 선택</option>
                                     <!--<option th:each="l : ${detailSubjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>-->
                                 </select>
                             </div>
@@ -2588,16 +2588,40 @@
                         url : "/quiz/getDetailSubjects",
                         data : { "selectedGeneralSubject" : selectedGeneralSubject },
                         success : function(data) {
+                            let html = '';
+                            let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
                              $.each(data, function(index, value) {
                                 //$("#detail-subject").append('<option value="' + value.subjectId + '">' + value.subjectDetailSubject + '</option>');
                                 /*document.evaluate('/html/body/main/div/div[1]/div[1]/div/div[2]/div[1]/div[1]/div[2]/form[2]/div[2]/div/div[2]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).append(
                                 '<div id="choices--detail-subject-item-choice-2" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled" role="option" data-choice="" data-id="2" data-value="" data-select-text="" data-choice-disabled="" aria-disabled="true">세부 과목 선택</div>'
                                 );*/
-                                let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
+                                /*
+                                    `<div id="choices--detail-subject-item-choice-${index}" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled" role="option" data-choice="" data-id="${index}" data-value="${value.subjectId}" data-select-text="" data-choice-disabled="" aria-disabled="true">
+                                        간호학
+                                    </div>`
+                                */
+                                /*let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
                                 let childTemplate = document.querySelector('#choices--detail-subject-item-choice-1');
                                 childTemplate.innerHTML = value.subjectDetailSubject;
-                                parent.appendChild(childTemplate);
+                                parent.appendChild(childTemplate);*/
+                                let childTemplate = document.createElement('div');
+                                /*childTemplate.setAttribute('id',"choices--detail-subject-item-choice-${index+1}")
+                                             .setAttribute('class', "choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled");
+                                             .setAttribute('role',"option");
+                                             .setAttribute('data-choice',"");
+                                             .setAttribute('data-value',"${value.subjectId}");
+                                             .setAttribute('data-select-text',"");
+                                             .setAttribute('data-choice-disabled',"");
+                                             .setAttribute('aria-disabled',"true");*/
+
+
+                                html += `
+                                    <div id="choices--detail-subject-item-choice-${index+1}" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--selectable is-highlighted" role="option" data-choice="" data-id="${index+1}" data-value="${value.subjectId}" data-select-text="" data-choice-selectable="" aria-selected="true">
+                                      ${value.subjectDetailSubject}
+                                    </div>
+                                `;
                             });
+                            parent.innerHTML = html;
                             console.log(data);
                         }
                     });

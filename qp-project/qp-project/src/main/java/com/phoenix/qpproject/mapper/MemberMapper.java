@@ -10,26 +10,25 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
-    public MembersDTO login(MembersDTO member);
+    // Select
     public MembersDTO getUserAccount(String memberId);
-
+    public MembersDTO login(MembersDTO member);
     public List<MembersDTO> getMemberList();
-    //회원 가입
-    public int addMember(MembersDTO member);
-
-    public int addVisitHistory(int mId);
-
     public int checkMemberById(String findById);
 
     public int checkMemberByEmail(String findByEmail);
 
-    public  void passReset(String resetPass, String memberEmail);
-
     public MembersDTO checkMemberByUUId(String uuid);
 
+    // Insert
+    public void addMember(MembersDTO member);
+    public void addVisitHistory(int mId);
+
+
+    // Update
+    public  void passReset(String resetPass, String memberEmail);
     public void memberDeactivateByUserId(String memberId);
-
     public void memberVerify(String memberUUId);
-
+    public void memberInfoUpdate(MembersDTO member);
 
 }
