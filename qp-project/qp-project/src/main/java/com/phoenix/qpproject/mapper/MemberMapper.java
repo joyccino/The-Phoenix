@@ -30,4 +30,6 @@ public interface MemberMapper {
     public void memberDeactivateByUserId(String memberId);
 
     public void memberVerify(String memberUUId);
+
+
 }

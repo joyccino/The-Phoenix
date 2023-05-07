@@ -38,6 +38,13 @@ public class MemberService implements UserDetailsService {
         this.memberMapper = memberMapper;
     }
 
+    public MembersDTO getUserAccount(String memberId) {
+
+        MembersDTO member = memberMapper.getUserAccount(memberId);
+
+        return member;
+    }
+
     public MembersDTO login(MembersDTO member) {
         MembersDTO mDTO = memberMapper.getUserAccount(member.getMemberId());
 

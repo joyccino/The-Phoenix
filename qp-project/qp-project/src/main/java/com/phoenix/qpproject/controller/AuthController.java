@@ -151,7 +151,7 @@ public class AuthController {
 
         if(!ObjectUtils.isEmpty(qpUser)) {
             // 세션값 삭제
-            session.removeAttribute("user_id");
+            session.removeAttribute("qpUser");
             // 세션 전체 제거, 무효화
             session.invalidate();
             return "/pages/authentication/card/login";
@@ -337,5 +337,37 @@ public class AuthController {
         // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
         return "redirect:/auth/login";
 
+    }
+    @PostMapping("/passUpdate")
+    public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("qpUser");
+        MembersDTO member = (MembersDTO) qpUser;
+        String memberId = member.getMemberId();
+        String encodeNewPass = bCryptPasswordEncoder.encode(newPass);
+
+        memberService.resetPass(encodeNewPass, member.getMemberEmail());
+
+        //DB member table 의 password 컬럼 newPass 로 update 추가 예정
+        System.out.println("DB 업데이트 완료");
+        // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
+        session.removeAttribute("qpUser");
+        // 세션 전체 제거, 무효화
+        session.invalidate();
+
+        member = memberService.getUserAccount(memberId);
+
+        MembersDTO membersInfo = memberService.login(member);
+
+        membersInfo.setMemberPw("masked");
+
+        session = request.getSession();
+
+        session.setAttribute("qpUser", membersInfo);
+
+        session.setMaxInactiveInterval(-1);
+
+        return "redirect:/mypage/edit";
     }
 }

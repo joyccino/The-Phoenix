@@ -2601,6 +2601,17 @@
                     // 새 비밀번호와 비밀번호 확인 일치하는지
 
                     // 새 비밀번호 update 로직 추가
+                    alert("update");
+                    $.ajax({
+                        type : "POST", // http 방식
+                        url : "/auth/passUpdate", // ajax 통신 url
+                        data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                            "newPass" : newPass.value,
+                        },
+                        success : function(data) {
+                            console.log("password updated");
+                        }
+                    })
 
                 }
                 else {
