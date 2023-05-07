@@ -58,7 +58,6 @@ public class QuizController {
         return "/pages/quiz/quiz_list";
     }
 
-
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model) {
 
