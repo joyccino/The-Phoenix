@@ -2200,6 +2200,8 @@
                                               추가
                                           </button>
 
+
+
                                           <div class="donebtn" style="text-align:right">
                                               <button class="btn btn-primary me-1 mb-1" type="button"  style="width:80px" id="submit">
                                                   완료
@@ -2241,9 +2243,9 @@
                                       <!-- Center-->
                                       <nav aria-label="Page navigation example">
                                           <ul class="pagination justify-content-center">
-                                              <li class="page-item"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+                                              <li class="page-item"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a></li>
                                               <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                              <li class="page-item"><a class="page-link" href="#">다음</a></li>
                                           </ul>
                                       </nav>
                                       <!-- End-->
@@ -2657,6 +2659,7 @@ function addRow() {
                 if (isFirstClick) {
                     // 첫 번째 클릭일 경우
                     $('.contents').show();
+                    $('#scoreinput').show();
                     $('.quesBtn').prop('disabled', true);
                     var questionType = $(this).attr('id');
                     var inputType = '';
@@ -2672,7 +2675,7 @@ function addRow() {
                     }
                     if (questionType !== 'short') {
                         $('.contents').append(
-                            '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" /><div class="form-floating" style="margin-right:10px"><textarea class="form-control" id="option" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:100%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                            '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important;"><input class="form-check-input" type="' + inputType + '" name="flexRadioDefault" style="margin-right:5px;" /><div class="form-floating" style="margin-right:10px"><textarea class="form-control" id="option" placeholder="입력해주세요.." style="height: 8px; color: black; padding: 5px; width:488px; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
                         );
                     }
                     updateQuestionNumbers();
@@ -2713,6 +2716,7 @@ function addRow() {
                     $('#submit').css('background-color', '#d2d2d2');
                     $('.quesBtn').css('color', '#2C7BE5');
                     $('#add').hide();
+                    $('#scoreinput').hide();
                     $('.contents').hide();
                     isFirstClick = true;
                 }
@@ -2735,7 +2739,7 @@ function addRow() {
 
                 if (questionType !== 'short') {
                     $('.contents').append(
-                        '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important"><input class="form-check-input" type="' + inputType + '" value="" /><div class="form-floating" style="display:block; margin-right:10px;"><textarea class="form-control" id="option"  style="height: 8px; padding: 5px; width:100%; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
+                        '<div class="ques"><span class="ques-number"></span><div class="form-check" style="display:flex!important"><input class="form-check-input" type="' + inputType + '" value="" style="margin-right:5px" /><div class="form-floating" style="display:block; margin-right:10px;"><textarea class="form-control" id="option"  style="height: 8px; padding: 5px; width:488px; display:block"></textarea></div></div><input type="button" class="btnRemove" value="삭제"></div>'
                     );
                 }
 
@@ -2915,6 +2919,7 @@ function addRow() {
             // 페이지를 리셋
             $('#floatingTextarea2').val('');
             $('.contents').empty();
+            $('#score').empty();
             $('#floatingTextarea2').val('');
             $('.quesBtn').show();
             $('#submit').css('color', '#2C7BE5');
