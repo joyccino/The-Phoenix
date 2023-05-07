@@ -100,6 +100,12 @@ public class AuthController {
 
         return "redirect:/auth/login";
     }
+    @PostMapping("/updateMember")
+    public String updateMember(MembersDTO member) {
+        // 새로 업데이트 과정 추가
+        // 업데이트 된 멤버 세션에 추가
+        return "redirect:/mypage/edit";
+    }
 
     @PostMapping("/idCheck")
     @ResponseBody
@@ -108,6 +114,15 @@ public class AuthController {
         int isIdDupl = memberService.checkMemberById(memberId);
         System.out.println("idCheck 실행중"+isIdDupl);
         return isIdDupl;
+    }
+
+    @PostMapping("/passCheck")
+    @ResponseBody
+    public int passCheck(String oldPass) {
+        System.out.println("넘겨받은 pw: "+oldPass);
+        //int isIdDupl = memberService.checkMemberById(memberId);
+        //System.out.println("idCheck 실행중"+isIdDupl);
+        return 0;
     }
 
     @GetMapping("/deactivate")
