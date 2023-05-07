@@ -2040,11 +2040,19 @@
 
                                     <div class="mb-3 col-sm-6">
                                         <label class="form-label" for="card-surname">성</label>
-                                        <input class="form-control" type="text" autocomplete="none" id="card-surname" name ="memberSurname" oninput="nameCheck(document.getElementById('card-surname'));" onblur = "validateSurName(document.getElementById('card-surname'))" required readonly onfocus="this.removeAttribute('readonly');"/>
+                                        <input class="form-control" type="text" autocomplete="none" id="card-surname" name ="memberSurname"
+                                               oninput="nameCheck(document.getElementById('card-surname'));"
+                                               onblur = "validateSurName(document.getElementById('card-surname'))"
+                                               required readonly onfocus="this.removeAttribute('readonly');"
+                                               th:value="${qpUser.memberSurname}"/>
                                     </div>
                                     <div class="mb-3 col-sm-6">
                                         <label class="form-label" for="card-firstname">이름</label>
-                                        <input class="form-control" type="text" autocomplete="none" id="card-firstname" name ="memberFirstname" oninput="nameCheck(document.getElementById('card-firstname'));" onblur = "validateFirstName(document.getElementById('card-firstname'))" required readonly onfocus="this.removeAttribute('readonly');"/>
+                                        <input class="form-control" type="text" autocomplete="none" id="card-firstname" name ="memberFirstname"
+                                               oninput="nameCheck(document.getElementById('card-firstname'));"
+                                               onblur = "validateFirstName(document.getElementById('card-firstname'))"
+                                               required readonly onfocus="this.removeAttribute('readonly');"
+                                               th:value="${qpUser.memberFirstname}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -2565,7 +2573,7 @@
 <script>
     function deactivate(){
         if (confirm('회원 탈퇴 작업은 취소할 수 없습니다. 정말로 탈퇴하시겠습니까?')) {
-          // Save it!
+          // 이 자리에 탈퇴 사유 드롭다운 추가.
 
           alert("큐피를 이용해주셔서 감사합니다");
 
