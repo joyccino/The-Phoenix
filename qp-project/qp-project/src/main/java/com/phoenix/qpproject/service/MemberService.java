@@ -38,13 +38,29 @@ public class MemberService implements UserDetailsService {
         this.memberMapper = memberMapper;
     }
 
-    public MembersDTO login(String memberId, String memberPw) {
-        MembersDTO mDTO = memberMapper.getUserAccount(memberId);
-        if (mDTO != null && passwordEncoder.matches(memberPw, mDTO.getMemberPw())) {
+    public MembersDTO getUserAccount(String memberId) {
+
+        MembersDTO member = memberMapper.getUserAccount(memberId);
+
+        return member;
+    }
+
+    public MembersDTO login(MembersDTO member) {
+        MembersDTO mDTO = memberMapper.getUserAccount(member.getMemberId());
+
+        Boolean passBool = passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw());
+
+        System.out.println("패스워드 입력받은: "+member.getMemberPw());
+        System.out.println("패스워드 저장된: "+mDTO.getMemberPw());
+        System.out.println("패스워드 일치 여부: "+passBool);
+
+        if (mDTO != null && passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw())) {
             return mDTO;
         }
         else {
-            return mDTO;
+            System.out.println("패스워드 틀림");
+            MembersDTO emptyMember = new MembersDTO();
+            return emptyMember;
         }
     }
 //    public MembersDTO getUserById(String memberId) {
@@ -88,6 +104,9 @@ public class MemberService implements UserDetailsService {
         memberMapper.memberVerify(memberUUId);
     };
 
+    public void memberInfoUpdate(MembersDTO member){
+        memberMapper.memberInfoUpdate(member);
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //여기서 받은 유저 패스워드와 비교하여 로그인 인증
