@@ -2053,16 +2053,16 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
-                                  <select class="form-select" id="edu-category" name="educationLevel" data-options='{"removeItemButton":true,"placeholder":true}' required>
-                                    <option value="elementary" selected>초등</option>
-                                    <option value="middle">중등</option>
-                                    <option value="high">고등</option>
-                                    <option value="university">대학</option>
+                                  <select class="form-select js-choice" id="edu-category" onchange="validation();" name="educationLevel" data-options='{"removeItemButton":false,"placeholder":false}' required>
+                                    <option value="elementary" selected>초등학교</option>
+                                    <option value="middle">중학교</option>
+                                    <option value="high">고등학교</option>
+                                    <option value="university">대학교</option>
                                   </select>
                                 </div>
                                 <div class="col-sm-6 mb-3" id="years">
                                   <label class="form-label" for="year-category"><b>학년</b><span class="text-danger">*</span></label>
-                                  <select class="form-select" id="year-category" data-options='{"removeItemButton":true,"placeholder":true}' required >
+                                  <select class="form-select js-choice" id="year-category"onchange="validation();"  data-options='{"removeItemButton":false,"placeholder":false}' required >
                                     <option value="1">1학년</option>
                                     <option value="2">2학년</option>
                                     <option value="3">3학년</option>
@@ -2341,33 +2341,68 @@
       const quizTitle = document.getElementById("quiz-title");
       const eduCate = document.getElementById("edu-category");
       const yearCate = document.getElementById("year-category");
-
-      quizTitle.addEventListener("input", validateFields);
-      eduCate.addEventListener("change", validateFields);
-      yearCate.addEventListener("change", validateFields);
-
-      function validateFields() {
-        if (eduCate.value === "university") {
-          document.querySelector("#generalSubjectLabel").innerHTML = "학과";
-          document.querySelector("#detailSubjectLabel").innerHTML = "과목";
-          if (quizTitle.value !== "" &&
-              eduCate.value !== "") {
-              postBtn.disabled = false;
-              return;
-          } else {
-            postBtn.disabled = true;
-          }
-        } else {
-          if (quizTitle.value !== "" &&
-              eduCate.value !== "" &&
-              yearCate.value !== "") {
-              postBtn.disabled = false;
-              return;
-          } else {
-              postBtn.disabled = true;
-          }
+      
+      function validation() {
+        let eduLevel = $("#edu-category > option");
+        if(eduLevel[0].innerHTML == "초등") {
+        
         }
-      };
+        else if (eduLevel[0].innerHTML == "중등"){
+        
+        }
+        else if (eduLevel[0].innerHTML == "고등"){
+        
+        }
+        else if (eduLevel[0].innerHTML == "대학"){
+        
+        }
+        
+          //let quizTitle = document.querySelector("#quiz-title");
+          //let eduCat = document.querySelector("#edu-category");
+          //let yearCat = document.querySelector("#year-category");
+          //let generalSub = document.querySelector("#general-subject");
+          //let detailSub = document.querySelector("#detail-subject");
+          
+<!--        console.log(quizTitle.value);-->
+<!--        console.log(eduCat.value);-->
+<!--        console.log(yearCat.value);-->
+<!--        console.log(generalSub.value);-->
+<!--        console.log(detailSub.value);-->
+            //check 제목
+    <!--        if(quizTitle.value.trim()=== ''){-->
+    <!--            // 제목이 비어 있으면 버튼 비활성화-->
+    <!--            btn.disabled = true;-->
+    <!--            console.log("returned at 제목");-->
+    <!--            return;-->
+    <!--        }-->
+    
+    <!--        // if 교육과정 == 초등, check 학년-->
+    <!--        if (eduCat.value == 'elementary') {-->
+    <!--            if (yearCat.value == 0) {-->
+    <!--                // 학년이 선택되지 않은 경우 버튼 비활성화-->
+    <!--                btn.disabled = true;-->
+    <!--                console.log("returned at 교육과정");-->
+    <!--                return;-->
+    <!--            }-->
+    <!--        }-->
+    
+    <!--        // 과목/학부-->
+    <!--        if (generalSub.value == 0) {-->
+    <!--            // 과목/학부가 선택되지 않은 경우 버튼 비활성화-->
+    <!--            btn.disabled = true;-->
+    <!--            console.log("returned at 과목");-->
+    <!--            return;-->
+    <!--        }-->
+            // 세부과목/전공
+<!--            if (detailSub.value == 0) {-->
+                // 세부과목 선택되지 않은 경우 버튼 비활성화 <= 향후 세부 과목 드롭다운 구현 후 추가 바람.
+    <!--            btn.disabled = true;-->
+    <!--            console.log("returned at 세부과목");-->
+    <!--            return;-->
+<!--            }-->
+    
+      
+      }
 
       function addQuizBtn(){
           //ajax 로 post
@@ -2402,38 +2437,6 @@
           })
       }
 
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#edu-category').change(function() {
-          var selectedCategory = $(this).val();
-          if (selectedCategory === 'elementary') {
-            $('#year-category option').each(function() {
-              var value = $(this).val();
-              if (value === '' || value <= 6) {
-                $('#years').show();
-                $(this).show();
-              } else {
-                $(this).hide();
-              }
-            });
-          } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-            $('#year-category option').each(function() {
-              var value = $(this).val();
-              if (value === '' || value <= 3) {
-                $('#years').show();
-                $(this).show();
-              } else {
-                $(this).hide();
-              }
-            });
-          } else {
-            $('#years').hide();
-          }
-        });
-      });
-    </script>
-    <script>
         $(document).ready(function() {
             // general subject 선택 시 detail subject 목록 조회
             $('#general-subject').on('change', function() {
@@ -2483,56 +2486,8 @@
                 }
             });
         });
-    </script>
-  <script>
-      const btn = document.querySelector('#post-quiz');
-      //let quizTitle = document.querySelector("#quiz-title");
-      let eduCat = document.querySelector("#edu-category");
-      let yearCat = document.querySelector("#year-category");
-      let generalSub = document.querySelector("#general-subject");
-      let detailSub = document.querySelector("#detail-subject");
-      function btnChk(){
-        console.log(quizTitle.value);
-        console.log(eduCat.value);
-        console.log(yearCat.value);
-        console.log(generalSub.value);
-        console.log(detailSub.value);
-        //check 제목
-<!--        if(quizTitle.value.trim()=== ''){-->
-<!--            // 제목이 비어 있으면 버튼 비활성화-->
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 제목");-->
-<!--            return;-->
-<!--        }-->
-
-<!--        // if 교육과정 == 초등, check 학년-->
-<!--        if (eduCat.value == 'elementary') {-->
-<!--            if (yearCat.value == 0) {-->
-<!--                // 학년이 선택되지 않은 경우 버튼 비활성화-->
-<!--                btn.disabled = true;-->
-<!--                console.log("returned at 교육과정");-->
-<!--                return;-->
-<!--            }-->
-<!--        }-->
-
-<!--        // 과목/학부-->
-<!--        if (generalSub.value == 0) {-->
-<!--            // 과목/학부가 선택되지 않은 경우 버튼 비활성화-->
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 과목");-->
-<!--            return;-->
-<!--        }-->
-        // 세부과목/전공
-        if (detailSub.value == 0) {
-            // 세부과목 선택되지 않은 경우 버튼 비활성화 <= 향후 세부 과목 드롭다운 구현 후 추가 바람.
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 세부과목");-->
-<!--            return;-->
-        }
-
-        //만족시 버튼 열기
-        console.log("만족");
-      }
+        
+      
   </script>
 
 
