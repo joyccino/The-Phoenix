@@ -2033,12 +2033,12 @@
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 정보</a></li>
-                  <li class="nav-item" id="questionGenTab" style="display:none;"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
+                  <li class="nav-item"><a class="nav-link" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting">퀴즈 정보</a></li>
+                  <li class="nav-item" id="questionGenTab" style="display:none;"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm">질문 만들기</a></li>
               </ul>
               <!-- 퀴즈설정 -->
               <div class ="tab-content border-x border-bottom p-3" id="myTabContent">
-                  <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
+                  <div class="tab-pane fade" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
                       <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post">
                           <div class="card mb-3">
                             <div class="card-header">
@@ -2047,12 +2047,12 @@
                             <div class="card-body bg-light">
                               <div class="row gx-2">
                                 <div class="col-12 mb-3">
-                                  <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
+                                  <label class="form-label" for="quiz-title"><b>제목</b><span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
                                   </label>
                                   <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                  <label class="form-label" for="edu-category">교육 과정<span class="text-danger">*</span></label>
+                                  <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
                                   <select class="form-select" id="edu-category" name="educationLevel" required>
                                     <option value="elementary" selected>초등</option>
                                     <option value="middle">중등</option>
@@ -2061,7 +2061,7 @@
                                   </select>
                                 </div>
                                 <div class="col-sm-6 mb-3" id="years">
-                                  <label class="form-label" for="year-category">학년<span class="text-danger">*</span></label>
+                                  <label class="form-label" for="year-category"><b>학년</b><span class="text-danger">*</span></label>
                                   <select class="form-select" id="year-category" required >
                                     <option value="1">1학년</option>
                                     <option value="2">2학년</option>
@@ -2072,7 +2072,7 @@
                                   </select>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="general-subject" id="generalSubjectLabel">과목<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="general-subject" id="generalSubjectLabel"><b>과목</b><span class="text-danger">*</span></label>
                                     <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
                                         <option disabled selected value="">과목 선택</option>
                                         <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
@@ -2080,14 +2080,14 @@
                                 </select>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="detail-subject" id="detailSubjectLabel">세부 과목<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="detail-subject" id="detailSubjectLabel"><b>세부 과목</b><span class="text-danger">*</span></label>
                                     <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
-                                        <option selected value="">세부 과목 선택</option>
+                                        <option selecteㅇd value="">세부 과목 선택</option>
                                         <!--<option th:each="l : ${detailSubjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>-->
                                     </select>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label" for="course-tags" >태그<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
+                                    <label class="form-label" for="course-tags" ><b>태그</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
                                     </label>
                                     <input class="form-control js-choice" id="course-tags" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
                                 </div>
@@ -2105,7 +2105,7 @@
                             <div class="card-body bg-light">
                                 <div class="row gx-2">
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label" for="shuffle-quiz">문제 순서 랜덤<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                        <label class="form-label" for="shuffle-quiz"><b>문제 순서 랜덤</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
@@ -2113,24 +2113,24 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label" for="shuffle-options">문제 선택지 순서 랜덤<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 선택지의 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                        <label class="form-label" for="shuffle-options"><b>문제 선택지 순서 랜덤</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 선택지의 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="shuffle-options" type="checkbox" name="quizzesShuffleOptions"/>
+                                            <input class="form-check-input" type="checkbox" name="quizzesShuffleOptions"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label" for="allowed-attempts">응시 횟수 제한<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="응시 가능 횟수를 1회로 제한하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                        <label class="form-label" for="allowed-attempts"><b>응시 횟수 제한</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="응시 가능 횟수를 1회로 제한하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="allowed-attempts" type="checkbox" name="quizzesAllowedAttempts"/>
+                                            <input class="form-check-input" type="checkbox" name="quizzesAllowedAttempts"/>
                                         </div>
                                     </div>
                                 </div>
                                   <div class="mb-3">
-                                      <a class="btn btn-primary d-block w-100 mt-3" id="post-quiz" onclick="addQuizBtn();" disabled> 문제 추가하기 </a>
+                                      <a class="btn btn-primary d-block w-100 mt-3" onclick="addQuizBtn();" disabled> 문제 추가하기 </a>
                                   </div>
                             </div>
                           </div>
@@ -2139,35 +2139,88 @@
                   <!--퀴즈설정 끝-->
 
                   <!--문제생성-->
-                  <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledy="formTab">
-                      <div class="wrapper" >
-                          <div class="card mb-3" >
+                  <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledby="formTab">
+                      <form>
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <h5 class="mb-0"><b>질문</b></h5>
+                              </div>
                               <div class="card-body bg-light">
-                                  <form class="row gx-2">
+                                  <div class="row gx-2">
                                       <div class="col-12 mb-3">
-                                          <label class="form-label" for="course-name">질문<span class="text-danger">*</span></label>
-                                          <input class="form-control" id="course-name" type="text" placeholder="퀴즈 질문" required="required" />
+                                          <label class="form-label" for="quiz-title"><b>제목</b><span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
+                                          </label>
+                                          <input class="form-control" type="text" required/>
                                       </div>
                                       <div class="col-sm-6 mb-3">
-                                          <select class="form-select" id="quiz-type" name="select A Quiz Type" style="width:50%">
-                                              <option style="font-family: 'Font Awesome\ 5 Free'" >&#xf058 체크박스</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf140 객관식</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf13a 드롭다운</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf52c 단답형</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf039 장문형</option>
+                                          <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
+                                          <select class="form-select" required>
+                                              <option value="elementary" selected>초등</option>
+                                              <option value="middle">중등</option>
+                                              <option value="high">고등</option>
+                                              <option value="university">대학</option>
                                           </select>
                                       </div>
-                                      <div class="form-floating" ><textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea></div>
-
-                                  </form>
-                                  <input type="button" class="btnRemove" value="삭제" id="removebtn">
-
+                                      <div class="col-sm-6 mb-3">
+                                          <label class="form-label"><b>학년</b><span class="text-danger">*</span></label>
+                                          <select class="form-select"required >
+                                              <option value="1">1학년</option>
+                                              <option value="2">2학년</option>
+                                              <option value="3">3학년</option>
+                                              <option value="4">4학년</option>
+                                              <option value="5">5학년</option>
+                                              <option value="6">6학년</option>
+                                          </select>
+                                      </div>
+                                      
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label" for="course-tags" ><b>태그</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
+                                          </label>
+                                          <input class="form-control js-choice" id="course-tagsd" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
+                                      </div>
+                                      <!--<div class="col-sm-6 mb-3">
+                                          <label class="form-label" for="expected-time">예상 풀이시간</label>
+                                          <div class="input-group"><input class="form-control" id="expected-time" type="number" min="0" aria-describedby="minutes"/><span class="input-group-text" id="minutes">분</span></div>
+                                      </div>-->
+                                  </div>
                               </div>
                           </div>
-                      </div>
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <h5 class="mb-0"><b>질문 목록</b></h5>
+                              </div>
+                              <div class="card-body bg-light">
+                                  <div class="row gx-2">
+                                      <div class="col-sm-6 mb-3">
+                                          <label class="form-label" for="shuffle-quiz">문제 순서 랜덤<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+                                          <div class="form-check form-switch mb-0">
+                                              <input class="form-check-input" type="checkbox" name="quizzesShuffleQuestions"/>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+                                          <label class="form-label" for="shuffle-options">문제 선택지 순서 랜덤<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 선택지의 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+                                          <div class="form-check form-switch mb-0">
+                                              <input class="form-check-input" id="shuffle-options" type="checkbox" name="quizzesShuffleOptions"/>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+                                          <label class="form-label" for="allowed-attempts">응시 횟수 제한<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="응시 가능 횟수를 1회로 제한하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                      </div>
+                                      <div class="col-sm-6 mb-3">
+                                          <div class="form-check form-switch mb-0">
+                                              <input class="form-check-input" id="allowed-attempts" type="checkbox" name="quizzesAllowedAttempts"/>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
                   </div>
               </div>
-
             </div>
           </div>
           <footer class="footer">
@@ -2271,6 +2324,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+    $("#settingTab").addClass("active");
+    $("#settingTab").addClass("show");
+    $("#tabSetting").addClass("active");
+    $("#tabSetting").addClass("show");
+    $("#settingTab").prop('aria-selected', true);
+
+    $("#formTab").removeClass("active");
+    $("#formTab").removeClass("show");
+    $("#tabForm").removeClass("active");
+    $("#tabForm").removeClass("show");
+    $("#formTab").prop('aria-selected', false);
+
       const postBtn = document.getElementById("post-quiz");
       const quizTitle = document.getElementById("quiz-title");
       const eduCate = document.getElementById("edu-category");
@@ -2304,8 +2369,6 @@
       };
 
       function addQuizBtn(){
-        alert("before ajax");
-
           //ajax 로 post
           $.ajax({
             type : "POST", // http 방식
@@ -2317,16 +2380,23 @@
                 "quizzesAllowedAttempts" : document.querySelector("#allowed-attempts").checked,
             },
             success : function(data) {
-                postBtn.style.display = "none";
-                document.querySelector("#questionGenTab").style.display = "block";
-                document.querySelector("#settingTab").classList.remove("active");
-                document.querySelector("#settingTab").ariaSelected = "false";
-                document.querySelector("#questionGenTab").classList.add("active");
-                document.querySelector("#questionGenTab").ariaSelected = "true";
+                $("#tabSetting > form > div:nth-child(2) > div.card-body.bg-light > div.mb-3 > a").attr("style", "display: none!important");
+                $("#questionGenTab").attr("style", "display: block!important");
+                
+                $("#settingTab").removeClass("active");
+                $("#settingTab").removeClass("show");
+                $("#settingTab").prop('aria-selected', false);
+                $("#tabSetting").removeClass("active");
+                $("#tabSetting").removeClass("show");
+
+                $("#formTab").addClass("active");
+                $("#formTab").addClass("show");
+                $("#formTab").prop('aria-selected', true);
+                $("#tabForm").addClass("active");
+                $("#tabForm").addClass("show");
+
             }
           })
-
-          alert("ajax done");
       }
 
     </script>
@@ -2461,6 +2531,7 @@
         console.log("만족");
       }
   </script>
+
 
   </body>
 
