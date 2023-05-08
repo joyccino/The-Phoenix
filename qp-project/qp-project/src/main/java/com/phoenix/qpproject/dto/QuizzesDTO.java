@@ -21,5 +21,4 @@ public class QuizzesDTO {
     private Date quizzesExamEndDateTime;
     private QuizHistoryDTO quizHistoryDTO;
     private MembersDTO membersDTO;
-
 }

@@ -45,8 +45,12 @@ public class MemberService implements UserDetailsService {
         return member;
     }
 
-    public MembersDTO login(MembersDTO member) {
-        MembersDTO mDTO = memberMapper.getUserAccount(member.getMemberId());
+    public MembersDTO memberLogin(MembersDTO member) {
+        String memberId = member.getMemberId();
+
+        System.out.println("mid is: "+memberId);
+
+        MembersDTO mDTO = memberMapper.getUserAccount(memberId);
 
         Boolean passBool = passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw());
 
