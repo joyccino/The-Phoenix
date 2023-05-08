@@ -31,6 +31,4 @@ public interface MemberMapper {
     public void memberVerify(String memberUUId);
     public void memberInfoUpdate(MembersDTO member);
 
-    public int getRecentQuizIdOfMember(int memberId);
-
 }
