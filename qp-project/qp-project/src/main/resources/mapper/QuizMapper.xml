@@ -59,13 +59,13 @@
         LEFT JOIN members m ON qh.memberId = m.id;
     </select>
 
-    <select id="getRecentQuizIdOfMember" parameterType="java.lang.Integer" resultMap="java.lang.Integer">
-        SELECT
-        q.id
-        FROM quizzes q
-        WHERE memberId = #{memberId};
-        ORDER BY 'quizCreateDateTime' DESC LIMIT 1;
-    </select>
+<!--    <select id="getRecentQuizIdOfMember" parameterType="java.lang.Integer" resultMap="java.lang.Integer">-->
+<!--        SELECT-->
+<!--        q.id-->
+<!--        FROM quizzes q-->
+<!--        WHERE memberId = #{memberId};-->
+<!--        ORDER BY 'quizCreateDateTime' DESC LIMIT 1;-->
+<!--    </select>-->
 
     <insert id="addQuiz" parameterType="com.phoenix.qpproject.dto.QuizzesDTO">
         /* 회원가입 */

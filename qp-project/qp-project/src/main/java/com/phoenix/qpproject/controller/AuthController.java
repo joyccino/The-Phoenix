@@ -174,7 +174,7 @@ public class AuthController {
 
         qpUser.setMemberPw(oldPass);
 
-        MembersDTO memberInfo = memberService.login(qpUser);
+        MembersDTO memberInfo = memberService.memberLogin(qpUser);
 
         if (memberInfo.getMemberId() != null) {
             System.out.println("멤버: "+memberInfo. getMemberId());
@@ -208,7 +208,7 @@ public class AuthController {
         String rawPassword = member.getMemberPw();
         member.setMemberPw(rawPassword);
 
-        MembersDTO membersInfo = memberService.login(member);
+        MembersDTO membersInfo = memberService.memberLogin(member);
 
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
@@ -382,7 +382,7 @@ public class AuthController {
         session.invalidate();
 
         member = memberService.getUserAccount(memberId);
-        MembersDTO membersInfo = memberService.login(member);
+        MembersDTO membersInfo = memberService.memberLogin(member);
         membersInfo.setMemberPw("masked");
         session = request.getSession();
         session.setAttribute("qpUser", membersInfo);
