@@ -26,6 +26,4 @@ public class QuizService {
     public void addQuiz(QuizzesDTO quiz) {
         quizMapper.addQuiz(quiz);
     }
-
-
 }
