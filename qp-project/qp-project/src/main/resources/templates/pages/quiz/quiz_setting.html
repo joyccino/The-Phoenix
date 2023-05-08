@@ -2029,7 +2029,7 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">새로운 퀴즈를 생성합니다. 퀴즈 설정란을 먼저 입력하고, 문제를 생성해주세요.<br>필수 항목과 문제가 입력되지 않은 경우, 게시할 수 없습니다.</p>
+                  <p class="mb-0">새로운 퀴즈를 생성합니다.<br>퀴즈 설정란을 먼저 입력하고, '문제 추가하기' 버튼을 클릭해주세요.<br>필수 항목이 입력되지 않은 경우, 게시할 수 없습니다.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -2051,9 +2051,8 @@
                               <input class="form-control" id="quiz-title" type="text" name="title" required />
                             </div>
                             <div class="col-sm-6 mb-3">
-                              <label class="form-label" for="edu-category">카테고리<span class="text-danger">*</span></label>
+                              <label class="form-label" for="edu-category">교육 과정<span class="text-danger">*</span></label>
                               <select class="form-select" id="edu-category" name="educationLevel" required="required">
-                                <option disabled selected value="">초/중/고/대 선택</option>
                                 <option value="elementary">초등</option>
                                 <option value="middle">중등</option>
                                 <option value="high">고등</option>
@@ -2063,7 +2062,6 @@
                             <div class="col-sm-6 mb-3" id="years">
                               <label class="form-label" for="year-category">학년<span class="text-danger">*</span></label>
                               <select class="form-select" id="year-category" required="required">
-                                <option disabled selected value=""> 학년 선택</option>
                                 <option value="0">선택 안함</option>
                                 <option value="1">1학년</option>
                                 <option value="2">2학년</option>
@@ -2095,10 +2093,10 @@
                                 </label>
                                 <input class="form-control js-choice" id="course-tags" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <!--<div class="col-sm-6 mb-3">
                                 <label class="form-label" for="expected-time">예상 풀이시간</label>
                                 <div class="input-group"><input class="form-control" id="expected-time" type="number" min="0" aria-describedby="minutes"/><span class="input-group-text" id="minutes">분</span></div>
-                            </div>
+                            </div>-->
                           </form>
                         </div>
                       </div>
@@ -2134,6 +2132,9 @@
                                     </div>
                                 </div>
                             </div>
+                              <div class="mb-3">
+                                  <button class="btn btn-primary d-block w-100 mt-3" id="post-quiz" type="submit" name="submit">문제 추가하기</button>
+                              </div>
                           </form>
                         </div>
                       </div>
@@ -2159,7 +2160,6 @@
                                               <option style="font-family: 'Font Awesome\ 5 Free'">&#xf52c 단답형</option>
                                               <option style="font-family: 'Font Awesome\ 5 Free'">&#xf039 장문형</option>
                                           </select>
-
                                       </div>
                                       <div class="form-floating" ><textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea></div>
 
@@ -2171,10 +2171,7 @@
                       </div>
                   </div>
               </div>
-              <!-- 탭 끝 -->
-              <div for="post-quiz" style="float:right">
-                  <button class="btn btn-primary me-1 mb-1" id="post-quiz" type="button" disabled>게시</button>
-              </div>
+
             </div>
           </div>
             <script>
