@@ -54,9 +54,11 @@ public class QuizController {
         
         // 세션에 퀴즈 아이디 포함한 정보 추가 (해당 멤버가 가장 최근에 추가한 quiz 가져오기);
 
-//        session.setAttribute("quizId", generatedQuizId);
+        int generatedQuizId = quizService.getRecentQuizIdOfMember(member.getId());
+
+        session.setAttribute("quizId", generatedQuizId);
 //
-//        session.setMaxInactiveInterval(-1);
+        session.setMaxInactiveInterval(-1);
     }
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String quizsetting(Model model) {
