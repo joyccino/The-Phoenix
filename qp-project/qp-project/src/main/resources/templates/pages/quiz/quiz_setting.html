@@ -60,6 +60,8 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+      
+    
 
   </head>
 
@@ -2053,8 +2055,9 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
-                                  <select class="form-select js-choice" id="edu-category" onchange="validation();" name="educationLevel" data-options='{"removeItemButton":false,"placeholder":false}' required>
-                                    <option value="elementary" selected>초등학교</option>
+                                  <select class="form-select js-choice" id="edu-category" name="educationLevel" data-options='{"removeItemButton":false,"placeholder":false, "shouldSort":false}' required>
+                                      <option disabled selected value="">교육과정 선택</option>
+                                      <option value="elementary">초등학교</option>
                                     <option value="middle">중학교</option>
                                     <option value="high">고등학교</option>
                                     <option value="university">대학교</option>
@@ -2062,8 +2065,9 @@
                                 </div>
                                 <div class="col-sm-6 mb-3" id="years">
                                   <label class="form-label" for="year-category"><b>학년</b><span class="text-danger">*</span></label>
-                                  <select class="form-select js-choice" id="year-category"onchange="validation();"  data-options='{"removeItemButton":false,"placeholder":false}' required >
-                                    <option value="1">1학년</option>
+                                  <select class="form-select js-choice" id="year-category" data-options='{"removeItemButton":false,"placeholder":false, "shouldSort":true}' required >
+                                      <option disabled selected value="">학년 선택</option>
+                                      <option value="1">1학년</option>
                                     <option value="2">2학년</option>
                                     <option value="3">3학년</option>
                                     <option value="4">4학년</option>
@@ -2073,7 +2077,7 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="general-subject" id="generalSubjectLabel"><b>과목</b><span class="text-danger">*</span></label>
-                                    <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
+                                    <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":false,"placeholder":true}'>
                                         <option disabled selected value="">과목 선택</option>
                                         <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
                                     </select>
@@ -2324,6 +2328,9 @@
     <script src="../../../vendors/prism/prism.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../../vendors/jquery/jquery.min.js"></script>
+    <script src="../../../vendors/select2/select2.min.js"></script>
+    <script src="../../../vendors/select2/select2.full.min.js"></script>
     <script>
     $("#settingTab").addClass("active");
     $("#settingTab").addClass("show");
@@ -2342,65 +2349,48 @@
       const eduCate = document.getElementById("edu-category");
       const yearCate = document.getElementById("year-category");
       
+      let element = document.querySelector("#edu-category");
+      const choices = new window.Choices(yearCate);
+      
+      element.addEventListener('change', e => {
+        console.log(e.detail);
+        if(e.detail.value == "elementary") {
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+              { value: '4', label: '4학년' },
+              { value: '5', label: '5학년' },
+              { value: '6', label: '6학년' },
+            ]);
+        }else if (e.detail.value == "middle"){
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+            ]);
+        }else if  (e.detail.value == "high"){
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+            ]);
+        }else if (e.detail.value == "university"){
+            $("#years").attr("style", "display: none!important");
+       }
+      });
+
+      
       function validation() {
-        let eduLevel = $("#edu-category > option");
-        if(eduLevel[0].innerHTML == "초등") {
-        
-        }
-        else if (eduLevel[0].innerHTML == "중등"){
-        
-        }
-        else if (eduLevel[0].innerHTML == "고등"){
-        
-        }
-        else if (eduLevel[0].innerHTML == "대학"){
-        
-        }
-        
-          //let quizTitle = document.querySelector("#quiz-title");
-          //let eduCat = document.querySelector("#edu-category");
-          //let yearCat = document.querySelector("#year-category");
-          //let generalSub = document.querySelector("#general-subject");
-          //let detailSub = document.querySelector("#detail-subject");
-          
-<!--        console.log(quizTitle.value);-->
-<!--        console.log(eduCat.value);-->
-<!--        console.log(yearCat.value);-->
-<!--        console.log(generalSub.value);-->
-<!--        console.log(detailSub.value);-->
-            //check 제목
-    <!--        if(quizTitle.value.trim()=== ''){-->
-    <!--            // 제목이 비어 있으면 버튼 비활성화-->
-    <!--            btn.disabled = true;-->
-    <!--            console.log("returned at 제목");-->
-    <!--            return;-->
-    <!--        }-->
-    
-    <!--        // if 교육과정 == 초등, check 학년-->
-    <!--        if (eduCat.value == 'elementary') {-->
-    <!--            if (yearCat.value == 0) {-->
-    <!--                // 학년이 선택되지 않은 경우 버튼 비활성화-->
-    <!--                btn.disabled = true;-->
-    <!--                console.log("returned at 교육과정");-->
-    <!--                return;-->
-    <!--            }-->
-    <!--        }-->
-    
-    <!--        // 과목/학부-->
-    <!--        if (generalSub.value == 0) {-->
-    <!--            // 과목/학부가 선택되지 않은 경우 버튼 비활성화-->
-    <!--            btn.disabled = true;-->
-    <!--            console.log("returned at 과목");-->
-    <!--            return;-->
-    <!--        }-->
-            // 세부과목/전공
-<!--            if (detailSub.value == 0) {-->
-                // 세부과목 선택되지 않은 경우 버튼 비활성화 <= 향후 세부 과목 드롭다운 구현 후 추가 바람.
-    <!--            btn.disabled = true;-->
-    <!--            console.log("returned at 세부과목");-->
-    <!--            return;-->
-<!--            }-->
-    
       
       }
 
