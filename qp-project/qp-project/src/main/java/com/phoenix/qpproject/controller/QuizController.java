@@ -1,9 +1,12 @@
 package com.phoenix.qpproject.controller;
 
+import com.phoenix.qpproject.dto.MembersDTO;
 import com.phoenix.qpproject.dto.QuizzesDTO;
 import com.phoenix.qpproject.dto.SubjectsDTO;
 import com.phoenix.qpproject.service.QuizService;
 import com.phoenix.qpproject.service.SubjectsService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +36,37 @@ public class QuizController {
         return "/pages/quiz/quizFrom";
     }
 
-    @RequestMapping(value = "settingQuiz", method = RequestMethod.GET)
+    @PostMapping(value="generateQuiz")
+    @ResponseBody
+    public void generateQuiz(@ModelAttribute QuizzesDTO quiz, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser;
+
+        System.out.println("넘겨온 퀴즈 "+quiz.getQuizzesTitle());
+
+        quiz.setQuizzesMemberId(member.getId());
+
+        quizService.addQuiz(quiz);
+
+        System.out.println("퀴즈 생성 성공");
+        
+        // 세션에 퀴즈 아이디 포함한 정보 추가 (해당 멤버가 가장 최근에 추가한 quiz 가져오기);
+        int generatedQuizId = quizService.getRecentQuizIdOfMember(member.getId());
+
+        session.setAttribute("quizId", generatedQuizId);
+
+        session.setMaxInactiveInterval(-1);
+    }
+    @RequestMapping(value = "create", method = RequestMethod.GET)
     public String quizsetting(Model model) {
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
         model.addAttribute("generalSubjectList", generalSubjectList);
         return "/pages/quiz/quiz_setting";
     }
+
 
     @PostMapping(value="getDetailSubjects")
     @ResponseBody

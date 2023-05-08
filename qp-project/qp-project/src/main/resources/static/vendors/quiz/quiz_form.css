@@ -65,7 +65,7 @@ input::placeholder {
     margin-bottom:10px;
 }
 .form-control {
-    width:1000px!important;
+
     margin-right:5px!important;
 
 }
@@ -78,18 +78,13 @@ input::placeholder {
 .form-floating input {
   margin-left: 10px;
 }
-.form-floating > textarea {
-    margin-right: 10px;
-      height: auto;
-      color: black;
-      padding: 5px;
-      width: 100%;
-      resize: none;
-      overflow: hidden;
-      border: none;
-      outline: none;
-      white-space: nowrap;
-      rows="1";
+.form-floating  textarea {
+   height: 8px;
+     color: black;
+     padding: 5px;
+     width: 100%;
+     display: block;
+     box-sizing: border-box;
 }
 
 .question {
@@ -122,4 +117,8 @@ margin-left:8px;
 .listdlt span {
     width:14px;
     height:16px;
+}
+.form-check {
+    display : flex;
+     align-items: center;
 }

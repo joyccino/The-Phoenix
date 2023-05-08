@@ -2029,194 +2029,173 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">새로운 퀴즈를 생성합니다. 퀴즈 설정란을 먼저 입력하고, 문제를 생성해주세요.<br>필수 항목과 문제가 입력되지 않은 경우, 게시할 수 없습니다.</p>
+                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '퀴즈 추가하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 설정</a></li>
-                  <li class="nav-item"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
+                  <li class="nav-item"><a class="nav-link" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting">퀴즈 정보</a></li>
+                  <li class="nav-item" id="questionGenTab" style="display:none;"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm">질문 만들기</a></li>
               </ul>
               <!-- 퀴즈설정 -->
               <div class ="tab-content border-x border-bottom p-3" id="myTabContent">
-                  <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
-                      <div class="card mb-3">
-                        <div class="card-header">
-                          <h5 class="mb-0">퀴즈 정보</h5>
-                        </div>
-                        <div class="card-body bg-light">
-                          <form class="row gx-2">
-                            <div class="col-12 mb-3">
-                              <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
-                              </label>
-                              <input class="form-control" id="quiz-title" type="text" name="title" required />
+                  <div class="tab-pane fade" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
+                      <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post">
+                          <div class="card mb-3">
+                            <div class="card-header">
+                              <h5 class="mb-0"><b>퀴즈 정보</b></h5>
                             </div>
-                            <div class="col-sm-6 mb-3">
-                              <label class="form-label" for="edu-category">카테고리<span class="text-danger">*</span></label>
-                              <select class="form-select" id="edu-category" name="educationLevel" required="required">
-                                <option disabled selected value="">초/중/고/대 선택</option>
-                                <option value="elementary">초등</option>
-                                <option value="middle">중등</option>
-                                <option value="high">고등</option>
-                                <option value="university">대학</option>
-                              </select>
-                            </div>
-                            <div class="col-sm-6 mb-3" id="years">
-                              <label class="form-label" for="year-category">학년<span class="text-danger">*</span></label>
-                              <select class="form-select" id="year-category" required="required">
-                                <option disabled selected value=""> 학년 선택</option>
-                                <option value="0">선택 안함</option>
-                                <option value="1">1학년</option>
-                                <option value="2">2학년</option>
-                                <option value="3">3학년</option>
-                                <option value="4">4학년</option>
-                                <option value="5">5학년</option>
-                                <option value="6">6학년</option>
-                              </select>
-                            </div>
-                          </form>
-                          <form class="row gx-2">
-                            <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="general-subject">과목/학부<span class="text-danger">*</span></label>
-                                <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}' required="required">
-                                    <option disabled selected value="">과목 선택</option>
-                                    <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
+                            <div class="card-body bg-light">
+                              <div class="row gx-2">
+                                <div class="col-12 mb-3">
+                                  <label class="form-label" for="quiz-title"><b>제목</b><span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
+                                  </label>
+                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" required/>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                  <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
+                                  <select class="form-select" id="edu-category" name="educationLevel" required>
+                                    <option value="elementary" selected>초등</option>
+                                    <option value="middle">중등</option>
+                                    <option value="high">고등</option>
+                                    <option value="university">대학</option>
+                                  </select>
+                                </div>
+                                <div class="col-sm-6 mb-3" id="years">
+                                  <label class="form-label" for="year-category"><b>학년</b><span class="text-danger">*</span></label>
+                                  <select class="form-select" id="year-category" required >
+                                    <option value="1">1학년</option>
+                                    <option value="2">2학년</option>
+                                    <option value="3">3학년</option>
+                                    <option value="4">4학년</option>
+                                    <option value="5">5학년</option>
+                                    <option value="6">6학년</option>
+                                  </select>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="general-subject" id="generalSubjectLabel"><b>과목</b><span class="text-danger">*</span></label>
+                                    <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
+                                        <option disabled selected value="">과목 선택</option>
+                                        <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
+                                    </select>
                                 </select>
-                            </select>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="detail-subject" id="detailSubjectLabel"><b>세부 과목</b><span class="text-danger">*</span></label>
+                                    <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
+                                        <option selecteㅇd value="">세부 과목 선택</option>
+                                        <!--<option th:each="l : ${detailSubjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>-->
+                                    </select>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label" for="course-tags" ><b>태그</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
+                                    </label>
+                                    <input class="form-control js-choice" id="course-tags" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
+                                </div>
+                                <!--<div class="col-sm-6 mb-3">
+                                    <label class="form-label" for="expected-time">예상 풀이시간</label>
+                                    <div class="input-group"><input class="form-control" id="expected-time" type="number" min="0" aria-describedby="minutes"/><span class="input-group-text" id="minutes">분</span></div>
+                                </div>-->
+                              </div>
                             </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="detail-subject">세부 과목/전공<span class="text-danger">*</span></label>
-                                <select class="form-select js-choice" id="detail-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}' required="required">
-                                    <option selected value="">세부 과목 선택</option>
-                                    <!--<option th:each="l : ${detailSubjectList}"><p th:text="${l.subjectDetailSubject}"></p></option>-->
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label class="form-label" for="course-tags" >태그<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="과목에 대한 태그를 입력해주세요. 태그로도 검색이 가능합니다."><span class="fa fa-question-circle ms-2"></span></a>
-                                </label>
-                                <input class="form-control js-choice" id="course-tags" type="text" size="1" data-options='{"removeItemButton":true,"placeholder":true}' />
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="expected-time">예상 풀이시간</label>
-                                <div class="input-group"><input class="form-control" id="expected-time" type="number" min="0" aria-describedby="minutes"/><span class="input-group-text" id="minutes">분</span></div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="card mb-3">
-                          <div class="card-header">
-                              <h5 class="mb-0">퀴즈 설정</h5>
                           </div>
-                        <div class="card-body bg-light">
-                          <form>
-                            <div class="row gx-2">
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="shuffle-quiz">문제 순서 섞기</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="shuffle-quiz" type="checkbox" checked="checked" />
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <h5 class="mb-0"><b>퀴즈 세부설정</b></h5>
+                              </div>
+                            <div class="card-body bg-light">
+                                <div class="row gx-2">
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label" for="shuffle-quiz"><b>문제 순서 랜덤</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="form-check form-switch mb-0">
+                                            <input class="form-check-input" id="shuffle-quiz" type="checkbox" name="quizzesShuffleQuestions"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label" for="shuffle-options"><b>문제 선택지 순서 랜덤</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="질문 선택지의 순서를 랜덤으로 출제하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="form-check form-switch mb-0">
+                                            <input class="form-check-input" id="shuffle-options" type="checkbox" name="quizzesShuffleOptions"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label" for="allowed-attempts"><b>응시 횟수 제한</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="응시 가능 횟수를 1회로 제한하는 옵션입니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></label>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <div class="form-check form-switch mb-0">
+                                            <input class="form-check-input" id="allowed-attempts" type="checkbox" name="quizzesAllowedAttempts"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="shuffle-options">객관식 문제 선택지 순서 섞기</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="shuffle-options" type="checkbox" checked="checked" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label" for="allowed-attempts">응시 횟수 제한<br>(응시 횟수를 1회로 제한합니다.)</label>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <div class="form-check form-switch mb-0">
-                                        <input class="form-check-input" id="allowed-attempts" type="checkbox"/>
-                                    </div>
-                                </div>
+                                  <div class="mb-3">
+                                      <a class="btn btn-primary d-block w-100 mt-3" id="post-quiz" onclick="addQuizBtn();" disabled> <b>퀴즈 추가하기</b> </a>
+                                  </div>
                             </div>
-                          </form>
-                        </div>
-                      </div>
+                          </div>
+                      </form>
                   </div>
                   <!--퀴즈설정 끝-->
 
                   <!--문제생성-->
-                  <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledy="formTab">
-                      <div class="wrapper" >
-                          <div class="card mb-3" >
+                  <div class="tab-pane fade" id="tabForm" role="tabpanel" aria-labelledby="formTab">
+                      <form>
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <h5 class="mb-0"><b>질문</b></h5>
+                              </div>
                               <div class="card-body bg-light">
-                                  <form class="row gx-2">
+                                  <div class="row gx-2">
                                       <div class="col-12 mb-3">
-                                          <label class="form-label" for="course-name">질문<span class="text-danger">*</span></label>
-                                          <input class="form-control" id="course-name" type="text" placeholder="퀴즈 질문" required="required" />
+                                          <label class="form-label">
+                                              <b>질문</b><span class="text-danger">*</span>
+                                          </label>
+                                          <input class="form-control" type="text" required/>
                                       </div>
-                                      <div class="col-sm-6 mb-3">
-
-                                          <select class="form-select" id="quiz-type" name="select A Quiz Type" style="width:50%">
-                                              <option style="font-family: 'Font Awesome\ 5 Free'" >&#xf058 체크박스</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf140 객관식</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf13a 드롭다운</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf52c 단답형</option>
-                                              <option style="font-family: 'Font Awesome\ 5 Free'">&#xf039 장문형</option>
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label" >
+                                              <b>퀴즈 유형</b><span class="text-danger">*</span>
+                                          </label>
+                                          <select class="form-select" required>
+                                              <option value="single" disabled>객관식(정답 하나) 문제</option>
+                                              <option value="multiple" disabled>선다형(정답 여러개) 문제</option>
+                                              <option value="short" selected>단답형 문제</option>
                                           </select>
-
                                       </div>
-                                      <div class="form-floating" ><textarea class="form-control" id="floatingTextarea2" placeholder="Leave a comment here" style="height: 100px"></textarea></div>
-
-                                  </form>
-                                  <input type="button" class="btnRemove" value="삭제" id="removebtn">
-
+                                      
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label" for="course-tags" ><b>정답</b><span class="text-danger">*</span></a>
+                                          </label>
+                                          <input class="form-control" type="text" required/>
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          <a class="btn btn-secondary d-block w-100 mt-3" disabled> <b>질문 추가하기</b> </a>
+                                      </div>
+                                      
+                                  </div>
                               </div>
                           </div>
-                      </div>
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <h5 class="mb-0"><b>질문 목록</b></h5>
+                              </div>
+                              <div class="card-body bg-light">
+                                  <div class="row gx-2">
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label" for="course-tags" ><b>테이블 여기 추가될 예정</b><span class="text-danger">*</span></a>
+                                          </label>
+                                          <input class="form-control" type="text" required/>
+                                      </div>
+                                      <div class="mb-3">
+                                          <a class="btn btn-primary d-block w-100 mt-3" disabled> <b>퀴즈 등록하기</b> </a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
                   </div>
-              </div>
-              <!-- 탭 끝 -->
-              <div for="post-quiz" style="float:right">
-                  <button class="btn btn-primary me-1 mb-1" id="post-quiz" type="button" disabled>게시</button>
-              </div>
-            </div>
-          </div>
-            <script>
-                  const postBtn = document.getElementById("post-quiz");
-                  const quizTitle = document.getElementById("quiz-title");
-                  const eduCate = document.getElementById("edu-category");
-                  const yearCate = document.getElementById("year-category");
-
-                  quizTitle.addEventListener("input", validateFields);
-                  eduCate.addEventListener("change", validateFields);
-                  yearCate.addEventListener("change", validateFields);
-
-                  function validateFields() {
-                    if (eduCate.value === "university") {
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "") {
-                        postBtn.disabled = false;
-                      } else {
-                        postBtn.disabled = true;
-                      }
-                    } else {
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "" &&
-                          yearCate.value !== "") {
-                        postBtn.disabled = false;
-                      } else {
-                        postBtn.disabled = true;
-                      }
-                    }
-                  };
-              </script>
-
-
-          <div class="card rounded-0 bottom-bar d-lg-none" data-bottom-bar='{"target":"course-publish-btn","breakPoint":"lg"}'>
-            <div class="card-body py-2 px-0">
-              <div class="container">
-                <div class="row flex-between-center g-0">
-                  <div class="col-auto"><a class="btn btn-link btn-sm text-secondary fw-medium px-0" href="#!">Save as Draft</a></div>
-                  <div class="col-auto">
-                    <button class="btn btn-primary btn-md px-5 fw-medium" type="submit">Publish</button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -2287,126 +2266,7 @@
               <div class="modal-header d-flex align-items-center border-bottom px-4">
                 <h4 class="mb-0" id="schedule-discount-modal-label">Schedule for Discount </h4>
               </div>
-              <div class="modal-body p-4 bg-light">
-                <form class="row gx-3">
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="time-zone">Timezone
-                    </label>
-                    <select class="form-select" id="time-zone">
-                      <option>GMT-12:00 Etc/GMT-12</option>
-                      <option>GMT-11:00 Etc/GMT-11</option>
-                      <option>GMT-11:00 Pacific/Midway</option>
-                      <option>GMT-10:00 America/Adak</option>
-                      <option>GMT-09:00 America/Anchorage</option>
-                      <option>GMT-09:00 Pacific/Gambier</option>
-                      <option>GMT-08:00 America/Dawson_Creek</option>
-                      <option>GMT-08:00 America/Ensenada</option>
-                      <option>GMT-08:00 America/Los_Angeles</option>
-                      <option>GMT-07:00 America/Chihuahua</option>
-                      <option>GMT-07:00 America/Denver</option>
-                      <option>GMT-06:00 America/Belize</option>
-                      <option>GMT-06:00 America/Cancun</option>
-                      <option>GMT-06:00 America/Chicago</option>
-                      <option>GMT-06:00 Chile/EasterIsland</option>
-                      <option>GMT-05:00 America/Bogota</option>
-                      <option>GMT-05:00 America/Havana</option>
-                      <option>GMT-05:00 America/New_York</option>
-                      <option>GMT-04:30 America/Caracas</option>
-                      <option>GMT-04:00 America/Campo_Grande</option>
-                      <option>GMT-04:00 America/Glace_Bay</option>
-                      <option>GMT-04:00 America/Goose_Bay</option>
-                      <option>GMT-04:00 America/Santiago</option>
-                      <option>GMT-04:00 America/La_Paz</option>
-                      <option>GMT-03:00 America/Argentina/Buenos_Aires</option>
-                      <option>GMT-03:00 America/Montevideo</option>
-                      <option>GMT-03:00 America/Araguaina</option>
-                      <option>GMT-03:00 America/Godthab</option>
-                      <option>GMT-03:00 America/Miquelon</option>
-                      <option>GMT-03:00 America/Sao_Paulo</option>
-                      <option>GMT-03:30 America/St_Johns</option>
-                      <option>GMT-02:00 America/Noronha</option>
-                      <option>GMT-01:00 Atlantic/Cape_Verde</option>
-                      <option>GMT Europe/Belfast</option>
-                      <option>GMT Africa/Abidjan</option>
-                      <option>GMT Europe/Dublin</option>
-                      <option>GMT Europe/Lisbon</option>
-                      <option>GMT Europe/London</option>
-                      <option>UTC UTC</option>
-                      <option>GMT+01:00 Africa/Algiers</option>
-                      <option>GMT+01:00 Africa/Windhoek</option>
-                      <option>GMT+01:00 Atlantic/Azores</option>
-                      <option>GMT+01:00 Atlantic/Stanley</option>
-                      <option>GMT+01:00 Europe/Amsterdam</option>
-                      <option>GMT+01:00 Europe/Belgrade</option>
-                      <option>GMT+01:00 Europe/Brussels</option>
-                      <option>GMT+02:00 Africa/Cairo</option>
-                      <option>GMT+02:00 Africa/Blantyre</option>
-                      <option>GMT+02:00 Asia/Beirut</option>
-                      <option>GMT+02:00 Asia/Damascus</option>
-                      <option>GMT+02:00 Asia/Gaza</option>
-                      <option>GMT+02:00 Asia/Jerusalem</option>
-                      <option>GMT+03:00 Africa/Addis_Ababa</option>
-                      <option>GMT+03:00 Asia/Riyadh89</option>
-                      <option>GMT+03:00 Europe/Minsk</option>
-                      <option>GMT+03:30 Asia/Tehran</option>
-                      <option>GMT+04:00 Asia/Dubai</option>
-                      <option>GMT+04:00 Asia/Yerevan</option>
-                      <option>GMT+04:00 Europe/Moscow</option>
-                      <option>GMT+04:30 Asia/Kabul</option>
-                      <option>GMT+05:00 Asia/Tashkent</option>
-                      <option>GMT+05:30 Asia/Kolkata</option>
-                      <option>GMT+05:45 Asia/Katmandu</option>
-                      <option>GMT+06:00 Asia/Dhaka</option>
-                      <option>GMT+06:00 Asia/Yekaterinburg</option>
-                      <option>GMT+06:30 Asia/Rangoon</option>
-                      <option>GMT+07:00 Asia/Bangkok</option>
-                      <option>GMT+07:00 Asia/Novosibirsk</option>
-                      <option>GMT+08:00 Etc/GMT+8</option>
-                      <option>GMT+08:00 Asia/Hong_Kong</option>
-                      <option>GMT+08:00 Asia/Krasnoyarsk</option>
-                      <option>GMT+08:00 Australia/Perth</option>
-                      <option>GMT+08:45 Australia/Eucla</option>
-                      <option>GMT+09:00 Asia/Irkutsk</option>
-                      <option>GMT+09:00 Asia/Seoul</option>
-                      <option>GMT+09:00 Asia/Tokyo</option>
-                      <option>GMT+09:30 Australia/Adelaide</option>
-                      <option>GMT+09:30 Australia/Darwin</option>
-                      <option>GMT+09:30 Pacific/Marquesas</option>
-                      <option>GMT+10:00 Etc/GMT+10</option>
-                      <option>GMT+10:00 Australia/Brisbane</option>
-                      <option>GMT+10:00 Australia/Hobart</option>
-                      <option>GMT+10:00 Asia/Yakutsk</option>
-                      <option>GMT+10:30 Australia/Lord_Howe</option>
-                      <option>GMT+11:00 Asia/Vladivostok</option>
-                      <option>GMT+11:30 Pacific/Norfolk</option>
-                      <option>GMT+12:00 Etc/GMT+12</option>
-                      <option>GMT+12:00 Asia/Anadyr</option>
-                      <option>GMT+12:00 Asia/Magadan</option>
-                      <option>GMT+12:00 Pacific/Auckland</option>
-                      <option>GMT+12:45 Pacific/Chatham</option>
-                      <option>GMT+13:00 Pacific/Tongatapu</option>
-                      <option>GMT+14:00 Pacific/Kiritimati</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6"></div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="start-date">Start Date</label>
-                    <input class="form-control datetimepicker" id="start-date" type="text" placeholder="dd/mm/yyyy" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="start-time">Start Time</label>
-                    <input class="form-control datetimepicker" id="start-time" type="text" placeholder="23 : 45" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="end-date">End Date</label>
-                    <input class="form-control datetimepicker" id="end-date" type="text" placeholder="dd/mm/yyyy" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="end-time">End Time</label>
-                    <input class="form-control datetimepicker" id="end-time" type="text" placeholder="23 : 45" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                  </div>
-                </form>
-              </div>
+
               <div class="modal-footer border-top text-start py-2 px-4 d-flex justify-content-end">
                 <button class="btn btn-outline-secondary btn-md" data-bs-dismiss="modal"> <span class="fas fa-times me-1 fs--1"></span>Cancel</button>
                 <button class="btn btn-primary btn-md ms-2" type="submit"> <span class="fas fa-check me-1 fs--1"></span>Confirm</button>
@@ -2419,113 +2279,6 @@
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
-
-
-    <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas">
-      <div class="offcanvas-header settings-panel-header bg-shape">
-        <div class="z-1 py-1" data-bs-theme="light">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <h5 class="text-white mb-0 me-2"><span class="fas fa-palette me-2 fs-0"></span>Settings</h5>
-            <button class="btn btn-primary btn-sm rounded-pill mt-0 mb-0" data-theme-control="reset" style="font-size:12px"> <span class="fas fa-redo-alt me-1" data-fa-transform="shrink-3"></span>Reset</button>
-          </div>
-          <p class="mb-0 fs--1 text-white opacity-75"> Set your own customized style</p>
-        </div>
-        <button class="btn-close btn-close-white z-1 mt-0" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body scrollbar-overlay px-x1 h-100" id="themeController">
-        <h5 class="fs-0">Color Scheme</h5>
-        <p class="fs--1">Choose the perfect color mode for your app.</p>
-        <div class="btn-group d-block w-100 btn-group-navbar-style">
-          <div class="row gx-2">
-            <div class="col-6">
-              <input class="btn-check" id="themeSwitcherLight" name="theme-color" type="radio" value="light" data-theme-control="theme" />
-              <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherLight"> <span class="hover-overlay mb-2 rounded d-block"><img class="img-fluid img-prototype mb-0" src="../../../assets/img/generic/falcon-mode-default.jpg" alt=""/></span><span class="label-text">Light</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="themeSwitcherDark" name="theme-color" type="radio" value="dark" data-theme-control="theme" />
-              <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherDark"> <span class="hover-overlay mb-2 rounded d-block"><img class="img-fluid img-prototype mb-0" src="../../../assets/img/generic/falcon-mode-dark.jpg" alt=""/></span><span class="label-text"> Dark</span></label>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-start"><img class="me-2" src="../../../assets/img/icons/left-arrow-from-left.svg" width="20" alt="" />
-            <div class="flex-1">
-              <h5 class="fs-0">RTL Mode</h5>
-              <p class="fs--1 mb-0">Switch your language direction </p><a class="fs--1" href="../../../documentation/customization/configuration.html">RTL Documentation</a>
-            </div>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input ms-0" id="mode-rtl" type="checkbox" data-theme-control="isRTL" />
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-start"><img class="me-2" src="../../../assets/img/icons/arrows-h.svg" width="20" alt="" />
-            <div class="flex-1">
-              <h5 class="fs-0">Fluid Layout</h5>
-              <p class="fs--1 mb-0">Toggle container layout system </p><a class="fs--1" href="../../../documentation/customization/configuration.html">Fluid Documentation</a>
-            </div>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input ms-0" id="mode-fluid" type="checkbox" data-theme-control="isFluid" />
-          </div>
-        </div>
-        <hr />
-        <div class="d-flex align-items-start"><img class="me-2" src="../../../assets/img/icons/paragraph.svg" width="20" alt="" />
-          <div class="flex-1">
-            <h5 class="fs-0 d-flex align-items-center">Navigation Position</h5>
-            <p class="fs--1 mb-2">Select a suitable navigation system for your web application </p>
-            <div>
-              <select class="form-select form-select-sm" aria-label="Navbar position" data-theme-control="navbarPosition">
-                <option value="vertical" data-page-url="../../../modules/components/navs-and-tabs/vertical-navbar.html">Vertical</option>
-                <option value="top" data-page-url="../../../modules/components/navs-and-tabs/top-navbar.html">Top</option>
-                <option value="combo" data-page-url="../../../modules/components/navs-and-tabs/combo-navbar.html">Combo</option>
-                <option value="double-top" data-page-url="../../../modules/components/navs-and-tabs/double-top-navbar.html">Double Top</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <h5 class="fs-0 d-flex align-items-center">Vertical Navbar Style</h5>
-        <p class="fs--1 mb-0">Switch between styles for your vertical navbar </p>
-        <p> <a class="fs--1" href="../../../modules/components/navs-and-tabs/vertical-navbar.html#navbar-styles">See Documentation</a></p>
-        <div class="btn-group d-block w-100 btn-group-navbar-style">
-          <div class="row gx-2">
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-transparent" type="radio" name="navbarStyle" value="transparent" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-transparent"> <img class="img-fluid img-prototype" src="../../../assets/img/generic/default.png" alt="" /><span class="label-text"> Transparent</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-inverted" type="radio" name="navbarStyle" value="inverted" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-inverted"> <img class="img-fluid img-prototype" src="../../../assets/img/generic/inverted.png" alt="" /><span class="label-text"> Inverted</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-card" type="radio" name="navbarStyle" value="card" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-card"> <img class="img-fluid img-prototype" src="../../../assets/img/generic/card.png" alt="" /><span class="label-text"> Card</span></label>
-            </div>
-            <div class="col-6">
-              <input class="btn-check" id="navbar-style-vibrant" type="radio" name="navbarStyle" value="vibrant" data-theme-control="navbarStyle" />
-              <label class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-vibrant"> <img class="img-fluid img-prototype" src="../../../assets/img/generic/vibrant.png" alt="" /><span class="label-text"> Vibrant</span></label>
-            </div>
-          </div>
-        </div>
-        <div class="text-center mt-5"><img class="mb-4" src="../../../assets/img/icons/spot-illustrations/47.png" alt="" width="120" />
-          <h5>Like What You See?</h5>
-          <p class="fs--1">Get Falcon now and create beautiful dashboards with hundreds of widgets.</p><a class="mb-3 btn btn-primary" href="https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/" target="_blank">Purchase</a>
-        </div>
-      </div>
-    </div><a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
-      <div class="card-body d-flex align-items-center py-md-2 px-2 py-1">
-        <div class="bg-primary-subtle position-relative rounded-start" style="height:34px;width:28px">
-          <div class="settings-popover"><span class="ripple"><span class="fa-spin position-absolute all-0 d-flex flex-center"><span class="icon-spin position-absolute all-0 d-flex flex-center">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.7369 12.3941L19.1989 12.1065C18.4459 11.7041 18.0843 10.8487 18.0843 9.99495C18.0843 9.14118 18.4459 8.28582 19.1989 7.88336L19.7369 7.59581C19.9474 7.47484 20.0316 7.23291 19.9474 7.03131C19.4842 5.57973 18.6843 4.28943 17.6738 3.20075C17.5053 3.03946 17.2527 2.99914 17.0422 3.12011L16.393 3.46714C15.6883 3.84379 14.8377 3.74529 14.1476 3.3427C14.0988 3.31422 14.0496 3.28621 14.0002 3.25868C13.2568 2.84453 12.7055 2.10629 12.7055 1.25525V0.70081C12.7055 0.499202 12.5371 0.297594 12.2845 0.257272C10.7266 -0.105622 9.16879 -0.0653007 7.69516 0.257272C7.44254 0.297594 7.31623 0.499202 7.31623 0.70081V1.23474C7.31623 2.09575 6.74999 2.8362 5.99824 3.25599C5.95774 3.27861 5.91747 3.30159 5.87744 3.32493C5.15643 3.74527 4.26453 3.85902 3.53534 3.45302L2.93743 3.12011C2.72691 2.99914 2.47429 3.03946 2.30587 3.20075C1.29538 4.28943 0.495411 5.57973 0.0322686 7.03131C-0.051939 7.23291 0.0322686 7.47484 0.242788 7.59581L0.784376 7.8853C1.54166 8.29007 1.92694 9.13627 1.92694 9.99495C1.92694 10.8536 1.54166 11.6998 0.784375 12.1046L0.242788 12.3941C0.0322686 12.515 -0.051939 12.757 0.0322686 12.9586C0.495411 14.4102 1.29538 15.7005 2.30587 16.7891C2.47429 16.9504 2.72691 16.9907 2.93743 16.8698L3.58669 16.5227C4.29133 16.1461 5.14131 16.2457 5.8331 16.6455C5.88713 16.6767 5.94159 16.7074 5.99648 16.7375C6.75162 17.1511 7.31623 17.8941 7.31623 18.7552V19.2891C7.31623 19.4425 7.41373 19.5959 7.55309 19.696C7.64066 19.7589 7.74815 19.7843 7.85406 19.8046C9.35884 20.0925 10.8609 20.0456 12.2845 19.7729C12.5371 19.6923 12.7055 19.4907 12.7055 19.2891V18.7346C12.7055 17.8836 13.2568 17.1454 14.0002 16.7312C14.0496 16.7037 14.0988 16.6757 14.1476 16.6472C14.8377 16.2446 15.6883 16.1461 16.393 16.5227L17.0422 16.8698C17.2527 16.9907 17.5053 16.9504 17.6738 16.7891C18.7264 15.7005 19.4842 14.4102 19.9895 12.9586C20.0316 12.757 19.9474 12.515 19.7369 12.3941ZM10.0109 13.2005C8.1162 13.2005 6.64257 11.7893 6.64257 9.97478C6.64257 8.20063 8.1162 6.74905 10.0109 6.74905C11.8634 6.74905 13.3792 8.20063 13.3792 9.97478C13.3792 11.7893 11.8634 13.2005 10.0109 13.2005Z" fill="#2A7BE4"></path>
-                  </svg></span></span></span></div>
-        </div><small class="text-uppercase text-primary fw-bold bg-primary-subtle py-2 pe-2 ps-1 rounded-end">customize</small>
-      </div>
-    </a>
-
 
     <!-- ===============================================-->
     <!--    JavaScripts-->
@@ -2546,6 +2299,85 @@
     <script src="../../../vendors/prism/prism.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $("#settingTab").addClass("active");
+    $("#settingTab").addClass("show");
+    $("#tabSetting").addClass("active");
+    $("#tabSetting").addClass("show");
+    $("#settingTab").prop('aria-selected', true);
+
+    $("#formTab").removeClass("active");
+    $("#formTab").removeClass("show");
+    $("#tabForm").removeClass("active");
+    $("#tabForm").removeClass("show");
+    $("#formTab").prop('aria-selected', false);
+
+      const postBtn = document.getElementById("post-quiz");
+      const quizTitle = document.getElementById("quiz-title");
+      const eduCate = document.getElementById("edu-category");
+      const yearCate = document.getElementById("year-category");
+
+      quizTitle.addEventListener("input", validateFields);
+      eduCate.addEventListener("change", validateFields);
+      yearCate.addEventListener("change", validateFields);
+
+      function validateFields() {
+        if (eduCate.value === "university") {
+          document.querySelector("#generalSubjectLabel").innerHTML = "학과";
+          document.querySelector("#detailSubjectLabel").innerHTML = "과목";
+          if (quizTitle.value !== "" &&
+              eduCate.value !== "") {
+              postBtn.disabled = false;
+              return;
+          } else {
+            postBtn.disabled = true;
+          }
+        } else {
+          if (quizTitle.value !== "" &&
+              eduCate.value !== "" &&
+              yearCate.value !== "") {
+              postBtn.disabled = false;
+              return;
+          } else {
+              postBtn.disabled = true;
+          }
+        }
+      };
+
+      function addQuizBtn(){
+          //ajax 로 post
+          $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/generateQuiz", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "quizzesTitle" : quizTitle.value,
+                "quizzesShuffleQuestions" : document.querySelector("#shuffle-quiz").checked,
+                "quizzesShuffleOptions" : document.querySelector("#shuffle-options").checked,
+                "quizzesAllowedAttempts" : document.querySelector("#allowed-attempts").checked,
+            },
+            success : function(data) {
+                $("#tabSetting > form > div:nth-child(2) > div.card-body.bg-light > div.mb-3 > a").attr("style", "display: none!important");
+                $("#questionGenTab").attr("style", "display: block!important");
+                
+                $("#settingTab").removeClass("active");
+                $("#settingTab").removeClass("show");
+                $("#settingTab").prop('aria-selected', false);
+                $("#tabSetting").removeClass("active");
+                $("#tabSetting").removeClass("show");
+
+                $("#formTab").addClass("active");
+                $("#formTab").addClass("show");
+                $("#formTab").prop('aria-selected', true);
+                $("#tabForm").addClass("active");
+                $("#tabForm").addClass("show");
+                
+                $("#top > div > div.content > div > div > div.card.mb-3 > div.card-body.z-1 > p").html("'질문 만들기' 탭에서 질문을 추가한 뒤 '퀴즈 등록하기' 버튼을 클릭해주세요.");
+
+            }
+          })
+      }
+
+    </script>
     <script>
       $(document).ready(function() {
         $('#edu-category').change(function() {
@@ -2588,47 +2420,96 @@
                         url : "/quiz/getDetailSubjects",
                         data : { "selectedGeneralSubject" : selectedGeneralSubject },
                         success : function(data) {
-                            let html = '';
-                            let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
-                             $.each(data, function(index, value) {
-                                //$("#detail-subject").append('<option value="' + value.subjectId + '">' + value.subjectDetailSubject + '</option>');
-                                /*document.evaluate('/html/body/main/div/div[1]/div[1]/div/div[2]/div[1]/div[1]/div[2]/form[2]/div[2]/div/div[2]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).append(
-                                '<div id="choices--detail-subject-item-choice-2" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled" role="option" data-choice="" data-id="2" data-value="" data-select-text="" data-choice-disabled="" aria-disabled="true">세부 과목 선택</div>'
-                                );*/
-                                /*
-                                    `<div id="choices--detail-subject-item-choice-${index}" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled" role="option" data-choice="" data-id="${index}" data-value="${value.subjectId}" data-select-text="" data-choice-disabled="" aria-disabled="true">
-                                        간호학
-                                    </div>`
-                                */
-                                /*let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list--dropdown > div');
-                                let childTemplate = document.querySelector('#choices--detail-subject-item-choice-1');
-                                childTemplate.innerHTML = value.subjectDetailSubject;
-                                parent.appendChild(childTemplate);*/
-                                let childTemplate = document.createElement('div');
-                                /*childTemplate.setAttribute('id',"choices--detail-subject-item-choice-${index+1}")
-                                             .setAttribute('class', "choices__item choices__item--choice is-selected choices__placeholder choices__item--disabled");
-                                             .setAttribute('role',"option");
-                                             .setAttribute('data-choice',"");
-                                             .setAttribute('data-value',"${value.subjectId}");
-                                             .setAttribute('data-select-text',"");
-                                             .setAttribute('data-choice-disabled',"");
-                                             .setAttribute('aria-disabled',"true");*/
+<!--                            let html = '';-->
+<!--                            let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list&#45;&#45;dropdown > div');-->
+<!--                             $.each(data, function(index, value) {-->
+<!--                                //$("#detail-subject").append('<option value="' + value.subjectId + '">' + value.subjectDetailSubject + '</option>');-->
+<!--                                /*document.evaluate('/html/body/main/div/div[1]/div[1]/div/div[2]/div[1]/div[1]/div[2]/form[2]/div[2]/div/div[2]/div', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).append(-->
+<!--                                '<div id="choices&#45;&#45;detail-subject-item-choice-2" class="choices__item choices__item&#45;&#45;choice is-selected choices__placeholder choices__item&#45;&#45;disabled" role="option" data-choice="" data-id="2" data-value="" data-select-text="" data-choice-disabled="" aria-disabled="true">세부 과목 선택</div>'-->
+<!--                                );*/-->
+<!--                                /*-->
+<!--                                    `<div id="choices&#45;&#45;detail-subject-item-choice-${index}" class="choices__item choices__item&#45;&#45;choice is-selected choices__placeholder choices__item&#45;&#45;disabled" role="option" data-choice="" data-id="${index}" data-value="${value.subjectId}" data-select-text="" data-choice-disabled="" aria-disabled="true">-->
+<!--                                        간호-->
+<!--                                    </div>`-->
+<!--                                */-->
+<!--                                /*let parent = document.querySelector('#tabSetting > div:nth-child(1) > div.card-body.bg-light > form:nth-child(2) > div:nth-child(2) > div > div.choices__list.choices__list&#45;&#45;dropdown > div');-->
+<!--                                let childTemplate = document.querySelector('#choices&#45;&#45;detail-subject-item-choice-1');-->
+<!--                                childTemplate.innerHTML = value.subjectDetailSubject;-->
+<!--                                parent.appendChild(childTemplate);*/-->
+<!--                                let childTemplate = document.createElement('div');-->
+<!--                                /*childTemplate.setAttribute('id',"choices&#45;&#45;detail-subject-item-choice-${index+1}")-->
+<!--                                             .setAttribute('class', "choices__item choices__item&#45;&#45;choice is-selected choices__placeholder choices__item&#45;&#45;disabled");-->
+<!--                                             .setAttribute('role',"option");-->
+<!--                                             .setAttribute('data-choice',"");-->
+<!--                                             .setAttribute('data-value',"${value.subjectId}");-->
+<!--                                             .setAttribute('data-select-text',"");-->
+<!--                                             .setAttribute('data-choice-disabled',"");-->
+<!--                                             .setAttribute('aria-disabled',"true");*/-->
 
-
-                                html += `
-                                    <div id="choices--detail-subject-item-choice-${index+1}" class="choices__item choices__item--choice is-selected choices__placeholder choices__item--selectable is-highlighted" role="option" data-choice="" data-id="${index+1}" data-value="${value.subjectId}" data-select-text="" data-choice-selectable="" aria-selected="true">
-                                      ${value.subjectDetailSubject}
-                                    </div>
-                                `;
-                            });
-                            parent.innerHTML = html;
-                            console.log(data);
+<!--                                html += `-->
+<!--                                    <div id="choices&#45;&#45;detail-subject-item-choice-${index+1}" class="choices__item choices__item&#45;&#45;choice is-selected choices__placeholder choices__item&#45;&#45;selectable is-highlighted" role="option" data-choice="" data-id="${index+1}" data-value="${value.subjectId}" data-select-text="" data-choice-selectable="" aria-selected="true">-->
+<!--                                      ${value.subjectDetailSubject}-->
+<!--                                    </div>-->
+<!--                                `;-->
+<!--                                parent.innerHTML = html;-->
+<!--                            });-->
                         }
                     });
                 }
             });
         });
     </script>
+  <script>
+      const btn = document.querySelector('#post-quiz');
+      //let quizTitle = document.querySelector("#quiz-title");
+      let eduCat = document.querySelector("#edu-category");
+      let yearCat = document.querySelector("#year-category");
+      let generalSub = document.querySelector("#general-subject");
+      let detailSub = document.querySelector("#detail-subject");
+      function btnChk(){
+        console.log(quizTitle.value);
+        console.log(eduCat.value);
+        console.log(yearCat.value);
+        console.log(generalSub.value);
+        console.log(detailSub.value);
+        //check 제목
+<!--        if(quizTitle.value.trim()=== ''){-->
+<!--            // 제목이 비어 있으면 버튼 비활성화-->
+<!--            btn.disabled = true;-->
+<!--            console.log("returned at 제목");-->
+<!--            return;-->
+<!--        }-->
+
+<!--        // if 교육과정 == 초등, check 학년-->
+<!--        if (eduCat.value == 'elementary') {-->
+<!--            if (yearCat.value == 0) {-->
+<!--                // 학년이 선택되지 않은 경우 버튼 비활성화-->
+<!--                btn.disabled = true;-->
+<!--                console.log("returned at 교육과정");-->
+<!--                return;-->
+<!--            }-->
+<!--        }-->
+
+<!--        // 과목/학부-->
+<!--        if (generalSub.value == 0) {-->
+<!--            // 과목/학부가 선택되지 않은 경우 버튼 비활성화-->
+<!--            btn.disabled = true;-->
+<!--            console.log("returned at 과목");-->
+<!--            return;-->
+<!--        }-->
+        // 세부과목/전공
+        if (detailSub.value == 0) {
+            // 세부과목 선택되지 않은 경우 버튼 비활성화 <= 향후 세부 과목 드롭다운 구현 후 추가 바람.
+<!--            btn.disabled = true;-->
+<!--            console.log("returned at 세부과목");-->
+<!--            return;-->
+        }
+
+        //만족시 버튼 열기
+        console.log("만족");
+      }
+  </script>
+
 
   </body>
 

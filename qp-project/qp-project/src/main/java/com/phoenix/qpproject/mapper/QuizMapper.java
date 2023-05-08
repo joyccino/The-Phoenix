@@ -12,4 +12,8 @@ public interface QuizMapper {
 
     public int findQuizById(String findById);
 
+    public void addQuiz(QuizzesDTO quiz);
+
+    public int getRecentQuizIdOfMember(int memberId);
+
 }
