@@ -26,8 +26,4 @@ public class QuizService {
     public void addQuiz(QuizzesDTO quiz) {
         quizMapper.addQuiz(quiz);
     }
-
-    public int getRecentQuizIdOfMember(int memberId){
-        return quizMapper.getRecentQuizIdOfMember(memberId);
-    }
 }
