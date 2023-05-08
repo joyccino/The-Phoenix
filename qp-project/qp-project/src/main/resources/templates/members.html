@@ -1903,7 +1903,8 @@
               </li>
             </ul>
           </nav>
-          <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":10,"pagination":true}'>
+
+          <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":20,"pagination":true}'>
             <div class="card-header">
               <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
@@ -1935,7 +1936,7 @@
                         </div>
                       </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">권한 레벨</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">멤버타입</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">아이디</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">패스워드</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">성</th>
@@ -1967,7 +1968,7 @@
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한 레벨</td>
+                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한</td>
                         <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
                         <td th:text="${l.memberPw}" class="email align-middle py-2">1234</td>
                       <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
@@ -1977,14 +1978,13 @@
                         <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
 
                         <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2">날짜</td>
-                        <td th:text="${l.memberIsReported;}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 여부</td>
-                        <td th:text="${l.memberIsReportedDateTime;}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 날짜</td>
-                        <td th:text="${l.memberReportedMemberId;} class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고자</td>
-                        <td th:text="${l.memberIsBlocked;}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 여부</td>
-                        <td th:text="${l.memberIsBlockedDateTime;} class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 날짜</td>
-                        <td th:text="${l.memberIsRemoved;} class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 여부</td>
-                        <td th:text="${l.memberIsRemovedDateTime;} class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 날짜</td>
-
+                        <td th:text="${l.memberIsReported}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 여부</td>
+                        <td th:text="${l.memberIsReportedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 날짜</td>
+                        <td th:text="${l.memberReportedMemberId}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고자</td>
+                        <td th:text="${l.memberIsBlocked}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 여부</td>
+                        <td th:text="${l.memberIsBlockedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 날짜</td>
+                        <td th:text="${l.memberIsRemoved}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 여부</td>
+                        <td th:text="${l.memberIsRemovedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 날짜</td>
                     </tr>
                     <tr th:unless="${not #lists.isEmpty(memberList)}">
                         <td colspan="7">등록된 회원의 정보가 없습니다.</td>
