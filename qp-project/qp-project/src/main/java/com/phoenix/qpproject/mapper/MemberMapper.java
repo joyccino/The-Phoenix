@@ -12,6 +12,7 @@ public interface MemberMapper {
 
     // Select
     public MembersDTO getUserAccount(String memberId);
+
     public MembersDTO login(MembersDTO member);
     public List<MembersDTO> getMemberList();
     public int checkMemberById(String findById);
@@ -30,7 +31,5 @@ public interface MemberMapper {
     public void memberDeactivateByUserId(String memberId);
     public void memberVerify(String memberUUId);
     public void memberInfoUpdate(MembersDTO member);
-
-    public int getRecentQuizIdOfMember(int memberId);
 
 }

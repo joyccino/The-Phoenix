@@ -64,7 +64,7 @@
             members AS m;
     </select>
 
-    <select id="getUserAccount" resultType="com.phoenix.qpproject.dto.MembersDTO">
+    <select id="getUserAccount" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
         m.id
         ,m.userId		AS memberId
@@ -96,7 +96,7 @@
         WHERE userId = #{memberId};
     </select>
 
-    <select id="checkMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="checkMemberById" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM members WHERE UserId = #{memberId};
     </select>
 

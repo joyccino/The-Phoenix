@@ -60,6 +60,8 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+      
+    
 
   </head>
 
@@ -2029,7 +2031,7 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '퀴즈 추가하기' 버튼을 클릭해주세요.</p>
+                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -2053,17 +2055,19 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
-                                  <select class="form-select" id="edu-category" name="educationLevel" required>
-                                    <option value="elementary" selected>초등</option>
-                                    <option value="middle">중등</option>
-                                    <option value="high">고등</option>
-                                    <option value="university">대학</option>
+                                  <select class="form-select js-choice" id="edu-category" name="educationLevel" data-options='{"removeItemButton":false,"placeholder":false, "shouldSort":false}' required>
+                                      <option disabled selected value="">교육과정 선택</option>
+                                      <option value="elementary">초등학교</option>
+                                    <option value="middle">중학교</option>
+                                    <option value="high">고등학교</option>
+                                    <option value="university">대학교</option>
                                   </select>
                                 </div>
                                 <div class="col-sm-6 mb-3" id="years">
                                   <label class="form-label" for="year-category"><b>학년</b><span class="text-danger">*</span></label>
-                                  <select class="form-select" id="year-category" required >
-                                    <option value="1">1학년</option>
+                                  <select class="form-select js-choice" id="year-category" data-options='{"removeItemButton":false,"placeholder":false, "shouldSort":true}' required >
+                                      <option disabled selected value="">학년 선택</option>
+                                      <option value="1">1학년</option>
                                     <option value="2">2학년</option>
                                     <option value="3">3학년</option>
                                     <option value="4">4학년</option>
@@ -2073,7 +2077,7 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label" for="general-subject" id="generalSubjectLabel"><b>과목</b><span class="text-danger">*</span></label>
-                                    <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":true,"placeholder":true}'>
+                                    <select class="form-select js-choice" id="general-subject" size="1" data-options='{"removeItemButton":false,"placeholder":true}'>
                                         <option disabled selected value="">과목 선택</option>
                                         <option th:each="l : ${generalSubjectList}"><p th:text="${l.subjectGeneralSubject}"></p></option>
                                     </select>
@@ -2130,7 +2134,7 @@
                                     </div>
                                 </div>
                                   <div class="mb-3">
-                                      <a class="btn btn-primary d-block w-100 mt-3" id="post-quiz" onclick="addQuizBtn();" disabled> <b>퀴즈 추가하기</b> </a>
+                                      <a class="btn btn-primary d-block w-100 mt-3" id="post-quiz" onclick="addQuizBtn();" disabled> <b>퀴즈 생성하기</b> </a>
                                   </div>
                             </div>
                           </div>
@@ -2165,10 +2169,18 @@
                                       </div>
                                       
                                       <div class="col-12 mb-3">
-                                          <label class="form-label" for="course-tags" ><b>정답</b><span class="text-danger">*</span></a>
+                                          <label class="form-label" for="course-tags" ><b>답안</b><span class="text-danger">*</span></a>
                                           </label>
                                           <input class="form-control" type="text" required/>
+                                          <!-- multiple options 준비
+                                          <div class="input-group mb-3">
+                                              <div class="input-group-text"><input class="form-check-input" type="checkbox" value="" aria-label="Checkbox for following text input" /></div><input class="form-control" type="text" aria-label="Text input with checkbox" />
+                                          </div>
+                                          <div class="input-group">
+                                              <div class="input-group-text"><input class="form-check-input" type="radio" value="" aria-label="Radio button for following text input" /></div><input class="form-control" type="text" aria-label="Text input with radio button" />
+                                          </div> -->
                                       </div>
+                                      
                                       
                                       <div class="mb-3">
                                           <a class="btn btn-secondary d-block w-100 mt-3" disabled> <b>질문 추가하기</b> </a>
@@ -2183,10 +2195,27 @@
                               </div>
                               <div class="card-body bg-light">
                                   <div class="row gx-2">
-                                      <div class="col-12 mb-3">
-                                          <label class="form-label" for="course-tags" ><b>테이블 여기 추가될 예정</b><span class="text-danger">*</span></a>
-                                          </label>
-                                          <input class="form-control" type="text" required/>
+                                      <div class="table-responsive scrollbar">
+                                          <table class="table">
+                                              <thead>
+                                              <tr>
+                                                  <th scope="col" style="display:none">index</th>
+                                                  <th scope="col">질문</th>
+                                                  <th scope="col">퀴즈 유형</th>
+                                                  <th class="text-end" scope="col">수정</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <tr>
+                                                  <td style="display:none">0</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                                                  <td>서울은 어느 나라의 수도인가? (예시)</td>
+                                                  <td>단답형</td>
+                                                  <td class="text-end">
+                                                      <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                                                  </td>
+                                              </tr>
+                                              </tbody>
+                                          </table>
                                       </div>
                                       <div class="mb-3">
                                           <a class="btn btn-primary d-block w-100 mt-3" disabled> <b>퀴즈 등록하기</b> </a>
@@ -2299,6 +2328,9 @@
     <script src="../../../vendors/prism/prism.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../../vendors/jquery/jquery.min.js"></script>
+    <script src="../../../vendors/select2/select2.min.js"></script>
+    <script src="../../../vendors/select2/select2.full.min.js"></script>
     <script>
     $("#settingTab").addClass("active");
     $("#settingTab").addClass("show");
@@ -2316,33 +2348,51 @@
       const quizTitle = document.getElementById("quiz-title");
       const eduCate = document.getElementById("edu-category");
       const yearCate = document.getElementById("year-category");
+      
+      let element = document.querySelector("#edu-category");
+      const choices = new window.Choices(yearCate);
+      
+      element.addEventListener('change', e => {
+        console.log(e.detail);
+        if(e.detail.value == "elementary") {
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+              { value: '4', label: '4학년' },
+              { value: '5', label: '5학년' },
+              { value: '6', label: '6학년' },
+            ]);
+        }else if (e.detail.value == "middle"){
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+            ]);
+        }else if  (e.detail.value == "high"){
+            $("#years").attr("style", "display: block!important");
+            choices.clearChoices();
+            choices.setChoices([
+              { value: '', label: '학년 선택', selected: true, disabled: true },
+              { value: '1', label: '1학년'},
+              { value: '2', label: '2학년' },
+              { value: '3', label: '3학년' },
+            ]);
+        }else if (e.detail.value == "university"){
+            $("#years").attr("style", "display: none!important");
+       }
+      });
 
-      quizTitle.addEventListener("input", validateFields);
-      eduCate.addEventListener("change", validateFields);
-      yearCate.addEventListener("change", validateFields);
-
-      function validateFields() {
-        if (eduCate.value === "university") {
-          document.querySelector("#generalSubjectLabel").innerHTML = "학과";
-          document.querySelector("#detailSubjectLabel").innerHTML = "과목";
-          if (quizTitle.value !== "" &&
-              eduCate.value !== "") {
-              postBtn.disabled = false;
-              return;
-          } else {
-            postBtn.disabled = true;
-          }
-        } else {
-          if (quizTitle.value !== "" &&
-              eduCate.value !== "" &&
-              yearCate.value !== "") {
-              postBtn.disabled = false;
-              return;
-          } else {
-              postBtn.disabled = true;
-          }
-        }
-      };
+      
+      function validation() {
+      
+      }
 
       function addQuizBtn(){
           //ajax 로 post
@@ -2377,38 +2427,6 @@
           })
       }
 
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#edu-category').change(function() {
-          var selectedCategory = $(this).val();
-          if (selectedCategory === 'elementary') {
-            $('#year-category option').each(function() {
-              var value = $(this).val();
-              if (value === '' || value <= 6) {
-                $('#years').show();
-                $(this).show();
-              } else {
-                $(this).hide();
-              }
-            });
-          } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-            $('#year-category option').each(function() {
-              var value = $(this).val();
-              if (value === '' || value <= 3) {
-                $('#years').show();
-                $(this).show();
-              } else {
-                $(this).hide();
-              }
-            });
-          } else {
-            $('#years').hide();
-          }
-        });
-      });
-    </script>
-    <script>
         $(document).ready(function() {
             // general subject 선택 시 detail subject 목록 조회
             $('#general-subject').on('change', function() {
@@ -2458,56 +2476,8 @@
                 }
             });
         });
-    </script>
-  <script>
-      const btn = document.querySelector('#post-quiz');
-      //let quizTitle = document.querySelector("#quiz-title");
-      let eduCat = document.querySelector("#edu-category");
-      let yearCat = document.querySelector("#year-category");
-      let generalSub = document.querySelector("#general-subject");
-      let detailSub = document.querySelector("#detail-subject");
-      function btnChk(){
-        console.log(quizTitle.value);
-        console.log(eduCat.value);
-        console.log(yearCat.value);
-        console.log(generalSub.value);
-        console.log(detailSub.value);
-        //check 제목
-<!--        if(quizTitle.value.trim()=== ''){-->
-<!--            // 제목이 비어 있으면 버튼 비활성화-->
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 제목");-->
-<!--            return;-->
-<!--        }-->
-
-<!--        // if 교육과정 == 초등, check 학년-->
-<!--        if (eduCat.value == 'elementary') {-->
-<!--            if (yearCat.value == 0) {-->
-<!--                // 학년이 선택되지 않은 경우 버튼 비활성화-->
-<!--                btn.disabled = true;-->
-<!--                console.log("returned at 교육과정");-->
-<!--                return;-->
-<!--            }-->
-<!--        }-->
-
-<!--        // 과목/학부-->
-<!--        if (generalSub.value == 0) {-->
-<!--            // 과목/학부가 선택되지 않은 경우 버튼 비활성화-->
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 과목");-->
-<!--            return;-->
-<!--        }-->
-        // 세부과목/전공
-        if (detailSub.value == 0) {
-            // 세부과목 선택되지 않은 경우 버튼 비활성화 <= 향후 세부 과목 드롭다운 구현 후 추가 바람.
-<!--            btn.disabled = true;-->
-<!--            console.log("returned at 세부과목");-->
-<!--            return;-->
-        }
-
-        //만족시 버튼 열기
-        console.log("만족");
-      }
+        
+      
   </script>
 
 
