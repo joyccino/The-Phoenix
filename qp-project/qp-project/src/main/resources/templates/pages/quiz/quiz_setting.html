@@ -2029,19 +2029,19 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">새로운 퀴즈를 생성합니다.<br>퀴즈 설정란을 먼저 입력하고, '문제 추가하기' 버튼을 클릭해주세요.<br>필수 항목이 입력되지 않은 경우, 게시할 수 없습니다.</p>
+                  <p class="mb-0">퀴즈 설정란을 작성한 뒤 '문제 추가하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 설정</a></li>
-                  <li class="nav-item"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
+                  <li class="nav-item" id="questionGenTab" style="display:none;"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
               </ul>
               <!-- 퀴즈설정 -->
               <div class ="tab-content border-x border-bottom p-3" id="myTabContent">
                   <div class="tab-pane fade show active" id="tabSetting" role="tabpanel" aria-labelledby="settingTab">
                       <div class="card mb-3">
                         <div class="card-header">
-                          <h5 class="mb-0">퀴즈 정보</h5>
+                          <h5 class="mb-0"><b>퀴즈 정보</b></h5>
                         </div>
                         <div class="card-body bg-light">
                           <form class="row gx-2">
@@ -2102,7 +2102,7 @@
                       </div>
                       <div class="card mb-3">
                           <div class="card-header">
-                              <h5 class="mb-0">퀴즈 설정</h5>
+                              <h5 class="mb-0"><b>퀴즈 세부설정</b></h5>
                           </div>
                         <div class="card-body bg-light">
                           <form>
@@ -2133,7 +2133,7 @@
                                 </div>
                             </div>
                               <div class="mb-3">
-                                  <button class="btn btn-primary d-block w-100 mt-3" id="post-quiz" type="submit" name="submit">문제 추가하기</button>
+                                  <button class="btn btn-primary d-block w-100 mt-3" id="post-quiz" type="submit" name="submit" disabled>문제 추가하기</button>
                               </div>
                           </form>
                         </div>
