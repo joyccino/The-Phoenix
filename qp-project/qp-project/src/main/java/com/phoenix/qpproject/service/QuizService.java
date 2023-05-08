@@ -27,5 +27,7 @@ public class QuizService {
         quizMapper.addQuiz(quiz);
     }
 
-
+    public int getRecentQuizIdOfMember(int memberId){
+        return quizMapper.getRecentQuizIdOfMember(memberId);
+    }
 }
