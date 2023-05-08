@@ -58,4 +58,25 @@
         RIGHT JOIN quizhistory qh ON q.id = qh.quizId
         LEFT JOIN members m ON qh.memberId = m.id;
     </select>
+
+    <insert id="addQuiz" parameterType="com.phoenix.qpproject.dto.QuizzesDTO">
+        /* 회원가입 */
+        INSERT INTO quizzes
+        (	  memberId,
+        title,
+        subjectId,
+        quizCreateDateTime,
+        ShuffleQuestions,
+        ShuffleOptions,
+        allowedAttempts
+        )VALUES (
+        #{quizzesMemberId}
+        , #{quizzesTitle}
+        , 10
+        , NOW()
+        , #{quizzesShuffleQuestions}
+        , #{quizzesShuffleOptions}
+        , #{quizzesAllowedAttempts}
+        );
+    </insert>
 </mapper>

@@ -2029,11 +2029,11 @@
 
                 <div class="card-body z-1">
                   <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">퀴즈 설정란을 작성한 뒤 '문제 추가하기' 버튼을 클릭해주세요.</p>
+                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '문제 추가하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 설정</a></li>
+                  <li class="nav-item"><a class="nav-link active" id="settingTab" data-bs-toggle="tab" href="#tabSetting" role="tab" aria-controls="tabSetting" aria-selected="true">퀴즈 정보</a></li>
                   <li class="nav-item" id="questionGenTab" style="display:none;"><a class="nav-link" id="formTab" data-bs-toggle="tab" href="#tabForm" role="tab" aria-controls="tabForm" aria-selected="false">문제 생성</a></li>
               </ul>
               <!-- 퀴즈설정 -->
@@ -2049,7 +2049,7 @@
                                 <div class="col-12 mb-3">
                                   <label class="form-label" for="quiz-title">제목<span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
                                   </label>
-                                  <input class="form-control" id="quiz-title" type="text" name="title" required/>
+                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category">교육 과정<span class="text-danger">*</span></label>
@@ -2109,7 +2109,7 @@
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="shuffle-quiz" type="checkbox" checked="checked" />
+                                            <input class="form-check-input" id="shuffle-quiz" type="checkbox" name="quizzesShuffleQuestions"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
@@ -2117,7 +2117,7 @@
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="shuffle-options" type="checkbox" checked="checked" />
+                                            <input class="form-check-input" id="shuffle-options" type="checkbox" name="quizzesShuffleOptions"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
@@ -2125,12 +2125,12 @@
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <div class="form-check form-switch mb-0">
-                                            <input class="form-check-input" id="allowed-attempts" type="checkbox"/>
+                                            <input class="form-check-input" id="allowed-attempts" type="checkbox" name="quizzesAllowedAttempts"/>
                                         </div>
                                     </div>
                                 </div>
                                   <div class="mb-3">
-                                      <button class="btn btn-primary d-block w-100 mt-3" id="post-quiz" type="submit" name="submit" >문제 추가하기</button>
+                                      <a class="btn btn-primary d-block w-100 mt-3" id="post-quiz" onclick="addQuizBtn();" disabled> 문제 추가하기 </a>
                                   </div>
                             </div>
                           </div>
@@ -2149,7 +2149,6 @@
                                           <input class="form-control" id="course-name" type="text" placeholder="퀴즈 질문" required="required" />
                                       </div>
                                       <div class="col-sm-6 mb-3">
-
                                           <select class="form-select" id="quiz-type" name="select A Quiz Type" style="width:50%">
                                               <option style="font-family: 'Font Awesome\ 5 Free'" >&#xf058 체크박스</option>
                                               <option style="font-family: 'Font Awesome\ 5 Free'">&#xf140 객관식</option>
@@ -2171,38 +2170,6 @@
 
             </div>
           </div>
-            <script>
-                  const postBtn = document.getElementById("post-quiz");
-                  const quizTitle = document.getElementById("quiz-title");
-                  const eduCate = document.getElementById("edu-category");
-                  const yearCate = document.getElementById("year-category");
-
-                  quizTitle.addEventListener("input", validateFields);
-                  eduCate.addEventListener("change", validateFields);
-                  yearCate.addEventListener("change", validateFields);
-
-                  function validateFields() {
-                    if (eduCate.value === "university") {
-                      document.querySelector("#generalSubjectLabel").innerHTML = "학과";
-                      document.querySelector("#detailSubjectLabel").innerHTML = "과목";
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "") {
-                        //postBtn.disabled = false;
-                      } else {
-                        //postBtn.disabled = true;
-                      }
-                    } else {
-                      if (quizTitle.value !== "" &&
-                          eduCate.value !== "" &&
-                          yearCate.value !== "") {
-                        //postBtn.disabled = false;
-                      } else {
-                        //postBtn.disabled = true;
-                      }
-                    }
-                  };
-              </script>
-
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -2270,126 +2237,7 @@
               <div class="modal-header d-flex align-items-center border-bottom px-4">
                 <h4 class="mb-0" id="schedule-discount-modal-label">Schedule for Discount </h4>
               </div>
-              <div class="modal-body p-4 bg-light">
-                <form class="row gx-3">
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="time-zone">Timezone
-                    </label>
-                    <select class="form-select" id="time-zone">
-                      <option>GMT-12:00 Etc/GMT-12</option>
-                      <option>GMT-11:00 Etc/GMT-11</option>
-                      <option>GMT-11:00 Pacific/Midway</option>
-                      <option>GMT-10:00 America/Adak</option>
-                      <option>GMT-09:00 America/Anchorage</option>
-                      <option>GMT-09:00 Pacific/Gambier</option>
-                      <option>GMT-08:00 America/Dawson_Creek</option>
-                      <option>GMT-08:00 America/Ensenada</option>
-                      <option>GMT-08:00 America/Los_Angeles</option>
-                      <option>GMT-07:00 America/Chihuahua</option>
-                      <option>GMT-07:00 America/Denver</option>
-                      <option>GMT-06:00 America/Belize</option>
-                      <option>GMT-06:00 America/Cancun</option>
-                      <option>GMT-06:00 America/Chicago</option>
-                      <option>GMT-06:00 Chile/EasterIsland</option>
-                      <option>GMT-05:00 America/Bogota</option>
-                      <option>GMT-05:00 America/Havana</option>
-                      <option>GMT-05:00 America/New_York</option>
-                      <option>GMT-04:30 America/Caracas</option>
-                      <option>GMT-04:00 America/Campo_Grande</option>
-                      <option>GMT-04:00 America/Glace_Bay</option>
-                      <option>GMT-04:00 America/Goose_Bay</option>
-                      <option>GMT-04:00 America/Santiago</option>
-                      <option>GMT-04:00 America/La_Paz</option>
-                      <option>GMT-03:00 America/Argentina/Buenos_Aires</option>
-                      <option>GMT-03:00 America/Montevideo</option>
-                      <option>GMT-03:00 America/Araguaina</option>
-                      <option>GMT-03:00 America/Godthab</option>
-                      <option>GMT-03:00 America/Miquelon</option>
-                      <option>GMT-03:00 America/Sao_Paulo</option>
-                      <option>GMT-03:30 America/St_Johns</option>
-                      <option>GMT-02:00 America/Noronha</option>
-                      <option>GMT-01:00 Atlantic/Cape_Verde</option>
-                      <option>GMT Europe/Belfast</option>
-                      <option>GMT Africa/Abidjan</option>
-                      <option>GMT Europe/Dublin</option>
-                      <option>GMT Europe/Lisbon</option>
-                      <option>GMT Europe/London</option>
-                      <option>UTC UTC</option>
-                      <option>GMT+01:00 Africa/Algiers</option>
-                      <option>GMT+01:00 Africa/Windhoek</option>
-                      <option>GMT+01:00 Atlantic/Azores</option>
-                      <option>GMT+01:00 Atlantic/Stanley</option>
-                      <option>GMT+01:00 Europe/Amsterdam</option>
-                      <option>GMT+01:00 Europe/Belgrade</option>
-                      <option>GMT+01:00 Europe/Brussels</option>
-                      <option>GMT+02:00 Africa/Cairo</option>
-                      <option>GMT+02:00 Africa/Blantyre</option>
-                      <option>GMT+02:00 Asia/Beirut</option>
-                      <option>GMT+02:00 Asia/Damascus</option>
-                      <option>GMT+02:00 Asia/Gaza</option>
-                      <option>GMT+02:00 Asia/Jerusalem</option>
-                      <option>GMT+03:00 Africa/Addis_Ababa</option>
-                      <option>GMT+03:00 Asia/Riyadh89</option>
-                      <option>GMT+03:00 Europe/Minsk</option>
-                      <option>GMT+03:30 Asia/Tehran</option>
-                      <option>GMT+04:00 Asia/Dubai</option>
-                      <option>GMT+04:00 Asia/Yerevan</option>
-                      <option>GMT+04:00 Europe/Moscow</option>
-                      <option>GMT+04:30 Asia/Kabul</option>
-                      <option>GMT+05:00 Asia/Tashkent</option>
-                      <option>GMT+05:30 Asia/Kolkata</option>
-                      <option>GMT+05:45 Asia/Katmandu</option>
-                      <option>GMT+06:00 Asia/Dhaka</option>
-                      <option>GMT+06:00 Asia/Yekaterinburg</option>
-                      <option>GMT+06:30 Asia/Rangoon</option>
-                      <option>GMT+07:00 Asia/Bangkok</option>
-                      <option>GMT+07:00 Asia/Novosibirsk</option>
-                      <option>GMT+08:00 Etc/GMT+8</option>
-                      <option>GMT+08:00 Asia/Hong_Kong</option>
-                      <option>GMT+08:00 Asia/Krasnoyarsk</option>
-                      <option>GMT+08:00 Australia/Perth</option>
-                      <option>GMT+08:45 Australia/Eucla</option>
-                      <option>GMT+09:00 Asia/Irkutsk</option>
-                      <option>GMT+09:00 Asia/Seoul</option>
-                      <option>GMT+09:00 Asia/Tokyo</option>
-                      <option>GMT+09:30 Australia/Adelaide</option>
-                      <option>GMT+09:30 Australia/Darwin</option>
-                      <option>GMT+09:30 Pacific/Marquesas</option>
-                      <option>GMT+10:00 Etc/GMT+10</option>
-                      <option>GMT+10:00 Australia/Brisbane</option>
-                      <option>GMT+10:00 Australia/Hobart</option>
-                      <option>GMT+10:00 Asia/Yakutsk</option>
-                      <option>GMT+10:30 Australia/Lord_Howe</option>
-                      <option>GMT+11:00 Asia/Vladivostok</option>
-                      <option>GMT+11:30 Pacific/Norfolk</option>
-                      <option>GMT+12:00 Etc/GMT+12</option>
-                      <option>GMT+12:00 Asia/Anadyr</option>
-                      <option>GMT+12:00 Asia/Magadan</option>
-                      <option>GMT+12:00 Pacific/Auckland</option>
-                      <option>GMT+12:45 Pacific/Chatham</option>
-                      <option>GMT+13:00 Pacific/Tongatapu</option>
-                      <option>GMT+14:00 Pacific/Kiritimati</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-6"></div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="start-date">Start Date</label>
-                    <input class="form-control datetimepicker" id="start-date" type="text" placeholder="dd/mm/yyyy" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="start-time">Start Time</label>
-                    <input class="form-control datetimepicker" id="start-time" type="text" placeholder="23 : 45" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="end-date">End Date</label>
-                    <input class="form-control datetimepicker" id="end-date" type="text" placeholder="dd/mm/yyyy" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label class="form-label" for="end-time">End Time</label>
-                    <input class="form-control datetimepicker" id="end-time" type="text" placeholder="23 : 45" data-options='{"enableTime":true,"noCalendar":true,"dateFormat":"H:i","disableMobile":true}' />
-                  </div>
-                </form>
-              </div>
+
               <div class="modal-footer border-top text-start py-2 px-4 d-flex justify-content-end">
                 <button class="btn btn-outline-secondary btn-md" data-bs-dismiss="modal"> <span class="fas fa-times me-1 fs--1"></span>Cancel</button>
                 <button class="btn btn-primary btn-md ms-2" type="submit"> <span class="fas fa-check me-1 fs--1"></span>Confirm</button>
@@ -2422,6 +2270,66 @@
     <script src="../../../vendors/prism/prism.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      const postBtn = document.getElementById("post-quiz");
+      const quizTitle = document.getElementById("quiz-title");
+      const eduCate = document.getElementById("edu-category");
+      const yearCate = document.getElementById("year-category");
+
+      quizTitle.addEventListener("input", validateFields);
+      eduCate.addEventListener("change", validateFields);
+      yearCate.addEventListener("change", validateFields);
+
+      function validateFields() {
+        if (eduCate.value === "university") {
+          document.querySelector("#generalSubjectLabel").innerHTML = "학과";
+          document.querySelector("#detailSubjectLabel").innerHTML = "과목";
+          if (quizTitle.value !== "" &&
+              eduCate.value !== "") {
+              postBtn.disabled = false;
+              return;
+          } else {
+            postBtn.disabled = true;
+          }
+        } else {
+          if (quizTitle.value !== "" &&
+              eduCate.value !== "" &&
+              yearCate.value !== "") {
+              postBtn.disabled = false;
+              return;
+          } else {
+              postBtn.disabled = true;
+          }
+        }
+      };
+
+      function addQuizBtn(){
+        alert("before ajax");
+
+          //ajax 로 post
+          $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/generateQuiz", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "quizzesTitle" : quizTitle.value,
+                "quizzesShuffleQuestions" : document.querySelector("#shuffle-quiz").checked,
+                "quizzesShuffleOptions" : document.querySelector("#shuffle-options").checked,
+                "quizzesAllowedAttempts" : document.querySelector("#allowed-attempts").checked,
+            },
+            success : function(data) {
+                postBtn.style.display = "none";
+                document.querySelector("#questionGenTab").style.display = "block";
+                document.querySelector("#settingTab").classList.remove("active");
+                document.querySelector("#settingTab").ariaSelected = "false";
+                document.querySelector("#questionGenTab").classList.add("active");
+                document.querySelector("#questionGenTab").ariaSelected = "true";
+            }
+          })
+
+          alert("ajax done");
+      }
+
+    </script>
     <script>
       $(document).ready(function() {
         $('#edu-category').change(function() {

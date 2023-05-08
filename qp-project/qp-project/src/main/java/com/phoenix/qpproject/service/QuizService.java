@@ -23,4 +23,9 @@ public class QuizService {
         return quizList;
     }
 
+    public void addQuiz(QuizzesDTO quiz) {
+        quizMapper.addQuiz(quiz);
+    }
+
+
 }
