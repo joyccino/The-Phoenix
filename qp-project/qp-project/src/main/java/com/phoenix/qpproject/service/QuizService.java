@@ -1,5 +1,7 @@
 package com.phoenix.qpproject.service;
 
+import com.phoenix.qpproject.dto.QuestionOptionsDTO;
+import com.phoenix.qpproject.dto.QuestionsDTO;
 import com.phoenix.qpproject.dto.QuizzesDTO;
 import com.phoenix.qpproject.mapper.QuizMapper;
 import org.springframework.stereotype.Service;
@@ -31,4 +33,18 @@ public class QuizService {
         return quizMapper.getRecentQuizIdOfMember(memberId);
     }
 
+    public void addQuestion(QuestionsDTO question){
+        quizMapper.addQuestion(question);
+    }
+
+    public int getRecentQuestionIdOfQuiz(int memberId){
+        return quizMapper.getRecentQuestionIdOfQuiz(memberId);
+    }
+
+    public void addOptions(QuestionOptionsDTO qo){
+        quizMapper.addOptions(qo);
+    }
+    public List<QuestionsDTO> getQsWhereQuizId(int quizId){
+        return quizMapper.getQsWhereQuizId(quizId);
+    }
 }

@@ -1,8 +1,6 @@
 package com.phoenix.qpproject.controller;
 
-import com.phoenix.qpproject.dto.MembersDTO;
-import com.phoenix.qpproject.dto.QuizzesDTO;
-import com.phoenix.qpproject.dto.SubjectsDTO;
+import com.phoenix.qpproject.dto.*;
 import com.phoenix.qpproject.service.QuizService;
 import com.phoenix.qpproject.service.SubjectsService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -132,5 +130,44 @@ public class QuizController {
         else {
             return "/pages/quiz/quizDetailsTest";
         }
+    }
+    @PostMapping(value = "addQuestion")
+    @ResponseBody
+    public List<QuestionsDTO> addQuestion(@ModelAttribute QODTO question_info, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser; // 멤버
+
+        int quizId = (int)session.getAttribute("quizId");
+
+        System.out.println("퀴즈아이디 "+quizId);
+        System.out.println("que? "+question_info.getQuestion());
+
+        QuestionsDTO newQuestion = new QuestionsDTO();
+        newQuestion.setQuestionsQuizId(quizId);
+        newQuestion.setQuestionsQuestion(question_info.getQuestion());
+        newQuestion.setQuestionQuestionType(question_info.getQuestionType());
+
+        quizService.addQuestion(newQuestion);
+
+        int generatedQuestionId = quizService.getRecentQuestionIdOfQuiz(quizId);
+
+        QuestionOptionsDTO qo = new QuestionOptionsDTO();
+        qo.setQuestionOptionQuestionId(generatedQuestionId);
+        qo.setQuestionOptionIsAnswer(true);
+        qo.setQuestionOptionOptionContent(question_info.getOption());
+
+        quizService.addOptions(qo);
+
+        System.out.println("완성");
+
+        List<QuestionsDTO> qlist = quizService.getQsWhereQuizId(quizId);
+
+        System.out.println("qlist: "+qlist.size());
+
+        model.addAttribute("questionList",qlist);
+
+        return qlist;
     }
 }
