@@ -10,5 +10,5 @@ public class QuestionsDTO {
     private int questionsId;
     private int questionsQuizId;
     private String questionsQuestion;
-
+    private String questionQuestionType;
 }

@@ -1,8 +1,6 @@
 package com.phoenix.qpproject.controller;
 
-import com.phoenix.qpproject.dto.MembersDTO;
-import com.phoenix.qpproject.dto.QuizzesDTO;
-import com.phoenix.qpproject.dto.SubjectsDTO;
+import com.phoenix.qpproject.dto.*;
 import com.phoenix.qpproject.service.QuizService;
 import com.phoenix.qpproject.service.SubjectsService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,7 +60,19 @@ public class QuizController {
         session.setMaxInactiveInterval(-1);
     }
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String quizsetting(Model model) {
+    public String quizsetting(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        Object unSavedQuiz = session.getAttribute("quizId");
+        if(!ObjectUtils.isEmpty(unSavedQuiz)) {
+            session.removeAttribute("quizId");
+        }
+
+        MembersDTO member = (MembersDTO) qpUser;
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
         model.addAttribute("generalSubjectList", generalSubjectList);
@@ -81,13 +92,27 @@ public class QuizController {
 
 
     @RequestMapping(value = "quizList", method = RequestMethod.GET)
-    public String quizList() {
-        System.out.println("퀴즈리스트 호출");
-        return "/pages/quiz/quiz_list";
+    public String quizList(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        else {
+            System.out.println("퀴즈리스트 호출");
+            return "/pages/quiz/quiz_list";
+        }
     }
 
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
-    public String quizDashboard(Model model) {
+    public String quizDashboard(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
 
         List<QuizzesDTO> quizList = quizService.getQuizList();
 
@@ -100,7 +125,54 @@ public class QuizController {
     }
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
-    public String quizDetailsTest() {
-        return "/pages/quiz/quizDetailsTest";
+    public String quizDetailsTest(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        else {
+            return "/pages/quiz/quizDetailsTest";
+        }
+    }
+    @PostMapping(value = "addQuestion")
+    @ResponseBody
+    public List<QuestionsDTO> addQuestion(@ModelAttribute QODTO question_info, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser; // 멤버
+
+        int quizId = (int)session.getAttribute("quizId");
+
+        System.out.println("퀴즈아이디 "+quizId);
+        System.out.println("que? "+question_info.getQuestion());
+
+        QuestionsDTO newQuestion = new QuestionsDTO();
+        newQuestion.setQuestionsQuizId(quizId);
+        newQuestion.setQuestionsQuestion(question_info.getQuestion());
+        newQuestion.setQuestionQuestionType(question_info.getQuestionType());
+
+        quizService.addQuestion(newQuestion);
+
+        int generatedQuestionId = quizService.getRecentQuestionIdOfQuiz(quizId);
+
+        QuestionOptionsDTO qo = new QuestionOptionsDTO();
+        qo.setQuestionOptionQuestionId(generatedQuestionId);
+        qo.setQuestionOptionIsAnswer(true);
+        qo.setQuestionOptionOptionContent(question_info.getOption());
+
+        quizService.addOptions(qo);
+
+        System.out.println("완성");
+
+        List<QuestionsDTO> qlist = quizService.getQsWhereQuizId(quizId);
+
+        System.out.println("qlist: "+qlist.size());
+
+        model.addAttribute("questionList",qlist);
+
+        return qlist;
     }
 }

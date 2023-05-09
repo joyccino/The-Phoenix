@@ -2153,25 +2153,31 @@
                                   <div class="row gx-2">
                                       <div class="col-12 mb-3">
                                           <label class="form-label">
+                                              <b>아이디 (이미 추가된 질문 수정시 사용할것. 기능 구현 후 히든처리 바람)</b>
+                                          </label>
+                                          <input class="form-control" id = "" type="text" readonly/>
+                                      </div>
+                                      <div class="col-12 mb-3">
+                                          <label class="form-label">
                                               <b>질문</b><span class="text-danger">*</span>
                                           </label>
-                                          <input class="form-control" type="text" required/>
+                                          <input class="form-control" id = "question-content" type="text" required/>
                                       </div>
                                       <div class="col-12 mb-3">
                                           <label class="form-label" >
                                               <b>퀴즈 유형</b><span class="text-danger">*</span>
                                           </label>
-                                          <select class="form-select" required>
-                                              <option value="single" disabled>객관식(정답 하나) 문제</option>
-                                              <option value="multiple" disabled>선다형(정답 여러개) 문제</option>
-                                              <option value="short" selected>단답형 문제</option>
+                                          <select class="form-select" id="quiz-type" required>
+                                              <option value = "객관식" disabled>객관식(정답 하나) 문제</option>
+                                              <option value = "선다형" disabled>선다형(정답 여러개) 문제</option>
+                                              <option value = "단답형" selected>단답형 문제</option>
                                           </select>
                                       </div>
                                       
                                       <div class="col-12 mb-3">
                                           <label class="form-label" for="course-tags" ><b>답안</b><span class="text-danger">*</span></a>
                                           </label>
-                                          <input class="form-control" type="text" required/>
+                                          <input class="form-control" type="text" id="question-opt" required/>
                                           <!-- multiple options 준비
                                           <div class="input-group mb-3">
                                               <div class="input-group-text"><input class="form-check-input" type="checkbox" value="" aria-label="Checkbox for following text input" /></div><input class="form-control" type="text" aria-label="Text input with checkbox" />
@@ -2183,7 +2189,7 @@
                                       
                                       
                                       <div class="mb-3">
-                                          <a class="btn btn-secondary d-block w-100 mt-3" disabled> <b>질문 추가하기</b> </a>
+                                          <a class="btn btn-secondary d-block w-100 mt-3" disabled onclick="addQuestion();"> <b>질문 추가하기</b> </a>
                                       </div>
                                       
                                   </div>
@@ -2196,18 +2202,18 @@
                               <div class="card-body bg-light">
                                   <div class="row gx-2">
                                       <div class="table-responsive scrollbar">
-                                          <table class="table">
+                                          <table class="table" id="table-questions" >
                                               <thead>
-                                              <tr>
-                                                  <th scope="col" style="display:none">index</th>
+                                              <tr class="btn-reveal-trigger">
+                                                  <th scope="col">id-히든처리 예정</th>
                                                   <th scope="col">질문</th>
                                                   <th scope="col">퀴즈 유형</th>
                                                   <th class="text-end" scope="col">수정</th>
                                               </tr>
                                               </thead>
-                                              <tbody>
+                                              <tbody id="tbody">
                                               <tr>
-                                                  <td style="display:none">0</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                                                  <td>0</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                                                   <td>서울은 어느 나라의 수도인가? (예시)</td>
                                                   <td>단답형</td>
                                                   <td class="text-end">
@@ -2343,6 +2349,54 @@
     $("#tabForm").removeClass("active");
     $("#tabForm").removeClass("show");
     $("#formTab").prop('aria-selected', false);
+    
+    function addQuestion(){
+        //ajax 로 post
+          $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/addQuestion", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "question" : document.getElementById("question-content").value,
+                "option" : document.getElementById("question-opt").value,
+                "questionType" : document.getElementById("quiz-type").value
+            },
+            success : function(data) {
+                const table = document.getElementById("table-questions");
+                console.log(data);
+                $("#table-questions").find("tr:gt(0)").remove();
+                let idx = 1;
+                $.each(data, function(index, value) {
+                    let id = value.questionsId;
+                    let question = value.questionsQuestion;
+                    let questionType = value.questionQuestionType;
+                    let markup =
+                        `<tr>
+                          <td>`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                          <td>`+question+`</td>
+                          <td>`+questionType+`</td>
+                          <td class="text-end">
+                              <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                          </td>
+                      </tr>`;
+                    $("#table-questions tr:last").after(markup);
+                    
+                    console.log(idx+":"+data.length);
+                    
+                    if(idx == data.length) {
+<!--                        console.log("last2");-->
+<!--                        $("table-questions tr:last").fadeIn(3000);-->
+<!--                        $("table-questions tr:last").fadeIn(3000);-->
+                    }
+                    idx += 1;
+                });
+                
+                // 질문 목록에 작성한거 지워주기
+                $('#question-content').val("");
+                $('#quiz-type').val("");
+                $('#question-opt').val("");
+            }
+          })
+        }
 
       const postBtn = document.getElementById("post-quiz");
       const quizTitle = document.getElementById("quiz-title");
@@ -2390,9 +2444,6 @@
       });
 
       
-      function validation() {
-      
-      }
 
       function addQuizBtn(){
           //ajax 로 post
@@ -2477,7 +2528,7 @@
             });
         });
         
-      
+        
   </script>
 
 
