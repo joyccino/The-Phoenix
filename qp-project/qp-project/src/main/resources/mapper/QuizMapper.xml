@@ -119,7 +119,7 @@
 
     <select id="getQsWhereQuizId" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.QuestionsDTO">
         SELECT
-        qs.id as questionId,
+        qs.id as questionsId,
         qs.question as questionsQuestion,
         qs.questionType as questionQuestionType
         from questions as qs where quizId = #{questionsQuizId};
