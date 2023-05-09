@@ -62,8 +62,9 @@
         SELECT
         q.id
         FROM quizzes q
-        WHERE memberId = #{memberId}
-        ORDER BY 'quizCreateDateTime' DESC LIMIT 1;
+        WHERE memberId = #{memberId} AND id=(
+        SELECT max(id) FROM quizzes
+        );
     </select>
 
     <insert id="addQuiz" parameterType="com.phoenix.qpproject.dto.QuizzesDTO">
@@ -122,7 +123,7 @@
         qs.id as questionsId,
         qs.question as questionsQuestion,
         qs.questionType as questionQuestionType
-        from questions as qs where quizId = #{questionsQuizId};
+        from questions as qs where quizId = #{quizId};
     </select>
 
 </mapper>
