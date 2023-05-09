@@ -67,6 +67,11 @@ public class QuizController {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
         }
+        Object unSavedQuiz = session.getAttribute("quizId");
+        if(!ObjectUtils.isEmpty(unSavedQuiz)) {
+            session.removeAttribute("quizId");
+        }
+
         MembersDTO member = (MembersDTO) qpUser;
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
