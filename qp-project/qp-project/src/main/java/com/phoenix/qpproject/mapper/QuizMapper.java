@@ -1,5 +1,7 @@
 package com.phoenix.qpproject.mapper;
 
+import com.phoenix.qpproject.dto.QuestionOptionsDTO;
+import com.phoenix.qpproject.dto.QuestionsDTO;
 import com.phoenix.qpproject.dto.QuizzesDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +18,10 @@ public interface QuizMapper {
 
     public int getRecentQuizIdOfMember(int memberId);
 
+    public void addQuestion(QuestionsDTO question);
+
+    public int getRecentQuestionIdOfQuiz(int quizId);
+
+    public void addOptions(QuestionOptionsDTO qo);
+    public List<QuestionsDTO> getQsWhereQuizId(int quizId);
 }

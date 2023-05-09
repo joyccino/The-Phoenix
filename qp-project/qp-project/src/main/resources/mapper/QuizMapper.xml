@@ -62,9 +62,11 @@
         SELECT
         q.id
         FROM quizzes q
-        WHERE memberId = #{memberId};
-        ORDER BY 'quizCreateDateTime' DESC LIMIT 1;
+        WHERE memberId = #{memberId} AND id=(
+        SELECT max(id) FROM quizzes
+        );
     </select>
+
     <insert id="addQuiz" parameterType="com.phoenix.qpproject.dto.QuizzesDTO">
         /* 회원가입 */
         INSERT INTO quizzes
@@ -85,4 +87,43 @@
         , #{quizzesAllowedAttempts}
         );
     </insert>
+
+    <insert id="addQuestion" parameterType="com.phoenix.qpproject.dto.QuestionsDTO">
+        /* 회원가입 */
+        INSERT INTO questions
+        (	  quizId,
+        question,
+        questionType
+        )VALUES (
+        #{questionsQuizId}
+        , #{questionsQuestion}
+        , #{questionQuestionType}
+        );
+    </insert>
+
+    <select id="getRecentQuestionIdOfQuiz" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT MAX(id) FROM questions WHERE quizId = #{quizId};
+    </select>
+
+    <insert id="addOptions" parameterType="com.phoenix.qpproject.dto.QuestionOptionsDTO">
+        /* 회원가입 */
+        INSERT INTO questionOptions
+        ( questionId,
+        optionContent,
+        isAnswer
+        )VALUES (
+        #{questionOptionQuestionId}
+        , #{questionOptionOptionContent}
+        , #{questionOptionIsAnswer}
+        );
+    </insert>
+
+    <select id="getQsWhereQuizId" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.QuestionsDTO">
+        SELECT
+        qs.id as questionsId,
+        qs.question as questionsQuestion,
+        qs.questionType as questionQuestionType
+        from questions as qs where quizId = #{quizId};
+    </select>
+
 </mapper>
