@@ -2370,11 +2370,12 @@
 
     //대학교 체크 함수
     const checkUniEmail = (domain) => {
+        let uniDomain = `[${domain}](http://${domain}/)`
         $.ajax({
             type : "POST", // http 방식
             url : "/auth/uniCheck", // ajax 통신 url
             data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-                "uniDomain" : domain,
+                "uniDomain" : uniDomain,
             },
             success : function(data) {
                 if (data !== "empty") {
