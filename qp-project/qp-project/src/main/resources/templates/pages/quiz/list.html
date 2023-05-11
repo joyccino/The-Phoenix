@@ -70,7 +70,7 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <main class="main" id="top">
-    <div class="container" data-layout="container">
+    <div class="container" id ="container" data-layout="container">
         <script>
           var isFluid = JSON.parse(localStorage.getItem('isFluid'));
           if (isFluid) {
@@ -2044,13 +2044,14 @@
     <!--                                        </div>-->
     <!--                                    </div>-->
                                         <!--테이블-->
-                                        <table class="table table-sm fs--1 mb-0 overflow-hidden">
+                                        <table id = "qTable" class="table table-sm fs--1 mb-0 overflow-hidden">
                                             <thead class="bg-200 text-900">
                                                 <tr>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >퀴즈ID</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >응시여부</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >등록날짜</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >출제자 ID</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >과목 ID</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 제목</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 수</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >응시자 수</th>
@@ -2068,7 +2069,8 @@
                                                     <td class="align-middle white-space-nowrap name" >0</td>
                                                     <td class="align-middle white-space-nowrap amount" th:text="${#dates.format(l.quizzesQuizCreateDateTime, 'yyyy-MM-dd')}">등록날짜</td>
                                                     <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>
-                                                    <td class="align-middle white-space-nowrap email" th:text="${l.quizzesTitle}"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
+                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesSubjectId}">김승현</td>
+                                                    <td class="align-middle white-space-nowrap email" ><a th:href="@{/quiz/take(id=${l.quizzesId})}" th:text="${l.quizzesTitle}">선형대수학 활용 12제</a></td>
                                                     <td class="align-middle white-space-nowrap product">12</td>
                                                     
                                                     <td class="align-middle white-space-nowrap amount"><span>621</span>명</td>
@@ -2257,17 +2259,6 @@
     }
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
 <!-- ===============================================-->
 <!--    JavaScripts-->
 <!-- ===============================================-->
@@ -2284,6 +2275,9 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
 <script src="../vendors/list.js/list.min.js"></script>
 <script src="../assets/js/theme.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+</script>
 
 </body>
 

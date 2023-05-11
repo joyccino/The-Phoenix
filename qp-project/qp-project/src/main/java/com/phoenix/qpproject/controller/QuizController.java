@@ -182,7 +182,7 @@ public class QuizController {
         return qlist;
     }
 
-    @RequestMapping(value = "quizList2", method = RequestMethod.GET)
+    @RequestMapping(value = "home", method = RequestMethod.GET)
     public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("qpUser");
