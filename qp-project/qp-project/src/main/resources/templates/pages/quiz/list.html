@@ -2017,379 +2017,78 @@
                     </li>
                 </ul>
             </nav>
-
-
-
-
-
-
-            <!-- 퀴즈 리스트 시작 -->
-            <!-- 퀴즈 리스트 시작 -->
-            <!-- 퀴즈 리스트 시작 -->
-
-            <!-- 퀴즈 제목 -->
-            <div class="card mb-3">
-                <div class="card-body z-1">
-                    <h3>퀴즈</h3>
-                    <p class="mb-0">퀴즈목록</p>
-                </div>
-            </div>
-            <!--토글을 제목 옆으로 고정시키는 CSS-->
-            <style>
-            .t-title {
-              display: flex;
-              align-items: center;
-            }
-            .card-header .t-text {
-              margin-right: 10px;
-            }
-            .card-header .t-toggle {
-              margin-left: auto;
-            }
-            </style>
-
-            <div class="card mb-3">
-                <div class="card-header form-check form-switch mb-0 t-title">
-                    <h5 class="mb-0 t-text">퀴즈 상세 설정</h5>
-                    <input class="form-check-input t-toggle" id="exam-mode" type="checkbox"/>
-                </div>
-
-                <div style="display:none;" id="div-exam-start">
-                    <!-- form 태그 안에 넣을 필터링 조건들-->
-                    <div class="row flex-between-center" style="padding:20px;">
-                        <form class="row gx-2" name="quiz-category">
-                            <!-- 학교 select -->
-                            <div class="col-sm-6 ">
-                                <label class="form-label" for="eduCategory">카테고리<span class="text-danger">*</span></label>
-                                <select class="form-select" id="eduCategory" name="eduCategory">
-                                    <option disabled selected value="">초/중/고/대 선택</option>
-                                    <option value="elementary">초등</option>
-                                    <option value="middle">중등</option>
-                                    <option value="high">고등</option>
-                                    <option value="university">대학</option>
-                                </select>
-                            </div>
-
-                            <!-- 학년 select -->
-                            <div class="col-sm-6 " id="years">
-                                <label class="form-label" for="yearCategory">학년<span class="text-danger">*</span></label>
-                                <select class="form-select" id="yearCategory" name="yearCategory">
-                                    <option disabled selected value=""> 학년 선택</option>
-                                    <option value="1">1학년</option>
-                                    <option value="2">2학년</option>
-                                    <option value="3">3학년</option>
-                                    <option value="4">4학년</option>
-                                    <option value="5">5학년</option>
-                                    <option value="6">6학년</option>
-                                </select>
-                            </div>
-
-                            <!-- 과목 select -->
-                            <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="eduCategory">과목<span class="text-danger">*</span></label>
-                                <select class="form-select" >
-                                    <option disabled selected value="">과목선택 선택</option>
-                                    <option value="Korean">국어</option>
-                                    <option value="English">영어</option>
-                                    <option value="Math">수학</option>
-                                    <option value="Science">과학</option>
-                                    <option value="History">역사</option>
-                                </select>
-                            </div>
-
-                            <!-- 검색 -->
-                            <div class="col-sm-6 mb-3">
-                                <label class="form-label" for="eduCategory">검색창</label>
-                                <div class="sl-srh">
-                                    <select name="schtype" class="form-select sl-sl">
-                                        <option disabled selected value="">검색</option>
-                                        <option value="writer">작성자</option>
-                                        <option value="title">제목</option>
-                                    </select>
-                                    <input class="form-control search-input fuzzy-search" type="search" placeholder="Search..." aria-label="Search" />
-                                </div>
-                            </div>
-
-                            <style>
-                                .sl-srh{
-                                  display: flex;
-                                  align-items: center;
-                                }
-                                .sl-sl{
-                                  margin-right: 10px;
-                                }
-                            </style>
-
-
-                            <!--태그-->
-                            <div>
-                                <label for="organizerMultiple">태그 검색</label><select class="form-select js-choice" id="organizerMultiple" multiple="multiple" size="1" name="organizerMultiple" data-options='{"removeItemButton":true,"placeholder":true}'>
-                                <option value="">태그를 검색하세요</option>
-                                <option>적분1</option>
-                                <option>적분2</option>
-                                <option>적분3</option>
-                                <option>미분1</option>
-                                <option>미분2</option>
-                                <option>미분3</option>
-                            </select>
-
-                            </div>
-                            </br></br></br>
-
-                            <div>
-                                <input type="submit" value="검색" class="btn btn-sm" />
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!--태그리스트스타일관련 / 아래하단은 subit버튼하단위치-->
-            <style>
-                .choices__list{
-                    z-index: 99999;
-                }
-                .main-table{
-                    position: relative;
-                    z-index: 9;
-                }
-                form {
-                  display: flex;
-                  flex-wrap: wrap;
-                  justify-content: space-between;
-                  align-items: center;
-                }
-
-                form input[type="submit"] {
-                  margin-top: 20px;
-                }
-            </style>
-            <!--토글관련 스크립트-->
-            <script>
-
-              var examMode = document.querySelector("#exam-mode");
-              var divExamStart = document.querySelector("#div-exam-start");
-
-              examMode.addEventListener('change', function() {
-                  if (this.checked) {
-                      divExamStart.style.display = "block";
-                  }
-                  else {
-                      divExamStart.style.display = "none";
-                  }
-              });
-            </script>
-            <!--selectbox 학년 관련 -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-              $(document).ready(function() {
-                $('#eduCategory').change(function() {
-                  var selectedCategory = $(this).val();
-                  if (selectedCategory === 'elementary') {
-                    $('#yearCategory option').each(function() {
-                      var value = $(this).val();
-                      if (value === '' || value <= 6) {
-                        $('#years').show();
-                        $(this).show();
-                      } else {
-                        $(this).hide();
-                      }
-                    });
-                  } else if (selectedCategory === 'middle' || selectedCategory === 'high') {
-                    $('#yearCategory option').each(function() {
-                      var value = $(this).val();
-                      if (value === '' || value <= 3) {
-                        $('#years').show();
-                        $(this).show();
-                      } else {
-                        $(this).hide();
-                      }
-                    });
-                  } else {
-                    $('#years').hide();
-                  }
-                });
-              });
-            </script>
-
-            <div class="row g-3 mb-3 main-table">
-                <div class="card z-1" id="recentPurchaseTable" data-list='{"valueNames":["name","email","product","payment","amount"],"page":7,"pagination":true}'>
-                    <div class="card-header">
-                        <!--필터랑 버튼 css -->
-                        <style>
-                           .fltr-sl {
-                              display: flex;
-                              align-items: center;
-                           }
-                           .fltr-btn{
-                              margin-right: 0px;
-                           }
-                        </style>
-
-                        <div class="card-body px-0 py-0">
-                            <div class="table-responsive scrollbar  ">
-                                <div class="fltr-sl">
-                                    <div class="col-sm-6 mb-3 ">
-                                        <span>총 n문제</span>
+            
+            <div class="row g-lg-3 font-sans-serif">
+                <div class="col-lg-10">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0"><b>큐피 퀴즈들</b></h5>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row gx-2">
+                                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+                                    <div class="table-responsive scrollbar  ">
+    <!--                                    <div class="fltr-sl">-->
+    <!--                                        <div class="btn-group mb-2 mb-md-0" style = "margin-left:calc(100% - 80px);">-->
+    <!--                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">최신순</button>-->
+    <!--                                            <div class="dropdown-menu" style="z-index: auto;">-->
+    <!--                                                <a class="dropdown-item" href="#">최신순</a>-->
+    <!--                                                <a class="dropdown-item" href="#">정답률순</a>-->
+    <!--                                                <a class="dropdown-item" href="#">응시자순</a>-->
+    <!--&lt;!&ndash;                                                <div class="dropdown-divider">북마크순</div>&ndash;&gt;-->
+    <!--                                                <a class="dropdown-item" href="#">북마크순</a>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+                                        <!--테이블-->
+                                        <table class="table table-sm fs--1 mb-0 overflow-hidden">
+                                            <thead class="bg-200 text-900">
+                                                <tr>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >응시여부</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >출제자</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >문제 제목</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >문제 수</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >응시자 수</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >정답률</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody class="list" id="table-purchase-body">
+                                                
+                                                <tr class="btn-reveal-trigger">
+                                                    <!--                                            <td class="align-middle" style="width: 28px;">-->
+                                                    <!--                                                <span class="material-symbols-outlined"> radio_button_unchecked</span>-->
+                                                    <!--                                            </td>-->
+                                                    <td class="align-middle white-space-nowrap name">0</td>
+                                                    <td class="align-middle white-space-nowrap name">김승현</td>
+                                                    <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
+                                                    <td class="align-middle white-space-nowrap product">12</td>
+                                                    
+                                                    <td class="align-middle white-space-nowrap amount">621명</td>
+                                                    <td class="align-middle fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                                                    </td>
+                                                </tr>
+                                            
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <select class="form-select" >
-                                            <option disabled selected value="">정렬 선택</option>
-                                            <option value="">최신순</option>
-                                            <option value="" >정답률순</option>
-                                            <option value="">응시자순</option>
-                                            <option value="">북마크순</option>
-                                        </select>
+                                    <div class="d-flex justify-content-center mt-3"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
                                     </div>
                                 </div>
-                                <!--selectbox 위치 css 코드/넓이 절반으로-->
-                                <style>
-                                    .fltr-sl {
-                                      display: flex;
-                                      align-items: center;
-                                    }
-
-                                    .fltr-sl select {
-                                      width: 50%;
-                                      margin-left: auto;
-                                    }
-                                </style>
-
-
-
-
-
-                                <!--테이블-->
-                                <style> a {text-decoration : none;}  </style>
-                                <table class="table table-sm fs--1 mb-0 overflow-hidden">
-                                    <thead class="bg-200 text-900">
-                                    <tr>
-                                        <th class="white-space-nowrap">
-                                            <span class="material-symbols-outlined">menu_book</span>
-                                        </th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap text-center" >출제자</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap text-center" >문제 제목</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap text-center" >문제 수</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap text-center" >응시자 수</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap text-center" >정답률</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody class="list" id="table-purchase-body">
-                                        <tr class="btn-reveal-trigger">
-                                            <td class="align-middle" style="width: 28px;">
-                                                <span class="material-symbols-outlined"> radio_button_unchecked</span>
-                                            </td>
-                                            <th class="align-middle white-space-nowrap name text-center"><a href="../app/e-commerce/customer-details.html">김승현</a></th>
-                                            <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
-                                            <td class="align-middle white-space-nowrap product text-center">12</td>
-
-                                            <td class="align-middle text-end amount text-center">621명</td>
-                                            <td class="align-middle text-center fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                                            </td>
-                                        </tr>
-                                        <tr class="btn-reveal-trigger">
-                                            <td class="align-middle" style="width: 28px;">
-                                                <span class="material-symbols-outlined">check_circle</span>
-                                            </td>
-                                            <th class="align-middle white-space-nowrap name text-center"><a href="../app/e-commerce/customer-details.html">이현승</a></th>
-                                            <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">통계 기본 12제</a></td>
-                                            <td class="align-middle white-space-nowrap product text-center">50</td>
-
-                                            <td class="align-middle text-end amount text-center">140명</td>
-                                            <td class="align-middle text-center fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">21%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!--페이징-->
-                        <div class="card-footer border-top d-flex justify-content-center">
-                            <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button>
-                            <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="#!">3</a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="#!">4</a>
-                            <a class="btn btn-sm btn-falcon-default me-2" href="#!">5</a>
-                            <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right"></span></button>
-                        </div>
-
-
-
-
-
-                    </div>
-                </div>
-
-
-
-
-                <!-- 푸터 -->
-                <footer class="footer">
-                    <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-                        <div class="col-12 col-sm-auto text-center">
-                            <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
-                        </div>
-                        <div class="col-12 col-sm-auto text-center">
-                            <p class="mb-0 text-600">v3.16.0</p>
-                        </div>
-                    </div>
-                </footer>
-
-            </div>
-            <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-                <div class="modal-dialog mt-6" role="document">
-                    <div class="modal-content border-0">
-                        <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                            <div class="position-relative z-1" data-bs-theme="light">
-                                <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                                <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                            </div>
-                            <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body py-4 px-5">
-                            <form>
-                                <div class="mb-3">
-                                    <label class="form-label" for="modal-auth-name">Name</label>
-                                    <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="modal-auth-email">Email address</label>
-                                    <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                                </div>
-                                <div class="row gx-2">
-                                    <div class="mb-3 col-sm-6">
-                                        <label class="form-label" for="modal-auth-password">Password</label>
-                                        <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                                    </div>
-                                    <div class="mb-3 col-sm-6">
-                                        <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                                        <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                                    <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                                </div>
-                                <div class="mb-3">
-                                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                                </div>
-                            </form>
-                            <div class="position-relative mt-5">
-                                <hr />
-                                <div class="divider-content-center">or register with</div>
-                            </div>
-                            <div class="row g-2 mt-2">
-                                <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                                <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
+                            
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            
+
         </div>
+    </div>
+            
+            
 </main>
 <!-- ===============================================-->
 <!--    End of Main Content-->

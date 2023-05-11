@@ -181,4 +181,19 @@ public class QuizController {
 
         return qlist;
     }
+
+    @RequestMapping(value = "quizList2", method = RequestMethod.GET)
+    public String quizList2(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        else {
+            System.out.println("퀴즈리스트 호출");
+            return "/pages/quiz/list";
+            //return "/pages/quiz/quiz_list";
+        }
+    }
 }
