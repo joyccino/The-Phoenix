@@ -114,7 +114,7 @@ public class QuizController {
             return "/pages/authentication/card/login";
         }
 
-        List<QuizzesDTO> quizList = quizService.getQuizList();
+        List<QuizzesDTO> quizList = quizService.getQuizListByMember();
 
         System.out.println("퀴즈 목록을 요청합니다: "+quizList.toString());
 
@@ -183,7 +183,7 @@ public class QuizController {
     }
 
     @RequestMapping(value = "quizList2", method = RequestMethod.GET)
-    public String quizList2(HttpServletRequest request) {
+    public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("qpUser");
         if(ObjectUtils.isEmpty(qpUser)) {
@@ -191,7 +191,9 @@ public class QuizController {
             return "/pages/authentication/card/login";
         }
         else {
-            System.out.println("퀴즈리스트 호출");
+            List<QuizzesDTO> quizList = quizService.getQuizList();
+            model.addAttribute("quizList",quizList);
+            System.out.println("퀴즈리스트2 호출:"+quizList.size());
             return "/pages/quiz/list";
             //return "/pages/quiz/quiz_list";
         }

@@ -20,6 +20,11 @@ public class QuizService {
         this.quizMapper = quizMapper;
     }
 
+    public List<QuizzesDTO> getQuizListByMember(){
+        List<QuizzesDTO> quizList = quizMapper.getQuizListByMember();
+        return quizList;
+    }
+
     public List<QuizzesDTO> getQuizList(){
         List<QuizzesDTO> quizList = quizMapper.getQuizList();
         return quizList;

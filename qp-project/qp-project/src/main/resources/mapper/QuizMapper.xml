@@ -52,11 +52,15 @@
     </resultMap>
 
     <!-- SQL문 설정 -->
-    <select id="getQuizList" resultMap="QuizDashboardMap">
+    <select id="getQuizListByMember" resultMap="QuizDashboardMap">
         SELECT *
         FROM quizzes q
         RIGHT JOIN quizhistory qh ON q.id = qh.quizId
         LEFT JOIN members m ON qh.memberId = m.id;
+    </select>
+    <select id="getQuizList" resultMap="QuizDashboardMap">
+        SELECT *
+        FROM quizzes q;
     </select>
     <select id="getRecentQuizIdOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT

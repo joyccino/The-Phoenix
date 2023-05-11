@@ -10,6 +10,8 @@ import java.util.List;
 @Mapper
 public interface QuizMapper {
 
+    public List<QuizzesDTO> getQuizListByMember();
+
     public List<QuizzesDTO> getQuizList();
 
     public int findQuizById(String findById);

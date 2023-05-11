@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
+<html data-bs-theme="light" dir="ltr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
 <head>
     <meta charset="utf-8">
@@ -2026,7 +2029,7 @@
                         </div>
                         <div class="card-body bg-light">
                             <div class="row gx-2">
-                                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+                                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":20,"pagination":true}'>
                                     <div class="table-responsive scrollbar  ">
     <!--                                    <div class="fltr-sl">-->
     <!--                                        <div class="btn-group mb-2 mb-md-0" style = "margin-left:calc(100% - 80px);">-->
@@ -2044,8 +2047,10 @@
                                         <table class="table table-sm fs--1 mb-0 overflow-hidden">
                                             <thead class="bg-200 text-900">
                                                 <tr>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >퀴즈ID</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >응시여부</th>
-                                                    <th class="sort pe-1 align-middle white-space-nowrap" >출제자</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >등록날짜</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >출제자 ID</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 제목</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 수</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >응시자 수</th>
@@ -2055,17 +2060,20 @@
                                             
                                             <tbody class="list" id="table-purchase-body">
                                                 
-                                                <tr class="btn-reveal-trigger">
+                                                <tr class="btn-reveal-trigger" th:if="${not #lists.isEmpty(quizList)}" th:each="l : ${quizList}">
                                                     <!--                                            <td class="align-middle" style="width: 28px;">-->
                                                     <!--                                                <span class="material-symbols-outlined"> radio_button_unchecked</span>-->
                                                     <!--                                            </td>-->
-                                                    <td class="align-middle white-space-nowrap name">0</td>
-                                                    <td class="align-middle white-space-nowrap name">김승현</td>
-                                                    <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
+                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesId}">0</td>
+                                                    <td class="align-middle white-space-nowrap name" >0</td>
+                                                    <td class="align-middle white-space-nowrap amount" th:text="${#dates.format(l.quizzesQuizCreateDateTime, 'yyyy-MM-dd')}">등록날짜</td>
+                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>
+                                                    <td class="align-middle white-space-nowrap email" th:text="${l.quizzesTitle}"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
                                                     <td class="align-middle white-space-nowrap product">12</td>
                                                     
-                                                    <td class="align-middle white-space-nowrap amount">621명</td>
-                                                    <td class="align-middle fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                                                    <td class="align-middle white-space-nowrap amount"><span>621</span>명</td>
+                                                    <td class="align-middle fs-0 white-space-nowrap payment">
+                                                        <span class="badge badge rounded-pill badge-subtle-success">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                                                     </td>
                                                 </tr>
                                             
