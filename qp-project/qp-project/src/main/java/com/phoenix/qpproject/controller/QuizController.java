@@ -129,8 +129,13 @@ public class QuizController {
 
         // 응시할 퀴즈 로딩해오기
         QuizzesDTO quiz = quizService.getQuiz(quizzesId);
+        int quizId = quiz.getQuizzesId();
+
+        List<QuestionsDTO> questions = quizService.getQsWhereQuizId(quizId);
 
         model.addAttribute("quiz",quiz);
+
+        model.addAttribute("questions", questions);
 
         // 응시할 questions 로딩해오기
         return "/pages/quiz/quiz";

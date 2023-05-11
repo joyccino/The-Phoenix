@@ -2035,62 +2035,25 @@
               </div>
               
               <!-- 퀴즈설정 -->
-                <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post">
-                    <div class="card mb-3">
+                <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post" th:if="${not #lists.isEmpty(questions)}" th:each="l: ${questions}">
+                    <div class="card mb-3" >
                         <div class="card-header">
                             <h5 class="mb-0">
-                                <b>1. 대한민국의 수도는?</b>
+                                
+                                <b th:text="${l.questionsQuestion}" >
+                                    <span th:text="${l.questionsId}" >.</span> 대한민국의 수도는?</b>
                             </h5>
                         </div>
-                        <div class="card-body bg-light">
+                        <div class="card-body bg-light question-content">
                             <div class="row gx-2">
                                 <div class="col-12 mb-3">
-                                    <label class="form-label">
-                                        <b>라벨 자리</b>
-                                    </label>
+                                    
                                     <input class="form-control" name="quizzesTitle" type="text" required/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="mb-0">
-                                <b>2. 대한민국의 광복절은 언제인가?</b>
-                            </h5>
-                        </div>
-                        <div class="card-body bg-light">
-                            <div class="row gx-2">
-                                <div class="col-12 mb-3">
-                                    <label class="form-label">
-                                        <b>라벨 자리</b>
-                                    </label>
-                                    <input class="form-control" name="quizzesTitle" type="text" required/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="mb-0">
-                                <b>3. 당신은 대한민국 국적을 소유하고 있습니까? (마지막 문제)</b>
-                            </h5>
-                        </div>
-                        <div class="card-body bg-light">
-                            <div class="row gx-2">
-                                <div class="col-12 mb-3">
-                                    <div class="input-group">
-                                        <div class="input-group-text">
-                                            <input class="form-check-input" type="radio" value="" aria-label="Radio button for following text input" />
-                                        </div><input class="form-control" type="text" aria-label="Text input with radio button" value="그렇다." readonly />
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <a class="btn btn-outline-primary d-block w-100 mt-3" disabled> <b>제출하기</b> </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </form>
                 <div class="card mb-3">
                     <div class="card-header">
@@ -2107,22 +2070,12 @@
                                         <th scope="col">질문</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="tbody">
-                                    <tr>
-                                        <td>34</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
-                                        <td><a href="#">1</a></td>
-                                        <td><a href="#">대한민국의 수도는? (예시)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>35</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
-                                        <td><a href="#">2</a></td>
-                                        <td><a href="#">대한민국의 광복절은 언제인가? (예시)</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>36</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
-                                        <td><a href="#">3</a></td>
-                                        <td><a href="#">당신은 대한민국 국적을 소유하고 있습니까? (마지막 문제)</a></td>
-                                    </tr>
+                                    <tbody id="tbody" th:each="l, iterStat: ${questions}">
+                                        <tr>
+                                            <td th:text="${l.questionsId}">34</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                                            <td th:text="${iterStat.index + 1}"><a href="#">index 자리</a></td>
+                                            <td><a href="#" th:text="${l.questionsQuestion}">대한민국의 수도는? (예시)</a></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -2277,6 +2230,15 @@
             }
           }
         }
+        
+        // get last question content
+        let elements = document.querySelectorAll('.question-content');
+        let lastElement = elements[elements.length- 1];
+        
+        // append following button
+        
+        
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3'><a class='btn btn-outline-primary d-block w-100 mt-3' disabled> <b>제출하기</b> </a></div>`);
     
     </script>
 
