@@ -123,6 +123,12 @@ public class QuizController {
 
         return "/quizDashboard";
     }
+    @RequestMapping(value = "take", method = RequestMethod.GET)
+    public String takeExam(){
+
+        return "/pages/quiz/quiz";
+
+    }
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
     public String quizDetailsTest(HttpServletRequest request) {
