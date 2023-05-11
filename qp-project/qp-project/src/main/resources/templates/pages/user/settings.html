@@ -73,6 +73,7 @@
             container.classList.add('container-fluid');
           }
         </script>
+        <!-- sidebar start -->
         <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
             <script>
             var navbarStyle = localStorage.getItem("navbarStyle");
@@ -1668,7 +1669,10 @@
                 </div>
             </div>
         </nav>
+        <!-- sidebar end -->
+        <!-- main content start -->
         <div class="content">
+            <!-- top nav start -->
             <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
 
                 <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
@@ -2014,6 +2018,7 @@
                     </li>
                 </ul>
             </nav>
+            <!-- top nav end -->
             <div class="card mb-3">
                 <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../../../assets/img/icons/spot-illustrations/corner-4.png);">
                 </div>
@@ -2029,8 +2034,9 @@
                 <li class="nav-item"><a class="nav-link" id="dangerTab" data-bs-toggle="tab" href="#tabWithdrawal" role="tab" aria-controls="tabForm" aria-selected="false" style="color:#A9A9A9">탈퇴</a></li>
 
             </ul>
-            <!-- 기본정보 수정 -->
+            <!-- 메뉴 탭바 시작 -->
             <div class ="tab-content border-x border-bottom p-3" id="myTabContent">
+                <!-- 기본정보 수정 -->
                 <div class="tab-pane fade show active" id="tabPersonalInfo" role="tabpanel" aria-labelledby="settingTab">
                     <div class="card mb-3">
                         <div class="card-header">
@@ -2065,9 +2071,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class=>성별</label>
-                                    <select class="form-select mb-3" name ="memberGender" onchange="validateGender(this.value)">
+                                    <select class="form-select mb-3" name ="memberGender" th:data-gender="${qpUser.memberGender}" ><!-- onload="setGender();" -->
                                         <option value="2" selected>선택 안함</option>
-                                        <option value=0>남</option>
+                                        <option value="0">남</option>
                                         <option value="1">여</option>
                                     </select>
                                 </div>
@@ -2095,7 +2101,7 @@
 
                                 <div class="mb-3">
                                     <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                                    <input class="form-control" th:value="${qpUser.memberEmail}" type="email" autocomplete="none" id="card-email" name ="memberEmail" oninput="check_email()" required readonly onfocus="this.removeAttribute('readonly');">
+                                    <input class="form-control" th:value="${qpUser.memberEmail}" type="email" autocomplete="none" id="card-email" name ="memberEmail" required readonly onfocus="this.removeAttribute('readonly');"> <!-- oninput="check_email()" -->
                                     <label class='form-label' id = "emailCheck" style="display: none"></label>
                                 </div>
 
@@ -2179,269 +2185,7 @@
 
 
             </div>
-        </div>
-            <div class="row g-0">
-                <div class="col-lg-8 pe-lg-2">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                        <h5 class="mb-0"><b>마이페이지</b></h5>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="mb-0">Experiences</h5>
-                        </div>
-                        <div class="card-body bg-light"><a class="mb-4 d-block d-flex align-items-center" href="#experience-form1" data-bs-toggle="collapse" aria-expanded="false" aria-controls="experience-form1"><span class="circle-dashed"><span class="fas fa-plus"></span></span><span class="ms-3">Add new experience</span></a>
-                            <div class="collapse" id="experience-form1">
-                                <form class="row">
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="company">Company</label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="company" type="text" />
-                                    </div>
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="position">Position</label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="position" type="text" />
-                                    </div>
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="city">City </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="city" type="text" />
-                                    </div>
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="exp-description">Description </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <textarea class="form-control form-control-sm" id="exp-description" rows="3"> </textarea>
-                                    </div>
-                                    <div class="col-9 col-sm-7 offset-3 mb-3">
-                                        <div class="form-check mb-0 lh-1">
-                                            <input class="form-check-input" type="checkbox" id="experience-current" checked="checked" />
-                                            <label class="form-check-label mb-0" for="experience-current">I currently work here
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-lg-end">
-                                        <label class="form-label" for="experience-form2">From </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm text-500 datetimepicker" id="experience-form2" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                                    </div>
-                                    <div class="col-3 text-lg-end">
-                                        <label class="form-label" for="experience-to">To </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm text-500 datetimepicker" id="experience-to" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y","disableMobile":true}' />
-                                    </div>
-                                    <div class="col-9 col-sm-7 offset-3">
-                                        <button class="btn btn-primary" type="button">Save</button>
-                                    </div>
-                                </form>
-                                <div class="border-dashed-bottom my-4"></div>
-                            </div>
-                            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/g.png" alt="" width="56" /></a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0">Big Data Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                                    </h6>
-                                    <p class="mb-1"> <a href="#!">Google</a></p>
-                                    <p class="text-1000 mb-0">Apr 2012 - Present &bull; 6 yrs 9 mos</p>
-                                    <p class="text-1000 mb-0">California, USA</p>
-                                    <div class="border-bottom border-dashed my-3"></div>
-                                </div>
-                            </div>
-                            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/apple.png" alt="" width="56" /></a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0">Software Engineer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                                    </h6>
-                                    <p class="mb-1"> <a href="#!">Apple</a></p>
-                                    <p class="text-1000 mb-0">Jan 2012 - Apr 2012 &bull; 4 mos</p>
-                                    <p class="text-1000 mb-0">California, USA</p>
-                                    <div class="border-bottom border-dashed my-3"></div>
-                                </div>
-                            </div>
-                            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/nike.png" alt="" width="56" /></a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0">Mobile App Developer<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
-                                    </h6>
-                                    <p class="mb-1"> <a href="#!">Nike</a></p>
-                                    <p class="text-1000 mb-0">Jan 2011 - Apr 2012 &bull; 1 yr 4 mos</p>
-                                    <p class="text-1000 mb-0">Beaverton, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3 mb-lg-0">
-                        <div class="card-header">
-                            <h5 class="mb-0">Educations</h5>
-                        </div>
-                        <div class="card-body bg-light"><a class="mb-4 d-block d-flex align-items-center" href="#education-form" data-bs-toggle="collapse" aria-expanded="false" aria-controls="education-form"><span class="circle-dashed"><span class="fas fa-plus"></span></span><span class="ms-3">Add new education</span></a>
-                            <div class="collapse" id="education-form">
-                                <form class="row">
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="school">School</label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="school" type="text" />
-                                    </div>
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="degree">Degree</label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="degree" type="text" />
-                                    </div>
-                                    <div class="col-3 mb-3 text-lg-end">
-                                        <label class="form-label" for="field">Field</label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm" id="field" type="text" />
-                                    </div>
-                                    <div class="col-3 text-lg-end">
-                                        <label class="form-label" for="edu-form3">From </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm datetimepicker" id="edu-form3" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y"}' />
-                                    </div>
-                                    <div class="col-3 text-lg-end">
-                                        <label class="form-label" for="edu-to">To </label>
-                                    </div>
-                                    <div class="col-9 col-sm-7 mb-3">
-                                        <input class="form-control form-control-sm datetimepicker" id="edu-to" type="text" placeholder="d/m/y" data-options='{"dateFormat":"d/m/y"}' />
-                                    </div>
-                                    <div class="col-9 col-sm-7 offset-3">
-                                        <button class="btn btn-primary" type="button">Save</button>
-                                    </div>
-                                </form>
-                                <div class="border-dashed-bottom my-3"></div>
-                            </div>
-                            <div class="d-flex"><a href="#!">
-                                <div class="avatar avatar-3xl">
-                                    <div class="avatar-name rounded-circle"><span>SU</span></div>
-                                </div>
-                            </a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0"> <a href="#!">Stanford University<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
-                                    <p class="mb-1">Computer Science and Engineering</p>
-                                    <p class="text-1000 mb-0">2010 - 2014 • 4 yrs</p>
-                                    <p class="text-1000 mb-0">California, USA</p>
-                                    <div class="border-bottom border-dashed my-3"></div>
-                                </div>
-                            </div>
-                            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/staten.png" alt="" width="56" /></a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0"> <a href="#!">Staten Island Technical High School<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
-                                    <p class="mb-1">Higher Secondary School Certificate, Science</p>
-                                    <p class="text-1000 mb-0">2008 - 2010 &bull; 2 yrs</p>
-                                    <p class="text-1000 mb-0">New York, USA</p>
-                                    <div class="border-bottom border-dashed my-3"></div>
-                                </div>
-                            </div>
-                            <div class="d-flex"><a href="#!"> <img class="img-fluid" src="../../assets/img/logos/tj-heigh-school.png" alt="" width="56" /></a>
-                                <div class="flex-1 position-relative ps-3">
-                                    <h6 class="fs-0 mb-0"> <a href="#!">Thomas Jefferson High School for Science and Technology<span data-bs-toggle="tooltip" data-bs-placement="top" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></a></h6>
-                                    <p class="mb-1">Secondary School Certificate, Science</p>
-                                    <p class="text-1000 mb-0">2003 - 2008 &bull; 5 yrs</p>
-                                    <p class="text-1000 mb-0">Alexandria, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 ps-lg-2">
-                    <div class="sticky-sidebar">
-
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <h5 class="mb-0">Billing Setting</h5>
-                            </div>
-                            <div class="card-body bg-light">
-                                <h5>Plan</h5>
-                                <p class="fs-0"><strong>Developer</strong>- Unlimited private repositories</p><a class="btn btn-falcon-default btn-sm" href="#!">Update Plan</a>
-                            </div>
-                            <div class="card-body bg-light border-top">
-                                <h5>Payment</h5>
-                                <p class="fs-0">You have not added any payment.</p><a class="btn btn-falcon-default btn-sm" href="#!">Add Payment </a>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="mb-0">Danger Zone</h5>
-                            </div>
-                            <div class="card-body bg-light">
-<!--                                <h5 class="fs-0">Transfer Ownership</h5>-->
-<!--                                <p class="fs&#45;&#45;1">Transfer this account to another user or to an organization where you have the ability to create repositories.</p><a class="btn btn-falcon-warning d-block" href="#!">Transfer</a>-->
-<!--                                <div class="border-bottom border-dashed my-4"></div>-->
-                                <h5 class="fs-0">회원 탈퇴</h5>
-                                <p class="fs--1">회원 탈퇴 작업은 취소할 수 없습니다.</p>
-                                <a class="btn btn-falcon-danger d-block" onclick="deactivate();">회원 탈퇴</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="footer">
-                <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
-                    </div>
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">v3.16.0</p>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-            <div class="modal-dialog mt-6" role="document">
-                <div class="modal-content border-0">
-                    <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                        <div class="position-relative z-1" data-bs-theme="light">
-                            <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                            <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                        </div>
-                        <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body py-4 px-5">
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label" for="modal-auth-name">Name</label>
-                                <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="modal-auth-email">Email address</label>
-                                <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                            </div>
-                            <div class="row gx-2">
-                                <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="modal-auth-password">Password</label>
-                                    <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                                </div>
-                                <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                                    <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                                </div>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                                <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                            </div>
-                        </form>
-                        <div class="position-relative mt-5">
-                            <hr />
-                            <div class="divider-content-center">or register with</div>
-                        </div>
-                        <div class="row g-2 mt-2">
-                            <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                            <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- 메뉴 탭바 끝 -->
         </div>
     </div>
 </main>
@@ -2623,6 +2367,46 @@
             }
         })
     };
+
+    //대학교 체크 함수
+    const checkUniEmail = (domain) => {
+        let uniDomain = `[${domain}](http://${domain}/)`
+        $.ajax({
+            type : "POST", // http 방식
+            url : "/auth/uniCheck", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "uniDomain" : uniDomain,
+            },
+            success : function(data) {
+                if (data !== "empty") {
+                    $("#chkUniStudent").prop("checked",true);
+                    $('#uni-name').show()
+                    $('#card-uni').val(data);
+                }
+                else {
+                    $("#chkUniStudent").prop("checked",false);
+                    $('#uni-name').hide();
+                }
+            }
+        })
+    }
+
+    //이메일 변화 실시간 감지
+    $('#card-email').on("propertychange change paste input", function(){
+        let domain = $(this).val().split('@')[1];
+        checkUniEmail(domain);
+    })
+
+    $(function(){
+        //유저 성별 설렉트박스
+        let genderSelect = $('select[name="memberGender"]');
+        let gender = genderSelect.attr('data-gender');
+        if(gender){genderSelect.children(`option[value="${gender}"]`).prop("selected",true)};
+
+        //대학생 체크
+        let domain = $('input[name="memberEmail"]').val().split('@')[1];
+        checkUniEmail(domain);
+    });
 </script>
 
 </body>

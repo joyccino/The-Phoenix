@@ -114,7 +114,7 @@ public class QuizController {
             return "/pages/authentication/card/login";
         }
 
-        List<QuizzesDTO> quizList = quizService.getQuizList();
+        List<QuizzesDTO> quizList = quizService.getQuizListByMember();
 
         System.out.println("퀴즈 목록을 요청합니다: "+quizList.toString());
 
@@ -123,11 +123,17 @@ public class QuizController {
 
         return "/quizDashboard";
     }
-    @RequestMapping(value = "take", method = RequestMethod.GET)
-    public String takeExam(){
+    @RequestMapping(value = "take/{quizzesId}", method = RequestMethod.GET)
+    public String takeExam(@PathVariable("quizzesId") int quizzesId, Model model){
+        System.out.println("넘겨온 quizID:"+quizzesId);
 
+        // 응시할 퀴즈 로딩해오기
+        QuizzesDTO quiz = quizService.getQuiz(quizzesId);
+
+        model.addAttribute("quiz",quiz);
+
+        // 응시할 questions 로딩해오기
         return "/pages/quiz/quiz";
-
     }
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
@@ -180,5 +186,22 @@ public class QuizController {
         model.addAttribute("questionList",qlist);
 
         return qlist;
+    }
+
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String quizList2(HttpServletRequest request,  Model model) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+        if(ObjectUtils.isEmpty(qpUser)) {
+            System.out.println("not logged in");
+            return "/pages/authentication/card/login";
+        }
+        else {
+            List<QuizzesDTO> quizList = quizService.getQuizList();
+            model.addAttribute("quizList",quizList);
+            System.out.println("퀴즈리스트2 호출:"+quizList.size());
+            return "/pages/quiz/list";
+            //return "/pages/quiz/quiz_list";
+        }
     }
 }

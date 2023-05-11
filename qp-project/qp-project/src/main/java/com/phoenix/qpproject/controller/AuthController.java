@@ -238,7 +238,7 @@ public class AuthController {
                 return "redirect:/auth/analytics";
             }
             else {
-                return "redirect:/quiz/quizList";
+                return "redirect:/quiz/home";
             }
 
         }
@@ -322,6 +322,7 @@ public class AuthController {
 //        mailDTO.setAddress("sbins402@naver.com");
         mailDTO.setTitle("[큐피] 비밀번호 재설정");
         mailDTO.setContent("재생성된 비밀번호는 "+newPass+" 입니다.");
+        emailService.setNewPassword(mailDTO);
         emailService.sendPassResetEmail(mailDTO);
         System.out.println("passReset 메일 전송 완료");
         //newPass 암호화 과정 추가 예정
