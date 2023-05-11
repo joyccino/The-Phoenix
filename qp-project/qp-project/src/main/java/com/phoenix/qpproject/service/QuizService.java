@@ -30,6 +30,11 @@ public class QuizService {
         return quizList;
     }
 
+    public QuizzesDTO getQuiz(int qid){
+        return quizMapper.getQuiz(qid);
+    }
+
+
     public void addQuiz(QuizzesDTO quiz) {
         quizMapper.addQuiz(quiz);
     }

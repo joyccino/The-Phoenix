@@ -123,11 +123,17 @@ public class QuizController {
 
         return "/quizDashboard";
     }
-    @RequestMapping(value = "take", method = RequestMethod.GET)
-    public String takeExam(){
+    @RequestMapping(value = "take/{quizzesId}", method = RequestMethod.GET)
+    public String takeExam(@PathVariable("quizzesId") int quizzesId, Model model){
+        System.out.println("넘겨온 quizID:"+quizzesId);
 
+        // 응시할 퀴즈 로딩해오기
+        QuizzesDTO quiz = quizService.getQuiz(quizzesId);
+
+        model.addAttribute("quiz",quiz);
+
+        // 응시할 questions 로딩해오기
         return "/pages/quiz/quiz";
-
     }
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)

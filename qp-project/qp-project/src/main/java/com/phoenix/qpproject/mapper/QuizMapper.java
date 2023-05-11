@@ -14,6 +14,8 @@ public interface QuizMapper {
 
     public List<QuizzesDTO> getQuizList();
 
+    public QuizzesDTO getQuiz(int qid);
+
     public int findQuizById(String findById);
 
     public void addQuiz(QuizzesDTO quiz);

@@ -62,6 +62,11 @@
         SELECT *
         FROM quizzes q;
     </select>
+    <select id="getQuiz" parameterType="java.lang.Integer" resultMap="QuizDashboardMap">
+        SELECT *
+        FROM quizzes q
+        WHERE id = #{qid};
+    </select>
     <select id="getRecentQuizIdOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT
         q.id
