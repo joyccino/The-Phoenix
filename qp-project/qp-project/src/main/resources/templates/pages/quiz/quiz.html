@@ -2055,7 +2055,7 @@
                     </div>
                     
                 </form>
-                <div class="card mb-3">
+                <div class="card mb-3" data-list='{"valueNames":["name","email","phone","address","joined"],"page":5,"pagination":true}'>
                     <div class="card-header">
                         <h5 class="mb-0"><b>질문 목록</b></h5>
                     </div>
@@ -2079,11 +2079,16 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-center">
+                            <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                            <ul class="pagination mb-0"></ul>
+                            <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
                         </div>
                     </div>
                 </div>
             </div>
+            
           </div>
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
