@@ -2068,7 +2068,7 @@
                                                     <td class="align-middle white-space-nowrap name" th:text="${l.quizzesId}" style="display:none">0</td>
                                                     <td class="align-middle white-space-nowrap name" >0</td>
                                                     <td class="align-middle white-space-nowrap amount" th:text="${#dates.format(l.quizzesQuizCreateDateTime, 'yyyy-MM-dd')}">등록날짜</td>
-                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>
+                                                    <td class="align-middle white-space-nowrap name" th:text="${l.MembersDTO.memberId}">김승현</td>
                                                     <td class="align-middle white-space-nowrap name" th:text="${l.quizzesSubjectId}">김승현</td>
                                                     <td class="align-middle white-space-nowrap email" ><a th:href="@{/quiz/take/{qid}(qid=${l.quizzesId})}" th:text="${l.quizzesTitle}">선형대수학 활용 12제</a></td>
                                                     <td class="align-middle white-space-nowrap product">12</td>

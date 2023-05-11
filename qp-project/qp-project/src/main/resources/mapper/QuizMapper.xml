@@ -60,7 +60,9 @@
     </select>
     <select id="getQuizList" resultMap="QuizDashboardMap">
         SELECT *
-        FROM quizzes q;
+        FROM quizzes q
+        RIGHT JOIN questions qs ON q.id = qs.quizId
+        LEFT JOIN members m ON q.memberId = m.id;
     </select>
     <select id="getQuiz" parameterType="java.lang.Integer" resultMap="QuizDashboardMap">
         SELECT *
