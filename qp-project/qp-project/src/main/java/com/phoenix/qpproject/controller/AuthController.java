@@ -238,7 +238,7 @@ public class AuthController {
                 return "redirect:/auth/analytics";
             }
             else {
-                return "redirect:/quiz/quizList";
+                return "redirect:/quiz/home";
             }
 
         }

@@ -22,6 +22,30 @@
         <association property="membersDTO" resultMap="membersResultMap"/>
     </resultMap>
 
+    <resultMap type="com.phoenix.qpproject.dto.QuizzesDTO" id="QuizListMap">
+        <id column="id" property="quizzesId"/>
+        <result column="memberId" property="quizzesMemberId"/>
+        <result column="title" property="quizzesTitle"/>
+        <result column="subjectId" property="quizzesSubjectId"/>
+        <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime"/>
+        <result column="shuffleQuestions" property="quizzesShuffleQuestions"/>
+        <result column="shuffleOptions" property="quizzesShuffleOptions"/>
+        <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
+        <result column="examStartDateTime" property="quizzesExamStartDateTime"/>
+        <result column="examEndDateTime" property="quizzesExamEndDateTime"/>
+        <association property="subjectsDTO" resultMap="subjectsResultMap"/>
+        <association property="membersDTO" resultMap="membersResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.phoenix.qpproject.dto.SubjectsDTO" id="subjectsResultMap">
+        <id column="id" property="subjectId"/>
+        <result column="institutionLevel" property="subjectInstitutionLevel"/>
+        <result column="year" property="subjectYear"/>
+        <result column="generalSubject" property="subjectGeneralSubject"/>
+        <result column="detailSubject" property="subjectDetailSubject"/>
+        <result column="subjectCode" property="subjectSubjectCode"/>
+    </resultMap>
+
     <resultMap type="com.phoenix.qpproject.dto.QuizHistoryDTO" id="quizHistoryResultMap">
         <id column="id" property="quizHistoryId"/>
         <result column="memberId" property="quizHistoryMemberId"/>
@@ -52,11 +76,22 @@
     </resultMap>
 
     <!-- SQL문 설정 -->
-    <select id="getQuizList" resultMap="QuizDashboardMap">
+    <select id="getQuizListByMember" resultMap="QuizDashboardMap">
         SELECT *
         FROM quizzes q
         RIGHT JOIN quizhistory qh ON q.id = qh.quizId
         LEFT JOIN members m ON qh.memberId = m.id;
+    </select>
+    <select id="getQuizList" resultMap="QuizListMap">
+        SELECT *
+        FROM quizzes q
+        RIGHT JOIN subjects s ON q.subjectId = s.id
+        LEFT JOIN members m ON q.memberId = m.id;
+    </select>
+    <select id="getQuiz" parameterType="java.lang.Integer" resultMap="QuizDashboardMap">
+        SELECT *
+        FROM quizzes q
+        WHERE id = #{qid};
     </select>
     <select id="getRecentQuizIdOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT
