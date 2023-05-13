@@ -1913,13 +1913,28 @@
                 <div class="col-8 col-sm-auto text-end ps-2">
 
                   <div id="table-customers-replace-element">
-                      <button class="btn btn-falcon-default btn-sm" type="button">
+                      <div class="btn-group dropend mt-2">
+                          <button class="btn btn-primary" type="button">이메일 전송</button>
+                          <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span></button>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">어드민</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증된 일반유저</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">대학생 유저</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증되지 않은 유저</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">강제 탈퇴</a>
+                          </div>
+                      </div>
+                      <!--<button class="btn btn-falcon-default btn-sm" type="button" onclick="memberTypeChange();">
                           <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="권한 설정">supervisor_account</span>
                       </button>
 
                       <button class="btn btn-falcon-default btn-sm" type="button">
                           <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="멤버 삭제">person_remove</span>
-                      </button>
+                      </button>-->
 
                   </div>
                 </div>
@@ -2082,6 +2097,7 @@
     <script>
         const allCheck = document.querySelector('#allCheck');
         const checks = document.querySelectorAll('.checks');
+        const actBtn = document.querySelector('#table-customers-replace-element > div > button:nth-child(1)');
         function checkAll(){
             console.log();
             if(allCheck.checked) {
@@ -2094,6 +2110,15 @@
                     c.checked = false;
                 });
             }
+        }
+        
+        function memberTypeChange(){
+            // check how many are selected (-1 to except the one on the column)
+            alert(document.querySelectorAll('input[type="checkbox"]:checked').length - 1);
+        }
+        
+        function dropdownSelected(e){
+            actBtn.innerHTML = e.innerHTML;
         }
     </script>
 
