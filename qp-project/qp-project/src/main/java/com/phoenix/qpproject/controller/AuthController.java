@@ -282,7 +282,7 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/quiz/home";
+            return "redirect:/quiz/home";
         }
     }
 

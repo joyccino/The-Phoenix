@@ -14,7 +14,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 @Controller
 @RequestMapping("/quiz")
@@ -203,12 +206,13 @@ public class QuizController {
             return "/pages/authentication/card/login";
         }
         else {
-            List<QuizzesDTO> quizList = quizService.getQuizList();
+            List<QuizzesDTO> qList = quizService.getQuizList();
+            List<HomeDTO> quizList = quizService.getQuizListForHome();
 
-//            System.out.println("hihi:"+quizList);
+            System.out.println("hihi:"+quizList);
 
             model.addAttribute("quizList",quizList);
-            System.out.println("퀴즈리스트2 호출:"+quizList.size());
+            //System.out.println("퀴즈리스트2 호출:"+quizList.size());
             return "/pages/quiz/home";
             //return "/pages/quiz/quiz_list";
         }

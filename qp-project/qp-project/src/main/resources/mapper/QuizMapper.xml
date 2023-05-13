@@ -200,4 +200,17 @@
         );
     </insert>
 
+    <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
+        SELECT
+        q.Id AS homeQuizId,
+        q.quizCreateDateTime AS homePostedDate,
+        q.title AS homeQuizTitle,
+        s.detailSubject AS homeDetailSubject,
+        m.userId AS homeCreatorId
+        FROM quizzes as q
+        RIGHT JOIN subjects as s ON q.subjectId = s.id
+        LEFT JOIN members as m ON q.memberId = m.id
+        LEFT JOIN quizHistory as qh ON q.id = qh.quizId;
+    </select>
+
 </mapper>
