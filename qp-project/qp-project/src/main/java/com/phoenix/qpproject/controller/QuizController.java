@@ -40,7 +40,7 @@ public class QuizController {
     @ResponseBody
     public void generateQuiz(@ModelAttribute QuizzesDTO quiz, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         MembersDTO member = (MembersDTO) qpUser;
 
@@ -63,7 +63,7 @@ public class QuizController {
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String quizsetting(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
@@ -95,7 +95,7 @@ public class QuizController {
     @RequestMapping(value = "quizList", method = RequestMethod.GET)
     public String quizList(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
@@ -109,7 +109,7 @@ public class QuizController {
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
@@ -145,7 +145,7 @@ public class QuizController {
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
     public String quizDetailsTest(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
@@ -158,7 +158,7 @@ public class QuizController {
     @ResponseBody
     public List<QuestionsDTO> addQuestion(@ModelAttribute QODTO question_info, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         MembersDTO member = (MembersDTO) qpUser; // 멤버
 
@@ -189,7 +189,7 @@ public class QuizController {
 
         System.out.println("qlist: "+qlist.size());
 
-        model.addAttribute("questionList",qlist);
+//        model.addAttribute("questionList",qlist);
 
         return qlist;
     }
@@ -197,7 +197,7 @@ public class QuizController {
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
@@ -205,7 +205,7 @@ public class QuizController {
         else {
             List<QuizzesDTO> quizList = quizService.getQuizList();
 
-            System.out.println("hihi:"+quizList);
+//            System.out.println("hihi:"+quizList);
 
             model.addAttribute("quizList",quizList);
             System.out.println("퀴즈리스트2 호출:"+quizList.size());
@@ -218,7 +218,7 @@ public class QuizController {
     @ResponseBody
     public void submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         System.out.println("response: "+userResponse);
         MembersDTO member = (MembersDTO) qpUser;
 

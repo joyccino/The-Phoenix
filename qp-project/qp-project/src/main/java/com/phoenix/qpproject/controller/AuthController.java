@@ -40,7 +40,7 @@ public class AuthController {
     public String login( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
@@ -54,7 +54,7 @@ public class AuthController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register( HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get register page %%");
@@ -69,7 +69,7 @@ public class AuthController {
     public String forgotPassword( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get password page %%");
@@ -116,7 +116,7 @@ public class AuthController {
 
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         MembersDTO member = (MembersDTO) qpUser;
 
@@ -141,11 +141,11 @@ public class AuthController {
     public String logout( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(!ObjectUtils.isEmpty(qpUser)) {
             // 세션값 삭제
-            session.removeAttribute("qpUser");
+            session.removeAttribute("user");
             // 세션 전체 제거, 무효화
             session.invalidate();
             return "/pages/authentication/card/login";
@@ -168,7 +168,7 @@ public class AuthController {
         // 세션에 저장된 멤버 id 로 login 시도
         HttpSession session = request.getSession();
 
-        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
 
         System.out.println("서비스로 넘기기 전 패스워드:"+oldPass);
 
@@ -213,7 +213,7 @@ public class AuthController {
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
-        System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
+        //System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
 
         if (membersInfo.getMemberId() != null) {
             log.info("멤버 not null");
@@ -224,7 +224,7 @@ public class AuthController {
 
             HttpSession session = request.getSession();
 
-            session.setAttribute("qpUser", membersInfo);
+            session.setAttribute("user", membersInfo);
 
             session.setMaxInactiveInterval(-1);
 
@@ -232,7 +232,7 @@ public class AuthController {
 
             memberService.addVisitHistory(mId);
 
-            System.out.println(mId+" 로그인 history insterted");
+            System.out.println(mId+" 로그인 history inserted");
 
             if(membersInfo.getMemberMemberTypeId() == 0) {
                 return "redirect:/auth/analytics";
@@ -251,6 +251,7 @@ public class AuthController {
 //                String msg = "아이디 또는 비밀번호를 확인해주세요.";
 //                model.addAttribute("msgLoginFailed",msg);
 //            }
+            System.out.println("로그인 실패");
             String msg = "아이디 또는 비밀번호를 확인해주세요.";
             model.addAttribute("msgLoginFailed",msg);
             return "redirect:/auth/login?error=true";
@@ -264,7 +265,7 @@ public class AuthController {
         // 세션에 멤버 존재 여부
         HttpSession session = request.getSession();
 
-        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
 
         System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
 
@@ -290,7 +291,7 @@ public class AuthController {
         // 세션에 멤버 존재 여부
         HttpSession session = request.getSession();
 
-        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
 
         System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
 
@@ -336,7 +337,7 @@ public class AuthController {
     @PostMapping("/memberUpdate")
     public String memberInfoModify(MembersDTO member, HttpServletRequest request){
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         MembersDTO originalMemberInfo = (MembersDTO) qpUser;
 
@@ -347,13 +348,13 @@ public class AuthController {
         System.out.println("멤버 정보 update done");
 
 
-        session.removeAttribute("qpUser");
+        session.removeAttribute("user");
         session.invalidate();
 
         member.setMemberPw("masked");
         session = request.getSession();
 
-        session.setAttribute("qpUser", member);
+        session.setAttribute("user", member);
         session.setMaxInactiveInterval(-1);
 
         // 인증 이메일 전송하기
@@ -370,7 +371,7 @@ public class AuthController {
     public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         MembersDTO member = (MembersDTO) qpUser;
         String memberId = member.getMemberId();
         String encodeNewPass = bCryptPasswordEncoder.encode(newPass);
@@ -379,14 +380,14 @@ public class AuthController {
 
         System.out.println("DB 업데이트 완료");
 
-        session.removeAttribute("qpUser");
+        session.removeAttribute("user");
         session.invalidate();
 
         member = memberService.getUserAccount(memberId);
         MembersDTO membersInfo = memberService.memberLogin(member);
         membersInfo.setMemberPw("masked");
         session = request.getSession();
-        session.setAttribute("qpUser", membersInfo);
+        session.setAttribute("user", membersInfo);
         session.setMaxInactiveInterval(-1);
 
         return "redirect:/mypage/edit";
