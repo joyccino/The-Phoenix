@@ -1932,13 +1932,13 @@
                     <tr>
                       <th>
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" />
+                          <input class="form-check-input" id="allCheck" type="checkbox" onChange="checkAll();"/>
                         </div>
                       </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">멤버타입</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">아이디</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">패스워드</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name" style="display:none">비밀번호</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">성</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">이름</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
@@ -1957,7 +1957,7 @@
                     <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger">
                       <td class="align-middle py-2" style="width: 28px;">
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
+                          <input class="form-check-input checks" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
                         </div>
                       </td>
                       <td class="name align-middle white-space-nowrap py-2"><a href="app/e-commerce/customer-details.html">
@@ -1970,7 +1970,7 @@
                       </td>
                         <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한</td>
                         <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
-                        <td th:text="${l.memberPw}" class="email align-middle py-2">1234</td>
+                        <td th:text="${l.memberPw}" class="email align-middle py-2"  style="display:none">1234</td>
                       <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
                       <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
 
@@ -2078,6 +2078,24 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../vendors/list.js/list.min.js"></script>
     <script src="../../assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        const allCheck = document.querySelector('#allCheck');
+        const checks = document.querySelectorAll('.checks');
+        function checkAll(){
+            console.log();
+            if(allCheck.checked) {
+                checks.forEach((c) => {
+                    c.checked = true;
+                });
+            }
+            else {
+                checks.forEach((c) => {
+                    c.checked = false;
+                });
+            }
+        }
+    </script>
 
   </body>
 
