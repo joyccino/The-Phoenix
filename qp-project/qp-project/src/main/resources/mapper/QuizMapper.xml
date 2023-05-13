@@ -200,4 +200,29 @@
         );
     </insert>
 
+    <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
+        SELECT
+        q.Id AS homeQuizId,
+        q.quizCreateDateTime AS homePostedDate,
+        q.title AS homeQuizTitle,
+        s.detailSubject AS homeDetailSubject,
+        m.userId AS homeCreatorId,
+<!--        count(qh.quizId) as homeTotalExaminee-->
+<!--        count(qo.questionId) as homeQuestionTotal-->
+        0 as homeIsTaken,
+        10 as homeQuestionTotal,
+        86 as homeTotalExaminee,
+        99 as correctedRate
+        FROM quizzes as q
+        RIGHT JOIN subjects as s ON q.subjectId = s.id
+<!--        RIGHT JOIN questions as qs ON q.id = qs.quizId-->
+        LEFT JOIN members as m ON q.memberId = m.id
+<!--        INNER JOIN quizHistory as qh ON q.id = qh.quizId-->
+<!--        GROUP BY qh.quizId;-->
+<!--        INNER JOIN questionoptions as qo ON qs.id = qo.questionId-->
+<!--        GROUP BY qh.quizId, qo.questionId;-->
+        ORDER BY homePostedDate DESC;
+
+    </select>
+
 </mapper>

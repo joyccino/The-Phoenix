@@ -31,4 +31,6 @@ public interface QuizMapper {
     public int getRecentQuizHistoryIdOfMember(int memberId);
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
+
+    public List<HomeDTO> getQuizListForHome();
 }

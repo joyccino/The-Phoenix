@@ -67,4 +67,8 @@ public class QuizService {
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO){
         quizMapper.addQuestionHistory(questionsHistoryDTO);
     }
+
+    public List<HomeDTO> getQuizListForHome(){
+        return quizMapper.getQuizListForHome();
+    }
 }

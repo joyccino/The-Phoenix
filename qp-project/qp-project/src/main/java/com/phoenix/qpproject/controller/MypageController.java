@@ -27,7 +27,7 @@ public class MypageController {
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String edit( HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
         System.out.println(qpUser);
 
         MembersDTO member = (MembersDTO) qpUser;
@@ -38,7 +38,7 @@ public class MypageController {
             return "/pages/authentication/card/login";
         }
         else {
-            model.addAttribute("qpUser", qpUser);
+            model.addAttribute("user", qpUser);
             return "/pages/user/settings.html";
         }
 
