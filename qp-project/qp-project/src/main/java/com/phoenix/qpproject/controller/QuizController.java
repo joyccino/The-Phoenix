@@ -209,8 +209,6 @@ public class QuizController {
             List<QuizzesDTO> qList = quizService.getQuizList();
             List<HomeDTO> quizList = quizService.getQuizListForHome();
 
-            System.out.println("hihi:"+quizList);
-
             model.addAttribute("quizList",quizList);
             //System.out.println("퀴즈리스트2 호출:"+quizList.size());
             return "/pages/quiz/home";

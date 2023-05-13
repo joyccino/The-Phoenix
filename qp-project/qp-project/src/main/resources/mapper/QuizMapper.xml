@@ -206,9 +206,13 @@
         q.quizCreateDateTime AS homePostedDate,
         q.title AS homeQuizTitle,
         s.detailSubject AS homeDetailSubject,
-        m.userId AS homeCreatorId
+        m.userId AS homeCreatorId,
 <!--        count(qh.quizId) as homeTotalExaminee-->
 <!--        count(qo.questionId) as homeQuestionTotal-->
+        0 as homeIsTaken,
+        10 as homeQuestionTotal,
+        86 as homeTotalExaminee,
+        99 as correctedRate
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
 <!--        RIGHT JOIN questions as qs ON q.id = qs.quizId-->
