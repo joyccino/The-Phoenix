@@ -211,7 +211,7 @@
 <!--        count(qo.questionId) as homeQuestionTotal-->
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
-        RIGHT JOIN questions as qs ON q.id = qs.quizId
+<!--        RIGHT JOIN questions as qs ON q.id = qs.quizId-->
         LEFT JOIN members as m ON q.memberId = m.id;
 <!--        INNER JOIN quizHistory as qh ON q.id = qh.quizId-->
 <!--        GROUP BY qh.quizId;-->
