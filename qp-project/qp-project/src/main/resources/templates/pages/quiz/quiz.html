@@ -60,7 +60,7 @@
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
-      
+    
     
 
   </head>
@@ -2047,13 +2047,11 @@
                         <div class="card-body bg-light question-content">
                             <div class="row gx-2">
                                 <div class="col-12 mb-3">
-                                    
                                     <input class="form-control" name="quizzesTitle" type="text" required/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </form>
                 <div class="card mb-3" data-list='{"valueNames":["name","email","phone","address","joined"],"page":5,"pagination":true}'>
                     <div class="card-header">
@@ -2243,8 +2241,26 @@
         // append following button
         
         
-        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3'><a class='btn btn-outline-primary d-block w-100 mt-3' disabled> <b>제출하기</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3'><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b>제출하기</b> </a></div>`);
     
+    // 퀴즈 시작시간
+    let startTime = new Date($.now());
+    
+    function submit(){
+        // insert quizHistory first
+        
+        // memberId 와 quizId는 컨트롤러단에서 추가
+        // 제출시간
+        let endTime = new Date($.now());
+        
+        // 채점 to get grade
+        let userResponse = { "questionId" : [], "response" : []};
+        console.log(userResponse);
+        
+        
+        // insert quesionHistory
+        // alert(startTime);
+    }
     </script>
 
 
