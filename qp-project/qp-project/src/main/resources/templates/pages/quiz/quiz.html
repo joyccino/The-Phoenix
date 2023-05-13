@@ -2283,11 +2283,11 @@
             data : JSON.stringify(userResponse),
             contentType: "application/json; charset=UTF-8",
             success : function(userResponse) {
-                alert("done");
+                alert("퀴즈를 제출하였습니다.");
+                location.replace("http://localhost:8080/quiz/home")
             }
           })
         
-        // insert quesionHistory
     }
     </script>
 
