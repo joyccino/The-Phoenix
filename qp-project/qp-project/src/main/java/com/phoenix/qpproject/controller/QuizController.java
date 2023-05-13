@@ -212,4 +212,15 @@ public class QuizController {
             //return "/pages/quiz/quiz_list";
         }
     }
+
+    @PostMapping(value="submit")
+    @ResponseBody
+    public void submitQuiz(@ModelAttribute Object response, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("qpUser");
+
+        MembersDTO member = (MembersDTO) qpUser;
+
+
+    }
 }
