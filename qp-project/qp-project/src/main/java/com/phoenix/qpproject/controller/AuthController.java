@@ -47,7 +47,7 @@ public class AuthController {
             return "/pages/authentication/card/login";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -61,7 +61,7 @@ public class AuthController {
             return "/pages/authentication/card/register";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -76,7 +76,7 @@ public class AuthController {
             return "/pages/authentication/card/forgot-password";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -281,7 +281,7 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/quiz/quizList";
+            return "/quiz/home";
         }
     }
 
@@ -303,7 +303,7 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/quiz/quizList";
+            return "/quiz/home";
         }
     }
 
