@@ -161,4 +161,43 @@
         from questions as qs where quizId = #{quizId};
     </select>
 
+    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
+        INSERT INTO quizHistory
+        (	  memberId,
+        quizId,
+        startDateTime,
+        endDateTime,
+        grade
+        )VALUES (
+        #{quizHistoryMemberId},
+        #{quizHistoryQuizId},
+        #{quizHistoryStartDateTime},
+        #{quizHistoryEndDateTime},
+        0
+        );
+    </insert>
+
+    <select id="getRecentQuizHistoryIdOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        q.id
+        FROM quizHistory q
+        WHERE memberId = #{memberId} AND id=(
+        SELECT max(id) FROM quizHistory
+        );
+    </select>
+
+    <insert id="addQuestionHistory" parameterType="com.phoenix.qpproject.dto.QuestionsHistoryDTO">
+        INSERT INTO questionHistory
+        (	  quizHistoryId,
+        questionId,
+        userResponse,
+        isCorrected
+        )VALUES (
+        #{questionsHistoryQuizHistoryId},
+        #{questionsHistoryQuestionId},
+        #{questionsHistoryUserResponse},
+        #{questionsHistoryIsCorrected}
+        );
+    </insert>
+
 </mapper>

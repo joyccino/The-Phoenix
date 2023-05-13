@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Controller
@@ -221,5 +222,27 @@ public class QuizController {
         System.out.println("response: "+userResponse);
         MembersDTO member = (MembersDTO) qpUser;
 
+        //quiz history 추가
+        QuizHistoryDTO quizHistory = new QuizHistoryDTO();
+        quizHistory.setQuizHistoryMemberId(member.getId());
+        quizHistory.setQuizHistoryQuizId(userResponse.getQuizId());
+        quizHistory.setQuizHistoryStartDateTime(userResponse.getStartTime());
+        quizHistory.setQuizHistoryEndDateTime(userResponse.getEndTime());
+        //quizHistory.setQuizHistoryGrade(); 일단 생략. 임시로 디폴트 값 0 넣고 있음.
+        quizService.addQuizHistory(quizHistory);
+
+        //recently inserted quizHistoryId;
+        int quizHistoryId = quizService.getRecentQuizHistoryIdOfMember(member.getId());
+
+        for (int i = 0; i < userResponse.getResponses().size(); i++) {
+            //question history 추가
+            QuestionsHistoryDTO questionsHistory = new QuestionsHistoryDTO();
+            questionsHistory.setQuestionsHistoryQuizHistoryId(quizHistoryId);
+            questionsHistory.setQuestionsHistoryQuestionId((int) userResponse.getQuestionIds().get(i));
+            questionsHistory.setQuestionsHistoryUserResponse((String) userResponse.getResponses().get(i));
+            questionsHistory.setQuestionsHistoryIsCorrected(false); // 구현 x
+            quizService.addQuestionHistory(questionsHistory);
+        }
+        System.out.println("adding quiz history + questionHistories done");
     }
 }

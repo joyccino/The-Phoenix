@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 public class UserResponseDTO {
-    private String quizId;
+    private int quizId;
     private Date startTime;
     private Date endTime;
-    private List questionIds;
-    private List responses;
+    private List<Integer> questionIds;
+    private List<String> responses;
 }
