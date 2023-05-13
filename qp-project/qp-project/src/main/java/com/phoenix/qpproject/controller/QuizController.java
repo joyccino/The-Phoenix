@@ -215,12 +215,11 @@ public class QuizController {
 
     @PostMapping(value="submit")
     @ResponseBody
-    public void submitQuiz(@ModelAttribute Object response, HttpServletRequest request) {
+    public void submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("qpUser");
-
+        System.out.println("response: "+userResponse);
         MembersDTO member = (MembersDTO) qpUser;
-
 
     }
 }

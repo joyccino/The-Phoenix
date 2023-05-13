@@ -2256,11 +2256,12 @@
         // get responses to get grade
         let quizId = document.querySelector("#quizId").innerHTML;
         let userResponse = {
-"quizId":quizId,
-"startTime": startTime.toJSON(), "endTime" : endTime.toJSON(),
-"questionIds":[],
-"responses":[],
-};
+            "quizId":quizId,
+            "startTime": startTime.toJSON(),
+            "endTime" : endTime.toJSON(),
+            "questionIds":[],
+            "responses":[],
+        };
 
         let questionIds = document.querySelectorAll(".qids");
         let questionResponses = document.querySelectorAll(".qrs");
@@ -2276,8 +2277,17 @@
         
         console.log(userResponse);
         
+        $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/submit", // ajax 통신 url
+            data : JSON.stringify(userResponse),
+            contentType: "application/json; charset=UTF-8",
+            success : function(userResponse) {
+                alert("done");
+            }
+          })
+        
         // insert quesionHistory
-        // alert(startTime);
     }
     </script>
 
