@@ -11,6 +11,10 @@
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d3d9f14b-98bb-4c05-96c0-1c4fafb81d2b)
 
 - 마이페이지
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/47f4922a-7173-49d5-a06a-05e65085d44d)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ac602a86-d24d-42c8-adbc-8be6371ec9cd)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/14d891f4-4e33-4c04-823b-39586ee1ae50)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/859eb541-505f-4bea-a1e2-388b47d0cdf0)
 
 [Quiz]
 - 퀴즈 생성 (유형 테스트 여부)
