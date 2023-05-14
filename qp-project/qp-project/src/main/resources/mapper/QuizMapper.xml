@@ -19,6 +19,7 @@
         <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
         <result column="examStartDateTime" property="quizzesExamStartDateTime"/>
         <result column="examEndDateTime" property="quizzesExamEndDateTime"/>
+        <result column="totalExaminee" property="quizzesTotalExaminee"/>
         <association property="quizHistoryDTO" resultMap="quizHistoryResultMap"/>
         <association property="membersDTO" resultMap="membersResultMap"/>
     </resultMap>
@@ -213,7 +214,7 @@
 <!--        count(qo.questionId) as homeQuestionTotal-->
         0 as homeIsTaken,
         10 as homeQuestionTotal,
-        86 as homeTotalExaminee,
+        q.totalExaminee as homeTotalExaminee,
         99 as correctedRate
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
@@ -229,6 +230,10 @@
 
     <update id="updateTotalQuestions" parameterType="java.lang.Integer">
         UPDATE quizzes SET totalQuestions = #{newTotal} WHERE id = #{quizId};
+    </update>
+
+    <update id="updateTotalExaminee" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalExaminee = (select count(*) from quizHistory where quizId = #{quizId})  WHERE id = #{quizId};
     </update>
 
 </mapper>

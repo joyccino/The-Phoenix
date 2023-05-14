@@ -76,4 +76,8 @@ public class QuizService {
         quizMapper.updateTotalQuestions(newTotal, quizId);
     }
 
+    public void updateTotalExaminee(int quizId) {
+        quizMapper.updateTotalExaminee(quizId);
+    }
+
 }

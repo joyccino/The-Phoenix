@@ -247,5 +247,10 @@ public class QuizController {
             quizService.addQuestionHistory(questionsHistory);
         }
         System.out.println("adding quiz history + questionHistories done");
+
+        // total examinee update
+        quizService.updateTotalExaminee(userResponse.getQuizId());
+
+        // average score update
     }
 }

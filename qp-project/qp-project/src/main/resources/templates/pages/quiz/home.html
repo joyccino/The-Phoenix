@@ -2054,7 +2054,7 @@
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >과목 ID</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 제목</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >문제 수</th>
-                                                    <th class="sort pe-1 align-middle white-space-nowrap" >응시횟수</th>
+                                                    <th class="sort pe-1 align-middle white-space-nowrap" >누적 응시수</th>
                                                     <th class="sort pe-1 align-middle white-space-nowrap" >평균 점수</th>
                                                 </tr>
                                             </thead>
@@ -2076,7 +2076,7 @@
                                                     
                                                     <td class="align-middle white-space-nowrap amount"><span th:text="${l.homeTotalExaminee}">621</span>명</td>
                                                     <td class="align-middle fs-0 white-space-nowrap payment">
-                                                        <span class="badge badge rounded-pill badge-subtle-success" th:text="${l.correctedRate} + '%'">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                                                        <span class="badge badge rounded-pill badge-subtle-success" th:text="${l.averageScore} + '%'">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                                                     </td>
                                                 </tr>
                                             

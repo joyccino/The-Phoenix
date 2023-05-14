@@ -22,8 +22,8 @@ public class HomeDTO {
     private String homeQuizTitle;
     // 응시 횟수
     private int homeTotalExaminee;
-    // 정답률
-    private int correctedRate;
+    // 평균 점수
+    private int averageScore;
     // 퀘스쳔 갯수
     private int homeTotalQuestions;
 }

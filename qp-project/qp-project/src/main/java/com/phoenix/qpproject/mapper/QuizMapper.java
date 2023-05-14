@@ -35,4 +35,6 @@ public interface QuizMapper {
     public List<HomeDTO> getQuizListForHome();
 
     public void updateTotalQuestions(int newTotal, int quizId);
+
+    public void updateTotalExaminee(int quizId);
 }
