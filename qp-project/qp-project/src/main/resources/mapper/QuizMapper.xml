@@ -215,7 +215,7 @@
         0 as homeIsTaken,
         10 as homeQuestionTotal,
         q.totalExaminee as homeTotalExaminee,
-        99 as correctedRate
+        q.averageScore as homeAverageScore
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
 <!--        RIGHT JOIN questions as qs ON q.id = qs.quizId-->
@@ -235,5 +235,21 @@
     <update id="updateTotalExaminee" parameterType="java.lang.Integer">
         UPDATE quizzes SET totalExaminee = (select count(*) from quizHistory where quizId = #{quizId})  WHERE id = #{quizId};
     </update>
+
+    <select id="getQuestionOptionsByQuizId" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.ResultsDTO">
+        select questionId as resultQuestionId, optionContent as resultOptionContent, isAnswer as resultIsAnswer from questionOptions as qo join questions as q on q.id = qo.questionId where q.quizId = #{quizId} AND qo.isAnswer = true;
+    </select>
+
+    <update id="updateUserScore" parameterType="java.lang.Integer">
+        UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
+    </update>
+
+    <update id="updateAverageScore" parameterType="java.lang.Integer">UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+
+    </update>
+
+    <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
+    </select>
 
 </mapper>

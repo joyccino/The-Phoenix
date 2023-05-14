@@ -37,4 +37,12 @@ public interface QuizMapper {
     public void updateTotalQuestions(int newTotal, int quizId);
 
     public void updateTotalExaminee(int quizId);
+
+    public List<ResultsDTO> getQuestionOptionsByQuizId(int quizId);
+
+    public void updateUserScore(int grade, int quizHistoryId);
+
+    public void updateAverageScore(int averageScore, int quizId);
+
+    public int getAverageScore(int quizId);
 }

@@ -23,7 +23,7 @@ public class HomeDTO {
     // 응시 횟수
     private int homeTotalExaminee;
     // 평균 점수
-    private int averageScore;
+    private int homeAverageScore;
     // 퀘스쳔 갯수
     private int homeTotalQuestions;
 }
