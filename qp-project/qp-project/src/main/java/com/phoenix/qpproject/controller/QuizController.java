@@ -192,7 +192,8 @@ public class QuizController {
 
         System.out.println("qlist: "+qlist.size());
 
-//        model.addAttribute("questionList",qlist);
+        // quiz 의 totalQuestion update
+        quizService.updateTotalQuestions(qlist.size(), quizId);
 
         return qlist;
     }

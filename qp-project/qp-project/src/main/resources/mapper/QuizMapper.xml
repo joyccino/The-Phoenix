@@ -13,6 +13,7 @@
         <result column="title" property="quizzesTitle"/>
         <result column="subjectId" property="quizzesSubjectId"/>
         <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime"/>
+        <result column="totalQuestions" property="quizzesTotalQuestions"/>
         <result column="shuffleQuestions" property="quizzesShuffleQuestions"/>
         <result column="shuffleOptions" property="quizzesShuffleOptions"/>
         <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
@@ -203,6 +204,7 @@
     <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
         SELECT
         q.Id AS homeQuizId,
+        q.totalQuestions AS homeTotalQuestions,
         q.quizCreateDateTime AS homePostedDate,
         q.title AS homeQuizTitle,
         s.detailSubject AS homeDetailSubject,
@@ -224,5 +226,9 @@
         ORDER BY homePostedDate DESC;
 
     </select>
+
+    <update id="updateTotalQuestions" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalQuestions = #{newTotal} WHERE id = #{quizId};
+    </update>
 
 </mapper>

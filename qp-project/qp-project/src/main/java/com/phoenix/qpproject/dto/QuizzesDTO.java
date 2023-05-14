@@ -15,6 +15,7 @@ public class QuizzesDTO {
     private boolean quizzesShuffleQuestions;
     private boolean quizzesShuffleOptions;
     private boolean quizzesAllowedAttempts;
+    private int quizzesTotalQuestions;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date quizzesExamStartDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
