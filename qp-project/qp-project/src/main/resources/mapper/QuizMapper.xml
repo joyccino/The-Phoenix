@@ -213,7 +213,6 @@
 <!--        count(qh.quizId) as homeTotalExaminee-->
 <!--        count(qo.questionId) as homeQuestionTotal-->
         0 as homeIsTaken,
-        10 as homeQuestionTotal,
         q.totalExaminee as homeTotalExaminee,
         q.averageScore as homeAverageScore
         FROM quizzes as q
