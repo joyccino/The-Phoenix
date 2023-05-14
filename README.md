@@ -10,12 +10,6 @@
 - 비밀번호 찾기 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d3d9f14b-98bb-4c05-96c0-1c4fafb81d2b)
 
-- 마이페이지 @jyj
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/47f4922a-7173-49d5-a06a-05e65085d44d)
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ac602a86-d24d-42c8-adbc-8be6371ec9cd)
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/14d891f4-4e33-4c04-823b-39586ee1ae50)
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/859eb541-505f-4bea-a1e2-388b47d0cdf0)
-
 [Quiz]
 - 퀴즈 생성 (유형 테스트 여부) @ wyj
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b93df024-5318-4843-b89d-615f677b9cb4)
@@ -33,6 +27,18 @@
 - 서베이 생성
 - 서베이 리스트
 - 서베이 디테일
+
+[마이페이지] 
+- 기본정보 수정 @msb @jyj
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/47f4922a-7173-49d5-a06a-05e65085d44d)
+- 비밀번호 수정 @msb @jyj
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ac602a86-d24d-42c8-adbc-8be6371ec9cd)
+- 멤버십 관리 @msb
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/14d891f4-4e33-4c04-823b-39586ee1ae50)
+- 탈퇴 @msb
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/859eb541-505f-4bea-a1e2-388b47d0cdf0)
+
+
 
 [Admin]
 - 대시보드 @pjh
