@@ -7,11 +7,11 @@
 - 로그인 / 로그아웃 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf01253d-3388-402b-b1dd-a671fd6a0340)
 
-- 비밀번호 찾기 @msb
+- 비밀번호 찾기 및 이메일 전송 @msb @jyj
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d3d9f14b-98bb-4c05-96c0-1c4fafb81d2b)
 
 [Quiz]
-- 퀴즈 생성 (유형 테스트 여부) @ wyj
+- 퀴즈 생성 (유형 테스트 여부) @wyj
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b93df024-5318-4843-b89d-615f677b9cb4)
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ede48c42-4b61-4103-8152-75e5430cc335)
 
