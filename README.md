@@ -24,8 +24,8 @@
 - 퀴즈 응시 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/0e39ed53-f6df-4944-aa5d-a64250c18627)
 
-- 퀴즈 리스트 @msb
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/8d4d71cd-bfa8-44af-ae60-1b31a8661ce9)
+- 퀴즈 홈 @msb
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7c0bac9a-57f8-44ec-96b5-5da349ca68b7)
 
 - 퀴즈 디테일 @wyj
 
