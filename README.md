@@ -2,12 +2,27 @@
 
 [Authorisation]
 - 회원가입
-- 로그인
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d258a394-85e7-4207-9a7f-f526a2ee5990)
+
+- 로그인 / 로그아웃
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf01253d-3388-402b-b1dd-a671fd6a0340)
+
+- 비밀번호 찾기
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d3d9f14b-98bb-4c05-96c0-1c4fafb81d2b)
+
 - 마이페이지
 
 [Quiz]
 - 퀴즈 생성 (유형 테스트 여부)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b93df024-5318-4843-b89d-615f677b9cb4)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ede48c42-4b61-4103-8152-75e5430cc335)
+
+- 퀴즈 응시
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/0e39ed53-f6df-4944-aa5d-a64250c18627)
+
 - 퀴즈 리스트
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/8d4d71cd-bfa8-44af-ae60-1b31a8661ce9)
+
 - 퀴즈 디테일
 
 [Survey]
@@ -17,6 +32,10 @@
 
 [Admin]
 - 대시보드
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c7639607-5b3c-4f35-a213-9c2112d5d6c9)
+
+- 멤버 관리
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/4c20bda3-078e-4db3-88f3-b8060f0efaf4)
 
 [Quiz Dashboard]
 - 응시한 퀴즈 목록
@@ -24,4 +43,4 @@
 - 생성한 퀴즈 목록
 
 [Survey Dashboard]
-- 생성한 서베이 목록 => Brief summary 제공
+- 생성한 서베이 목록 => Brief report 제공
