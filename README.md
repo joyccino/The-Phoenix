@@ -21,7 +21,7 @@
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b93df024-5318-4843-b89d-615f677b9cb4)
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/ede48c42-4b61-4103-8152-75e5430cc335)
 
-- 퀴즈 응시 @mkb
+- 퀴즈 응시 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/0e39ed53-f6df-4944-aa5d-a64250c18627)
 
 - 퀴즈 리스트 @msb
@@ -38,7 +38,7 @@
 - 대시보드 @pjh
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c7639607-5b3c-4f35-a213-9c2112d5d6c9)
 
-- 멤버 관리 @msb
+- 멤버 관리 @mkb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/4c20bda3-078e-4db3-88f3-b8060f0efaf4)
 
 [Quiz Dashboard]
