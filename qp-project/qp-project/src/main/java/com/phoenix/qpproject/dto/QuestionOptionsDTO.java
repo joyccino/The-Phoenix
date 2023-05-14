@@ -11,5 +11,4 @@ public class QuestionOptionsDTO {
     private int questionOptionQuestionId;
     private String questionOptionOptionContent;
     private boolean questionOptionIsAnswer;
-
 }

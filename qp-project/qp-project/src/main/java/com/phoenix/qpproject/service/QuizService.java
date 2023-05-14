@@ -80,4 +80,22 @@ public class QuizService {
         quizMapper.updateTotalExaminee(quizId);
     }
 
+    public List<ResultsDTO> getQuestionOptionsByQuizId(int quizId){
+        return quizMapper.getQuestionOptionsByQuizId(quizId);
+    }
+
+    public void updateUserScore(int grade, int quizHistoryId) {
+        quizMapper.updateUserScore(grade, quizHistoryId);
+    }
+
+
+    public int getAverageScore(int quizId){
+        return quizMapper.getAverageScore(quizId);
+    }
+
+
+    public void updateAverageScore(int averageScore, int quizId){
+        quizMapper.updateAverageScore(averageScore, quizId);
+    }
+
 }

@@ -21,6 +21,7 @@ public class QuizzesDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date quizzesExamEndDateTime;
     private int quizzesTotalExaminee;
+    private int quizzesAverageScore;
     private QuizHistoryDTO quizHistoryDTO;
     private SubjectsDTO subjectsDTO;
     private MembersDTO membersDTO;

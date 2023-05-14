@@ -251,6 +251,34 @@ public class QuizController {
         // total examinee update
         quizService.updateTotalExaminee(userResponse.getQuizId());
 
+        // get score
+
+        // get original answers
+        List<ResultsDTO> results = quizService.getQuestionOptionsByQuizId(userResponse.getQuizId());
+
+        // get user response
+        List<String> userResponseList = userResponse.getResponses();
+
+        int corrects = 0;
+
+        for(int i = 0; i < results.size(); i++ ) {
+            String originalR = results.get(i).getResultOptionContent();
+            String userR = userResponseList.get(i);
+            if (new String(originalR).equals(userR)) {
+                corrects ++;
+            }
+        }
+
+        int score = corrects/results.size()*100;
+
+        // update score on quizHistory table.
+        quizService.updateUserScore(score, quizHistoryId);
+
+
         // average score update
+        int quizAvg = quizService.getAverageScore(userResponse.getQuizId());
+
+        quizService.updateAverageScore(quizAvg,userResponse.getQuizId());
+        System.out.println("done 3");
     }
 }
