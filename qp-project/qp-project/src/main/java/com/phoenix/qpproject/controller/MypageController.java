@@ -35,10 +35,10 @@ public class MypageController {
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get register page %%");
-            return "/pages/authentication/card/login";
+            return "redirect:/auth/login";
         }
         else {
-            model.addAttribute("user", qpUser);
+            model.addAttribute("qpUser", member);
             return "/pages/user/settings.html";
         }
 
