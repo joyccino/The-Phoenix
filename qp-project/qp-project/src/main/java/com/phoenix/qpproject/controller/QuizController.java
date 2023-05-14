@@ -192,7 +192,8 @@ public class QuizController {
 
         System.out.println("qlist: "+qlist.size());
 
-//        model.addAttribute("questionList",qlist);
+        // quiz 의 totalQuestion update
+        quizService.updateTotalQuestions(qlist.size(), quizId);
 
         return qlist;
     }
@@ -246,5 +247,10 @@ public class QuizController {
             quizService.addQuestionHistory(questionsHistory);
         }
         System.out.println("adding quiz history + questionHistories done");
+
+        // total examinee update
+        quizService.updateTotalExaminee(userResponse.getQuizId());
+
+        // average score update
     }
 }

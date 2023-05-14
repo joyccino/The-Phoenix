@@ -13,11 +13,13 @@
         <result column="title" property="quizzesTitle"/>
         <result column="subjectId" property="quizzesSubjectId"/>
         <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime"/>
+        <result column="totalQuestions" property="quizzesTotalQuestions"/>
         <result column="shuffleQuestions" property="quizzesShuffleQuestions"/>
         <result column="shuffleOptions" property="quizzesShuffleOptions"/>
         <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
         <result column="examStartDateTime" property="quizzesExamStartDateTime"/>
         <result column="examEndDateTime" property="quizzesExamEndDateTime"/>
+        <result column="totalExaminee" property="quizzesTotalExaminee"/>
         <association property="quizHistoryDTO" resultMap="quizHistoryResultMap"/>
         <association property="membersDTO" resultMap="membersResultMap"/>
     </resultMap>
@@ -203,6 +205,7 @@
     <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
         SELECT
         q.Id AS homeQuizId,
+        q.totalQuestions AS homeTotalQuestions,
         q.quizCreateDateTime AS homePostedDate,
         q.title AS homeQuizTitle,
         s.detailSubject AS homeDetailSubject,
@@ -211,7 +214,7 @@
 <!--        count(qo.questionId) as homeQuestionTotal-->
         0 as homeIsTaken,
         10 as homeQuestionTotal,
-        86 as homeTotalExaminee,
+        q.totalExaminee as homeTotalExaminee,
         99 as correctedRate
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
@@ -224,5 +227,13 @@
         ORDER BY homePostedDate DESC;
 
     </select>
+
+    <update id="updateTotalQuestions" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalQuestions = #{newTotal} WHERE id = #{quizId};
+    </update>
+
+    <update id="updateTotalExaminee" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalExaminee = (select count(*) from quizHistory where quizId = #{quizId})  WHERE id = #{quizId};
+    </update>
 
 </mapper>

@@ -71,4 +71,13 @@ public class QuizService {
     public List<HomeDTO> getQuizListForHome(){
         return quizMapper.getQuizListForHome();
     }
+
+    public void updateTotalQuestions(int newTotal, int quizId){
+        quizMapper.updateTotalQuestions(newTotal, quizId);
+    }
+
+    public void updateTotalExaminee(int quizId) {
+        quizMapper.updateTotalExaminee(quizId);
+    }
+
 }

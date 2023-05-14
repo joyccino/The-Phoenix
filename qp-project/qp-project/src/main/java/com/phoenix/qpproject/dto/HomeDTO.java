@@ -20,10 +20,10 @@ public class HomeDTO {
     private String homeDetailSubject;
     // 문제 제목 from quizzes
     private String homeQuizTitle;
-    // 문제 수
-    private int homeQuestionTotal;
     // 응시 횟수
     private int homeTotalExaminee;
-    // 정답률
-    private int correctedRate;
+    // 평균 점수
+    private int averageScore;
+    // 퀘스쳔 갯수
+    private int homeTotalQuestions;
 }
