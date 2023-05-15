@@ -208,19 +208,19 @@ input[type=number] {
                           <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">생년월일을 확인해주세요.</label>
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" for="card-contact-number">전화번호</label>
-                          <input class="form-control" type="number" step="1" autocomplete="none" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11"
-                                 onkeydown="return event.keyCode !== 69"
-                                 oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                 readonly onfocus="this.removeAttribute('readonly');">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
-                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                            </svg>
-                          </input>
-                          <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
-                        </div>
+<!--                        <div class="mb-3">-->
+<!--                          <label class="form-label" for="card-contact-number">전화번호</label>-->
+<!--                          <input class="form-control" type="number" step="1" autocomplete="none" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11"-->
+<!--                                 onkeydown="return event.keyCode !== 69"-->
+<!--                                 oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"-->
+<!--                                 readonly onfocus="this.removeAttribute('readonly');">-->
+<!--                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">-->
+<!--                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>-->
+<!--                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>-->
+<!--                            </svg>-->
+<!--                          </input>-->
+<!--                          <label class='form-label' id = "phoneNoCheck" style="display: none"></label>-->
+<!--                        </div>-->
 
                         <div class="mb-3">
                           <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
