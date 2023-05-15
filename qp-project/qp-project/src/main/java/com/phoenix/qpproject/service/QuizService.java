@@ -1,8 +1,6 @@
 package com.phoenix.qpproject.service;
 
-import com.phoenix.qpproject.dto.QuestionOptionsDTO;
-import com.phoenix.qpproject.dto.QuestionsDTO;
-import com.phoenix.qpproject.dto.QuizzesDTO;
+import com.phoenix.qpproject.dto.*;
 import com.phoenix.qpproject.mapper.QuizMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,4 +55,47 @@ public class QuizService {
     public List<QuestionsDTO> getQsWhereQuizId(int quizId){
         return quizMapper.getQsWhereQuizId(quizId);
     }
+
+    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO){
+        quizMapper.addQuizHistory(quizHistoryDTO);
+    };
+
+    public int getRecentQuizHistoryIdOfMember(int memberId){
+        return quizMapper.getRecentQuizHistoryIdOfMember(memberId);
+    }
+
+    public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO){
+        quizMapper.addQuestionHistory(questionsHistoryDTO);
+    }
+
+    public List<HomeDTO> getQuizListForHome(){
+        return quizMapper.getQuizListForHome();
+    }
+
+    public void updateTotalQuestions(int newTotal, int quizId){
+        quizMapper.updateTotalQuestions(newTotal, quizId);
+    }
+
+    public void updateTotalExaminee(int quizId) {
+        quizMapper.updateTotalExaminee(quizId);
+    }
+
+    public List<ResultsDTO> getQuestionOptionsByQuizId(int quizId){
+        return quizMapper.getQuestionOptionsByQuizId(quizId);
+    }
+
+    public void updateUserScore(int grade, int quizHistoryId) {
+        quizMapper.updateUserScore(grade, quizHistoryId);
+    }
+
+
+    public int getAverageScore(int quizId){
+        return quizMapper.getAverageScore(quizId);
+    }
+
+
+    public void updateAverageScore(int averageScore, int quizId){
+        quizMapper.updateAverageScore(averageScore, quizId);
+    }
+
 }

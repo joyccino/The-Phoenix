@@ -13,11 +13,13 @@
         <result column="title" property="quizzesTitle"/>
         <result column="subjectId" property="quizzesSubjectId"/>
         <result column="quizCreateDateTime" property="quizzesQuizCreateDateTime"/>
+        <result column="totalQuestions" property="quizzesTotalQuestions"/>
         <result column="shuffleQuestions" property="quizzesShuffleQuestions"/>
         <result column="shuffleOptions" property="quizzesShuffleOptions"/>
         <result column="allowedAttempts" property="quizzesAllowedAttempts"/>
         <result column="examStartDateTime" property="quizzesExamStartDateTime"/>
         <result column="examEndDateTime" property="quizzesExamEndDateTime"/>
+        <result column="totalExaminee" property="quizzesTotalExaminee"/>
         <association property="quizHistoryDTO" resultMap="quizHistoryResultMap"/>
         <association property="membersDTO" resultMap="membersResultMap"/>
     </resultMap>
@@ -159,6 +161,94 @@
         qs.question as questionsQuestion,
         qs.questionType as questionQuestionType
         from questions as qs where quizId = #{quizId};
+    </select>
+
+    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
+        INSERT INTO quizHistory
+        (	  memberId,
+        quizId,
+        startDateTime,
+        endDateTime,
+        grade
+        )VALUES (
+        #{quizHistoryMemberId},
+        #{quizHistoryQuizId},
+        #{quizHistoryStartDateTime},
+        #{quizHistoryEndDateTime},
+        0
+        );
+    </insert>
+
+    <select id="getRecentQuizHistoryIdOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        q.id
+        FROM quizHistory q
+        WHERE memberId = #{memberId} AND id=(
+        SELECT max(id) FROM quizHistory
+        );
+    </select>
+
+    <insert id="addQuestionHistory" parameterType="com.phoenix.qpproject.dto.QuestionsHistoryDTO">
+        INSERT INTO questionHistory
+        (	  quizHistoryId,
+        questionId,
+        userResponse,
+        isCorrected
+        )VALUES (
+        #{questionsHistoryQuizHistoryId},
+        #{questionsHistoryQuestionId},
+        #{questionsHistoryUserResponse},
+        #{questionsHistoryIsCorrected}
+        );
+    </insert>
+
+    <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
+        SELECT
+        q.Id AS homeQuizId,
+        q.totalQuestions AS homeTotalQuestions,
+        q.quizCreateDateTime AS homePostedDate,
+        q.title AS homeQuizTitle,
+        s.detailSubject AS homeDetailSubject,
+        m.userId AS homeCreatorId,
+<!--        count(qh.quizId) as homeTotalExaminee-->
+<!--        count(qo.questionId) as homeQuestionTotal-->
+        0 as homeIsTaken,
+        q.totalExaminee as homeTotalExaminee,
+        q.averageScore as homeAverageScore
+        FROM quizzes as q
+        RIGHT JOIN subjects as s ON q.subjectId = s.id
+<!--        RIGHT JOIN questions as qs ON q.id = qs.quizId-->
+        LEFT JOIN members as m ON q.memberId = m.id
+<!--        INNER JOIN quizHistory as qh ON q.id = qh.quizId-->
+<!--        GROUP BY qh.quizId;-->
+<!--        INNER JOIN questionoptions as qo ON qs.id = qo.questionId-->
+<!--        GROUP BY qh.quizId, qo.questionId;-->
+        ORDER BY homePostedDate DESC;
+
+    </select>
+
+    <update id="updateTotalQuestions" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalQuestions = #{newTotal} WHERE id = #{quizId};
+    </update>
+
+    <update id="updateTotalExaminee" parameterType="java.lang.Integer">
+        UPDATE quizzes SET totalExaminee = (select count(*) from quizHistory where quizId = #{quizId})  WHERE id = #{quizId};
+    </update>
+
+    <select id="getQuestionOptionsByQuizId" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.ResultsDTO">
+        select questionId as resultQuestionId, optionContent as resultOptionContent, isAnswer as resultIsAnswer from questionOptions as qo join questions as q on q.id = qo.questionId where q.quizId = #{quizId} AND qo.isAnswer = true;
+    </select>
+
+    <update id="updateUserScore" parameterType="java.lang.Integer">
+        UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
+    </update>
+
+    <update id="updateAverageScore" parameterType="java.lang.Integer">UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+
+    </update>
+
+    <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
     </select>
 
 </mapper>
