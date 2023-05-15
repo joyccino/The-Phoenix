@@ -219,7 +219,7 @@ public class QuizController {
 
     @PostMapping(value="submit")
     @ResponseBody
-    public void submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {
+    public List<ResultsDTO> submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("user");
         System.out.println("response: "+userResponse);
@@ -280,5 +280,7 @@ public class QuizController {
 
         quizService.updateAverageScore(quizAvg,userResponse.getQuizId());
         System.out.println("done 3");
+
+        return results;
     }
 }
