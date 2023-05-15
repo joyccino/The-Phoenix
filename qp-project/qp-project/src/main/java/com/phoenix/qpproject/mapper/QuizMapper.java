@@ -1,8 +1,6 @@
 package com.phoenix.qpproject.mapper;
 
-import com.phoenix.qpproject.dto.QuestionOptionsDTO;
-import com.phoenix.qpproject.dto.QuestionsDTO;
-import com.phoenix.qpproject.dto.QuizzesDTO;
+import com.phoenix.qpproject.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +8,11 @@ import java.util.List;
 @Mapper
 public interface QuizMapper {
 
+    public List<QuizzesDTO> getQuizListByMember();
+
     public List<QuizzesDTO> getQuizList();
+
+    public QuizzesDTO getQuiz(int qid);
 
     public int findQuizById(String findById);
 
@@ -24,4 +26,23 @@ public interface QuizMapper {
 
     public void addOptions(QuestionOptionsDTO qo);
     public List<QuestionsDTO> getQsWhereQuizId(int quizId);
+    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO);
+
+    public int getRecentQuizHistoryIdOfMember(int memberId);
+
+    public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
+
+    public List<HomeDTO> getQuizListForHome();
+
+    public void updateTotalQuestions(int newTotal, int quizId);
+
+    public void updateTotalExaminee(int quizId);
+
+    public List<ResultsDTO> getQuestionOptionsByQuizId(int quizId);
+
+    public void updateUserScore(int grade, int quizHistoryId);
+
+    public void updateAverageScore(int averageScore, int quizId);
+
+    public int getAverageScore(int quizId);
 }

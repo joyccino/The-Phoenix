@@ -1908,18 +1908,33 @@
             <div class="card-header">
               <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0"><b>회원 목록 조회</b></h5>
+                  <h3 class="mb-0 text-nowrap py-2 py-xl-0"><b>회원 목록 조회</b></h3>
                 </div>
                 <div class="col-8 col-sm-auto text-end ps-2">
 
                   <div id="table-customers-replace-element">
-                      <button class="btn btn-falcon-default btn-sm" type="button">
+                      <div class="btn-group dropend mt-2">
+                          <button class="btn btn-primary" type="button"><b>이메일 전송</b></button>
+                          <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span></button>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">어드민</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증된 일반유저</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">대학생 유저</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증되지 않은 유저</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">강제 탈퇴</a>
+                          </div>
+                      </div>
+                      <!--<button class="btn btn-falcon-default btn-sm" type="button" onclick="memberTypeChange();">
                           <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="권한 설정">supervisor_account</span>
                       </button>
 
                       <button class="btn btn-falcon-default btn-sm" type="button">
                           <span class="material-icons" data-fa-transform="shrink-3 down-2" data-bs-toggle="tooltip" data-bs-placement="top" area-label="title-tip" data-bs-original-title="멤버 삭제">person_remove</span>
-                      </button>
+                      </button>-->
 
                   </div>
                 </div>
@@ -1932,13 +1947,13 @@
                     <tr>
                       <th>
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" />
+                          <input class="form-check-input" id="allCheck" type="checkbox" onChange="checkAll();"/>
                         </div>
                       </th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">ID</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">멤버타입</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">아이디</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">패스워드</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name" style="display:none">비밀번호</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">성</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">이름</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
@@ -1957,7 +1972,7 @@
                     <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger">
                       <td class="align-middle py-2" style="width: 28px;">
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                          <input class="form-check-input" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
+                          <input class="form-check-input checks" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
                         </div>
                       </td>
                       <td class="name align-middle white-space-nowrap py-2"><a href="app/e-commerce/customer-details.html">
@@ -1970,7 +1985,7 @@
                       </td>
                         <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한</td>
                         <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
-                        <td th:text="${l.memberPw}" class="email align-middle py-2">1234</td>
+                        <td th:text="${l.memberPw}" class="email align-middle py-2"  style="display:none">1234</td>
                       <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
                       <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
 
@@ -2000,16 +2015,6 @@
             </div>
           </div>
 
-          <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
-              </div>
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">v3.16.0</p>
-              </div>
-            </div>
-          </footer>
         </div>
         <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
           <div class="modal-dialog mt-6" role="document">
@@ -2078,6 +2083,34 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../../vendors/list.js/list.min.js"></script>
     <script src="../../assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        const allCheck = document.querySelector('#allCheck');
+        const checks = document.querySelectorAll('.checks');
+        const actBtn = document.querySelector('#table-customers-replace-element > div > button:nth-child(1)');
+        function checkAll(){
+            console.log();
+            if(allCheck.checked) {
+                checks.forEach((c) => {
+                    c.checked = true;
+                });
+            }
+            else {
+                checks.forEach((c) => {
+                    c.checked = false;
+                });
+            }
+        }
+        
+        function memberTypeChange(){
+            // check how many are selected (-1 to except the one on the column)
+            alert(document.querySelectorAll('input[type="checkbox"]:checked').length - 1);
+        }
+        
+        function dropdownSelected(e){
+            actBtn.innerHTML = '<b>'+e.innerHTML+'</b>';
+        }
+    </script>
 
   </body>
 

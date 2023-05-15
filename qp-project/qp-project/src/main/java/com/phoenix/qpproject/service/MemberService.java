@@ -52,17 +52,23 @@ public class MemberService implements UserDetailsService {
 
         MembersDTO mDTO = memberMapper.getUserAccount(memberId);
 
-        Boolean passBool = passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw());
+        if (mDTO != null) {
+            Boolean passBool = passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw());
 
-        System.out.println("패스워드 입력받은: "+member.getMemberPw());
-        System.out.println("패스워드 저장된: "+mDTO.getMemberPw());
-        System.out.println("패스워드 일치 여부: "+passBool);
+            System.out.println("패스워드 입력받은: "+member.getMemberPw());
+            System.out.println("패스워드 저장된: "+mDTO.getMemberPw());
+            System.out.println("패스워드 일치 여부: "+passBool);
 
-        if (mDTO != null && passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw())) {
-            return mDTO;
+            if (mDTO != null && passwordEncoder.matches(member.getMemberPw(), mDTO.getMemberPw())) {
+                return mDTO;
+            }
+            else {
+                System.out.println("패스워드 틀림");
+                MembersDTO emptyMember = new MembersDTO();
+                return emptyMember;
+            }
         }
-        else {
-            System.out.println("패스워드 틀림");
+        else{
             MembersDTO emptyMember = new MembersDTO();
             return emptyMember;
         }
