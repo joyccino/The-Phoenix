@@ -1,10 +1,10 @@
 # The Phoenix Club
 
 [Authorisation]
-- 회원가입 @msb
+- 회원가입 @msb Done!
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d258a394-85e7-4207-9a7f-f526a2ee5990)
 
-- 로그인 / 로그아웃 @msb
+- 로그인 / 로그아웃 @msb Done!
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf01253d-3388-402b-b1dd-a671fd6a0340)
 
 - 비밀번호 찾기 및 이메일 전송 @msb @jyj
@@ -17,8 +17,9 @@
 
 - 퀴즈 응시 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/0e39ed53-f6df-4944-aa5d-a64250c18627)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/87e662aa-493b-48e3-a64e-9506e6724e8a)
 
-- 퀴즈 홈 @msb
+- 퀴즈 홈 @msb Done!
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7c0bac9a-57f8-44ec-96b5-5da349ca68b7)
 
 - 퀴즈 디테일 @wyj
@@ -44,7 +45,7 @@
 - 대시보드 @pjh
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c7639607-5b3c-4f35-a213-9c2112d5d6c9)
 
-- 멤버 관리 @mkb
+- 멤버 관리 @msb
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/4c20bda3-078e-4db3-88f3-b8060f0efaf4)
 
 [Quiz Dashboard]

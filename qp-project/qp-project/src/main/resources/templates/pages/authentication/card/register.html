@@ -177,7 +177,7 @@ input[type=number] {
                       <div class="mb-3">
                         <label class="form-label" for="card-userId">아이디</label>
                         <input class="form-control" type="text" autocomplete="off" id="card-userId" name ="memberId" oninput="idCheck(document.getElementById('card-userId'));" required readonly onfocus="this.removeAttribute('readonly');"/>
-                        <label class='form-label' id = "userIdCheckMsg"></label>
+                        <label class='form-label' id = "userIdCheckMsg" style="display: none"></label>
                       </div>
                       <div class="row gx-2">
                         <div class="mb-3 col-sm-6">
@@ -208,19 +208,19 @@ input[type=number] {
                           <label class="form-label" id="birthdate-error-msg" style="color:red; display:none;">생년월일을 확인해주세요.</label>
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" for="card-contact-number">전화번호</label>
-                          <input class="form-control" type="number" step="1" autocomplete="none" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11"
-                                 onkeydown="return event.keyCode !== 69"
-                                 oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                 readonly onfocus="this.removeAttribute('readonly');">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">
-                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                            </svg>
-                          </input>
-                          <label class='form-label' id = "phoneNoCheck" style="display: none"></label>
-                        </div>
+<!--                        <div class="mb-3">-->
+<!--                          <label class="form-label" for="card-contact-number">전화번호</label>-->
+<!--                          <input class="form-control" type="number" step="1" autocomplete="none" id="card-contact-number" onchange ="preventKCharacter();" maxlength="11"-->
+<!--                                 onkeydown="return event.keyCode !== 69"-->
+<!--                                 oninput="check_phoneNumber(); javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"-->
+<!--                                 readonly onfocus="this.removeAttribute('readonly');">-->
+<!--                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none" id="contact-no-verified">-->
+<!--                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>-->
+<!--                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>-->
+<!--                            </svg>-->
+<!--                          </input>-->
+<!--                          <label class='form-label' id = "phoneNoCheck" style="display: none"></label>-->
+<!--                        </div>-->
 
                         <div class="mb-3">
                           <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
@@ -353,7 +353,8 @@ input[type=number] {
 
  function idCheck(input) {
    var idCheckMsg = document.getElementById("userIdCheckMsg");
-
+    idCheckMsg.style.color = "red";
+   
     if (input.value.search(/\s/) != -1) {
     input.value = input.value.substring( 0 , input.value.length - 1 );
   }
@@ -361,51 +362,68 @@ input[type=number] {
    validateId(true);
 
    // 아이디, 전화번호, 이메일주소에 class add/remove
-    let userId = document.getElementById('card-userId');
-    if(inputs.id) {
-      if(userId.classList.contains("is-invalid")) {
-        userId.classList.remove("is-invalid");
-      }
-      if(!userId.classList.contains("is-valid")) {
-        userId.classList.add("is-valid");
-      }
-      let userCount;
-      // 여기 중복체크 기능을 추가합니다.
-      $.ajax({
-                type : "POST", // http 방식
-                url : "/auth/idCheck", // ajax 통신 url
-                data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-                    "memberId" : input.value,
-                },
-                success : function(data) {
-                    console.log("data: ");
-                    console.log(data);
-                    if (data > 0 ) { // 0 이상 이면 중복
-                        console.log("이미 존재하는 아이디");
-                        inputs.id = false;
-                        enableSignupButton();
-
-                        idCheckMsg.display = "inline-block";
-                        idCheckMsg.innerHTML = "아이디가 중복됩니다.";
-                        idCheckMsg.style.color = "red";
-
-                        if(!userId.classList.contains("is-invalid")) {
-                        userId.classList.add("is-invalid");
-                         }
-                    } else { // 아니면 중복아님
-                        console.log("사용 가능한 아이디입니다");
-
-                    }
-                }
-            })
-
+    let userId = document.getElementById('card-userId').value;
+    
+    // regex
+    const pattern = new RegExp("^[a-zA-Z][0-9a-zA-Z]{4,11}$")
+    let regResult = pattern.test(userId);
+    console.log(userId);
+    if(!pattern.test(userId)){
+        document.getElementById("userIdCheckMsg").style.display = "inline-block";
+        idCheckMsg.innerHTML = "한 글자 이상의 영문자를 포함하는 5~12자 사이의 아이디를 입력해주세요.";
+        inputs.id = false;
+        enableSignupButton();
     }
     else {
-      if(userId.classList.contains("is-valid")) {
-        userId.classList.remove("is-valid");
+        let userCount;
+        // 여기 중복체크 기능을 추가합니다.
+        $.ajax({
+            type : "POST", // http 방식
+            url : "/auth/idCheck", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "memberId" : input.value,
+            },
+            success : function(data) {
+                console.log("data: ");
+                console.log(data);
+                if (data > 0 ) { // 0 이상 이면 중복
+                    console.log("이미 존재하는 아이디");
+                    enableSignupButton();
+                    document.getElementById("userIdCheckMsg").style.display = "inline-block";
+                    idCheckMsg.innerHTML = "아이디가 중복됩니다.";
+                    inputs.id = false;
+                    enableSignupButton();
+                    if(userInput.classList.contains("is-valid")) {
+                        userInput.classList.remove("is-valid");
+                    }
+                    if(!userInput.classList.contains("is-invalid")) {
+                        userInput.classList.add("is-invalid");
+                    }
+                } else { // 아니면 중복아님
+                    console.log("사용 가능한 아이디입니다");
+                    inputs.id = true;
+                    enableSignupButton();
+                    document.getElementById("userIdCheckMsg").style.display = "none";
+                }
+            }
+        })
+    }
+    
+    let userInput = document.getElementById('card-userId');
+    if(inputs.id) {
+        if(userInput.classList.contains("is-invalid")) {
+            userInput.classList.remove("is-invalid");
+        }
+        if(!userInput.classList.contains("is-valid")) {
+            userInput.classList.add("is-valid");
+        }
+    }
+    else {
+      if(userInput.classList.contains("is-valid")) {
+        userInput.classList.remove("is-valid");
       }
-      if(!userId.classList.contains("is-invalid")) {
-        userId.classList.add("is-invalid");
+      if(!userInput.classList.contains("is-invalid")) {
+        userInput.classList.add("is-invalid");
       }
     }
  }
@@ -612,7 +630,7 @@ function passCheck() {
       else if (pw !== cPassVal) {
         matchWarning.style.display = "block";
         matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
-        $('#submit-btn').prop('disabled', trFue);
+        $('#submit-btn').prop('disabled', true);
       }
       else{
         matchWarning.style.display = "none";
@@ -736,9 +754,9 @@ function passCheck() {
   });
 
   function enableSignupButton() {
-    console.log("Sur name: ", inputs.surName, " First name: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password,  " Gender: ", inputs.gender, " Phone: ", inputs.phone," Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
+    console.log("Surname: ", inputs.surName, " Firstname: ", inputs.firstName, " Id: ", inputs.id , " Password: ", inputs.password,  " Gender: ", inputs.gender, " Phone: ", inputs.phone," Birthdate: ", inputs.birthdate, " email: ", inputs.email, " agree: ", inputs.agree);
 
-    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.gender && inputs.birthdate && inputs.phone && inputs.email && inputs.agree) {
+    if (inputs.surName && inputs.firstName && inputs.id && inputs.password && inputs.birthdate && inputs.email && inputs.agree) {
       document.getElementById("submit-btn").disabled = false;
     } else {
       document.getElementById("submit-btn").disabled = true;
