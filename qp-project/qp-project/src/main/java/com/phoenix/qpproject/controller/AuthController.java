@@ -365,11 +365,8 @@ public class AuthController {
             mailDTO.setAddress(member.getMemberEmail());
             emailService.sendPassResetEmail(mailDTO);
             System.out.println("register 메일 전송 완료");
-
-            return "redirect:/auth/logout";
-        }else{
-            return "redirect:/mypage/edit";
         }
+        return "redirect:/mypage/edit";
     }
     @PostMapping("/passUpdate")
     public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
