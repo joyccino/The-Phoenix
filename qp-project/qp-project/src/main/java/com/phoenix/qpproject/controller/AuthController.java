@@ -343,7 +343,6 @@ public class AuthController {
 
         member.setId(originalMemberInfo.getId());
 
-
         memberService.memberInfoUpdate(member);
         System.out.println("멤버 정보 update done");
 
@@ -358,14 +357,19 @@ public class AuthController {
         session.setMaxInactiveInterval(-1);
 
         // 인증 이메일 전송하기
-        MailDTO mailDTO = new MailDTO();
-        mailDTO.setTitle("[큐피] 이메일 인증");
-        mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
-        mailDTO.setAddress(member.getMemberEmail());
-        emailService.sendPassResetEmail(mailDTO);
-        System.out.println("register 메일 전송 완료");
+        Boolean isEmailChanged = Boolean.parseBoolean(member.getMemberEmailIsChanged());
+        if(isEmailChanged){
+            MailDTO mailDTO = new MailDTO();
+            mailDTO.setTitle("[큐피] 이메일 인증");
+            mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
+            mailDTO.setAddress(member.getMemberEmail());
+            emailService.sendPassResetEmail(mailDTO);
+            System.out.println("register 메일 전송 완료");
 
-        return "redirect:/mypage/edit";
+            return "redirect:/auth/logout";
+        }else{
+            return "redirect:/mypage/edit";
+        }
     }
     @PostMapping("/passUpdate")
     public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {

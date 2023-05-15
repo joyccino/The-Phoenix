@@ -2043,7 +2043,7 @@
                             <h5 class="mb-0"><b>기본정보</b></h5>
                         </div>
                         <div class="card-body bg-light">
-                            <form autocomplete="off" th:action="@{/auth/memberUpdate}" method="post">
+                            <form autocomplete="off" th:action="@{/auth/memberUpdate}" method="post" id="editProfile">
                                 <div class="row gx-2">
 
                                     <div class="mb-3 col-sm-6">
@@ -2101,8 +2101,14 @@
 
                                 <div class="mb-3">
                                     <label class="form-label" for="card-email" id ="email-address">이메일 주소</label>
-                                    <input class="form-control" th:value="${qpUser.memberEmail}" type="email" autocomplete="none" id="card-email" name ="memberEmail" required readonly onfocus="this.removeAttribute('readonly');"> <!-- oninput="check_email()" -->
+                                    <input class="form-control" th:data-origin="${qpUser.memberEmail}" th:value="${qpUser.memberEmail}" type="email" autocomplete="none" id="card-email" name ="memberEmail" required readonly onfocus="this.removeAttribute('readonly');"> <!-- oninput="check_email()" -->
+<!--                                <input class="form-control" type="text" id="card-memberEmailIsChanged" name ="memberEmailIsChanged" style="display:none;"/>-->
                                     <label class='form-label' id = "emailCheck" style="display: none"></label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="card-emailIsChanged" id ="email-changed"></label>
+                                    <input class="form-control" type="text" autocomplete="none" id="card-emailIsChanged" name ="memberEmailIsChanged" required readonly value="" style="display:none;"/>
                                 </div>
 
                                 <div class="mb-3" style = "display: none" id = "uni-name">
@@ -2317,9 +2323,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
+    let isChangedEmail = false; //이메일 수정 여부
+    let isValidEmail = false; //이메일 유효성 여부
+    let isDuplicatedEmail = false; //이메일 중복 여부
+
     function memberUpdate(){
         // 이메일 변경된 경우에만 이메일 전송하기.
-        alert("인증 코드가 이메일로 전송되었습니다.");
+        if(isChangedEmail){
+            alert("인증 코드가 이메일로 전송되었습니다.\n이메일 인증 후 다시 로그인 해주세요.");
+        }else{
+            alert("정보가 수정되었습니다.");
+        }
     }
     function deactivate(){
         if (confirm('회원 탈퇴 작업은 취소할 수 없습니다. 정말로 탈퇴하시겠습니까?')) {
@@ -2382,10 +2396,12 @@
                     $("#chkUniStudent").prop("checked",true);
                     $('#uni-name').show()
                     $('#card-uni').val(data);
+                    return true;
                 }
                 else {
                     $("#chkUniStudent").prop("checked",false);
                     $('#uni-name').hide();
+                    return false;
                 }
             }
         })
@@ -2393,8 +2409,64 @@
 
     //이메일 변화 실시간 감지
     $('#card-email').on("propertychange change paste input", function(){
+        let originEmail = $(this).attr('data-origin'); //초기 이메일 저장
+        $(this).val() === originEmail ? isChangedEmail = false : isChangedEmail = true; //초기 이메일 변경여부 확인
+        $('#card-emailIsChanged').attr('value',(isChangedEmail).toString());
+        $('#card-emailIsChanged').val((isChangedEmail).toString());
+
+        if(!isChangedEmail) return false; //이메일 변경되지않았으면 함수 정지
+
         let domain = $(this).val().split('@')[1];
-        checkUniEmail(domain);
+        checkUniEmail(domain);//대학교 확인 함수 호출
+
+        let email = $(this).val();
+        let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        //이메일 중복체크
+        $.ajax({
+            type : "POST", // http 방식
+            url : "/auth/emailCheck", // ajax 통신 url
+            data : { "email" : email },
+            async : false,
+            success : function(data) {
+                // 0 이상 이면 중복
+                data == 0 ? isDuplicatedEmail = false : isDuplicatedEmail = true;
+            }
+        })
+
+        //이메일 유효성 체크
+        regEmail.test(email) && email.length>0 && !isDuplicatedEmail ? isValidEmail = true : isValidEmail = false;
+
+        //이메일 유효하지않을때 문구 표시
+        let eCheck = $("#emailCheck");
+        eCheck.css({'color':'red'});
+        if(!regEmail.test(email) && email.length>0){
+            eCheck.show();
+            eCheck.text('이메일 형식을 확인해주세요.');
+        } else if (isDuplicatedEmail){
+            eCheck.show();
+            eCheck.text('이메일이 중복됩니다.');
+        } else if(!isValidEmail){
+            eCheck.show();
+            eCheck.text('유효하지않은 이메일입니다.');
+        } else if(email.length==0){
+            eCheck.show();
+            eCheck.text('이메일을 적어주세요.');
+        }else {
+            eCheck.hide();
+        }
+
+        //이메일 유효여부에 따른 버튼 활성화
+        const profileSubmitBtn = $('#editProfile button')
+        isValidEmail ? profileSubmitBtn.prop('disabled',false) : profileSubmitBtn.prop('disabled',true);
+    })
+
+    //대학생 체크박스 클릭시 url 비교 함수
+    $('#chkUniStudent').click(function(){
+        if($(this).prop("checked")){
+            let targetDomain = $(this).val().split('@')[1];
+            !checkUniEmail(targetDomain) && alert('학교 이메일 도메인을 확인해 주세요.');
+        }
     })
 
     $(function(){
