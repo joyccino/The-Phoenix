@@ -8,5 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface SubjectsMapper {
-    public List<SubjectsDTO> getSubjectList();
+    public List<SubjectsDTO> getGeneralSubjectList();
+    public List<SubjectsDTO> getDetailSubjectList(String selectedGeneralSubject);
 }

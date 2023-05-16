@@ -40,28 +40,28 @@ public class AuthController {
     public String login( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register( HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get register page %%");
             return "/pages/authentication/card/register";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -69,14 +69,14 @@ public class AuthController {
     public String forgotPassword( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get password page %%");
             return "/pages/authentication/card/forgot-password";
         }
         else {
-            return "redirect:/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -116,7 +116,7 @@ public class AuthController {
 
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         MembersDTO member = (MembersDTO) qpUser;
 
@@ -141,11 +141,11 @@ public class AuthController {
     public String logout( HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
 
         if(!ObjectUtils.isEmpty(qpUser)) {
             // 세션값 삭제
-            session.removeAttribute("user_id");
+            session.removeAttribute("user");
             // 세션 전체 제거, 무효화
             session.invalidate();
             return "/pages/authentication/card/login";
@@ -158,6 +158,31 @@ public class AuthController {
     public int emailCheck(@RequestParam("email") String email) {
         int memberCnt = memberService.checkMemberByEmail(email);
         return memberCnt;
+    }
+
+    @PostMapping("/passCheck")
+    @ResponseBody
+    public int passCheck(@RequestParam("pass") String oldPass, HttpServletRequest request, RedirectAttributes rttr,  Model model) {
+        System.out.println("넘겨받은 pw: "+oldPass);
+        
+        // 세션에 저장된 멤버 id 로 login 시도
+        HttpSession session = request.getSession();
+
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
+
+        System.out.println("서비스로 넘기기 전 패스워드:"+oldPass);
+
+        qpUser.setMemberPw(oldPass);
+
+        MembersDTO memberInfo = memberService.memberLogin(qpUser);
+
+        if (memberInfo.getMemberId() != null) {
+            System.out.println("멤버: "+memberInfo. getMemberId());
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
     @PostMapping("/uniCheck")
     @ResponseBody
@@ -179,19 +204,18 @@ public class AuthController {
 
     @PostMapping("/memberLogin")
     public String memberLogin(MembersDTO member, Model model, HttpServletRequest request, RedirectAttributes rttr) {
-        log.info("로그인폼에서 입력받은 데이터: {}", member.getMemberId());
 
         String rawPassword = member.getMemberPw();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        member.setMemberPw(encPassword);
+        member.setMemberPw(rawPassword);
 
-        MembersDTO membersInfo = memberService.login(member.getMemberId(), member.getMemberPw());
+        MembersDTO membersInfo = memberService.memberLogin(member);
+
         // id 비교
         //int memberCount = memberService.checkMemberById(member.getMemberId());
 
-        System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
+        //System.out.println("isMemberIsBlocked: "+member.isMemberIsBlocked());
 
-        if (membersInfo != null) {
+        if (membersInfo.getMemberId() != null) {
             log.info("멤버 not null");
 
             System.out.println(member.getMemberId()+" 탈퇴여부: "+member.getMemberIsRemovedDateTime());
@@ -200,7 +224,7 @@ public class AuthController {
 
             HttpSession session = request.getSession();
 
-            session.setAttribute("qpUser", membersInfo);
+            session.setAttribute("user", membersInfo);
 
             session.setMaxInactiveInterval(-1);
 
@@ -208,29 +232,30 @@ public class AuthController {
 
             memberService.addVisitHistory(mId);
 
-            System.out.println(mId+" 로그인 history insterted");
+            System.out.println(mId+" 로그인 history inserted");
 
             if(membersInfo.getMemberMemberTypeId() == 0) {
                 return "redirect:/auth/analytics";
             }
             else {
-                return "redirect:/quiz/quizList";
+                return "redirect:/quiz/home";
             }
 
         }
         else {
-            if (member.isMemberIsBlocked()) {
-                String msg = "차단된 회원입니다.";
-                model.addAttribute("msgLoginFailed",msg);
-            }
-            else {
-                String msg = "아이디 또는 비밀번호를 확인해주세요.";
-                model.addAttribute("msgLoginFailed",msg);
-            }
-
+//            if (member.isMemberIsBlocked()) {
+//                String msg = "차단된 회원입니다.";
+//                model.addAttribute("msgLoginFailed",msg);
+//            }
+//            else {
+//                String msg = "아이디 또는 비밀번호를 확인해주세요.";
+//                model.addAttribute("msgLoginFailed",msg);
+//            }
+            System.out.println("로그인 실패");
+            String msg = "아이디 또는 비밀번호를 확인해주세요.";
+            model.addAttribute("msgLoginFailed",msg);
             return "redirect:/auth/login?error=true";
         }
-
     }
 
 
@@ -240,7 +265,7 @@ public class AuthController {
         // 세션에 멤버 존재 여부
         HttpSession session = request.getSession();
 
-        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
 
         System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
 
@@ -257,7 +282,7 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/quiz/quizList";
+            return "redirect:/quiz/home";
         }
     }
 
@@ -266,7 +291,7 @@ public class AuthController {
         // 세션에 멤버 존재 여부
         HttpSession session = request.getSession();
 
-        MembersDTO qpUser = (MembersDTO) session.getAttribute("qpUser");
+        MembersDTO qpUser = (MembersDTO) session.getAttribute("user");
 
         System.out.println("qpUser membertype Id:"+qpUser.getMemberMemberTypeId());
 
@@ -279,7 +304,7 @@ public class AuthController {
         }
         else {
             // alert 하나 띄워줌.
-            return "/quiz/quizList";
+            return "/quiz/home";
         }
     }
 
@@ -298,6 +323,7 @@ public class AuthController {
 //        mailDTO.setAddress("sbins402@naver.com");
         mailDTO.setTitle("[큐피] 비밀번호 재설정");
         mailDTO.setContent("재생성된 비밀번호는 "+newPass+" 입니다.");
+        emailService.setNewPassword(mailDTO);
         emailService.sendPassResetEmail(mailDTO);
         System.out.println("passReset 메일 전송 완료");
         //newPass 암호화 과정 추가 예정
@@ -307,5 +333,63 @@ public class AuthController {
         // 팝업 메세지 전달 (비밀번호가 리셋되었습니다. 이메일함 (스팸) 함을 확인해주세요.
         return "redirect:/auth/login";
 
+    }
+    @PostMapping("/memberUpdate")
+    public String memberInfoModify(MembersDTO member, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+
+        MembersDTO originalMemberInfo = (MembersDTO) qpUser;
+
+        member.setId(originalMemberInfo.getId());
+
+
+        memberService.memberInfoUpdate(member);
+        System.out.println("멤버 정보 update done");
+
+
+        session.removeAttribute("user");
+        session.invalidate();
+
+        member.setMemberPw("masked");
+        session = request.getSession();
+
+        session.setAttribute("user", member);
+        session.setMaxInactiveInterval(-1);
+
+        // 인증 이메일 전송하기
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setTitle("[큐피] 이메일 인증");
+        mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
+        mailDTO.setAddress(member.getMemberEmail());
+        emailService.sendPassResetEmail(mailDTO);
+        System.out.println("register 메일 전송 완료");
+
+        return "redirect:/mypage/edit";
+    }
+    @PostMapping("/passUpdate")
+    public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        Object qpUser = session.getAttribute("user");
+        MembersDTO member = (MembersDTO) qpUser;
+        String memberId = member.getMemberId();
+        String encodeNewPass = bCryptPasswordEncoder.encode(newPass);
+
+        memberService.resetPass(encodeNewPass, member.getMemberEmail());
+
+        System.out.println("DB 업데이트 완료");
+
+        session.removeAttribute("user");
+        session.invalidate();
+
+        member = memberService.getUserAccount(memberId);
+        MembersDTO membersInfo = memberService.memberLogin(member);
+        membersInfo.setMemberPw("masked");
+        session = request.getSession();
+        session.setAttribute("user", membersInfo);
+        session.setMaxInactiveInterval(-1);
+
+        return "redirect:/mypage/edit";
     }
 }

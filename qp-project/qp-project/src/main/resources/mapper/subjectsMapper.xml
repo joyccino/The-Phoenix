@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phoenix.qpproject.mapper.SubjectsMapper">
-    <select id="getSubjectList" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+    <!--<select id="getSubjectList" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
         SELECT
         s.id                    AS subjectId
         ,s.institutionLevel		AS subjectInstitutionLevel
@@ -13,5 +13,18 @@
         ,s.subjectCode	        AS subjectSubjectCode
         FROM
         subjects AS s;
+    </select>-->
+    <select id="getGeneralSubjectList" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+        SELECT DISTINCT
+        s.generalSubject        AS subjectGeneralSubject
+        FROM
+        subjects AS s;
+    </select>
+    <select id="getDetailSubjectList" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+        SELECT
+        s.id                    AS subjectId,
+        s.detailSubject         AS subjectDetailSubject
+        FROM subjects AS s
+        WHERE s.generalSubject = #{selectedGeneralSubject};
     </select>
 </mapper>

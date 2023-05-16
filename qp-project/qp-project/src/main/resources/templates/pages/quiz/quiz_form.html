@@ -447,12 +447,12 @@
                                     <h5 class="mb-0">퀴즈 정보</h5>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label" for="course-name">질문<span class="text-danger">*</span></label>
+                                    <label class="form-label" for="floatingTextarea2">질문<span class="text-danger">*</span></label>
                                    <textarea class="question" id="floatingTextarea2" placeholder="질문을 입력해주세요." style="height: 8px; padding: 5px; " ></textarea>
                                 </div>
                                 <div class="questionbox">
                                   <div class="col-sm-6 mb-3">
-                                      <label class="form-label" for="course-tags">퀴즈 유형</label>
+                                      <label class="form-label" for="check">퀴즈 유형</label>
                                        <div class="col-sm-6 mb-3" style="width:200%">
 
                                            <button class="quesBtn" type="button" id="check"  ><span class="far fa-check-circle"></span>체크박스</button>
@@ -515,8 +515,66 @@
                        </form>
                    </div>
                </div>
+               <input class="title" type="text" />
+               <button class="add2">추가</button>
+               <div class="contents2"></div>
+               <button class="submit2">전송</button>
+               <div class="list"></div>
            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script>
+  // contents 태그에 추가 버튼 클릭 이벤트 등록
+  $('.add2').click(function() {
+    // 고유한 ID 생성
+    var id = 'item' + Date.now();
 
+    // 체크박스와 텍스트박스 추가
+    $('.contents2').append('<input type="checkbox" id="' + id + '"><input type="text" id="' + id + '_text"><br>');
+  });
+
+  // 전송 버튼 클릭 이벤트 등록
+  $('.submit2').click(function() {
+    // 객체 초기화
+    var obj = {};
+
+    // 입력된 값 객체에 저장
+    $('.contents2 input[type="text"]').each(function() {
+      var id = $(this).attr('id');
+      obj[id] = $(this).val();
+    });
+    $('.contents2 input[type="checkbox"]').each(function() {
+      var id = $(this).attr('id');
+      obj[id] = $(this).is(':checked');
+    });
+
+   // 리스트에 제목 추가
+var title = $('.title').val();
+$('.list').append('<div class="item" id="' + title + '">' + title + '</div>');
+
+// 객체 저장
+$('#' + title).data('obj', obj);
+  // 리스트 클릭 이벤트 등록
+$('.list').on('click', '.item', function() {
+  // 해당 객체 가져오기
+  var obj = $('#' + $(this).attr('id')).data('obj');
+
+  // contents 태그에 체크박스와 텍스트박스 추가하고 값 채우기
+  $('.contents2').empty();
+  for (var id in obj) {
+    if (id.indexOf('_text') > -1) {
+      $('#' + id).val(obj[id]);
+      $('.contents2').append($('#' + id).clone());
+    }
+    else {
+      var checkbox = $('#' + id).clone();
+      checkbox.prop('checked', obj[id]);
+      $('.contents2').append(checkbox);
+    }
+  }
+});
+
+
+</script>
 
                <!--
                <div class="d-flex bg-200 mb-3 flex-column" id="editor-bar" style="width:3.5rem" >

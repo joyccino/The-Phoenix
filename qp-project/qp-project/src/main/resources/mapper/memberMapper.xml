@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phoenix.qpproject.mapper.MemberMapper">
-    <select id="login" resultType="com.phoenix.qpproject.dto.MembersDTO">
+    <select id="login" parameterType="com.phoenix.qpproject.dto.MembersDTO" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
         m.id
         ,m.userId		AS memberId
@@ -30,12 +30,8 @@
         ,m.removedDateTime  AS memberIsRemovedDateTime
         ,m.reportedMemberId AS memberReportedMemberId
         ,m.uuid AS memberUUId
-        FROM
-        members AS m
-        WHERE
-        userId = #{memberId}
-        AND
-        Password = #{memberPw};
+        FROM members AS m
+        WHERE userId = #{memberId} AND Password = #{memberPw};
     </select>
     <select id="getMemberList" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
@@ -68,7 +64,7 @@
             members AS m;
     </select>
 
-    <select id="getUserAccount" resultType="com.phoenix.qpproject.dto.MembersDTO">
+    <select id="getUserAccount" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.MembersDTO">
         SELECT
         m.id
         ,m.userId		AS memberId
@@ -100,7 +96,7 @@
         WHERE userId = #{memberId};
     </select>
 
-    <select id="checkMemberById"  parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="checkMemberById" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM members WHERE UserId = #{memberId};
     </select>
 
@@ -196,5 +192,19 @@
         SET isRemoved = true,
         removedDateTime = Now()
         WHERE UserId = #{memberId};
+    </update>
+
+    <update id="memberInfoUpdate" parameterType="com.phoenix.qpproject.dto.MembersDTO">
+        UPDATE members
+        SET
+        Surname = #{memberSurname},
+        Firstname = #{memberFirstname},
+        UserId = #{memberId},
+        Gender = #{memberGender},
+        BirthDate = #{memberBDate},
+        Email = #{memberEmail},
+        MemberTypeId = 1,
+        InstitutionId = NULL
+        WHERE Id = #{Id};
     </update>
 </mapper>

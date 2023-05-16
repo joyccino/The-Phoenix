@@ -12,6 +12,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.lang.reflect.Member;
+
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
@@ -25,14 +27,18 @@ public class MypageController {
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public String edit( HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        Object qpUser = session.getAttribute("qpUser");
+        Object qpUser = session.getAttribute("user");
+        System.out.println(qpUser);
+
+        MembersDTO member = (MembersDTO) qpUser;
+        System.out.println(member.getMemberGender());
 
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in. get register page %%");
-            return "/pages/authentication/card/login";
+            return "redirect:/auth/login";
         }
         else {
-            model.addAttribute("qpUser", qpUser);
+            model.addAttribute("qpUser", member);
             return "/pages/user/settings.html";
         }
 

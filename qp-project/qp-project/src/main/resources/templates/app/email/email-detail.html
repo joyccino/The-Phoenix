@@ -71,7 +71,6 @@
                                 <div class="bg-holder bg-auth-card-shape" style="background-image:url(../../../assets/img/icons/spot-illustrations/half-circle.png);">
                                 </div>
                                 <!--/.bg-holder-->
-
                                 <div class="z-1 position-relative">
                                     <p class="link-light mb-4 fs-4 d-inline-block">큐피 프로젝트</p>
                                     <p class="opacity-85 text-white">🗺️ <b>교양</b>부터 <b>전공</b> 과목까지 🧬</p>
@@ -116,47 +115,6 @@
 <!-- ===============================================-->
 <!--    End of Main Content-->
 <!-- ===============================================-->
-
-
-
-<!-- ===============================================-->
-<!--    JavaScripts-->
-<!-- ===============================================-->
-<script src="../../../vendors/popper/popper.min.js"></script>
-<script src="../../../vendors/bootstrap/bootstrap.min.js"></script>
-<script src="../../../vendors/anchorjs/anchor.min.js"></script>
-<script src="../../../vendors/is/is.min.js"></script>
-<script src="../../../vendors/fontawesome/all.min.js"></script>
-<script src="../../../vendors/lodash/lodash.min.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-<script src="../../../vendors/list.js/list.min.js"></script>
-<script src="../../../assets/js/theme.js"></script>
-<script>
-      function checkId(){
-        var id = $('#email').val(); //id값이 "id"인 입력란의 값을 저장
-        $.ajax({
-            url:'./idCheck', //Controller에서 요청 받을 주소
-            type:'post', //POST 방식으로 전달
-            data:{id:id},
-            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
-                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                    $('.id_ok').css("display","inline-block");
-                    $('.id_already').css("display", "none");
-                    alert("존재하지 않는 회원입니다.");
-                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                    $('.id_already').css("display","inline-block");
-                    $('.id_ok').css("display", "none");
-                    alert("존재하는 회원입니다.");
-                    $('#id').val('');
-                }
-            },
-            error:function(){
-                alert("에러입니다");
-            }
-        });
-        };
-    </script>
-
 </body>
 
 </html>
