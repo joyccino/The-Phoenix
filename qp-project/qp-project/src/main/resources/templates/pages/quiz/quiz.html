@@ -2031,7 +2031,7 @@
                 <div class="card-body z-1">
                     <span id="quizId" style="display:none" th:text="${quiz.quizzesId}"></span>
                   <h3 th:text="${quiz.quizzesTitle}">퀴즈 제목 여기에</h3>
-                  <p class="mb-0">소요 시간: <span id="minutes">0</span> 분 <span id="seconds">00</span> 초</p>
+                  <p class="mb-0" id="durationOrScore">소요 시간: <span id="minutes">0</span> 분 <span id="seconds">00</span> 초</p>
                 </div>
               </div>
               
@@ -2241,7 +2241,8 @@
         // append following button
         
         
-        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3'><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b>제출하기</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="submitBtn"><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b id="btnText">제출하기</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="homeBtn" style="display:none" onclick="location.href = 'http://localhost:8080/quiz/home'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
     
     // 퀴즈 시작시간
     let startTime = new Date($.now());
@@ -2277,17 +2278,38 @@
         
         console.log(userResponse);
         
+        // 제출하기 버튼 => 나가기로.
+        document.querySelector("#submitBtn").style.display = "none";
+        document.querySelector("#homeBtn").style.display = "block";
+        
+        
         $.ajax({
             type : "POST", // http 방식
             url : "/quiz/submit", // ajax 통신 url
             data : JSON.stringify(userResponse),
             contentType: "application/json; charset=UTF-8",
-            success : function(userResponse) {
+            success : function(results) {
                 alert("퀴즈를 제출하였습니다.");
-                location.replace("http://localhost:8080/quiz/home")
-                // 점수 리스트 가져와서 화면에 비교 후
+                //location.replace("http://localhost:8080/quiz/home")
+                // 화면의 모든 input field readonly 로 바꾸면서 정답 여부 체크
+                let inputs = document.querySelectorAll('.qrs');
+                let corrects = 0;
+                for (i = 0; i < inputs.length; i++) {
+                    if (results[i].resultOptionContent == inputs[i].value) {
+                        // 정답
+                        inputs[i].classList.add("is-valid");
+                        corrects++;
+                    }
+                    else {
+                        // 오답
+                        inputs[i].classList.add("is-invalid");
+                    }
+                    inputs[i].readOnly=true;
+                }
+                let userScore = corrects / inputs.length * 100;
+                $("#durationOrScore").html("점수: "+userScore+" 점");
             }
-          })
+        })
         
     }
     </script>
