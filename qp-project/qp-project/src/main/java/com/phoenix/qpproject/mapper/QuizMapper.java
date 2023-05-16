@@ -45,4 +45,7 @@ public interface QuizMapper {
     public void updateAverageScore(int averageScore, int quizId);
 
     public int getAverageScore(int quizId);
+
+    List<HomeDTO> getMainQuizList(String orderBy);
+    //유진 아이디(나중에추가-풀었는지여부를 서브쿼리날려야함), 정렬 조건
 }
