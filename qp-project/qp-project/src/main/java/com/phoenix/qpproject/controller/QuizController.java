@@ -95,19 +95,37 @@ public class QuizController {
     }
 
 
+
+//유진
     @RequestMapping(value = "quizList", method = RequestMethod.GET)
-    public String quizList(HttpServletRequest request) {
+    public String quizList( Model model, HttpServletRequest request, @RequestParam(value = "s", required = false) String sortValue) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
         }
-        else {
-            System.out.println("퀴즈리스트 호출");
-            return "/pages/quiz/quiz_list";
-        }
+        System.out.println("sortValue");
+        //select 값으로 변수 저장
+        String orderBy = "quizCreateDateTime DESC";
+        // n-new최신순  a-averageScore 평균정답률순   e-totalExaminee 응시자순
+        if ("n".equals(sortValue)) orderBy = "quizCreateDateTime DESC";
+        if ("a".equals(sortValue)) orderBy = "averageScore DESC";
+        if ("e".equals(sortValue)) orderBy = "totalExaminee DESC";
+
+        
+        System.out.println("퀴즈리스트 호출");
+        List<HomeDTO> quizList = quizService.getMainQuizList(orderBy);
+
+        System.out.println("퀴즈 목록을 요청합니다: "+quizList.toString());
+        model.addAttribute("title", "퀴즈목록조회");
+        model.addAttribute("quizList", quizList);
+
+
+        return "/pages/quiz/quiz_list";
+
     }
+
 
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model, HttpServletRequest request) {
