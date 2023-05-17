@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
-
+<html data-bs-theme="light" dir="ltr"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -2234,12 +2236,11 @@
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <select class="form-select"  onchange="location.href='quiz/quizList?s='+this.value;">
-                                            <!--<option disabled selected value="">정렬 선택</option>-->
-                                            <option value="n" th:selected="${s == 'n'}">최신순</option>
-                                            <option value="a" th:selected="${s == 'a'}">정답률순</option>
-                                            <option value="e" th:selected="${s == 'e'}">응시자순</option>
+                                            <option disabled selected value="">정렬 선택</option>
+                                            <option value="n" th:selected="${s == 'n'}" th:attr="selected=${s == 'n'} ? 'selected' : null">최신순</option>
+                                            <option value="a" th:selected="${s == 'a'}" th:attr="selected=${s == 'a'} ? 'selected' : null">정답률순</option>
+                                            <option value="e" th:selected="${s == 'e'}" th:attr="selected=${s == 'e'} ? 'selected' : null">응시자순</option>
                                         </select>
-
                                     </div>
                                 </div>
                                 <!--selectbox 위치 css 코드/넓이 절반으로-->
@@ -2396,6 +2397,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </main>
 <!-- ===============================================-->
 <!--    End of Main Content-->
@@ -2567,8 +2569,11 @@
 
 
 
-<!-- ===============================================-->
+<!-- =============
+<script src="../vendors/list.js/list.min.js"></script>
+==================================-->
 <!--    JavaScripts-->
+
 <!-- ===============================================-->
 <script src="../vendors/popper/popper.min.js"></script>
 <script src="../vendors/bootstrap/bootstrap.min.js"></script>
@@ -2581,7 +2586,7 @@
 <script src="../vendors/fontawesome/all.min.js"></script>
 <script src="../vendors/lodash/lodash.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-<script src="../vendors/list.js/list.min.js"></script>
+<script src="../../../vendors/list.js/list.min.js"></script>
 <script src="../assets/js/theme.js"></script>
 
 </body>
