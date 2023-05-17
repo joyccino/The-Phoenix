@@ -98,4 +98,15 @@ public class QuizService {
         quizMapper.updateAverageScore(averageScore, quizId);
     }
 
+
+    public List<HomeDTO> getMainQuizList(String orderBy){
+        List<HomeDTO> mainQuizList = quizMapper.getMainQuizList(orderBy);
+        return mainQuizList;
+    }
+
+
+
+
+
+
 }
