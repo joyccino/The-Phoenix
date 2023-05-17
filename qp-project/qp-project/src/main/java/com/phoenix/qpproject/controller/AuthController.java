@@ -6,6 +6,7 @@ import com.phoenix.qpproject.dto.UniversitiesDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
 import com.phoenix.qpproject.service.UniversitiesService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -81,7 +82,7 @@ public class AuthController {
     }
 
     @PostMapping("/addMember")
-    public String addMember(MembersDTO member) {
+    public String addMember(MembersDTO member) throws MessagingException {
         String rawPassword = member.getMemberPw();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         member.setMemberPw(encPassword);
@@ -314,7 +315,7 @@ public class AuthController {
     }
     @PostMapping("/passReset")
 //    @GetMapping("/passReset")
-    public String sendPasswordResetEmail(MailDTO mailDTO) {
+    public String sendPasswordResetEmail(MailDTO mailDTO) throws MessagingException {
         char[] possibleCharacters = (new String("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")).toCharArray();
         //String newPass = RandomStringUtils.random( randomStrLength, 0, possibleCharacters.length-1, false, false, possibleCharacters, new SecureRandom() );
         String newPass = RandomStringUtils.random( 20, possibleCharacters );
@@ -335,7 +336,7 @@ public class AuthController {
 
     }
     @PostMapping("/memberUpdate")
-    public String memberInfoModify(MembersDTO member, HttpServletRequest request){
+    public String memberInfoModify(MembersDTO member, HttpServletRequest request) throws MessagingException {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("user");
 
