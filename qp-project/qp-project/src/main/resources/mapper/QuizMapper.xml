@@ -218,8 +218,8 @@
         LEFT JOIN members as m ON q.memberId = m.id
         WHERE q.title IS NOT NULL
         ORDER BY homePostedDate DESC;
-
     </select>
+
 
     <update id="updateTotalQuestions" parameterType="java.lang.Integer">
         UPDATE quizzes SET totalQuestions = #{newTotal} WHERE id = #{quizId};
@@ -244,5 +244,25 @@
     <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
     </select>
+
+
+
+
+    <select id="getMainQuizList" resultType="com.phoenix.qpproject.dto.HomeDTO">
+        SELECT
+        q.Id AS homeQuizId,
+        q.totalQuestions AS homeTotalQuestions,
+        q.quizCreateDateTime AS homePostedDate,
+        q.title AS homeQuizTitle,
+        m.userId AS homeCreatorId,
+        0 as homeIsTaken,
+        q.totalExaminee as homeTotalExaminee,
+        q.averageScore as homeAverageScore
+        FROM quizzes as q
+        LEFT JOIN members as m ON q.memberId = m.id
+        WHERE q.title IS NOT NULL
+        ORDER BY q.${orderBy};
+    </select>
+
 
 </mapper>
