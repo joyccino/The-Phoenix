@@ -11,6 +11,7 @@ public class MembersDTO {
     private int Id;
     private String memberId;
     private String memberEmail;
+    private String memberEmailIsChanged;
     private String memberSurname;
     private String memberFirstname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
