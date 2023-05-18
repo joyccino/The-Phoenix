@@ -2384,12 +2384,12 @@
 
     //대학교 체크 함수
     const checkUniEmail = (domain) => {
-        let uniDomain = `[${domain}](http://${domain}/)`
+        //let uniDomain = `${domain}](http://${domain}/)`
         $.ajax({
             type : "POST", // http 방식
             url : "/auth/uniCheck", // ajax 통신 url
             data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-                "uniDomain" : uniDomain,
+                "uniDomain" : domain,
             },
             success : function(data) {
                 if (data !== "empty") {
@@ -2468,6 +2468,63 @@
             !checkUniEmail(targetDomain) && alert('학교 이메일 도메인을 확인해 주세요.');
         }
     })
+
+    function passCheck() {
+      let id = $("#card-userId").val();
+      let pw = $("#card-password").val();
+      let number = pw.search(/[0-9]/g);
+      let english = pw.search(/[a-z]/ig);
+      let spece = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+      let confirmPass = document.querySelector("#div-cpass");
+      let passWarning = document.querySelector("#pCheck");
+      let matchWarning = document.querySelector("#matchCheck");
+      let cPassVal = $("#card-confirm-password").val();
+
+      // 비밀번호 유효성 검사 false
+      validatePassword(false);
+
+      // 비밀번호 정규식
+      if (pw.length < 8 || pw.length > 20) {
+          passWarning.style.display = "block";
+          passWarning.style.color = "red";
+          passWarning.innerHTML = "8자에서 20자 사이의 비밀번호를 입력해주세요.";
+          confirmPass.style.display = "none";
+            $('#submit-btn').prop('disabled', true);
+
+      } else if (pw.search(/\s/) != -1) {
+          passWarning.style.display = "block";
+          passWarning.innerHTML = "비밀번호는 공백 없이 입력해주세요.";
+          confirmPass.style.display = "none";
+            $('#submit-btn').prop('disabled', true);
+      } else if (number < 0 || english < 0 || spece < 0) {
+          passWarning.style.display = "block";
+          passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
+          confirmPass.style.display = "none";
+            $('#submit-btn').prop('disabled', true);
+      } else {
+          passWarning.style.display = "none";
+          confirmPass.style.display = "block";
+          if (cPassVal.length == 0){
+            matchWarning.style.display = "block";
+            matchWarning.style.color = "red";
+            matchWarning.innerHTML = "비밀번호를 입력해주세요.";
+            $('#submit-btn').prop('disabled', true);
+          }
+          else if (pw !== cPassVal) {
+            matchWarning.style.display = "block";
+            matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
+            $('#submit-btn').prop('disabled', trFue);
+          }
+          else{
+            matchWarning.style.display = "none";
+            // $('#submit-btn').prop('disabled', false);
+
+            // 비밀번호 유효성 검사 true
+            validatePassword(true);
+          }
+      }
+    }
 
     $(function(){
         //유저 성별 설렉트박스
