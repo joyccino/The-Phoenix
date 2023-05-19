@@ -1939,7 +1939,7 @@
                             
                             <tbody class="list" id="table-purchase-body">
                             
-                            <tr class="btn-reveal-trigger" th:if="${not #lists.isEmpty(quizList)}" th:each="l, iter : ${quizList}">
+                            <tr class="btn-reveal-trigger" th:if="${not #lists.isEmpty(quizList)}" th:each="l, iter : ${quizList}" data-bs-toggle="modal" data-bs-target="#kanban-modal-1" >
                                 <!--                                            <td class="align-middle" style="width: 28px;">-->
                                 <!--                                                <span class="material-symbols-outlined"> radio_button_unchecked</span>-->
                                 <!--                                            </td>-->
@@ -1949,6 +1949,7 @@
                                 <td class="align-middle white-space-nowrap name" th:text="${iter.index + 1}">순서</td>
                                 <td class="align-middle white-space-nowrap name" th:text="${l.homeDetailSubject}">과목명</td>
                                 <td class="align-middle white-space-nowrap email" ><a th:href="@{/quiz/take/{qid}(qid=${l.homeQuizId})}" th:text="${l.homeQuizTitle}">선형대수학 활용 12제</a></td>
+<!--                                <td class="align-middle white-space-nowrap email" ><a th:href="#" th:text="${l.homeQuizTitle}" >선형대수학 활용 12제</a></td>-->
                                 <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}">12</td>
                                 
                                 <td class="align-middle white-space-nowrap amount"><span th:text="${l.homeTotalExaminee}">621</span>명</td>
@@ -2016,6 +2017,134 @@
                         <div class="row g-2 mt-2">
                             <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
                             <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="kanban-modal-label-1" aria-hidden="true" id="kanban-modal-1">
+            <div class="modal-dialog modal-lg mt-6" role="document">
+                <div class="modal-content border-0">
+                    <div class="position-absolute top-0 end-0 mt-3 me-3 z-1">
+                        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
+                            <h3 class="mb-1" id="kanban-modal-label-1"><b>문제 제목</b></h3>
+<!--                            <p class="fs&#45;&#45;3 mb-0">작성자: <a class="link-600 fw-semi-bold" href="#!">문수빈</a></p>-->
+<!--                            <p class="fs&#45;&#45;3 mb-0"><b>작성자: 문수빈</b></p>-->
+                        </div>
+                        <div class="p-4">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-book-reader" data-fa-transform="shrink-2"></i></span>
+                                        <div class="flex-1">
+                                            <h5 class="mb-2 fs-0"><b>카테고리</b></h5>
+                                            <div class="d-flex"><b>고등 &nbsp;</b><b> 2학년</b></div>
+                                            <hr class="my-4" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-book" data-fa-transform="shrink-2"></i></span>
+                                        <div class="flex-1">
+                                            <h5 class="mb-2 fs-0"><b>과목</b></h5>
+<!--                                            <div class="d-flex"><span class="badge me-1 py-2 badge-subtle-success">고등 수학</span><span class="badge me-1 py-2 badge-subtle-info">수학I</span>-->
+                                            <div class="d-flex">
+                                                <span class="badge me-1 py-2 badge-subtle-secondary"><b>고등 수학</b></span>
+                                                <span class="badge me-1 py-2 badge-subtle-warning"><b>확률과 통계</b></span>
+                                            </div>
+                                            <hr class="my-4" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-book" data-fa-transform="shrink-2"></i></span>
+                                        <div class="flex-1">
+                                            <h5 class="mb-2 fs-0"><b>태그</b></h5>
+                                                <div class="d-flex">
+                                                    <span class="badge me-1 py-2 badge-subtle-success"><b>#기말대비</b></span>
+                                                    <span class="badge me-1 py-2 badge-subtle-info"><b>#요점정리</b></span>
+                                                    <span class="badge me-1 py-2 badge-subtle-dark"><b>#수학의정석</b></span>
+                                                    <span class="badge me-1 py-2 badge-subtle-danger"><b>#하루한문제</b></span>
+                                                    <span class="badge me-1 py-2 badge-subtle-warning"><b>#가즈ㅏ</b></span>
+<!--                                            <div class="d-flex"><span class="badge me-1 py-2 badge-subtle-success">수학</span>-->
+                                            </div>
+<!--                                            <hr class="my-4" />-->
+                                        </div>
+                                    </div>
+                                 
+<!--                                    <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary far fa-comment" data-fa-transform="shrink-2"></i></span>-->
+<!--                                        <div class="flex-1">-->
+<!--                                            <h5 class="mb-3 fs-0"><b>포럼</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="퀴즈와 문제에 관련한 질문을 자유롭게 올려주세요."><svg class="svg-inline&#45;&#45;fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></h5>-->
+<!--                                            <div class="d-flex">-->
+<!--                                                <div class="flex-1 fs&#45;&#45;1">-->
+<!--                                                    <div class="position-relative border rounded-1 mb-3">-->
+<!--                                                        <form>-->
+<!--                                                            <textarea class="form-control border-0 rounded-bottom-0 resize-none" rows="3" contentEditable="true"></textarea>-->
+<!--                                                            <div class="d-flex flex-between-center bg-light rounded-bottom p-2 mt-1">-->
+<!--                                                                <button class="btn btn-sm btn-primary px-4" type="submit"><b>글 남기기</b></button>-->
+<!--&lt;!&ndash;                                                                <ul class="list-inline px-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                    <li class="list-inline-item me-1"><a class="link-600 p-2 transition-base rounded" href="#!"><span class="fas fa-paperclip"></span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                    <li class="list-inline-item me-1"><a class="link-600 p-2 transition-base rounded" href="#!"><span class="fas fa-at"></span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                    <li class="list-inline-item me-1"><a class="link-600 p-2 transition-base rounded" href="#!"><span class="fas fa-image"></span></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                </ul>&ndash;&gt;-->
+<!--                                                            </div>-->
+<!--                                                        </form>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--&lt;!&ndash;                                            <div class="d-flex mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="flex-1 ms-2 fs&#45;&#45;1">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a class="fw-semi-bold" href="#">박지호 </a>포롱이는 고막을 찢어.</p><a href="#!">좋아요</a> &bull; <a href="#!">답글</a> &bull; 23분 전&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div class="flex-1 ms-2 fs&#45;&#45;1">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <a class="fw-semi-bold" href="#">문수빈 </a>포롱이는 눈나를 좋아해.</p><a href="#!">좋아요</a> &bull; <a href="#!">답글</a> &bull; 2시간 전&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                                            <div class="table-responsive scrollbar">-->
+<!--                                                <table class="table">-->
+<!--                                                    <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th scope="col">아이디</th>-->
+<!--                                                        <th scope="col">내용</th>-->
+<!--&lt;!&ndash;                                                        <th class="text-end" scope="col" style="color:white">Actions</th>&ndash;&gt;-->
+<!--                                                    </tr>-->
+<!--                                                    </thead>-->
+<!--                                                    <tbody>-->
+<!--                                                    <tr>-->
+<!--                                                        <td>joy</td>-->
+<!--                                                        <td>2번 문제 이상해요.</td>-->
+<!--&lt;!&ndash;                                                        <td class="text-end" style="display:none">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></button></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+<!--                                                    </tr>-->
+<!--                                                    <tr>-->
+<!--                                                        <td>smoo43</td>-->
+<!--                                                        <td>@joymoon4u 그쵸. 문제 정답이 A 말고 B 가 되어야할것같은데..</td>-->
+<!--&lt;!&ndash;                                                        <td class="text-end">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></button></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+<!--                                                    </tr>-->
+<!--                                                    </tbody>-->
+<!--                                                </table>-->
+<!--                                            </div>-->
+<!--                                            <hr class="my-4" />-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                </div>
+                                <!-- 우측 메뉴-->
+                                <div class="col-lg-3">
+                                    <ul class="nav flex-lg-column fs--1">
+                                        <li class="fs--1"><span class="fas fa-pencil-alt"></span>&nbsp; 작성자: <b>sbins402</b> </li>
+                                        <li class="fs--1"><span class="fas fa-chart-bar"></span>&nbsp; 평균 점수: <b>98</b>&nbsp;점</li>
+                                        <li class="fs--1"><span class="far fa-calendar"></span>&nbsp; &nbsp;<b>3</b>&nbsp;<b>일전</b></li>
+                                        <br>
+                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="/quiz/settingQuiz"> <span class="fas fa-check me-2"></span><b>응시하기</b></a></li>
+<!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-bookmark me-2"></span>저장</a></li>-->
+                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-heart me-2"></span><b>좋아요</b></a></li>
+<!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-exclamation-triangle me-2"></span>신고</a></li>-->
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

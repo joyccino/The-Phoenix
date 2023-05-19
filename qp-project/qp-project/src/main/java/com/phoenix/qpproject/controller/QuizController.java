@@ -93,6 +93,10 @@ public class QuizController {
         //model.addAttribute("detailSubjectList", detailSubjectList);
         return detailSubjectList;
     }
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public String quizDetail(){
+        return "/pages/quiz/quizDetailsTest";
+    }
 
 
 
