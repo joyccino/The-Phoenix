@@ -234,7 +234,10 @@ public class QuizController {
         String userId = user.getMemberId();
         System.out.println("퀴즈디테일1:" + quizDetail);
 
-        if (quizDetail.getCreatorId() == userId || user.getMemberMemberTypeId() == 0) {
+        System.out.println("로그인한 사용자:"+userId+"게시자:"+quizDetail.getCreatorId());
+
+        if (userId.equals(quizDetail.getCreatorId()) || user.getMemberMemberTypeId() == 0) {
+            System.out.println("일치!");
             quizDetail.setCanEdit(true);
         }
         else {
