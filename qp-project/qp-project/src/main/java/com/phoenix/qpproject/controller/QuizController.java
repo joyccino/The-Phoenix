@@ -220,6 +220,32 @@ public class QuizController {
         return qlist;
     }
 
+    @PostMapping("/loadDetail")
+    @ResponseBody
+    public QuizDetailDTO loadDetail(int qId, HttpServletRequest request) {
+        System.out.println("넘겨받은 퀴즈 아이디: "+qId);
+        // 응시할 퀴즈 로딩해오기
+        QuizDetailDTO quizDetail = quizService.getQuizDetail(qId);
+
+        // 수정 자격 있는지?
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+        MembersDTO user = (MembersDTO)qpUser;
+        String userId = user.getMemberId();
+        System.out.println("퀴즈디테일1:" + quizDetail);
+
+        if (quizDetail.getCreatorId() == userId || user.getMemberMemberTypeId() == 0) {
+            quizDetail.setCanEdit(true);
+        }
+        else {
+            quizDetail.setCanEdit(false);
+        }
+
+        System.out.println("퀴즈디테일2:" + quizDetail);
+
+        return quizDetail;
+    }
+
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();

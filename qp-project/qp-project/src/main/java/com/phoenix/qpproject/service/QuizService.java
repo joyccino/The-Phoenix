@@ -23,6 +23,10 @@ public class QuizService {
         return quizList;
     }
 
+    public QuizDetailDTO getQuizDetail(int qid) {
+        return quizMapper.getQuizDetail(qid);
+    }
+
     public List<QuizzesDTO> getQuizList(){
         List<QuizzesDTO> quizList = quizMapper.getQuizList();
         return quizList;
