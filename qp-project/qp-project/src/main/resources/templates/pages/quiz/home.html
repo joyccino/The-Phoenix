@@ -1920,10 +1920,10 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive scrollbar">
-                        <table id = "qTable" class="table table-sm fs--1 mb-0 overflow-hidden">
+                        <table id = "qTable" class="table table-hover fs--1 mb-0 overflow-hidden">
                             <thead class="bg-200 text-900">
                             <tr>
-<!--                                <th class="sort pe-1 align-middle white-space-nowrap" >퀴즈ID</th>-->
+                                <th class="sort pe-1 align-middle white-space-nowrap" style="display: none;" >퀴즈ID</th>
 <!--                                <th class="sort pe-1 align-middle white-space-nowrap" >응시여부</th>-->
                                 <th class="sort pe-1 align-middle white-space-nowrap" >순서</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" >과목명</th>
@@ -1943,12 +1943,12 @@
                                 <!--                                            <td class="align-middle" style="width: 28px;">-->
                                 <!--                                                <span class="material-symbols-outlined"> radio_button_unchecked</span>-->
                                 <!--                                            </td>-->
-<!--                                <td class="align-middle white-space-nowrap name" th:text="${l.homeQuizId}">0</td>-->
+                                <td class="align-middle white-space-nowrap name qidColumn" style="display: none;" th:text="${l.homeQuizId}">0</td>
 <!--                                <td class="align-middle white-space-nowrap name" th:text="${l.homeIsTaken}" >-1</td>-->
                                 <!--                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>-->
                                 <td class="align-middle white-space-nowrap name" th:text="${iter.index + 1}">순서</td>
                                 <td class="align-middle white-space-nowrap name" th:text="${l.homeDetailSubject}">과목명</td>
-                                <td class="align-middle white-space-nowrap email" ><a th:href="@{/quiz/take/{qid}(qid=${l.homeQuizId})}" th:text="${l.homeQuizTitle}">선형대수학 활용 12제</a></td>
+                                <td class="align-middle white-space-nowrap email" th:text="${l.homeQuizTitle}" >선형대수학 활용 12제</td>
 <!--                                <td class="align-middle white-space-nowrap email" ><a th:href="#" th:text="${l.homeQuizTitle}" >선형대수학 활용 12제</a></td>-->
                                 <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}">12</td>
                                 
@@ -2030,7 +2030,7 @@
                     </div>
                     <div class="modal-body p-0">
                         <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <h3 class="mb-1" id="kanban-modal-label-1"><b>문제 제목</b></h3>
+                            <h3 class="mb-1" id="kanban-modal-label-1"><span id = "quizzesId" style="display:none"></span><b id = "quizzesTitle">문제 제목</b></h3>
 <!--                            <p class="fs&#45;&#45;3 mb-0">작성자: <a class="link-600 fw-semi-bold" href="#!">문수빈</a></p>-->
 <!--                            <p class="fs&#45;&#45;3 mb-0"><b>작성자: 문수빈</b></p>-->
                         </div>
@@ -2041,8 +2041,8 @@
                                         <div class="flex-1">
                                             <h5 class="mb-2 fs-0"><b>카테고리</b></h5>
 <!--                                            <div class="d-flex"><b>고등 &nbsp;</b><b> 2학년</b></div>-->
-                                            <span class="badge me-1 py-2 badge-subtle-info"><b>고등학교</b></span>
-                                            <span class="badge me-1 py-2 badge-subtle-warning"><b>2학년</b></span>
+                                            <span class="badge me-1 py-2 badge-subtle-info"><b id="educationalLevel">고등학교</b></span>
+                                            <span class="badge me-1 py-2 badge-subtle-warning"><b id="year">2학년</b></span>
                                             <hr class="my-4" />
                                         </div>
                                     </div>
@@ -2051,8 +2051,8 @@
                                             <h5 class="mb-2 fs-0"><b>과목</b></h5>
 <!--                                            <div class="d-flex"><span class="badge me-1 py-2 badge-subtle-success">고등 수학</span><span class="badge me-1 py-2 badge-subtle-info">수학I</span>-->
                                             <div class="d-flex">
-                                                <span class="badge me-1 py-2 badge-subtle-info"><b>고등 수학</b></span>
-                                                <span class="badge me-1 py-2 badge-subtle-warning"><b>확률과 통계</b></span>
+                                                <span class="badge me-1 py-2 badge-subtle-info"><b id="generalSubject">고등 수학</b></span>
+                                                <span class="badge me-1 py-2 badge-subtle-warning"><b id="detailSubject">확률과 통계</b></span>
                                             </div>
                                             <hr class="my-4" />
                                         </div>
@@ -2135,12 +2135,15 @@
                                 </div>
                                 <!-- 우측 메뉴-->
                                 <div class="col-lg-3">
+                                    
                                     <ul class="nav flex-lg-column fs--1">
-                                        <li class="fs--1"><span class="fas fa-pencil-alt"></span>&nbsp; 작성자: <b>sbins402</b> </li>
-                                        <li class="fs--1"><span class="fas fa-chart-bar"></span>&nbsp; 평균 점수: <b>98</b>&nbsp;점</li>
-                                        <li class="fs--1"><span class="far fa-calendar"></span>&nbsp; &nbsp;<b>3</b>&nbsp;<b>일전</b></li>
+                                        <li class="fs--1"><span class="fas fa-pencil-alt"></span>&nbsp; <b id="creatorId">sbins402</b>&nbsp;<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="해당 퀴즈를 출제한 유저의 아이디입니다."><svg class="svg-inline&#45;&#45;fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a> </li>
+                                        <li class="fs--1"><span class="fas fa-chart-bar"></span>&nbsp; <b id="averageScore">98</b>&nbsp;점&nbsp;<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="해당 퀴즈의 전체 평균 점수입니다."><svg class="svg-inline&#45;&#45;fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></li>
+                                        <li class="fs--1"><span class="fab fa-stack-exchange"></span>&nbsp; <b id="totalQuestions">12</b>&nbsp;개&nbsp;<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="해당 퀴즈에 포함된 질문의 갯수입니다."><svg class="svg-inline&#45;&#45;fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></li>
+                                        <li class="fs--1"><span class="far fa-calendar"></span>&nbsp; &nbsp;<b id="postedDate">3</b>&nbsp;<a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="해당 퀴즈가 게시된 날짜입니다."><svg class="svg-inline&#45;&#45;fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></li>
                                         <br>
-                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="/quiz/settingQuiz"> <span class="fas fa-check me-2"></span><b>응시하기</b></a></li>
+                                        
+                                        <li class="nav-item me-2 me-lg-0"><a id = "takeBtn" class="nav-link nav-link-card-details" href="/quiz/take/{qid}"> <span class="fas fa-check me-2"></span><b>응시하기</b></a></li>
 <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-bookmark me-2"></span>저장</a></li>-->
 <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-heart me-2"></span><b>좋아요</b></a></li>-->
                                         <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-pencil-ruler"></span><b>&nbsp;&nbsp;&nbsp;수정하기</b></a></li>
@@ -2198,6 +2201,107 @@
         function dropdownSelected(e){
             actBtn.innerHTML = e.innerHTML;
         }
+        
+        let qIds = document.querySelectorAll(".qidColumn");
+        
+        $('#qTable').find('tr').click( function(){
+            let row_index = $(this).index();
+            //alert('You clicked row '+ ($(this).index()+1) );
+            
+            let clicked_quiz_id = qIds[row_index].innerHTML;
+            
+            $.ajax({
+                        type : "POST",
+                        url : "/quiz/loadDetail",
+                        data : { "qId" : clicked_quiz_id },
+                        success : function(data) {
+                            console.log(data);
+                            // 응시하기 버튼
+                            document.querySelector("#takeBtn").href = "/quiz/take/" + data.quizzesId;
+                            document.querySelector("#quizzesId").innerHTML = data.quizzesId;
+                            document.querySelector("#quizzesTitle").innerHTML = data.quizzesTitle;
+                            document.querySelector("#averageScore").innerHTML = data.averageScore;
+                            document.querySelector("#totalQuestions").innerHTML = data.totalQuestions;
+                            // 대학교
+                            if(data.educationalLevel == "elementary") {
+                                document.querySelector("#educationalLevel").innerHTML = '초등학교';
+                            
+                            }
+                            else if (data.educationalLevel == "middle") {
+                                document.querySelector("#educationalLevel").innerHTML = '중학교';
+                            }
+                            else if (data.educationalLevel == "high") {
+                                document.querySelector("#educationalLevel").innerHTML = '고등학교';
+                            }
+                            else if (data.educationalLevel == "university") {
+                                document.querySelector("#educationalLevel").innerHTML = '대학교';
+                            }
+                            document.querySelector("#year").innerHTML = data.year+"학년";
+                            document.querySelector("#generalSubject").innerHTML = data.generalSubject;
+                            document.querySelector("#detailSubject").innerHTML = data.detailSubject;
+                            document.querySelector("#creatorId").innerHTML = data.creatorId;
+                            // can edit?
+                            if (!data.canEdit){
+                                document.querySelector("#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-3 > ul > li:nth-child(7)").style.display = "none";
+                                document.querySelector("#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-3 > ul > li:nth-child(8)").style.display = "none";
+                            }
+                            else {
+                                document.querySelector("#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-3 > ul > li:nth-child(7)").style.display = "block";
+                                document.querySelector("#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-3 > ul > li:nth-child(8)").style.display = "block";
+                            }
+                            // university? (학년 hide => 이후 구현)
+                            if(data.educationalLevel == "university") {
+                                document.querySelector('#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-9 > div:nth-child(1) > div > span.badge.me-1.py-2.badge-subtle-warning').style.display = 'inline-block';
+                            }
+                            else {
+                                document.querySelector('#kanban-modal-1 > div > div > div.modal-body.p-0 > div.p-4 > div > div.col-lg-9 > div:nth-child(1) > div > span.badge.me-1.py-2.badge-subtle-warning').style.display = 'none';
+                            }
+                            // 해시태그는 이후 구현 (퀴즈 저장될때 DB 에 컬럼 추가 필요)
+                            
+                            // date
+                            let postedDate = new Date(data.postedDate);
+                            let now = Date.now();
+                            var diffMs = (now - postedDate); // milliseconds between now & postedDate
+                            var diffDays = Math.floor(diffMs / 86400000); // days
+                            var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+                            var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+                            
+                            if (diffDays < 1) {
+                                // .. 시간 전
+                                if (diffHrs < 1) {
+                                    if (diffMins == 0) {
+                                        document.querySelector("#postedDate").innerHTML = "지금 막";
+                                    }
+                                    else {
+                                        document.querySelector("#postedDate").innerHTML = diffMins+"분 전";
+                                    }
+                                }
+                                else {
+                                    document.querySelector("#postedDate").innerHTML = diffHrs+"시간 전";
+                                }
+                            }
+                            else if (diffDays < 31) {
+                                // ..일 전
+                                document.querySelector("#postedDate").innerHTML = diffDays+"일전";
+                                
+                            } else {
+                                // 년 - 월 - 일
+                                let year = postedDate.getFullYear();
+                                let month = postedDate.getMonth() + 1;
+                                let date = postedDate.getDate();
+                                let dateString = year+" 년"+month+" 월"+date+" 일";
+                                document.querySelector("#postedDate").innerHTML = dateString;
+                                
+                                
+                            }
+                            
+                            
+                            
+                        }
+                    });
+        });
+        
+        
     </script>
 
 </body>
