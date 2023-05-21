@@ -233,7 +233,7 @@
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
         LEFT JOIN members as m ON q.memberId = m.id
-        WHERE q.title IS NOT NULL AND q.isDeleted = false
+        WHERE q.title IS NOT NULL AND q.isDeleted = false AND q.totalQuestions > 0
         ORDER BY homePostedDate DESC;
     </select>
 
