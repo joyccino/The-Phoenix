@@ -5,6 +5,31 @@ This project is a CMS (Content Management System) web application developed usin
 ## Overview
 This project showcases a CMS web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap. The application allows users to manage quizzes, surveys, and their personal information. It includes features such as user registration, login/logout, password recovery with email notification, quiz creation and participation, survey creation and management, user profile management, administration dashboard, and more.
 
+## Project Environment
+
+The CMS Web Application is developed using the following technologies and tools:
+
+- **Backend:**
+  - Java
+  - Spring Boot framework
+  - MyBatis for data persistence
+  - MySQL database for storing application data
+
+- **Frontend:**
+  - HTML
+  - CSS
+  - Falcon v3.17.0 which is built with Bootstrap v5.3.0-alpha3
+
+- **Database:**
+  - MySQL database
+  - SQL queries and schema for data management
+
+- **Development Tools:**
+  - Integrated Development Environment (IDE) - [Specify your preferred IDE]
+  - Git and GitHub for version control
+
+Special thanks to Shajeeb for the wonderful work on the Falcon – Admin Dashboard & WebApp Template, which greatly contributed to the frontend development of this project.
+
 ## Features
 
 ### Authorization
