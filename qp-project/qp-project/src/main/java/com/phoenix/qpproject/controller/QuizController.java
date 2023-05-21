@@ -249,6 +249,22 @@ public class QuizController {
         return quizDetail;
     }
 
+    @PostMapping("/loadHistory")
+    @ResponseBody
+    public List<HistoryDTO> loadHistory(int qId, HttpServletRequest request) {
+        System.out.println("넘겨받은 퀴즈 아이디: "+qId);
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+        MembersDTO user = (MembersDTO)qpUser;
+        int userId = user.getId();
+        // 응시할 퀴즈 로딩해오기
+        List<HistoryDTO> quizHistory = quizService.getHistoryOfUser(qId, userId);
+
+        System.out.println("퀴즈히스토리:" + quizHistory);
+
+        return quizHistory;
+    }
+
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();

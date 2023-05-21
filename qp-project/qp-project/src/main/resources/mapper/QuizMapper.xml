@@ -224,6 +224,7 @@
     <select id="getQuizDetail" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.QuizDetailDTO">
         SELECT
         q.id AS quizzesId,
+        q.title AS quizzesTitle,
         q.averageScore AS averageScore,
         q.totalQuestions AS totalQuestions,
         q.quizCreateDateTime AS postedDate,
@@ -267,6 +268,14 @@
 
     <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
+    </select>
+
+    <select id="getHistoryOfUser" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.HistoryDTO">
+       select
+        quizHistory.endDateTime AS historySubmittedDate,
+        quizHistory.grade AS historyGrade
+        from quizHistory
+        where quizId = #{qId} and memberId = #{userId};
     </select>
 
 

@@ -2030,13 +2030,19 @@
                     </div>
                     <div class="modal-body p-0">
                         <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <h3 class="mb-1" id="kanban-modal-label-1"><span id = "quizzesId" style="display:none"></span><b id = "quizzesTitle">문제 제목</b></h3>
+                            <h3 class="mb-1" id="kanban-modal-label-1"><span id = "quizzesId" style="display:none"></span></h3>
 <!--                            <p class="fs&#45;&#45;3 mb-0">작성자: <a class="link-600 fw-semi-bold" href="#!">문수빈</a></p>-->
 <!--                            <p class="fs&#45;&#45;3 mb-0"><b>작성자: 문수빈</b></p>-->
                         </div>
                         <div class="p-4">
                             <div class="row">
                                 <div class="col-lg-9">
+                                    <div class="d-flex">
+                                        <div class="flex-1">
+                                            <h4 class="mb-2" id="quizzesTitle" style="font-weight: bold;" >퀴즈 타이틀</h4>
+                                            <hr class="my-4" />
+                                        </div>
+                                    </div>
                                     <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-user-graduate" data-fa-transform="shrink-2"></i></span>
                                         <div class="flex-1">
                                             <h5 class="mb-2 fs-0"><b>카테고리</b></h5>
@@ -2071,6 +2077,24 @@
 <!--                                            <hr class="my-4" />-->
                                         </div>
                                     </div>
+                                    <br>
+                                    <table id="historyTable" class="table table-sm">
+                                        <h5 class="mb-3 fs-0" id="historyCaption"><b>응시 히스토리</b><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="tag-tip" data-bs-original-title="해당 퀴즈에 응시한 결과가 있는경우 해당 테이블에 반영됩니다."><svg class="svg-inline--fa fa-question-circle fa-w-16 ms-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path></svg></a></h5>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">순서</th>
+                                            <th scope="col">응시한 날짜</th>
+                                            <th scope="col">점수</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+<!--                                        <tr>-->
+<!--                                            <td class="indexRow">1</td>-->
+<!--                                            <td class="dateRow">2일 전</td>-->
+<!--                                            <td class="scoreRow">98점</td>-->
+<!--                                        </tr>-->
+                                        </tbody>
+                                    </table>
                                  
 <!--                                    <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary far fa-comment" data-fa-transform="shrink-2"></i></span>-->
 <!--                                        <div class="flex-1">-->
@@ -2304,10 +2328,79 @@
                                 let date = postedDate.getDate();
                                 let dateString = year+" 년"+month+" 월"+date+" 일";
                                 document.querySelector("#postedDate").innerHTML = dateString;
+                            }
+                        }
+                    });
+                    
+                    //get history
+                    $.ajax({
+                        type : "POST",
+                        url : "/quiz/loadHistory",
+                        data : { "qId" : clicked_quiz_id },
+                        success : function(data) {
+                            if(data.length == 0){
+                                document.querySelector("#historyTable").style.display = "none";
+                                document.querySelector("#historyCaption").style.display = "none";
+                            }
+                            else{
+                                let historyTable = document.querySelector("#historyTable");
+                                historyTable.style.display = "table";
+                                document.querySelector("#historyCaption").style.display = "block";
+                                $("#historyTable").find("tr:gt(0)").remove();
                                 
+                                let idx = 1;
+                                $.each(data, function(index, value) {
+                                let historySubmittedDate_original = new Date(value.historySubmittedDate);
+                                let historySubmittedDate = historySubmittedDate_original;
+                                // date
+                                let now = Date.now();
+                                var diffMs = (now - historySubmittedDate); // milliseconds between now & historySubmittedDate
+                                var diffDays = Math.floor(diffMs / 86400000); // days
+                                var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+                                var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+                                
+                                if (diffDays < 1) {
+                                    // .. 시간 전
+                                    if (diffHrs < 1) {
+                                        if (diffMins == 0) {
+                                            historySubmittedDate = "지금 막";
+                                        }
+                                        else {
+                                            historySubmittedDate = diffMins+"분 전";
+                                        }
+                                    }
+                                    else {
+                                        historySubmittedDate = diffHrs+"시간 전";
+                                    }
+                                }
+                                else if (diffDays < 31) {
+                                    // ..일 전
+                                    historySubmittedDate = diffDays+"일전";
+                                    
+                                } else {
+                                    // 년 - 월 - 일
+                                    let year = historySubmittedDate_original.getFullYear();
+                                    let month = historySubmittedDate_original.getMonth() + 1;
+                                    let date = historySubmittedDate_original.getDate();
+                                    let dateString = year+" 년"+month+" 월"+date+" 일";
+                                    historySubmittedDate = dateString;
+                                }
+                                
+                                let historyGrade = value.historyGrade;
+                                let markup =
+                                    `<tr>
+                                      <td>`+idx+`</td>
+                                      <td>`+historySubmittedDate+`</td>
+                                      <td>`+historyGrade+`</td>
+                                  </tr>`;
+                                $("#historyTable tr:last").after(markup);
+                                
+                                console.log(idx+":"+data.length);
+                                
+                                idx += 1;
+                            });
                                 
                             }
-                            
                         }
                     });
         });
