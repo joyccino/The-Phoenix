@@ -23,7 +23,7 @@
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7c0bac9a-57f8-44ec-96b5-5da349ca68b7)
 
 - 퀴즈 디테일 @wyj
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/74caf960-3b9f-4f82-a4f2-ca63a1a01b1f)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/82366e3b-e9a7-4557-a6ec-ad4b7ca9f9a8)
 
 
 [Survey]
