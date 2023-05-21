@@ -32,6 +32,8 @@ public interface QuizMapper {
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
 
+    public void quizDelete(int quizID);
+
     public List<HomeDTO> getQuizListForHome();
 
     public QuizDetailDTO getQuizDetail(int qid);
