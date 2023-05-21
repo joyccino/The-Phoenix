@@ -10,19 +10,13 @@ This project showcases a CMS web application developed using MySQL, Spring Boot,
 The CMS Web Application is developed using the following technologies and tools:
 
 - **Backend:**
-  - Java
-  - Spring Boot framework
+  - Java JDK version: 17.0.6
+  - Spring Boot framework version: 3.0.4
   - MyBatis for data persistence
-  - MySQL database for storing application data
+  - MySQL database (Community version: 8.0.32)
 
 - **Frontend:**
-  - HTML
-  - CSS
   - Falcon v3.17.0 which is built with Bootstrap v5.3.0-alpha3
-
-- **Database:**
-  - MySQL database
-  - SQL queries and schema for data management
 
 - **Development Tools:**
   - Integrated Development Environment (IDE) - [Specify your preferred IDE]
