@@ -2048,6 +2048,7 @@
                             <div class="row gx-2">
                                 <div class="col-12 mb-3">
                                     <input  class="qrs form-control" name="quizzesTitle" type="text" required/>
+                                    <label class="answer form-label" id="birthdate-error-msg" style="color:red;"></label>
                                 </div>
                             </div>
                         </div>
@@ -2088,67 +2089,9 @@
             </div>
             
           </div>
-          <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
-              </div>
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">v3.16.0</p>
-              </div>
-            </div>
-          </footer>
+          
         </div>
-        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
-            <div class="modal-content border-0">
-              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                <div class="position-relative z-1" data-bs-theme="light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                  <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                </div>
-                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body py-4 px-5">
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-name">Name</label>
-                    <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-email">Email address</label>
-                    <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                  </div>
-                  <div class="row gx-2">
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-password">Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                    </div>
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                    <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                  </div>
-                </form>
-                <div class="position-relative mt-5">
-                  <hr />
-                  <div class="divider-content-center">or register with</div>
-                </div>
-                <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div class="modal fade" id="schedule-discount-modal" tabindex="-1" role="dialog" aria-labelledby="schedule-discount-modal-label" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -2240,17 +2183,18 @@
         
         // append following button
         
-        
+        let quizId = document.querySelector("#quizId").innerHTML;
+        let retakeUrl = 'http://localhost:8080/quiz/take/'+quizId;
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="submitBtn"><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b id="btnText">제출하기</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="retakeBtn" style="display:none" onclick="location.href = '${retakeUrl}'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="homeBtn" style="display:none" onclick="location.href = 'http://localhost:8080/quiz/home'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
     
     // 퀴즈 시작시간
     let startTime = new Date($.now());
     
     function submit(){
-        // insert quizHistory first
-        
-        // memberId 와 quizId는 컨트롤러단에서 추가
+        if (confirm('퀴즈를 제출하시겠습니까?')) {
+          // memberId 와 quizId는 컨트롤러단에서 추가
         // 제출시간
         let endTime = new Date($.now());
         
@@ -2280,6 +2224,7 @@
         
         // 제출하기 버튼 => 나가기로.
         document.querySelector("#submitBtn").style.display = "none";
+        document.querySelector("#retakeBtn").style.display = "block";
         document.querySelector("#homeBtn").style.display = "block";
         
         
@@ -2289,11 +2234,12 @@
             data : JSON.stringify(userResponse),
             contentType: "application/json; charset=UTF-8",
             success : function(results) {
-                alert("퀴즈를 제출하였습니다.");
+<!--                alert("퀴즈를 제출하였습니다.");-->
                 //location.replace("http://localhost:8080/quiz/home")
                 // 화면의 모든 input field readonly 로 바꾸면서 정답 여부 체크
                 let inputs = document.querySelectorAll('.qrs');
                 let corrects = 0;
+                let answerLabels = document.querySelectorAll(".answer");
                 for (i = 0; i < inputs.length; i++) {
                     if (results[i].resultOptionContent == inputs[i].value) {
                         // 정답
@@ -2303,6 +2249,7 @@
                     else {
                         // 오답
                         inputs[i].classList.add("is-invalid");
+                        answerLabels[i].innerHTML = "정답: "+results[i].resultOptionContent;
                     }
                     inputs[i].readOnly=true;
                 }
@@ -2310,6 +2257,13 @@
                 $("#durationOrScore").html("점수: "+userScore+" 점");
             }
         })
+          
+        } else {
+          // Do nothing!
+          return false;
+        }
+        
+        
         
     }
     </script>
