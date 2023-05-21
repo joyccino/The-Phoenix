@@ -28,7 +28,7 @@ The CMS Web Application is developed using the following technologies and tools:
   - Integrated Development Environment (IDE) - [Specify your preferred IDE]
   - Git and GitHub for version control
 
-Special thanks to Shajeeb for the wonderful work on the Falcon – Admin Dashboard & WebApp Template, which greatly contributed to the frontend development of this project.
+Special thanks to Shajeeb for the wonderful work on the [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/), which greatly contributed to the frontend development of this project.
 
 ## Features
 
