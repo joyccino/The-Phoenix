@@ -236,7 +236,9 @@ public class AuthController {
             System.out.println(mId+" 로그인 history inserted");
 
             if(membersInfo.getMemberMemberTypeId() == 0) {
-                return "redirect:/auth/analytics";
+//                return "redirect:/auth/analytics";
+                return "redirect:/auth/memberList";
+
             }
             else {
                 return "redirect:/quiz/home";

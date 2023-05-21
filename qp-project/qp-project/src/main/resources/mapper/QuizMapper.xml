@@ -117,7 +117,7 @@
         )VALUES (
         #{quizzesMemberId}
         , #{quizzesTitle}
-        , 10
+        , 192
         , NOW()
         , #{quizzesShuffleQuestions}
         , #{quizzesShuffleOptions}
