@@ -224,6 +224,7 @@
     <select id="getQuizDetail" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.QuizDetailDTO">
         SELECT
         q.id AS quizzesId,
+        q.title AS quizzesTitle,
         q.averageScore AS averageScore,
         q.totalQuestions AS totalQuestions,
         q.quizCreateDateTime AS postedDate,

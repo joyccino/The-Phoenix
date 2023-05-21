@@ -2030,13 +2030,19 @@
                     </div>
                     <div class="modal-body p-0">
                         <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <h3 class="mb-1" id="kanban-modal-label-1"><span id = "quizzesId" style="display:none"></span><b id = "quizzesTitle">문제 제목</b></h3>
+                            <h3 class="mb-1" id="kanban-modal-label-1"><span id = "quizzesId" style="display:none"></span></h3>
 <!--                            <p class="fs&#45;&#45;3 mb-0">작성자: <a class="link-600 fw-semi-bold" href="#!">문수빈</a></p>-->
 <!--                            <p class="fs&#45;&#45;3 mb-0"><b>작성자: 문수빈</b></p>-->
                         </div>
                         <div class="p-4">
                             <div class="row">
                                 <div class="col-lg-9">
+                                    <div class="d-flex">
+                                        <div class="flex-1">
+                                            <h4 class="mb-2" id="quizzesTitle" style="font-weight: bold;" >퀴즈 타이틀</h4>
+                                            <hr class="my-4" />
+                                        </div>
+                                    </div>
                                     <div class="d-flex"><span class="fa-stack ms-n1 me-3"><i class="fas fa-circle fa-stack-2x text-200"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-user-graduate" data-fa-transform="shrink-2"></i></span>
                                         <div class="flex-1">
                                             <h5 class="mb-2 fs-0"><b>카테고리</b></h5>
@@ -2246,7 +2252,7 @@
                         url : "/quiz/loadDetail",
                         data : { "qId" : clicked_quiz_id },
                         success : function(data) {
-<!--                            console.log(data);-->
+                            console.log(data);
                             // 응시하기 버튼
                             document.querySelector("#takeBtn").href = "/quiz/take/" + data.quizzesId;
                             document.querySelector("#quizzesId").innerHTML = data.quizzesId;
@@ -2332,7 +2338,6 @@
                         url : "/quiz/loadHistory",
                         data : { "qId" : clicked_quiz_id },
                         success : function(data) {
-                            console.log(data);
                             if(data.length == 0){
                                 document.querySelector("#historyTable").style.display = "none";
                                 document.querySelector("#historyCaption").style.display = "none";
