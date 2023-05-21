@@ -269,6 +269,14 @@
         select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
     </select>
 
+    <select id="getHistoryOfUser" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.HistoryDTO">
+       select
+        quizHistory.endDateTime AS historySubmittedDate,
+        quizHistory.grade AS historyGrade
+        from quizHistory
+        where quizId = #{qId} and memberId = #{userId};
+    </select>
+
 
 
 
