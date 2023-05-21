@@ -42,9 +42,9 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
 
 - Quiz Home Page ✔️
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/726136bc-95a0-4f10-ab7f-20ff6f37661d)
+getQuizListForHome
 - Quiz Details
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/52f3120a-0d61-4a90-b062-21eeff72f1ef)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
 
 
 ### MyPage
