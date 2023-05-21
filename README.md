@@ -1,4 +1,4 @@
-# CMS Web Application - Qeasy Peasy 🌱
+# CMS Web Application - The QP Project (Qeasy Peasy) 🌱
 
 ## Overview / 개요 📖
 - This project is a CMS web application developed using MySQL, Spring Boot, and MyBatis. The application provides users with the ability to register quizzes and participate in them. It includes features such as user registration, login/logout, password recovery via email, quiz creation and participation, user profile management, administration dashboard, and more.
