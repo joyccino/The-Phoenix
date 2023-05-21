@@ -12,4 +12,5 @@ public class UserResponseDTO {
     private Date endTime;
     private List<Integer> questionIds;
     private List<String> responses;
+    private int achievement;
 }

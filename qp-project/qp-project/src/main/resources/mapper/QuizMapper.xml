@@ -163,19 +163,35 @@
         from questions as qs where quizId = #{quizId};
     </select>
 
-    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
+<!--    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">-->
+<!--        INSERT INTO quizHistory-->
+<!--        (memberId,-->
+<!--        quizId,-->
+<!--        grade,-->
+<!--        startDateTime,-->
+<!--        endDateTime-->
+<!--        )VALUES (-->
+<!--        #{quizHistoryMemberId},-->
+<!--        #{quizHistoryQuizId},-->
+<!--        99,-->
+<!--        #{quizHistoryStartDateTime},-->
+<!--        #{quizHistoryEndDateTime}-->
+<!--        );-->
+<!--    </insert>-->
+
+    <insert id="addQH" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
         INSERT INTO quizHistory
-        (	  memberId,
+        (memberId,
         quizId,
+        grade,
         startDateTime,
-        endDateTime,
-        grade
+        endDateTime
         )VALUES (
         #{quizHistoryMemberId},
         #{quizHistoryQuizId},
+        #{quizHistoryGrade},
         #{quizHistoryStartDateTime},
-        #{quizHistoryEndDateTime},
-        0
+        #{quizHistoryEndDateTime}
         );
     </insert>
 
@@ -255,7 +271,7 @@
     </select>
 
     <update id="updateUserScore" parameterType="java.lang.Integer">
-        UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
+        UPDATE quizHistory SET grade = #{grade} WHERE id = #{quizHistoryId};
     </update>
 
     <update id="updateAverageScore" parameterType="java.lang.Integer">

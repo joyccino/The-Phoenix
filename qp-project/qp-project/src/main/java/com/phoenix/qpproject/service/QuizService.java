@@ -69,12 +69,16 @@ public class QuizService {
         return quizMapper.getQsWhereQuizId(quizId);
     }
 
-    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO){
-        quizMapper.addQuizHistory(quizHistoryDTO);
-    };
+//    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO){
+//        quizMapper.addQuizHistory(quizHistoryDTO);
+//    };
 
     public int getRecentQuizHistoryIdOfMember(int memberId){
         return quizMapper.getRecentQuizHistoryIdOfMember(memberId);
+    }
+
+    public void addQH(QuizHistoryDTO qh){
+        quizMapper.addQH(qh);
     }
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO){
@@ -98,6 +102,7 @@ public class QuizService {
     }
 
     public void updateUserScore(int grade, int quizHistoryId) {
+        System.out.println("grade: "+grade);
         quizMapper.updateUserScore(grade, quizHistoryId);
     }
 
