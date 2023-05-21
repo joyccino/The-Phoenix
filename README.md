@@ -42,7 +42,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Quiz Home Page ✔️
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/726136bc-95a0-4f10-ab7f-20ff6f37661d)
 - Quiz Details
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/89ce3926-76bd-41e9-920f-d33e96890a01)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/52f3120a-0d61-4a90-b062-21eeff72f1ef)
 
 
 ### MyPage
