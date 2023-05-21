@@ -4,8 +4,8 @@
 - 이 프로젝트는 MySQL, Spring Boot, MyBatis 및 Bootstrap을 사용하여 개발된 CMS (콘텐츠 관리 시스템) 웹 애플리케이션입니다.
 
 ## Overview / 개요 📖
-- This project showcases a CMS web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap. The application allows users to manage quizzes, and their personal information. It includes features such as user registration, login/logout, password recovery with email notification, quiz creation and participation, user profile management, administration dashboard, and more.
-- 이 프로젝트는 MySQL, Spring Boot, MyBatis 및 Bootstrap을 사용하여 개발된 CMS 웹 애플리케이션을 보여줍니다. 이 애플리케이션은 사용자가 퀴즈, 개인 정보를 관리할 수 있는 기능을 제공합니다. 사용자 등록, 로그인/로그아웃, 이메일 알림을 통한 비밀번호 복구, 퀴즈 생성 및 참여, 사용자 프로필 관리, 관리자 대시보드 등의 기능이 포함되어 있습니다.
+- This project is a CMS web application developed using MySQL, Spring Boot, and MyBatis. The application provides users with the ability to register quizzes and participate in them. It includes features such as user registration, login/logout, password recovery via email, quiz creation and participation, user profile management, administration dashboard, and more.
+- 이 프로젝트는 MySQL, Spring Boot 및 mybatis 를 사용하여 개발된 CMS 웹 애플리케이션입니다. 이 애플리케이션은 사용자가 퀴즈를 등록하고 응시하는 기능을 제공합니다: 사용자 등록, 로그인/로그아웃, 이메일로 비밀번호 복구, 퀴즈 생성 및 참여, 사용자 프로필 관리, 관리자 대시보드 등 다양한 기능이 포함되어 있습니다. 
 
 ## Project Environment / 프로젝트 환경 💻
 
