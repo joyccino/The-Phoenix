@@ -45,7 +45,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Quiz Details
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/719a26bd-1844-4819-852a-f05575f1a09c)
 
-### My Page
+### MyPage
 
 - Update Basic Information ✔️
 - ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6d9de11b-8f77-4421-b2e7-fe4178c16daf)
