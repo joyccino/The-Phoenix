@@ -57,7 +57,7 @@ Special thanks to Shajeeb for the wonderful work on the [Falcon – Admin Dashbo
 
 - Dashboard
 - Member Management ✔️
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
+- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
 
 
 ## Installation
