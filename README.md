@@ -12,7 +12,7 @@ The CMS Web Application is developed using the following technologies and tools:
 - **Backend:**
   - Java JDK version: 17.0.6
   - Spring Boot framework version: 3.0.4
-  - MyBatis for data persistence
+  - MyBatis version: 3.5.11
   - MySQL database (Community version: 8.0.32)
 
 - **Frontend:**
