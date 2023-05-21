@@ -2186,7 +2186,7 @@
         let quizId = document.querySelector("#quizId").innerHTML;
         let retakeUrl = 'http://localhost:8080/quiz/take/'+quizId;
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="submitBtn"><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b id="btnText">제출하기</b> </a></div>`);
-        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="retakeBtn" style="display:none" onclick="location.href = '${retakeUrl}'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="retakeBtn" style="display:none" onclick="location.href = '${retakeUrl}'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>다시 풀기</b> </a></div>`);
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="homeBtn" style="display:none" onclick="location.href = 'http://localhost:8080/quiz/home'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
     
     // 퀴즈 시작시간
