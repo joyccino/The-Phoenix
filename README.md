@@ -23,7 +23,7 @@
   - GitHub for version control
 
 We extend our special thanks to Shajeeb, the original author and creator of [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/). 🙌 <br>
-큐피 프로젝트에서 사용된 Falcon - Admin Dashboard & WebApp Template의 원 저작자인 Shajeeb에게 특별한 감사를 드립니다. 🙌
+큐피 프로젝트에서 사용된 [Falcon - Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/)의 원 저작자인 Shajeeb에게 감사 인사를 드립니다. 🙌
 
 ## Features ✨
 
