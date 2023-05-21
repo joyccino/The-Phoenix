@@ -24,7 +24,7 @@
 
 We extend our special thanks to Shajeeb, the original author and creator of [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/). 🙌 <br>
 
-## Features ✨
+## Features / 기능들 ✨
 
 ### Authorization
 
