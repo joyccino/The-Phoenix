@@ -1,4 +1,4 @@
-# CMS Web Application - qeasy peasy
+# CMS Web Application - Qeasy Peasy
 
 This project is a CMS (Content Management System) web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap.
 
