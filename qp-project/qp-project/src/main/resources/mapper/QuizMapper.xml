@@ -205,6 +205,7 @@
     <select id="getQuizListForHome" resultType="com.phoenix.qpproject.dto.HomeDTO">
         SELECT
         q.Id AS homeQuizId,
+        q.title AS quizzesTitle,
         q.totalQuestions AS homeTotalQuestions,
         q.quizCreateDateTime AS homePostedDate,
         q.title AS homeQuizTitle,
@@ -216,8 +217,28 @@
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
         LEFT JOIN members as m ON q.memberId = m.id
-        WHERE q.title IS NOT NULL
+        WHERE q.title IS NOT NULL AND q.isDeleted = false
         ORDER BY homePostedDate DESC;
+    </select>
+
+    <select id="getQuizDetail" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.QuizDetailDTO">
+        SELECT
+        q.id AS quizzesId,
+        q.title AS quizzesTitle,
+        q.averageScore AS averageScore,
+        q.totalQuestions AS totalQuestions,
+        q.quizCreateDateTime AS postedDate,
+
+        s.institutionLevel as educationalLevel,
+        2 as year,
+        s.generalSubject as generalSubject,
+        s.detailSubject as detailSubject,
+
+        m.userId as creatorId
+        FROM quizzes as q
+        RIGHT JOIN subjects as s ON q.subjectId = s.id
+        LEFT JOIN members as m ON q.memberId = m.id
+        WHERE q.id = #{qid}
     </select>
 
 
@@ -237,12 +258,24 @@
         UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
     </update>
 
-    <update id="updateAverageScore" parameterType="java.lang.Integer">UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+    <update id="updateAverageScore" parameterType="java.lang.Integer">
+        UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+    </update>
 
+    <update id="quizDelete" parameterType="java.lang.Integer">
+        UPDATE quizzes SET isDeleted = true WHERE id = #{quizId};
     </update>
 
     <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select AVG(grade) from quizzes join quizHistory on quizzes.id = quizHistory.quizId where quizzes.id = #{quizId};
+    </select>
+
+    <select id="getHistoryOfUser" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.HistoryDTO">
+       select
+        quizHistory.endDateTime AS historySubmittedDate,
+        quizHistory.grade AS historyGrade
+        from quizHistory
+        where quizId = #{qId} and memberId = #{userId};
     </select>
 
 
@@ -263,6 +296,8 @@
         WHERE q.title IS NOT NULL
         ORDER BY q.${orderBy};
     </select>
+
+
 
 
 </mapper>

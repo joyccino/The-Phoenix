@@ -32,7 +32,13 @@ public interface QuizMapper {
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
 
+    public void quizDelete(int quizID);
+
+    public List<HistoryDTO> getHistoryOfUser(int qId, int userId);
+
     public List<HomeDTO> getQuizListForHome();
+
+    public QuizDetailDTO getQuizDetail(int qid);
 
     public void updateTotalQuestions(int newTotal, int quizId);
 

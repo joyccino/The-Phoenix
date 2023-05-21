@@ -23,6 +23,19 @@ public class QuizService {
         return quizList;
     }
 
+    public void quizDelete(int quizID) {
+        quizMapper.quizDelete(quizID);
+    }
+
+    public List<HistoryDTO> getHistoryOfUser(int qId, int userId){
+        return quizMapper.getHistoryOfUser(qId,userId);
+    }
+
+
+    public QuizDetailDTO getQuizDetail(int qid) {
+        return quizMapper.getQuizDetail(qid);
+    }
+
     public List<QuizzesDTO> getQuizList(){
         List<QuizzesDTO> quizList = quizMapper.getQuizList();
         return quizList;
