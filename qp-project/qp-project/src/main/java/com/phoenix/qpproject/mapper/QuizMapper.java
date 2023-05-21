@@ -26,13 +26,15 @@ public interface QuizMapper {
 
     public void addOptions(QuestionOptionsDTO qo);
     public List<QuestionsDTO> getQsWhereQuizId(int quizId);
-    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO);
+//    public void addQuizHistory(QuizHistoryDTO quizHistoryDTO);
 
     public int getRecentQuizHistoryIdOfMember(int memberId);
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
 
     public void quizDelete(int quizID);
+
+    public void addQH(QuizHistoryDTO qh);
 
     public List<HistoryDTO> getHistoryOfUser(int qId, int userId);
 
