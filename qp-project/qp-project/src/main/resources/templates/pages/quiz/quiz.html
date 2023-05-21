@@ -2183,17 +2183,18 @@
         
         // append following button
         
-        
+        let quizId = document.querySelector("#quizId").innerHTML;
+        let retakeUrl = 'http://localhost:8080/quiz/take/'+quizId;
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="submitBtn"><a class='btn btn-outline-primary d-block w-100 mt-3' onclick="submit();"> <b id="btnText">제출하기</b> </a></div>`);
+        lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="retakeBtn" style="display:none" onclick="location.href = '${retakeUrl}'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
         lastElement.insertAdjacentHTML('beforeend', `<div class='mb-3' id="homeBtn" style="display:none" onclick="location.href = 'http://localhost:8080/quiz/home'"><a class='btn btn-outline-primary d-block w-100 mt-3';> <b>홈으로 이동</b> </a></div>`);
     
     // 퀴즈 시작시간
     let startTime = new Date($.now());
     
     function submit(){
-        // insert quizHistory first
-        
-        // memberId 와 quizId는 컨트롤러단에서 추가
+        if (confirm('퀴즈를 제출하시겠습니까?')) {
+          // memberId 와 quizId는 컨트롤러단에서 추가
         // 제출시간
         let endTime = new Date($.now());
         
@@ -2223,6 +2224,7 @@
         
         // 제출하기 버튼 => 나가기로.
         document.querySelector("#submitBtn").style.display = "none";
+        document.querySelector("#retakeBtn").style.display = "block";
         document.querySelector("#homeBtn").style.display = "block";
         
         
@@ -2232,7 +2234,7 @@
             data : JSON.stringify(userResponse),
             contentType: "application/json; charset=UTF-8",
             success : function(results) {
-                alert("퀴즈를 제출하였습니다.");
+<!--                alert("퀴즈를 제출하였습니다.");-->
                 //location.replace("http://localhost:8080/quiz/home")
                 // 화면의 모든 input field readonly 로 바꾸면서 정답 여부 체크
                 let inputs = document.querySelectorAll('.qrs');
@@ -2255,6 +2257,13 @@
                 $("#durationOrScore").html("점수: "+userScore+" 점");
             }
         })
+          
+        } else {
+          // Do nothing!
+          return false;
+        }
+        
+        
         
     }
     </script>
