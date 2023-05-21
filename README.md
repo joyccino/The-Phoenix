@@ -49,7 +49,7 @@ This project showcases a CMS web application developed using MySQL, Spring Boot,
 - List of Created Surveys with Brief Reports
 
 ## Installation
-1. Clone the repository: `git clone [repository_url](https://github.com/joyccino/The-Phoenix.git)](https://github.com/joyccino/The-Phoenix.git)`
+1. Clone the repository: `git clone https://github.com/joyccino/The-Phoenix.git`
 2. Set up MySQL database and configure the connection in the application.properties file.
 3. Build and run the Spring Boot application.
 
