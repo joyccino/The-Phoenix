@@ -1,13 +1,16 @@
 # CMS Web Application - Qeasy Peasy
 
-This project is a CMS (Content Management System) web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap.
+- This project is a CMS (Content Management System) web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap.
+- 이 프로젝트는 MySQL, Spring Boot, MyBatis 및 Bootstrap을 사용하여 개발된 CMS (콘텐츠 관리 시스템) 웹 애플리케이션입니다.
 
-## Overview
-This project showcases a CMS web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap. The application allows users to manage quizzes, surveys, and their personal information. It includes features such as user registration, login/logout, password recovery with email notification, quiz creation and participation, survey creation and management, user profile management, administration dashboard, and more.
+## Overview / 개요
+- This project showcases a CMS web application developed using MySQL, Spring Boot, MyBatis, and Bootstrap. The application allows users to manage quizzes, and their personal information. It includes features such as user registration, login/logout, password recovery with email notification, quiz creation and participation, user profile management, administration dashboard, and more.
+- 이 프로젝트는 MySQL, Spring Boot, MyBatis 및 Bootstrap을 사용하여 개발된 CMS 웹 애플리케이션을 보여줍니다. 이 애플리케이션은 사용자가 퀴즈, 개인 정보를 관리할 수 있는 기능을 제공합니다. 사용자 등록, 로그인/로그아웃, 이메일 알림을 통한 비밀번호 복구, 퀴즈 생성 및 참여, 사용자 프로필 관리, 관리자 대시보드 등의 기능이 포함되어 있습니다.
 
-## Project Environment
+## Project Environment / 프로젝트 환경
 
-The CMS Web Application is developed using the following technologies and tools:
+- The CMS Web Application is developed using the following technologies and tools:
+- CMS 웹 애플리케이션은 다음과 같은 기술과 도구를 사용하여 개발되었습니다:
 
 - **Backend:**
   - Java JDK version: 17.0.6
@@ -22,7 +25,8 @@ The CMS Web Application is developed using the following technologies and tools:
   - Integrated Development Environment (IDE) - [Specify your preferred IDE]
   - Git and GitHub for version control
 
-Special thanks to Shajeeb for the wonderful work on the [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/), which greatly contributed to the frontend development of this project.
+We extend our special thanks to Shajeeb, the original author and creator of [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/).
+큐피 프로젝트에서 사용된 Falcon - Admin Dashboard & WebApp Template의 원 저작자인 Shajeeb에게 특별한 감사를 드립니다. 
 
 ## Features
 
@@ -60,7 +64,7 @@ Special thanks to Shajeeb for the wonderful work on the [Falcon – Admin Dashbo
 - ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
 
 
-## Installation
+## Installation / 설치 
 1. Clone the repository: `git clone https://github.com/joyccino/The-Phoenix.git`
 2. Set up MySQL database and configure the connection in the application.properties file.
 3. Build and run the Spring Boot application.
