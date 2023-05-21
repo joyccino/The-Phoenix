@@ -268,6 +268,19 @@ public class QuizController {
         }
     }
 
+    @RequestMapping(value = "remove/{quizzesId}", method = RequestMethod.GET)
+    public String quizDelete(@PathVariable("quizzesId") int quizzesId, Model model){
+        System.out.println("넘겨온 quizID:"+quizzesId);
+
+        // 선택한 퀴즈 삭제
+        quizService.quizDelete(quizzesId);
+        
+        System.out.println("삭제 완료");
+
+        // 응시할 questions 로딩해오기
+        return "redirect:/quiz/home";
+    }
+
     @PostMapping(value="submit")
     @ResponseBody
     public List<ResultsDTO> submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {

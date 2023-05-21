@@ -217,7 +217,7 @@
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
         LEFT JOIN members as m ON q.memberId = m.id
-        WHERE q.title IS NOT NULL
+        WHERE q.title IS NOT NULL AND q.isDeleted = false
         ORDER BY homePostedDate DESC;
     </select>
 
@@ -257,8 +257,12 @@
         UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
     </update>
 
-    <update id="updateAverageScore" parameterType="java.lang.Integer">UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+    <update id="updateAverageScore" parameterType="java.lang.Integer">
+        UPDATE quizzes SET averageScore = #{averageScore} WHERE id = #{quizId};
+    </update>
 
+    <update id="quizDelete" parameterType="java.lang.Integer">
+        UPDATE quizzes SET isDeleted = true WHERE id = #{quizId};
     </update>
 
     <select id="getAverageScore" parameterType="java.lang.Integer" resultType="java.lang.Integer">

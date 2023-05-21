@@ -23,6 +23,10 @@ public class QuizService {
         return quizList;
     }
 
+    public void quizDelete(int quizID) {
+        quizMapper.quizDelete(quizID);
+    }
+
     public QuizDetailDTO getQuizDetail(int qid) {
         return quizMapper.getQuizDetail(qid);
     }

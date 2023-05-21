@@ -2147,7 +2147,7 @@
 <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-bookmark me-2"></span>저장</a></li>-->
 <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-heart me-2"></span><b>좋아요</b></a></li>-->
                                         <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-pencil-ruler"></span><b>&nbsp;&nbsp;&nbsp;수정하기</b></a></li>
-                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-eraser"></span><b>&nbsp;&nbsp;&nbsp;삭제하기</b></a></li>
+                                        <li class="nav-item me-2 me-lg-0" onclick="removeBtn();"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-eraser"></span><b>&nbsp;&nbsp;&nbsp;삭제하기</b></a></li>
 <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-exclamation-triangle me-2"></span>신고</a></li>-->
                                     </ul>
                                 </div>
@@ -2176,6 +2176,19 @@
 <script src="../../assets/js/theme.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
+    function removeBtn(){
+        if (confirm('이 작업은 취소할 수 없습니다. 정말 퀴즈를 삭제하시겠습니까?')) {
+          // Save it!
+          alert("퀴즈를 삭제하였습니다.");
+          let removeUrl = "http://localhost:8080/quiz/remove/" + document.querySelector("#quizzesId").innerHTML;
+          location.replace(removeUrl);
+          
+        } else {
+          // Do nothing!
+          return false;
+        }
+        
+    }
         const allCheck = document.querySelector('#allCheck');
         const checks = document.querySelectorAll('.checks');
         const actBtn = document.querySelector('#table-customers-replace-element > div > button:nth-child(1)');
@@ -2294,8 +2307,6 @@
                                 
                                 
                             }
-                            
-                            
                             
                         }
                     });
