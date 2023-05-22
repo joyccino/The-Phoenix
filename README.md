@@ -41,7 +41,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Taking Quizzes ✔️ <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
 - Quiz Home Page ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/8184a695-7624-47e3-a9b9-8507a2a1502f)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/36f5a8d0-785c-43f4-8afe-4d60d6534403)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
 
