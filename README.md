@@ -47,11 +47,11 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ### MyPage
 
 - Update Basic Information ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6d9de11b-8f77-4421-b2e7-fe4178c16daf)
+
 - Update Password ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/649182aa-277d-47aa-a941-5da859474388)
+
 - Account Deletion ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf779192-4227-4202-abb2-8db234198868)
+
 
 ### Admin
 
