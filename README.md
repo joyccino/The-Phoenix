@@ -40,10 +40,9 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Quiz Creation with Optional Type Testing
 - Taking Quizzes ✔️ <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
-
-- Quiz Home Page ✔️
-getQuizListForHome
-- Quiz Details
+- Quiz Home Page ✔️ <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/33cda312-a3fa-42c8-bac1-cdaec07a1fd1)
+- Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
 
 
