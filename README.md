@@ -36,15 +36,13 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/555c2e09-b30f-4bde-891f-efba3dcb7126)
 
 ### Quiz
-
-- Quiz Creating Tool
-- Taking Quizzes ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/043d673f-1a75-4545-b68a-0eb9dddf56ed)
 - Quiz Home Page ✔️ <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/36f5a8d0-785c-43f4-8afe-4d60d6534403)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
-
+- Quiz Creating Tool
+- Taking Quizzes ✔️ <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/043d673f-1a75-4545-b68a-0eb9dddf56ed)
 
 ### MyPage
 
