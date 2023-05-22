@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en-US" dir="ltr">
-
+<html data-bs-theme="light" dir="ltr"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -2233,12 +2235,11 @@
                                         <span>총 n문제</span>
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <select class="form-select" >
+                                        <select class="form-select"  onchange="location.href='quiz/quizList?s='+this.value;">
                                             <option disabled selected value="">정렬 선택</option>
-                                            <option value="">최신순</option>
-                                            <option value="" >정답률순</option>
-                                            <option value="">응시자순</option>
-                                            <option value="">북마크순</option>
+                                            <option value="n" th:selected="${s == 'n'}" th:attr="selected=${s == 'n'} ? 'selected' : null">최신순</option>
+                                            <option value="a" th:selected="${s == 'a'}" th:attr="selected=${s == 'a'} ? 'selected' : null">정답률순</option>
+                                            <option value="e" th:selected="${s == 'e'}" th:attr="selected=${s == 'e'} ? 'selected' : null">응시자순</option>
                                         </select>
                                     </div>
                                 </div>
@@ -2276,30 +2277,36 @@
                                     </thead>
 
                                     <tbody class="list" id="table-purchase-body">
-                                        <tr class="btn-reveal-trigger">
+                                    <!--
+                                    <span class="badge badge rounded-pill badge-subtle-warning">
+                                    <span class="badge badge rounded-pill badge-subtle-success">
+                                    -->
+                                        <tr class="btn-reveal-trigger" th:if="${not #lists.isEmpty(quizList)}" th:each="l, iter : ${quizList}">
                                             <td class="align-middle" style="width: 28px;">
                                                 <span class="material-symbols-outlined"> radio_button_unchecked</span>
                                             </td>
-                                            <th class="align-middle white-space-nowrap name text-center"><a href="../app/e-commerce/customer-details.html">김승현</a></th>
-                                            <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">선형대수학 활용 12제</a></td>
-                                            <td class="align-middle white-space-nowrap product text-center">12</td>
 
-                                            <td class="align-middle text-end amount text-center">621명</td>
-                                            <td class="align-middle text-center fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                                            <td class="align-middle white-space-nowrap name" th:text="${l.homeCreatorId}">출제자</td>
+                                            <td class="align-middle white-space-nowrap email" ><a th:href="@{/quiz/take/{qid}(qid=${l.homeQuizId})}" th:text="${l.homeQuizTitle}">선형대수학 활용 12제</a></td>
+                                            <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}">12</td>
+                                            <td class="align-middle white-space-nowrap amount"><span th:text="${l.homeTotalExaminee}">621</span>명</td>
+                                            <td class="align-middle fs-0 white-space-nowrap payment">
+                                                <span th:if="${l.homeAverageScore lt 60}" class="badge badge rounded-pill badge-subtle-warning" th:text="${l.homeAverageScore + '%'}">퍼센트</span>
+                                                <span th:unless="${l.homeAverageScore lt 60}" class="badge badge rounded-pill badge-subtle-success" th:text="${l.homeAverageScore + '%'}">퍼센트<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                                             </td>
-                                        </tr>
-                                        <tr class="btn-reveal-trigger">
-                                            <td class="align-middle" style="width: 28px;">
-                                                <span class="material-symbols-outlined">check_circle</span>
-                                            </td>
-                                            <th class="align-middle white-space-nowrap name text-center"><a href="../app/e-commerce/customer-details.html">이현승</a></th>
-                                            <td class="align-middle white-space-nowrap email"><a href="../app/e-commerce/customer-details.html">통계 기본 12제</a></td>
-                                            <td class="align-middle white-space-nowrap product text-center">50</td>
 
-                                            <td class="align-middle text-end amount text-center">140명</td>
-                                            <td class="align-middle text-center fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">21%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                                            </td>
+
+
+
+
+
+
                                         </tr>
+
+
+
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -2390,6 +2397,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </main>
 <!-- ===============================================-->
 <!--    End of Main Content-->
@@ -2561,8 +2569,11 @@
 
 
 
-<!-- ===============================================-->
+<!-- =============
+<script src="../vendors/list.js/list.min.js"></script>
+==================================-->
 <!--    JavaScripts-->
+
 <!-- ===============================================-->
 <script src="../vendors/popper/popper.min.js"></script>
 <script src="../vendors/bootstrap/bootstrap.min.js"></script>
@@ -2575,7 +2586,7 @@
 <script src="../vendors/fontawesome/all.min.js"></script>
 <script src="../vendors/lodash/lodash.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-<script src="../vendors/list.js/list.min.js"></script>
+<script src="../../../vendors/list.js/list.min.js"></script>
 <script src="../assets/js/theme.js"></script>
 
 </body>

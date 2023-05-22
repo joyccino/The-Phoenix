@@ -93,21 +93,43 @@ public class QuizController {
         //model.addAttribute("detailSubjectList", detailSubjectList);
         return detailSubjectList;
     }
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public String quizDetail(){
+        return "/pages/quiz/quizDetailsTest";
+    }
 
 
+
+//유진
     @RequestMapping(value = "quizList", method = RequestMethod.GET)
-    public String quizList(HttpServletRequest request) {
+    public String quizList( Model model, HttpServletRequest request, @RequestParam(value = "s", required = false) String sortValue) {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("user");
         if(ObjectUtils.isEmpty(qpUser)) {
             System.out.println("not logged in");
             return "/pages/authentication/card/login";
         }
-        else {
-            System.out.println("퀴즈리스트 호출");
-            return "/pages/quiz/quiz_list";
-        }
+        System.out.println("sortValue");
+        //select 값으로 변수 저장
+        String orderBy = "quizCreateDateTime DESC";
+        // n-new최신순  a-averageScore 평균정답률순   e-totalExaminee 응시자순
+        if ("n".equals(sortValue)) orderBy = "quizCreateDateTime DESC";
+        if ("a".equals(sortValue)) orderBy = "averageScore DESC";
+        if ("e".equals(sortValue)) orderBy = "totalExaminee DESC";
+
+        
+        System.out.println("퀴즈리스트 호출");
+        List<HomeDTO> quizList = quizService.getMainQuizList(orderBy);
+
+        System.out.println("퀴즈 목록을 요청합니다: "+quizList.toString());
+        model.addAttribute("title", "퀴즈목록조회");
+        model.addAttribute("quizList", quizList);
+
+
+        return "/pages/quiz/quiz_list";
+
     }
+
 
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String quizDashboard(Model model, HttpServletRequest request) {
@@ -198,6 +220,51 @@ public class QuizController {
         return qlist;
     }
 
+    @PostMapping("/loadDetail")
+    @ResponseBody
+    public QuizDetailDTO loadDetail(int qId, HttpServletRequest request) {
+        System.out.println("넘겨받은 퀴즈 아이디: "+qId);
+        // 응시할 퀴즈 로딩해오기
+        QuizDetailDTO quizDetail = quizService.getQuizDetail(qId);
+
+        // 수정 자격 있는지?
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+        MembersDTO user = (MembersDTO)qpUser;
+        String userId = user.getMemberId();
+        System.out.println("퀴즈디테일1:" + quizDetail);
+
+        System.out.println("로그인한 사용자:"+userId+"게시자:"+quizDetail.getCreatorId());
+
+        if (userId.equals(quizDetail.getCreatorId()) || user.getMemberMemberTypeId() == 0) {
+            System.out.println("일치!");
+            quizDetail.setCanEdit(true);
+        }
+        else {
+            quizDetail.setCanEdit(false);
+        }
+
+        System.out.println("퀴즈디테일2:" + quizDetail);
+
+        return quizDetail;
+    }
+
+    @PostMapping("/loadHistory")
+    @ResponseBody
+    public List<HistoryDTO> loadHistory(int qId, HttpServletRequest request) {
+        System.out.println("넘겨받은 퀴즈 아이디: "+qId);
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+        MembersDTO user = (MembersDTO)qpUser;
+        int userId = user.getId();
+        // 응시할 퀴즈 로딩해오기
+        List<HistoryDTO> quizHistory = quizService.getHistoryOfUser(qId, userId);
+
+        System.out.println("퀴즈히스토리:" + quizHistory);
+
+        return quizHistory;
+    }
+
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String quizList2(HttpServletRequest request,  Model model) {
         HttpSession session = request.getSession();
@@ -217,6 +284,19 @@ public class QuizController {
         }
     }
 
+    @RequestMapping(value = "remove/{quizzesId}", method = RequestMethod.GET)
+    public String quizDelete(@PathVariable("quizzesId") int quizzesId, Model model){
+        System.out.println("넘겨온 quizID:"+quizzesId);
+
+        // 선택한 퀴즈 삭제
+        quizService.quizDelete(quizzesId);
+        
+        System.out.println("삭제 완료");
+
+        // 응시할 questions 로딩해오기
+        return "redirect:/quiz/home";
+    }
+
     @PostMapping(value="submit")
     @ResponseBody
     public List<ResultsDTO> submitQuiz(@RequestBody UserResponseDTO userResponse, HttpServletRequest request) {
@@ -231,8 +311,10 @@ public class QuizController {
         quizHistory.setQuizHistoryQuizId(userResponse.getQuizId());
         quizHistory.setQuizHistoryStartDateTime(userResponse.getStartTime());
         quizHistory.setQuizHistoryEndDateTime(userResponse.getEndTime());
-        //quizHistory.setQuizHistoryGrade(); 일단 생략. 임시로 디폴트 값 0 넣고 있음.
-        quizService.addQuizHistory(quizHistory);
+        quizHistory.setQuizHistoryGrade(userResponse.getAchievement());
+
+        System.out.println("qh grade: "+quizHistory.getQuizHistoryGrade());
+        quizService.addQH(quizHistory);
 
         //recently inserted quizHistoryId;
         int quizHistoryId = quizService.getRecentQuizHistoryIdOfMember(member.getId());
@@ -251,8 +333,6 @@ public class QuizController {
         // total examinee update
         quizService.updateTotalExaminee(userResponse.getQuizId());
 
-        // get score
-
         // get original answers
         List<ResultsDTO> results = quizService.getQuestionOptionsByQuizId(userResponse.getQuizId());
 
@@ -269,11 +349,12 @@ public class QuizController {
             }
         }
 
-        int score = corrects/results.size()*100;
+        int rLen = results.size();
+        int result = 100 * corrects / rLen;
 
-        // update score on quizHistory table.
-        quizService.updateUserScore(score, quizHistoryId);
+        System.out.println("corrects:"+corrects+" rLen:"+rLen+" result:"+result);
 
+        quizService.updateUserScore(result, quizHistoryId);
 
         // average score update
         int quizAvg = quizService.getAverageScore(userResponse.getQuizId());

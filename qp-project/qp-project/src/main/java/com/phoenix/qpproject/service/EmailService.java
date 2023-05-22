@@ -5,6 +5,7 @@ import com.phoenix.qpproject.mail.EmailUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -18,13 +19,24 @@ import java.util.Properties;
 public class EmailService {
     private JavaMailSender emailSender;
 
-    public void sendPassResetEmail(MailDTO mailDto) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("info.thephoenixclub@gmail.com");
-        message.setTo(mailDto.getAddress());
-        message.setSubject(mailDto.getTitle());
-        message.setText(mailDto.getContent());
-        emailSender.send(message);
+    public void sendPassResetEmail(MailDTO mailDto) throws jakarta.mail.MessagingException {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("info.thephoenixclub@gmail.com");
+//        message.setTo(mailDto.getAddress());
+//        message.setSubject(mailDto.getTitle());
+//        message.setText(mailDto.getContent());
+//        emailSender.send(message);
+        System.out.println("sentPassResetEmail 시작");
+        jakarta.mail.internet.MimeMessage mimeMessage = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+        String htmlMsg = "<h3>Hello World!<h3>";
+        helper.setText(htmlMsg, true);
+        helper.setFrom("info.thephoenixclub@gmail.com");
+        helper.setTo(mailDto.getAddress());
+        helper.setSubject(mailDto.getTitle());
+        emailSender.send(mimeMessage);
+        System.out.println("sentPassResetEmail done");
+
     }
 
     public void sendPassResetEmailHtml(MailDTO mailDto){

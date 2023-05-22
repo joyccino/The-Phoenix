@@ -6,6 +6,7 @@ import com.phoenix.qpproject.dto.UniversitiesDTO;
 import com.phoenix.qpproject.service.EmailService;
 import com.phoenix.qpproject.service.MemberService;
 import com.phoenix.qpproject.service.UniversitiesService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -81,7 +82,7 @@ public class AuthController {
     }
 
     @PostMapping("/addMember")
-    public String addMember(MembersDTO member) {
+    public String addMember(MembersDTO member) throws MessagingException {
         String rawPassword = member.getMemberPw();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         member.setMemberPw(encPassword);
@@ -235,7 +236,9 @@ public class AuthController {
             System.out.println(mId+" 로그인 history inserted");
 
             if(membersInfo.getMemberMemberTypeId() == 0) {
-                return "redirect:/auth/analytics";
+//                return "redirect:/auth/analytics";
+                return "redirect:/auth/memberList";
+
             }
             else {
                 return "redirect:/quiz/home";
@@ -314,7 +317,7 @@ public class AuthController {
     }
     @PostMapping("/passReset")
 //    @GetMapping("/passReset")
-    public String sendPasswordResetEmail(MailDTO mailDTO) {
+    public String sendPasswordResetEmail(MailDTO mailDTO) throws MessagingException {
         char[] possibleCharacters = (new String("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")).toCharArray();
         //String newPass = RandomStringUtils.random( randomStrLength, 0, possibleCharacters.length-1, false, false, possibleCharacters, new SecureRandom() );
         String newPass = RandomStringUtils.random( 20, possibleCharacters );
@@ -335,14 +338,13 @@ public class AuthController {
 
     }
     @PostMapping("/memberUpdate")
-    public String memberInfoModify(MembersDTO member, HttpServletRequest request){
+    public String memberInfoModify(MembersDTO member, HttpServletRequest request) throws MessagingException {
         HttpSession session = request.getSession();
         Object qpUser = session.getAttribute("user");
 
         MembersDTO originalMemberInfo = (MembersDTO) qpUser;
 
         member.setId(originalMemberInfo.getId());
-
 
         memberService.memberInfoUpdate(member);
         System.out.println("멤버 정보 update done");
@@ -358,13 +360,15 @@ public class AuthController {
         session.setMaxInactiveInterval(-1);
 
         // 인증 이메일 전송하기
-        MailDTO mailDTO = new MailDTO();
-        mailDTO.setTitle("[큐피] 이메일 인증");
-        mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
-        mailDTO.setAddress(member.getMemberEmail());
-        emailService.sendPassResetEmail(mailDTO);
-        System.out.println("register 메일 전송 완료");
-
+        Boolean isEmailChanged = Boolean.parseBoolean(member.getMemberEmailIsChanged());
+        if(isEmailChanged){
+            MailDTO mailDTO = new MailDTO();
+            mailDTO.setTitle("[큐피] 이메일 인증");
+            mailDTO.setContent("다음의 URL 에서 이메일 인증을 완료해주세요! "+"http://localhost:8080/auth/user/verify/"+member.getMemberUUId());
+            mailDTO.setAddress(member.getMemberEmail());
+            emailService.sendPassResetEmail(mailDTO);
+            System.out.println("register 메일 전송 완료");
+        }
         return "redirect:/mypage/edit";
     }
     @PostMapping("/passUpdate")
