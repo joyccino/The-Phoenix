@@ -80,7 +80,7 @@ public class QuizController {
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
         model.addAttribute("generalSubjectList", generalSubjectList);
-        return "/pages/quiz/quiz_setting";
+        return "/pages/quiz/create";
     }
 
 
