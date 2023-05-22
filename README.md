@@ -57,7 +57,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 
 - Dashboard
 - Member Management ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
 
 
 ## Installation / 설치 ⚙️
