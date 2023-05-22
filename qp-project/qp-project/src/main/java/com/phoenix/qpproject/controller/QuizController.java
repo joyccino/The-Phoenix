@@ -311,8 +311,10 @@ public class QuizController {
         quizHistory.setQuizHistoryQuizId(userResponse.getQuizId());
         quizHistory.setQuizHistoryStartDateTime(userResponse.getStartTime());
         quizHistory.setQuizHistoryEndDateTime(userResponse.getEndTime());
-        //quizHistory.setQuizHistoryGrade(); 일단 생략. 임시로 디폴트 값 0 넣고 있음.
-        quizService.addQuizHistory(quizHistory);
+        quizHistory.setQuizHistoryGrade(userResponse.getAchievement());
+
+        System.out.println("qh grade: "+quizHistory.getQuizHistoryGrade());
+        quizService.addQH(quizHistory);
 
         //recently inserted quizHistoryId;
         int quizHistoryId = quizService.getRecentQuizHistoryIdOfMember(member.getId());
@@ -331,8 +333,6 @@ public class QuizController {
         // total examinee update
         quizService.updateTotalExaminee(userResponse.getQuizId());
 
-        // get score
-
         // get original answers
         List<ResultsDTO> results = quizService.getQuestionOptionsByQuizId(userResponse.getQuizId());
 
@@ -349,11 +349,12 @@ public class QuizController {
             }
         }
 
-        int score = corrects/results.size()*100;
+        int rLen = results.size();
+        int result = 100 * corrects / rLen;
 
-        // update score on quizHistory table.
-        quizService.updateUserScore(score, quizHistoryId);
+        System.out.println("corrects:"+corrects+" rLen:"+rLen+" result:"+result);
 
+        quizService.updateUserScore(result, quizHistoryId);
 
         // average score update
         int quizAvg = quizService.getAverageScore(userResponse.getQuizId());

@@ -23,9 +23,8 @@
   - GitHub for version control
 
 We extend our special thanks to Shajeeb, the original author and creator of [Falcon – Admin Dashboard & WebApp Bootstrap Template](https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/). 🙌 <br>
-큐피 프로젝트에서 사용된 Falcon - Admin Dashboard & WebApp Template의 원 저작자인 Shajeeb에게 특별한 감사를 드립니다. 🙌
 
-## Features ✨
+## Features / 기능들 ✨
 
 ### Authorization
 
@@ -39,13 +38,16 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ### Quiz
 
 - Quiz Creation with Optional Type Testing
-- Quiz Participation ✔️
-- Quiz Home Page ✔️
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/726136bc-95a0-4f10-ab7f-20ff6f37661d)
-- Quiz Details
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/719a26bd-1844-4819-852a-f05575f1a09c)
+- Taking Quizzes ✔️ <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
 
-### My Page
+- Quiz Home Page ✔️
+getQuizListForHome
+- Quiz Details
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
+
+
+### MyPage
 
 - Update Basic Information ✔️
 - ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6d9de11b-8f77-4421-b2e7-fe4178c16daf)

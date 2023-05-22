@@ -117,7 +117,7 @@
         )VALUES (
         #{quizzesMemberId}
         , #{quizzesTitle}
-        , 10
+        , 192
         , NOW()
         , #{quizzesShuffleQuestions}
         , #{quizzesShuffleOptions}
@@ -163,19 +163,35 @@
         from questions as qs where quizId = #{quizId};
     </select>
 
-    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
+<!--    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">-->
+<!--        INSERT INTO quizHistory-->
+<!--        (memberId,-->
+<!--        quizId,-->
+<!--        grade,-->
+<!--        startDateTime,-->
+<!--        endDateTime-->
+<!--        )VALUES (-->
+<!--        #{quizHistoryMemberId},-->
+<!--        #{quizHistoryQuizId},-->
+<!--        99,-->
+<!--        #{quizHistoryStartDateTime},-->
+<!--        #{quizHistoryEndDateTime}-->
+<!--        );-->
+<!--    </insert>-->
+
+    <insert id="addQH" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">
         INSERT INTO quizHistory
-        (	  memberId,
+        (memberId,
         quizId,
+        grade,
         startDateTime,
-        endDateTime,
-        grade
+        endDateTime
         )VALUES (
         #{quizHistoryMemberId},
         #{quizHistoryQuizId},
+        #{quizHistoryGrade},
         #{quizHistoryStartDateTime},
-        #{quizHistoryEndDateTime},
-        0
+        #{quizHistoryEndDateTime}
         );
     </insert>
 
@@ -217,7 +233,7 @@
         FROM quizzes as q
         RIGHT JOIN subjects as s ON q.subjectId = s.id
         LEFT JOIN members as m ON q.memberId = m.id
-        WHERE q.title IS NOT NULL AND q.isDeleted = false
+        WHERE q.title IS NOT NULL AND q.isDeleted = false AND q.totalQuestions > 0
         ORDER BY homePostedDate DESC;
     </select>
 
@@ -255,7 +271,7 @@
     </select>
 
     <update id="updateUserScore" parameterType="java.lang.Integer">
-        UPDATE quizHistory SET grade = #{grade}  WHERE id = #{quizHistoryId};
+        UPDATE quizHistory SET grade = #{grade} WHERE id = #{quizHistoryId};
     </update>
 
     <update id="updateAverageScore" parameterType="java.lang.Integer">
