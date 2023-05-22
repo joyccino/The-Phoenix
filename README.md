@@ -37,9 +37,9 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 
 ### Quiz
 
-- Quiz Creation with Optional Type Testing
+- Quiz Creating Tool
 - Taking Quizzes ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/043d673f-1a75-4545-b68a-0eb9dddf56ed)
 - Quiz Home Page ✔️ <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/36f5a8d0-785c-43f4-8afe-4d60d6534403)
 - Quiz Details <br>
