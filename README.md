@@ -36,30 +36,28 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/555c2e09-b30f-4bde-891f-efba3dcb7126)
 
 ### Quiz
-
-- Quiz Creation with Optional Type Testing
-- Taking Quizzes ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
 - Quiz Home Page ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/33cda312-a3fa-42c8-bac1-cdaec07a1fd1)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/36f5a8d0-785c-43f4-8afe-4d60d6534403)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
-
+- Quiz Creating Tool
+- Taking Quizzes ✔️ <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/043d673f-1a75-4545-b68a-0eb9dddf56ed)
 
 ### MyPage
 
 - Update Basic Information ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6d9de11b-8f77-4421-b2e7-fe4178c16daf)
+
 - Update Password ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/649182aa-277d-47aa-a941-5da859474388)
+
 - Account Deletion ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf779192-4227-4202-abb2-8db234198868)
+
 
 ### Admin
 
 - Dashboard
 - Member Management ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
 
 
 ## Installation / 설치 ⚙️
