@@ -244,7 +244,7 @@
                                     <div class="row g-0 g-md-3 justify-content-end">
                                         <div class="col-auto">
                                             <form class="row gx-2">
-                                                <div class="col-auto d-none d-lg-block"><small class="fw-semi-bold">Sort by:</small></div>
+                                                <div class="col-auto d-none d-lg-block"><small class="fw-semi-bold">정렬:</small></div>
                                                 <div class="col-auto">
                                                     <select class="form-select form-select-sm" aria-label="Bulk actions">
                                                         <option value="rating" selected>등록일자 순</option>
@@ -778,6 +778,14 @@
         
         
     </script>
+    <style>
+        .rounded-circle {
+          transition: transform .7s ease-in-out; /* I moved this */
+        }
+        .rounded-circle:hover {
+          transform: translate(0) rotate(360deg); /* I changed this */
+        }
+    </style>
 </body>
 
 </html>

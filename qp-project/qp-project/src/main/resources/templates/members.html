@@ -315,6 +315,14 @@
             actBtn.innerHTML = '<b>'+e.innerHTML+'</b>';
         }
     </script>
+    <style>
+        .rounded-circle {
+          transition: transform .7s ease-in-out; /* I moved this */
+        }
+        .rounded-circle:hover {
+          transform: translate(0) rotate(360deg); /* I changed this */
+        }
+    </style>
 
   </body>
 
