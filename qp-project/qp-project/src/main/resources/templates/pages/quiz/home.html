@@ -266,7 +266,7 @@
                         <div class="card-header">
                             <div class="row flex-between-center">
                                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                                    <h3 class="mb-0 text-nowrap py-2 py-xl-0"><b>퀴즈 홈</b></h3>
+                                    <h3 class="mb-0 text-nowrap py-2 py-xl-0" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"><b>퀴즈 홈</b></h3>
                                 </div>
                                 <div class="col-8 col-sm-auto text-end ps-2">
                                     
@@ -283,14 +283,14 @@
                                     <tr>
                                         <th class="sort pe-1 align-middle white-space-nowrap" style="display: none;" >퀴즈ID</th>
                                         <!--                                <th class="sort pe-1 align-middle white-space-nowrap" >응시여부</th>-->
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >순서</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >과목명</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >문제 제목</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >문제 수</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >누적 응시수</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >평균 점수</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >출제자</th>
-                                        <th class="sort pe-1 align-middle white-space-nowrap" >등록날짜</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >순서</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >과목명</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >문제 제목</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >문제 수</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >누적 응시수</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >평균 점수</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >출제자</th>
+                                        <th class="sort pe-1 align-middle white-space-nowrap" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;" >등록날짜</th>
                                     
                                     </tr>
                                     </thead>
@@ -304,18 +304,18 @@
                                         <td class="align-middle white-space-nowrap name qidColumn" style="display: none;" th:text="${l.homeQuizId}">0</td>
                                         <!--                                <td class="align-middle white-space-nowrap name" th:text="${l.homeIsTaken}" >-1</td>-->
                                         <!--                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>-->
-                                        <td class="align-middle white-space-nowrap name" th:text="${iter.index + 1}">순서</td>
-                                        <td class="align-middle white-space-nowrap name" th:text="${l.homeDetailSubject}">과목명</td>
-                                        <td class="align-middle white-space-nowrap email"><h6 th:text="${l.homeQuizTitle}" ></h6></td>
+                                        <td class="align-middle white-space-nowrap name" th:text="${iter.index + 1}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">순서</td>
+                                        <td class="align-middle white-space-nowrap name" th:text="${l.homeDetailSubject}"  style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">과목명</td>
+                                        <td class="align-middle white-space-nowrap email"><h6 th:text="${l.homeQuizTitle}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"></h6></td>
                                         <!--                                <td class="align-middle white-space-nowrap email" ><a th:href="#" th:text="${l.homeQuizTitle}" >선형대수학 활용 12제</a></td>-->
-                                        <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}">12</td>
+                                        <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">12</td>
                                         
-                                        <td class="align-middle white-space-nowrap amount"><span th:text="${l.homeTotalExaminee}">621</span>명</td>
+                                        <td class="align-middle white-space-nowrap amount"><span th:text="${l.homeTotalExaminee}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">621</span>명</td>
                                         <td class="align-middle fs-0 white-space-nowrap payment">
-                                            <span class="badge badge rounded-pill badge-subtle-success" th:text="${l.homeAverageScore} + '%'">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                                            <span class="badge badge rounded-pill badge-subtle-success" th:text="${l.homeAverageScore} + '%'" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">91%<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                                         </td>
-                                        <td class="align-middle white-space-nowrap name"><h6 th:text="${l.homeCreatorId}" style="font-weight: normal;"></h6></td>
-                                        <td class="align-middle white-space-nowrap amount" th:text="${#dates.format(l.homePostedDate, 'yyyy년 MM월 dd일 HH시 mm분 ss초')}">등록날짜</td>
+                                        <td class="align-middle white-space-nowrap name"><h6 th:text="${l.homeCreatorId}" style="font-weight: normal; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"></h6></td>
+                                        <td class="align-middle white-space-nowrap amount" th:text="${#dates.format(l.homePostedDate, 'yyyy년 MM월 dd일 HH시 mm분 ss초')}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">등록날짜</td>
                                     
                                     </tr>
                                     
