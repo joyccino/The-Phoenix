@@ -66,6 +66,9 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 2. Set up MySQL database and configure the connection in the application.properties file.
 3. Build and run the Spring Boot application.
 
+## Following is the ERD of qp project
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c59bc246-2b23-4891-8fed-7444ca7f42fe)
+
 For detailed instructions and additional configuration options, please refer to the documentation in the repository.
 
 ## Contributing 👥
