@@ -38,7 +38,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 
 ### Quiz
 - Quiz Home Page ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/75e4a4d9-1d78-40e9-8cdd-182c2566aa22)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/75640549-7646-4da9-ab08-c5d5b3941d4e)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
 - Quiz Creating Tool
