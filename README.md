@@ -78,7 +78,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 
 7. VisitHistory: This table tracks the visit history of members on the QP project. It may include fields like visit ID, member ID (foreign key referencing the Members table), timestamp, and any additional details related to visits.
 
-8. Universities: This table stores information about universities related to the QP project. It may include fields like university ID, university name, location, and other relevant details.
+8. Universities: Universities: This table stores information about universities related to the QP project. It may include fields like university ID, university name, website domain and other relevant details. In the QP project, university differentiation is done based on the domain address of the email during the registration process.
 
 - Make sure to create these tables in your database, following the appropriate schema and relationships based on the ER diagram.
 
