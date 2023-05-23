@@ -38,12 +38,14 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 
 ### Quiz
 - Quiz Home Page ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/36f5a8d0-785c-43f4-8afe-4d60d6534403)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/75640549-7646-4da9-ab08-c5d5b3941d4e)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
 - Quiz Creating Tool
 - Taking Quizzes ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/043d673f-1a75-4545-b68a-0eb9dddf56ed)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/200b5528-20ca-4ac3-8d3e-dcef5ac72a7d) <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/dd41c81f-fe1a-45aa-aaa3-614cdac888a9) <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6bcaeb82-067d-404f-8fe6-7fbdc93ddad3)
 
 ### MyPage
 
@@ -59,6 +61,28 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Dashboard
 - Member Management ✔️
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
+
+## ER Diagram of qp project 📊
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c59bc246-2b23-4891-8fed-7444ca7f42fe)
+- To implement the QP project, you can refer to the ER diagram and create the necessary tables in advance.
+- Here is a list of the tables that you must create for the QP project:
+1. Members: This table stores information about the members or users of the QP project. It may include fields such as member ID, name, email, and other relevant details.
+
+2. Subjects: This table represents the subjects or categories of quizzes in the QP project. It may contain fields like subject ID, subject name, and any additional information related to subjects.
+
+3. Quizzes: This table holds information about the quizzes available in the QP project. It may include fields like quiz ID, quiz title, subject ID (foreign key referencing the Subjects table), and other relevant details.
+
+4. Questions: This table stores the questions associated with the quizzes. It may have fields like question ID, question text, quiz ID (foreign key referencing the Quizzes table), and any additional attributes related to questions.
+
+5. QuizHistory: This table tracks the history of quizzes attempted by members. It may include fields such as history ID, member ID (foreign key referencing the Members table), quiz ID (foreign key referencing the Quizzes table), and other relevant details like the score or completion status.
+
+6. QuestionOptions: This table represents the options or choices for multiple-choice questions. It may contain fields like option ID, question ID (foreign key referencing the Questions table), option text, and any additional attributes related to options.
+
+7. VisitHistory: This table tracks the visit history of members on the QP project. It may include fields like visit ID, member ID (foreign key referencing the Members table), timestamp, and any additional details related to visits.
+
+8. Universities: Universities: This table stores information about universities related to the QP project. It may include fields like university ID, university name, website domain and other relevant details. In the QP project, university differentiation is done based on the domain address of the email during the registration process.
+
+- Make sure to create these tables in your database, following the appropriate schema and relationships based on the ER diagram.
 
 
 ## Installation / 설치 ⚙️
