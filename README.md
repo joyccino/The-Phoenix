@@ -60,7 +60,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 - Member Management ✔️
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
 
-## Following is the ERD of qp project 📊
+## ER Diagram of qp project 📊
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c59bc246-2b23-4891-8fed-7444ca7f42fe)
 - To implement the QP project, you can refer to the ER diagram and create the necessary tables in advance.
 - Here is a list of the tables that you must create for the QP project:
