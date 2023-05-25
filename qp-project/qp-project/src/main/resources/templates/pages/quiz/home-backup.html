@@ -262,7 +262,7 @@
                     </div>
                     
                     
-                    <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":20,"pagination":true}'>
+                    <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":200,"pagination":true}'>
                         <div class="card-header">
                             <div class="row flex-between-center">
                                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
@@ -278,7 +278,7 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive scrollbar">
-                                <table id = "qTable" class="table table-hover fs--1 mb-0 overflow-hidden">
+                                <table id = "qTable" class="table table-hover fs--1 mb-0 overflow-hidden" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
                                     <thead class="bg-200 text-900">
                                     <tr>
                                         <th class="sort pe-1 align-middle white-space-nowrap" style="display: none;" >퀴즈ID</th>
@@ -306,7 +306,7 @@
                                         <!--                                                    <td class="align-middle white-space-nowrap name" th:text="${l.quizzesMemberId}">김승현</td>-->
                                         <td class="align-middle white-space-nowrap name" th:text="${iter.index + 1}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">순서</td>
                                         <td class="align-middle white-space-nowrap name" th:text="${l.homeDetailSubject}"  style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">과목명</td>
-                                        <td class="align-middle white-space-nowrap email"><h6 th:text="${l.homeQuizTitle}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"></h6></td>
+                                        <td class="align-middle white-space-nowrap email"><h6 th:text="${l.homeQuizTitle}" style="white-space: nowrap; overflow: hidden; width: 540px; text-overflow: ellipsis;  -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"></h6></td>
                                         <!--                                <td class="align-middle white-space-nowrap email" ><a th:href="#" th:text="${l.homeQuizTitle}" >선형대수학 활용 12제</a></td>-->
                                         <td class="align-middle white-space-nowrap product" th:text="${l.homeTotalQuestions}" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">12</td>
                                         
