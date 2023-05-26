@@ -149,11 +149,12 @@
               </div>
               
               <!-- 퀴즈설정 -->
-                <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post" th:if="${not #lists.isEmpty(questions)}" th:each="l: ${questions}">
+                <form autocomplete="off" th:action="@{/quiz/generateQuiz}" method="post" th:if="${not #lists.isEmpty(questions)}" th:each="l, iterStat: ${questions}">
                     <div class="card mb-3 pt-0 pt-md-3" >
                         <div class="card-header">
                             <h5 class="mb-0">
                                 <span class="qids" style = "display:none" th:text="${l.questionsId}">id</span>
+                                <span th:text="[+${iterStat.index}+]"  style="ont-weight: bold; white-space: pre-line;"></span>
                                 <span th:text="${l.questionsQuestion}"  style="ont-weight: bold; white-space: pre-line;"></span>
                             </h5>
                         </div>
