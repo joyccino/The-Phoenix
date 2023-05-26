@@ -109,8 +109,10 @@
 <!--              <div class="d-flex align-items-center"><img class="me-2" src="../../../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif">falcon</span>-->
 <!--              </div>-->
 <!--            </a>-->
-          
-            
+              
+              <div class="progress mb-3" style="height:15px; margin: auto; width: 70%;">
+                  <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 0%; overflow: hidden;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -153,9 +155,7 @@
                   <h3 th:text="${quiz.quizzesTitle}">퀴즈 제목 여기에</h3>
                   <p class="mb-0" id="durationOrScore">소요 시간: <span id="minutes">0</span> 분 <span id="seconds">00</span> 초</p>
                 </div>
-                  <div class="progress mb-3" style="height:15px; margin: auto; width: 85%;">
-                      <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 0%; overflow: hidden;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                
               </div>
               
               <!-- 퀴즈설정 -->
