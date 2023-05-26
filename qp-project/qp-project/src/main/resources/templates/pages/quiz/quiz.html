@@ -72,6 +72,7 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
+      
       <div class="container" data-layout="container">
         <script>
           var isFluid = JSON.parse(localStorage.getItem('isFluid'));
@@ -98,14 +99,17 @@
               </a>
           </div>
         </nav>
+        
         <div class="content">
+          
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
-
+          
 <!--            <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>-->
 <!--            <a class="navbar-brand me-1 me-sm-3" href="../../../index.html">-->
 <!--              <div class="d-flex align-items-center"><img class="me-2" src="../../../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif">falcon</span>-->
 <!--              </div>-->
 <!--            </a>-->
+          
             
             <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
                 <li class="nav-item dropdown">
@@ -134,9 +138,12 @@
                 </li>
             </ul>
           </nav>
+          
           <div class="row">
             <div class="col-xxl-10 col-xl-9">
-              <div class="card mb-3">
+              
+              <div class="card mb-3" style="position:relative; z-index:10">
+                
                 <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../../../assets/img/icons/spot-illustrations/corner-4.png);">
                 </div>
                 <!--/.bg-holder-->
@@ -146,6 +153,9 @@
                   <h3 th:text="${quiz.quizzesTitle}">퀴즈 제목 여기에</h3>
                   <p class="mb-0" id="durationOrScore">소요 시간: <span id="minutes">0</span> 분 <span id="seconds">00</span> 초</p>
                 </div>
+                  <div class="progress mb-3" style="height:15px; margin: auto; width: 85%;">
+                      <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 0%; overflow: hidden;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
               </div>
               
               <!-- 퀴즈설정 -->
@@ -161,7 +171,7 @@
                         <div class="card-body bg-light question-content">
                             <div class="row gx-2">
                                 <div class="col-12 mb-3">
-                                    <input  class="qrs form-control" name="quizzesTitle" type="text" required/>
+                                    <input  class="qrs form-control" name="quizzesTitle" type="text" required onchange ="progressChk();"/>
                                     <label class="answer form-label" id="birthdate-error-msg" style="color:red;"></label>
                                 </div>
                             </div>
@@ -381,6 +391,21 @@
         
         
     }
+    
+    // progress check logic
+    function progressChk(){
+            let answers = document.querySelectorAll(".qrs");
+            let total = answers.length;
+            let count = 0;
+            for(let i = 0; i < total; i ++){
+                if (answers[i].value != "") {
+                    count ++;
+                };
+            }
+            let answered_rate = Math.round(count / total * 100) + "%";
+            
+            document.querySelector(".progress-bar").style.width = answered_rate;
+        }
     </script>
     <style>
         .rounded-circle {
@@ -389,6 +414,7 @@
         .rounded-circle:hover {
           transform: translate(0) rotate(360deg); /* I changed this */
         }
+        
     </style>
 
 
