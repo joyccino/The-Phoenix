@@ -16,6 +16,8 @@ public interface QuizMapper {
 
     public int findQuizById(String findById);
 
+    public String getOptionByQuestionId(int questionId);
+
     public void addQuiz(QuizzesDTO quiz);
 
     public int getRecentQuizIdOfMember(int memberId);
@@ -30,9 +32,14 @@ public interface QuizMapper {
 
     public int getRecentQuizHistoryIdOfMember(int memberId);
 
-    public int questionDelete(int questionId);
+    public void questionDelete(int questionId);
+
+    public void questionOptionDelete(int questionId);
 
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
+
+    public void updateQuestion(QuestionsDTO question);
+    public void updateQuestionOption(QuestionOptionsDTO question);
 
     public void quizDelete(int quizID);
 

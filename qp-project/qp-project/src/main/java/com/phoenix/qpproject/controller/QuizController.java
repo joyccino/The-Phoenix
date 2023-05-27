@@ -212,6 +212,35 @@ public class QuizController {
             return "/pages/quiz/quizDetailsTest";
         }
     }
+
+//    getOptionByQuestionId
+    @PostMapping(value = "getOptionByQuestionId")
+    @ResponseBody
+    public String getOptionByQuestionId(int questionId, Model model, HttpServletRequest request) {
+        System.out.println("넘겨받은 questionId:"+questionId);
+        return quizService.getOptionByQuestionId(questionId);
+    }
+
+    @PostMapping(value = "updateQuestion")
+    @ResponseBody
+    public void updateQuestion(int questionId, String question, Model model, HttpServletRequest request) {
+        System.out.println("넘겨받은 questionId:"+questionId);
+        QuestionsDTO newQ = new QuestionsDTO();
+        newQ.setQuestionsId(questionId);
+        newQ.setQuestionsQuestion(question);
+        quizService.updateQuestion(newQ);
+    }
+
+    @PostMapping(value = "updateQuestionOption")
+    @ResponseBody
+    public void updateQuestionOption(int questionId, String qOption, Model model, HttpServletRequest request) {
+        System.out.println("넘겨받은 questionId:"+questionId);
+        QuestionOptionsDTO newQO = new QuestionOptionsDTO();
+
+        newQO.setQuestionOptionQuestionId(questionId);
+        newQO.setQuestionOptionOptionContent(qOption);
+        quizService.updateQuestionOption(newQO);
+    }
     @PostMapping(value = "addQuestion")
     @ResponseBody
     public List<QuestionsDTO> addQuestion(@ModelAttribute QODTO question_info, Model model, HttpServletRequest request) {
@@ -352,7 +381,7 @@ public class QuizController {
         System.out.println("삭제 완료");
 
         // 응시할 questions 로딩해오기
-        return "redirect:/quiz/home-backup";
+        return "pages/quiz/home-backup";
     }
     @RequestMapping(value = "questionDelete/{questionId}", method = RequestMethod.POST)
     public void questionDelete(@PathVariable("questionId") int questionId, Model model){
@@ -360,9 +389,14 @@ public class QuizController {
 
         // 선택한 퀴즈 삭제
         quizService.questionDelete(questionId);
+        
+        // 퀴즈의 옵션 삭제
+        quizService.questionOptionDelete(questionId);
 
         System.out.println("삭제 완료");
     };
+
+
 
 
     @PostMapping(value="submit")

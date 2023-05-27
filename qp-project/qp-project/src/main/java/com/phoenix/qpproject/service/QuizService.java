@@ -110,6 +110,8 @@ public class QuizService {
         quizMapper.questionDelete(questionId);
     }
 
+    public void questionOptionDelete(int questionId) {quizMapper.questionOptionDelete(questionId);}
+
 
     public int getAverageScore(int quizId){
         return quizMapper.getAverageScore(quizId);
@@ -126,9 +128,14 @@ public class QuizService {
         return mainQuizList;
     }
 
+    public String getOptionByQuestionId(int questionId){
+        return quizMapper.getOptionByQuestionId(questionId);
+    }
 
-
-
-
-
+    public void updateQuestion(QuestionsDTO question){
+        quizMapper.updateQuestion(question);
+    }
+    public void updateQuestionOption(QuestionOptionsDTO questionOption){
+        quizMapper.updateQuestionOption(questionOption);
+    }
 }

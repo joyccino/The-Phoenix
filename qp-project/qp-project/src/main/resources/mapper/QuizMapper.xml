@@ -267,7 +267,7 @@
     </update>
 
     <select id="getQuestionOptionsByQuizId" parameterType="java.lang.Integer" resultType="com.phoenix.qpproject.dto.ResultsDTO">
-        select questionId as resultQuestionId, optionContent as resultOptionContent, isAnswer as resultIsAnswer from questionOptions as qo join questions as q on q.id = qo.questionId where q.quizId = #{quizId} AND qo.isAnswer = true;
+        select questionId as resultQuestionId, optionContent as resultOptionContent, isAnswer as resultIsAnswer from questionOptions as qo join questions as q on q.id = qo.questionId where q.quizId = #{quizId} AND qo.isAnswer = true AND qo.isDeleted = false;
     </select>
 
     <update id="updateUserScore" parameterType="java.lang.Integer">
@@ -294,12 +294,25 @@
         where quizId = #{qId} and memberId = #{userId};
     </select>
 
+    <select id="getOptionByQuestionId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select optionContent from questionOptions where questionId = #{questionId};
+    </select>
+
     <update id="questionDelete" parameterType="java.lang.Integer">
         update questions set isdeleted = true where id = #{questionId};
     </update>
 
+    <update id="questionOptionDelete" parameterType="java.lang.Integer">
+        update questionOptions set isdeleted = true where id = #{questionId};
+    </update>
 
+    <update id="updateQuestion" parameterType="com.phoenix.qpproject.dto.QuestionsDTO">
+        update questions set question = #{questionsQuestion} where id = #{questionsId};
+    </update>
 
+    <update id="updateQuestionOption" parameterType="com.phoenix.qpproject.dto.QuestionOptionsDTO">
+        update questionOptions set optionContent = #{questionOptionOptionContent} where questionId = #{questionOptionQuestionId};
+    </update>
 
     <select id="getMainQuizList" resultType="com.phoenix.qpproject.dto.HomeDTO">
         SELECT
