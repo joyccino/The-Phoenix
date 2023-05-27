@@ -483,11 +483,11 @@
                     let questionType = value.questionQuestionType;
                     let markup =
                         `<tr>
-                          <td>`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                          <td class="qId">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                           <td>`+question+`</td>
                           <td>`+questionType+`</td>
                           <td class="text-end">
-                              <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this)"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                           </td>
                       </tr>`;
                     $("#table-questions tr:last").after(markup);
@@ -659,12 +659,102 @@
             $("#tabForm").addClass("show");
             
             $("#top > div > div.content > div > div > div.card.mb-3 > div.card-body.z-1 > p").html("'질문 만들기' 탭에서 질문을 추가한 뒤 '퀴즈 등록하기' 버튼을 클릭해주세요.");
+            
+            $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/loadQuestions", // ajax 통신 url
+            data : {},
+            success : function(data) {
+                const table = document.getElementById("table-questions");
+                console.log(data);
+                $("#table-questions").find("tr:gt(0)").remove();
+                let idx = 1;
+                $.each(data, function(index, value) {
+                    let id = value.questionsId;
+                    let rid = "r"+id;
+                    let question = value.questionsQuestion;
+                    let questionType = value.questionQuestionType;
+                    let markup =
+                        `<tr>
+                          <td class="qidColumn">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                          <td>`+question+`</td>
+                          <td>`+questionType+`</td>
+                          <td class="text-end">
+                              <div><button id="m_"+"${id}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this)"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                          </td>
+                      </tr>`;
+                    $("#table-questions tr:last").after(markup);
+                    
+                    console.log(idx+":"+data.length);
+                    
+                    if(idx == data.length) {
+<!--                        console.log("last2");-->
+<!--                        $("table-questions tr:last").fadeIn(3000);-->
+<!--                        $("table-questions tr:last").fadeIn(3000);-->
+                    }
+                    idx += 1;
+                });
+                // 질문 목록에 작성한거 지워주기
+                $('#question-content').val("");
+                $('#question-opt').val("");
+            }
+          });
             console.log("setting done");
         }
         else {
             console.log("create mode");
         }
         
+        function deleteRow(e){
+            let eid = e.id;
+            eid = eid.substring(1);
+            let link = "/quiz/questionDelete/"+eid;
+            alert(link);
+            
+            $.ajax({
+            type : "POST", // http 방식
+            url : link, // ajax 통신 url
+            data : {},
+            success : function(data) {
+                $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/loadQuestions", // ajax 통신 url
+            data : {},
+            success : function(data) {
+                const table = document.getElementById("table-questions");
+                console.log(data);
+                $("#table-questions").find("tr:gt(0)").remove();
+                let idx = 1;
+                $.each(data, function(index, value) {
+                    let id = value.questionsId;
+                    let rid = "r"+id;
+                    let question = value.questionsQuestion;
+                    let questionType = value.questionQuestionType;
+                    let markup =
+                        `<tr>
+                          <td class="qidColumn">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                          <td>`+question+`</td>
+                          <td>`+questionType+`</td>
+                          <td class="text-end">
+                              <div><button id="m_"+"${id}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this)"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                          </td>
+                      </tr>`;
+                    $("#table-questions tr:last").after(markup);
+                    console.log(idx+":"+data.length);
+                    idx += 1;
+                });
+                // 질문 목록에 작성한거 지워주기
+                $('#question-content').val("");
+                $('#question-opt').val("");
+            }
+          });
+            }
+          });
+        }
+        
+        function modifyRow(e){
+            console.log(e.id);
+        }
         
   </script>
     <style>

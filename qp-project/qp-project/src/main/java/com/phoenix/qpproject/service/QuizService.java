@@ -106,6 +106,10 @@ public class QuizService {
         quizMapper.updateUserScore(grade, quizHistoryId);
     }
 
+    public void questionDelete(int questionId) {
+        quizMapper.questionDelete(questionId);
+    }
+
 
     public int getAverageScore(int quizId){
         return quizMapper.getAverageScore(quizId);
