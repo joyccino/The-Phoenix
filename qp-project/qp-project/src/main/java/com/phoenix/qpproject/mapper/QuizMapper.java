@@ -30,6 +30,8 @@ public interface QuizMapper {
 
     public int getRecentQuizHistoryIdOfMember(int memberId);
 
+    public int questionDelete(int questionId);
+
     public void addQuestionHistory(QuestionsHistoryDTO questionsHistoryDTO);
 
     public void quizDelete(int quizID);

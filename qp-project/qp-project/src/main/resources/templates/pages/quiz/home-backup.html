@@ -261,7 +261,7 @@
                         </div>
                     </div>
                     
-                    <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":42,"pagination":true}'>
+                    <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":50,"pagination":true}'>
                         <div class="card-header">
                             <div class="row flex-between-center">
                                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
@@ -530,7 +530,7 @@
                                         <li class="nav-item me-2 me-lg-0"><a id = "takeBtn" class="nav-link nav-link-card-details" href="/quiz/take/{qid}"> <span class="fas fa-check me-2"></span><b style=" -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">응시하기</b></a></li>
                                         <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-bookmark me-2"></span>저장</a></li>-->
                                         <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-heart me-2"></span><b>좋아요</b></a></li>-->
-                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-pencil-ruler"></span><b style=" -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">&nbsp;&nbsp;&nbsp;수정하기</b></a></li>
+                                        <li class="nav-item me-2 me-lg-0"><a id = "editBtn" class="nav-link nav-link-card-details" href="/quiz/edit/{qid}"> <span class="fas fa-pencil-ruler"></span><b style=" -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">&nbsp;&nbsp;&nbsp;수정하기</b></a></li>
                                         <li class="nav-item me-2 me-lg-0" onclick="removeBtn();"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-eraser"></span><b style=" -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">&nbsp;&nbsp;&nbsp;삭제하기</b></a></li>
                                         <!--                                        <li class="nav-item me-2 me-lg-0"><a class="nav-link nav-link-card-details" href="#!"> <span class="fas fa-exclamation-triangle me-2"></span>신고</a></li>-->
                                     </ul>
@@ -620,6 +620,7 @@
                             console.log(data);
                             // 응시하기 버튼
                             document.querySelector("#takeBtn").href = "/quiz/take/" + data.quizzesId;
+                            document.querySelector("#editBtn").href = "/quiz/edit/" + data.quizzesId;
                             document.querySelector("#quizzesId").innerHTML = data.quizzesId;
                             document.querySelector("#quizzesTitle").innerHTML = data.quizzesTitle;
                             document.querySelector("#averageScore").innerHTML = data.averageScore;

@@ -80,6 +80,8 @@ public class QuizController {
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
         model.addAttribute("generalSubjectList", generalSubjectList);
+        model.addAttribute("title", "새 퀴즈 만들기");
+        model.addAttribute("sub", "퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.");
         return "/pages/quiz/create";
     }
 
@@ -163,9 +165,40 @@ public class QuizController {
 
         model.addAttribute("questions", questions);
 
+        model.addAttribute("title", "퀴즈 생성하기");
+        model.addAttribute("sub", "퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.");
+
         // 응시할 questions 로딩해오기
         return "/pages/quiz/quiz";
     }
+
+    @RequestMapping(value = "edit/{quizzesId}", method = RequestMethod.GET)
+    public String editExam(@PathVariable("quizzesId") int quizzesId, Model model, HttpServletRequest request){
+        System.out.println("넘겨온 quizID:"+quizzesId);
+
+        HttpSession session = request.getSession();
+
+
+        // 응시할 퀴즈 로딩해오기
+        QuizzesDTO quiz = quizService.getQuiz(quizzesId);
+        int quizId = quiz.getQuizzesId();
+
+        session.setAttribute("quizId", quizId);
+
+        List<QuestionsDTO> questions = quizService.getQsWhereQuizId(quizId);
+
+        List<ResultsDTO> options = quizService.getQuestionOptionsByQuizId(quiz.getQuizzesId());
+
+        model.addAttribute("quiz",quiz);
+
+        model.addAttribute("title", "퀴즈 수정하기");
+        model.addAttribute("sub", "퀴즈 정보를 수정해주세요.");
+
+
+        return "/pages/quiz/create";
+    }
+
+
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
     public String quizDetailsTest(HttpServletRequest request) {
@@ -209,6 +242,30 @@ public class QuizController {
         quizService.addOptions(qo);
 
         System.out.println("완성");
+
+        List<QuestionsDTO> qlist = quizService.getQsWhereQuizId(quizId);
+
+        System.out.println("qlist: "+qlist.size());
+
+        // quiz 의 totalQuestion update
+        quizService.updateTotalQuestions(qlist.size(), quizId);
+
+        return qlist;
+    }
+
+    @PostMapping(value = "loadQuestions")
+    @ResponseBody
+    public List<QuestionsDTO> loadQuestions(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+
+        MembersDTO member = (MembersDTO) qpUser; // 멤버
+
+        int quizId = (int)session.getAttribute("quizId");
+
+        System.out.println("로드할 qid "+quizId);
+
+        System.out.println("퀴즈아이디 "+quizId);
 
         List<QuestionsDTO> qlist = quizService.getQsWhereQuizId(quizId);
 
@@ -279,12 +336,13 @@ public class QuizController {
 
             model.addAttribute("quizList",quizList);
             //System.out.println("퀴즈리스트2 호출:"+quizList.size());
-            return "/pages/quiz/home";
+            return "/pages/quiz/home-backup";
             //return "/pages/quiz/quiz_list";
         }
     }
 
     @RequestMapping(value = "remove/{quizzesId}", method = RequestMethod.GET)
+    @ResponseBody
     public String quizDelete(@PathVariable("quizzesId") int quizzesId, Model model){
         System.out.println("넘겨온 quizID:"+quizzesId);
 
@@ -294,8 +352,18 @@ public class QuizController {
         System.out.println("삭제 완료");
 
         // 응시할 questions 로딩해오기
-        return "redirect:/quiz/home";
+        return "redirect:/quiz/home-backup";
     }
+    @RequestMapping(value = "questionDelete/{questionId}", method = RequestMethod.POST)
+    public void questionDelete(@PathVariable("questionId") int questionId, Model model){
+        System.out.println("넘겨온 questionId:"+questionId);
+
+        // 선택한 퀴즈 삭제
+        quizService.questionDelete(questionId);
+
+        System.out.println("삭제 완료");
+    };
+
 
     @PostMapping(value="submit")
     @ResponseBody

@@ -117,7 +117,7 @@
         )VALUES (
         #{quizzesMemberId}
         , #{quizzesTitle}
-        , 192
+        , 193
         , NOW()
         , #{quizzesShuffleQuestions}
         , #{quizzesShuffleOptions}
@@ -160,7 +160,7 @@
         qs.id as questionsId,
         qs.question as questionsQuestion,
         qs.questionType as questionQuestionType
-        from questions as qs where quizId = #{quizId};
+        from questions as qs where quizId = #{quizId} AND isDeleted = false;
     </select>
 
 <!--    <insert id="addQuizHistory" parameterType="com.phoenix.qpproject.dto.QuizHistoryDTO">-->
@@ -293,6 +293,10 @@
         from quizHistory
         where quizId = #{qId} and memberId = #{userId};
     </select>
+
+    <update id="questionDelete" parameterType="java.lang.Integer">
+        update questions set isdeleted = true where id = #{questionId};
+    </update>
 
 
 
