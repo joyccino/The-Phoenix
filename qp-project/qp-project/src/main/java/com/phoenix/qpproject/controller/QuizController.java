@@ -80,6 +80,8 @@ public class QuizController {
         List<SubjectsDTO> generalSubjectList = subjectsService.getGeneralSubjectList();
         System.out.println("조회된 과목들 수: "+generalSubjectList.size());
         model.addAttribute("generalSubjectList", generalSubjectList);
+        model.addAttribute("title", "새 퀴즈 만들기");
+        model.addAttribute("sub", "퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.");
         return "/pages/quiz/create";
     }
 
@@ -163,9 +165,39 @@ public class QuizController {
 
         model.addAttribute("questions", questions);
 
+        model.addAttribute("title", "퀴즈 생성하기");
+        model.addAttribute("sub", "퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.");
+
         // 응시할 questions 로딩해오기
         return "/pages/quiz/quiz";
     }
+
+    @RequestMapping(value = "edit/{quizzesId}", method = RequestMethod.GET)
+    public String editExam(@PathVariable("quizzesId") int quizzesId, Model model){
+        System.out.println("넘겨온 quizID:"+quizzesId);
+
+        // 응시할 퀴즈 로딩해오기
+        QuizzesDTO quiz = quizService.getQuiz(quizzesId);
+        int quizId = quiz.getQuizzesId();
+
+        List<QuestionsDTO> questions = quizService.getQsWhereQuizId(quizId);
+
+        List<ResultsDTO> options = quizService.getQuestionOptionsByQuizId(quiz.getQuizzesId());
+
+        model.addAttribute("quiz",quiz);
+
+        model.addAttribute("questions", questions);
+
+        model.addAttribute("options", options);
+
+        model.addAttribute("title", "퀴즈 수정하기");
+        model.addAttribute("sub", "퀴즈 정보를 수정해주세요.");
+
+
+        return "/pages/quiz/create";
+    }
+
+
 
     @RequestMapping(value = "quizDetails", method = RequestMethod.GET)
     public String quizDetailsTest(HttpServletRequest request) {
@@ -279,7 +311,7 @@ public class QuizController {
 
             model.addAttribute("quizList",quizList);
             //System.out.println("퀴즈리스트2 호출:"+quizList.size());
-            return "/pages/quiz/home";
+            return "/pages/quiz/home-backup";
             //return "/pages/quiz/quiz_list";
         }
     }
@@ -294,7 +326,7 @@ public class QuizController {
         System.out.println("삭제 완료");
 
         // 응시할 questions 로딩해오기
-        return "redirect:/quiz/home";
+        return "redirect:/quiz/home-backup";
     }
 
     @PostMapping(value="submit")

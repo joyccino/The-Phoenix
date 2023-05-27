@@ -144,8 +144,8 @@
                 <!--/.bg-holder-->
 
                 <div class="card-body pt-0 pt-md-3">
-                  <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.</p>
+                  <h3 id="headerTitle" th:text="${title}">새로운 퀴즈 생성</h3>
+                  <p class="mb-0" th:text="${sub}">퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -165,7 +165,7 @@
                                 <div class="col-12 mb-3">
                                   <label class="form-label" for="quiz-title"><b>제목</b><span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
                                   </label>
-                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" required/>
+                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" th:value="${quiz?.quizzesTitle}" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
@@ -321,7 +321,9 @@
                                               <tr class="btn-reveal-trigger">
                                                   <th scope="col">id-히든처리 예정</th>
                                                   <th scope="col">질문</th>
+                                                  <th scope="col">정답</th>
                                                   <th scope="col">퀴즈 유형</th>
+                                                  
                                                   <th class="text-end" scope="col">수정</th>
                                               </tr>
                                               </thead>
@@ -329,6 +331,7 @@
                                               <tr>
                                                   <td>0</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                                                   <td>서울은 어느 나라의 수도인가? (예시)</td>
+                                                  <td>정답</td>
                                                   <td>단답형</td>
                                                   <td class="text-end">
                                                       <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
@@ -634,6 +637,33 @@
                 }
             });
         });
+        
+        let title = document.querySelector("#headerTitle").innerHTML;
+        if (title = "퀴즈 수정하기") {
+            console.log("edit mode");
+            // 퀴즈 생성하기 버튼 숨기기, 퀴즈 수정 탭 오픈
+            
+            $("#tabSetting > form > div:nth-child(2) > div.card-body.bg-light > div.mb-3 > a").attr("style", "display: none!important");
+            $("#questionGenTab").attr("style", "display: block!important");
+            
+            $("#settingTab").removeClass("active");
+            $("#settingTab").removeClass("show");
+            $("#settingTab").prop('aria-selected', true);
+            $("#tabSetting").removeClass("active");
+            $("#tabSetting").removeClass("show");
+
+            $("#formTab").addClass("active");
+            $("#formTab").addClass("show");
+            $("#formTab").prop('aria-selected', false);
+            $("#tabForm").addClass("active");
+            $("#tabForm").addClass("show");
+            
+            $("#top > div > div.content > div > div > div.card.mb-3 > div.card-body.z-1 > p").html("'질문 만들기' 탭에서 질문을 추가한 뒤 '퀴즈 등록하기' 버튼을 클릭해주세요.");
+            console.log("setting done");
+        }
+        else {
+            console.log("create mode");
+        }
         
         
   </script>
