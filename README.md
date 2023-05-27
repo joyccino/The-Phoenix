@@ -63,7 +63,7 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
 
 ## ER Diagram of qp project 📊
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/c59bc246-2b23-4891-8fed-7444ca7f42fe)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/e2fbc8f8-fe0a-40c9-9daa-9a36ff7c14f3)
 - To implement the QP project, you can refer to the ER diagram and create the necessary tables in advance.
 - Here is a list of the tables that you must create for the QP project:
 1. Members: This table stores information about the members or users of the QP project. It may include fields such as member ID, name, email, and other relevant details.
