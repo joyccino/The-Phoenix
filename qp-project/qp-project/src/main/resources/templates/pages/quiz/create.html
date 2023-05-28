@@ -486,7 +486,7 @@
                           <td>`+question+`</td>
                           <td>`+questionType+`</td>
                           <td class="text-end">
-                              <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this)"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              <div><button class="btn btn-link value = '${question}' p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                           </td>
                       </tr>`;
                     $("#table-questions tr:last").after(markup);
@@ -683,7 +683,7 @@
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
-                                  <div><button id="${mid}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${question}','${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                                  <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
                           </tr>`;
                         $("#table-questions tr:last").after(markup);
@@ -737,7 +737,7 @@
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
-                                  <div><button id="${mid}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${question}','${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                                  <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
                           </tr>`;
                     $("#table-questions tr:last").after(markup);
@@ -750,10 +750,10 @@
           });
         }
         
-        function modifyRow(e, question, questionType){
+        function modifyRow(e, questionType){
             let eid = e.id;
             eid = eid.substring(1);
-            let eQuestion = question;
+            let eQuestion = e.value;
             let eType = questionType;
             
             let answer = "";
@@ -785,16 +785,15 @@
             let question = document.querySelector("#question-content").value;
             let qOption = document.querySelector("#question-opt").value;
             $.ajax({
-            type : "POST", // http 방식
-            url : "/quiz/updateQuestion", // ajax 통신 url
-            data : {"questionId" : qId,
-                    "question": question,
-                    "qOption": qOption},
-            success : function(data) {
+                type : "POST", // http 방식
+                url : "/quiz/updateQuestion", // ajax 통신 url
+                data : {"questionId" : qId,
+                        "question": question,
+                        "qOption": qOption},
+                success : function(data) {
             
                 }
             });
-            
             
             //퀘스쳔 리스트 다시 가져오기
             $.ajax({
@@ -821,7 +820,7 @@
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
-                                  <div><button id="${mid}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${question}','${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                                  <div><button id="${mid}" value="${question}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
                           </tr>`;
                         $("#table-questions tr:last").after(markup);

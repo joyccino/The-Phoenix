@@ -377,7 +377,7 @@ public class QuizController {
         System.out.println("삭제 완료");
 
         // 응시할 questions 로딩해오기
-        return "pages/quiz/home-backup";
+        return "/pages/quiz/home-backup";
     }
     @RequestMapping(value = "questionDelete/{questionId}", method = RequestMethod.POST)
     public void questionDelete(@PathVariable("questionId") int questionId, Model model){
