@@ -788,22 +788,13 @@
             type : "POST", // http 방식
             url : "/quiz/updateQuestion", // ajax 통신 url
             data : {"questionId" : qId,
-                    "question": question},
+                    "question": question,
+                    "qOption": qOption},
             success : function(data) {
             
                 }
             });
             
-            
-            // 답안 업데이트
-            $.ajax({
-                type : "POST", // http 방식
-                url : "/quiz/updateQuestionOption", // ajax 통신 url
-                data : {"questionId" : qId,
-                        "qOption": qOption},
-                success : function(data) {
-                }
-            });
             
             //퀘스쳔 리스트 다시 가져오기
             $.ajax({

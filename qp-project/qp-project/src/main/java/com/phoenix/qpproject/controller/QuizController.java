@@ -223,24 +223,20 @@ public class QuizController {
 
     @PostMapping(value = "updateQuestion")
     @ResponseBody
-    public void updateQuestion(int questionId, String question, Model model, HttpServletRequest request) {
+    public void updateQuestion(int questionId, String question, String qOption, Model model, HttpServletRequest request) {
         System.out.println("넘겨받은 questionId:"+questionId);
         QuestionsDTO newQ = new QuestionsDTO();
         newQ.setQuestionsId(questionId);
         newQ.setQuestionsQuestion(question);
         quizService.updateQuestion(newQ);
-    }
 
-    @PostMapping(value = "updateQuestionOption")
-    @ResponseBody
-    public void updateQuestionOption(int questionId, String qOption, Model model, HttpServletRequest request) {
-        System.out.println("넘겨받은 questionId:"+questionId);
         QuestionOptionsDTO newQO = new QuestionOptionsDTO();
 
         newQO.setQuestionOptionQuestionId(questionId);
         newQO.setQuestionOptionOptionContent(qOption);
         quizService.updateQuestionOption(newQO);
     }
+
     @PostMapping(value = "addQuestion")
     @ResponseBody
     public List<QuestionsDTO> addQuestion(@ModelAttribute QODTO question_info, Model model, HttpServletRequest request) {
