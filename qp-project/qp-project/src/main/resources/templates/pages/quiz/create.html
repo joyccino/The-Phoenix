@@ -320,7 +320,8 @@
                                           <table class="table" id="table-questions" >
                                               <thead>
                                               <tr class="btn-reveal-trigger">
-                                                  <th scope="col">id-히든처리 예정</th>
+                                                  <th scope="col" style="display:none">id-히든처리 예정</th>
+                                                  <th scope="col">순서</th>
                                                   <th scope="col">질문</th>
                                                   <th scope="col">퀴즈 유형</th>
                                                   
@@ -677,9 +678,11 @@
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
                         let data = {"question" : question, "questionType" : questionType};
+                        index ++;
                         let markup =
                             `<tr>
-                              <td class="qidColumn">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
@@ -731,9 +734,11 @@
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
                         let data = {"question" : question, "questionType" : questionType};
+                        index ++;
                         let markup =
                             `<tr>
-                              <td class="qidColumn">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
@@ -814,9 +819,11 @@
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
                         let data = {"question" : question, "questionType" : questionType};
+                        index ++;
                         let markup =
                             `<tr>
-                              <td class="qidColumn">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
                               <td class="text-end">
@@ -846,6 +853,12 @@
         }
         .rounded-circle:hover {
           transform: translate(0) rotate(360deg); /* I changed this */
+        }
+        td {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 250px;
         }
     </style>
 
