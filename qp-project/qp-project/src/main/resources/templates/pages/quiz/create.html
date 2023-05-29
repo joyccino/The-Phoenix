@@ -734,6 +734,7 @@
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
                         let data = {"question" : question, "questionType" : questionType};
+                        index ++;
                         let markup =
                             `<tr>
                               <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
@@ -818,6 +819,7 @@
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
                         let data = {"question" : question, "questionType" : questionType};
+                        index ++;
                         let markup =
                             `<tr>
                               <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
