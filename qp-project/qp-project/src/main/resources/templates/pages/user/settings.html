@@ -2106,10 +2106,10 @@
                                     <label class='form-label' id = "emailCheck" style="display: none"></label>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label" for="card-emailIsChanged" id ="email-changed"></label>
-                                    <input class="form-control" type="text" autocomplete="none" id="card-emailIsChanged" name ="memberEmailIsChanged" required readonly value="" style="display:none;"/>
-                                </div>
+<!--                                <div class="mb-3">-->
+<!--                                    <label class="form-label" for="card-emailIsChanged" id ="email-changed"></label>-->
+<!--                                    <input class="form-control" type="text" autocomplete="none" id="card-emailIsChanged" name ="memberEmailIsChanged" required readonly value="" style="display:none;"/>-->
+<!--                                </div>-->
 
                                 <div class="mb-3" style = "display: none" id = "uni-name">
                                     <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
@@ -2155,7 +2155,7 @@
                                 <input class="form-control" id="confirm-password" type="password" required oninput ="passCheck();"/>
                                 <label class="form-label" id="matchCheck" style="display: block; color: red;">비밀번호를 입력해주세요.</label>
                             </div>
-                            <button class="btn btn-primary d-block w-100" id="passUpdateBtn" onclick="passUpdate();">비밀번호 변경</button>
+                            <button class="btn btn-primary d-block w-100" id="passUpdateBtn" onclick="passUpdate();" disabled>비밀번호 변경</button>
                         </div>
                     </div>
                 </div>
@@ -2525,6 +2525,7 @@
                 console.log(data);
                 if (data !== "empty") {
                     $("#chkUniStudent").prop("checked",true);
+                    $("#chkUniStudent").css({"pointer-events":"none"});
                     $('#uni-name').show()
                     $('#card-uni').val(data);
                     return true;
@@ -2540,6 +2541,7 @@
 
     //이메일 변화 실시간 감지
     $('#card-email').on("propertychange change paste input", function(){
+        $("#chkUniStudent").css({"pointer-events":"auto"}); //대학교 체크박스 활성화
         let originEmail = $(this).attr('data-origin'); //초기 이메일 저장
         $(this).val() === originEmail ? isChangedEmail = false : isChangedEmail = true; //초기 이메일 변경여부 확인
         $('#card-emailIsChanged').attr('value',(isChangedEmail).toString());
@@ -2595,9 +2597,13 @@
 
     //대학생 체크박스 클릭시 url 비교 함수
     $('#chkUniStudent').click(function(){
-        if($(this).prop("checked")){
-            let targetDomain = $('#card-email').val().split('@')[1];
-            !checkUniEmail(targetDomain) && alert('학교 이메일 도메인을 확인해 주세요.');
+        const targetDomain = $('#card-email').val().split('@')[1];
+        const bool = checkUniEmail(targetDomain)
+        if(bool){
+            $(this).prop("checked", true);
+        }else{
+            $(this).prop("checked", false);
+            alert('학교 이메일 도메인을 확인해 주세요.');
         }
     })
 
