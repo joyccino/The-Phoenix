@@ -144,8 +144,8 @@
                 <!--/.bg-holder-->
 
                 <div class="card-body pt-0 pt-md-3">
-                  <h3>새로운 퀴즈 생성</h3>
-                  <p class="mb-0">퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.</p>
+                  <h3 id="headerTitle" th:text="${title}">새로운 퀴즈 생성</h3>
+                  <p class="mb-0" th:text="${sub}">퀴즈 정보를 작성한 뒤 '퀴즈 생성하기' 버튼을 클릭해주세요.</p>
                 </div>
               </div>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -165,7 +165,7 @@
                                 <div class="col-12 mb-3">
                                   <label class="form-label" for="quiz-title"><b>제목</b><span class="text-danger">*</span><a class="d-inline-block" href="#" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="title-tip" data-bs-original-title="예시: 중등영어 3학년 능률(김) 내신대비 1과 본문"><span class="fa fa-question-circle ms-2"></span></a>
                                   </label>
-                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" required/>
+                                  <input class="form-control" id="quiz-title" name="quizzesTitle" type="text" th:value="${quiz?.quizzesTitle}" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                   <label class="form-label" for="edu-category"><b>교육 과정</b><span class="text-danger">*</span></label>
@@ -303,7 +303,8 @@
                                       
                                       
                                       <div class="mb-3">
-                                          <a class="btn btn-secondary d-block w-100 mt-3" disabled onclick="addQuestion();"> <b>질문 추가하기</b> </a>
+                                          <a id = "addQBtn" class="btn btn-secondary d-block w-100 mt-3" disabled onclick="addQuestion();"> <b>질문 추가하기</b> </a>
+                                          <a id = "editQBtn" class="btn btn-secondary d-block w-100 mt-3" disabled onclick="editQuestion();"> <b>질문 수정완료</b> </a>
                                       </div>
                                       
                                   </div>
@@ -319,9 +320,11 @@
                                           <table class="table" id="table-questions" >
                                               <thead>
                                               <tr class="btn-reveal-trigger">
-                                                  <th scope="col">id-히든처리 예정</th>
+                                                  <th scope="col" style="display:none">id-히든처리 예정</th>
+                                                  <th scope="col">순서</th>
                                                   <th scope="col">질문</th>
                                                   <th scope="col">퀴즈 유형</th>
+                                                  
                                                   <th class="text-end" scope="col">수정</th>
                                               </tr>
                                               </thead>
@@ -480,11 +483,11 @@
                     let questionType = value.questionQuestionType;
                     let markup =
                         `<tr>
-                          <td>`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                          <td class="qId">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                           <td>`+question+`</td>
                           <td>`+questionType+`</td>
                           <td class="text-end">
-                              <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              <div><button class="btn btn-link value = '${question}' p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                           </td>
                       </tr>`;
                     $("#table-questions tr:last").after(markup);
@@ -635,6 +638,213 @@
             });
         });
         
+        let url = window.location.href;
+        
+        if (url.includes("edit")) {
+            console.log("edit mode");
+            // 퀴즈 생성하기 버튼 숨기기, 퀴즈 수정 탭 오픈
+            
+            $("#tabSetting > form > div:nth-child(2) > div.card-body.bg-light > div.mb-3 > a").attr("style", "display: none!important");
+            $("#questionGenTab").attr("style", "display: block!important");
+            
+            $("#settingTab").removeClass("active");
+            $("#settingTab").removeClass("show");
+            $("#settingTab").prop('aria-selected', true);
+            $("#tabSetting").removeClass("active");
+            $("#tabSetting").removeClass("show");
+
+            $("#formTab").addClass("active");
+            $("#formTab").addClass("show");
+            $("#formTab").prop('aria-selected', false);
+            $("#tabForm").addClass("active");
+            $("#tabForm").addClass("show");
+            
+            $("#top > div > div.content > div > div > div.card.mb-3 > div.card-body.z-1 > p").html("'질문 만들기' 탭에서 질문을 추가한 뒤 '퀴즈 등록하기' 버튼을 클릭해주세요.");
+            
+            $.ajax({
+                type : "POST", // http 방식
+                url : "/quiz/loadQuestions", // ajax 통신 url
+                data : {},
+                success : function(data) {
+                    const table = document.getElementById("table-questions");
+                    console.log(data);
+                    $("#table-questions").find("tr:gt(0)").remove();
+                    let idx = 1;
+                    $.each(data, function(index, value) {
+                        let id = value.questionsId;
+                        let rid = "r"+id;
+                        let mid = "m"+id;
+                        let tid = "t"+id;
+                        let question = value.questionsQuestion;
+                        let questionType = value.questionQuestionType;
+                        let data = {"question" : question, "questionType" : questionType};
+                        index ++;
+                        let markup =
+                            `<tr>
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
+                              <td id="${tid}">`+question+`</td>
+                              <td>`+questionType+`</td>
+                              <td class="text-end">
+                                  <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              </td>
+                          </tr>`;
+                        $("#table-questions tr:last").after(markup);
+                        
+                        console.log(idx+":"+data.length);
+                       
+                        idx += 1;
+                    });
+                    // 질문 목록에 작성한거 지워주기
+                    $('#question-content').val("");
+                    $('#question-opt').val("");
+                }
+            });
+            console.log("setting done");
+        }
+        else {
+            console.log("create mode");
+        }
+        
+        function deleteRow(e){
+            let eid = e.id;
+            eid = eid.substring(1);
+            let link = "/quiz/questionDelete/"+eid;
+            alert(link);
+            
+            $.ajax({
+            type : "POST", // http 방식
+            url : link, // ajax 통신 url
+            data : {},
+            success : function(data) {
+                $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/loadQuestions", // ajax 통신 url
+            data : {},
+            success : function(data) {
+                const table = document.getElementById("table-questions");
+                console.log(data);
+                $("#table-questions").find("tr:gt(0)").remove();
+                let idx = 1;
+                $.each(data, function(index, value) {
+                    let id = value.questionsId;
+                        let rid = "r"+id;
+                        let mid = "m"+id;
+                        let tid = "t"+id;
+                        let question = value.questionsQuestion;
+                        let questionType = value.questionQuestionType;
+                        let data = {"question" : question, "questionType" : questionType};
+                        index ++;
+                        let markup =
+                            `<tr>
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
+                              <td id="${tid}">`+question+`</td>
+                              <td>`+questionType+`</td>
+                              <td class="text-end">
+                                  <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              </td>
+                          </tr>`;
+                    $("#table-questions tr:last").after(markup);
+                    console.log(idx+":"+data.length);
+                    idx += 1;
+                });
+            }
+          });
+            }
+          });
+        }
+        
+        function modifyRow(e, questionType){
+            let eid = e.id;
+            eid = eid.substring(1);
+            let eQuestion = e.value;
+            let eType = questionType;
+            
+            let answer = "";
+            
+            // 답안 가져오기
+            $.ajax({
+            type : "POST", // http 방식
+            url : "/quiz/getOptionByQuestionId", // ajax 통신 url
+            data : {"questionId" : eid},
+            success : function(data) {
+                console.log(data);
+                document.querySelector("#question-opt").value = data;
+            }
+          });
+            
+            
+            document.querySelector("#tabForm > form > div:nth-child(1) > div.card-body.bg-light > div > div:nth-child(1) > input").value = eid;
+            document.querySelector("#question-content").value = eQuestion;
+            document.querySelector("#quiz-type").value = eType;
+            
+            // 질문 추가하기 숨기고  수정 버튼 열기 (아래 코드로 안되는것 같으니 나중에 수정바람)
+            document.querySelector("#addQBtn").style.display = "none !important";
+            document.querySelector("#editQBtn").style.display = "block !important";
+        };
+        
+        function editQuestion(){
+            // 질문 먼저 업데이트
+            let qId = document.querySelector("#tabForm > form > div:nth-child(1) > div.card-body.bg-light > div > div:nth-child(1) > input").value;
+            let question = document.querySelector("#question-content").value;
+            let qOption = document.querySelector("#question-opt").value;
+            $.ajax({
+                type : "POST", // http 방식
+                url : "/quiz/updateQuestion", // ajax 통신 url
+                data : {"questionId" : qId,
+                        "question": question,
+                        "qOption": qOption},
+                success : function(data) {
+            
+                }
+            });
+            
+            //퀘스쳔 리스트 다시 가져오기
+            $.ajax({
+                type : "POST", // http 방식
+                url : "/quiz/loadQuestions", // ajax 통신 url
+                data : {},
+                success : function(data) {
+                    console.log("successed");
+                    const table = document.getElementById("table-questions");
+                    console.log(data);
+                    $("#table-questions").find("tr:gt(0)").remove();
+                    let idx = 1;
+                    $.each(data, function(index, value) {
+                        let id = value.questionsId;
+                        let rid = "r"+id;
+                        let mid = "m"+id;
+                        let tid = "t"+id;
+                        let question = value.questionsQuestion;
+                        let questionType = value.questionQuestionType;
+                        let data = {"question" : question, "questionType" : questionType};
+                        index ++;
+                        let markup =
+                            `<tr>
+                              <td class="qidColumn" style="display:none">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
+                              <td>`+index+`</td>
+                              <td id="${tid}">`+question+`</td>
+                              <td>`+questionType+`</td>
+                              <td class="text-end">
+                                  <div><button id="${mid}" value="${question}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
+                              </td>
+                          </tr>`;
+                        $("#table-questions tr:last").after(markup);
+                       
+                        idx += 1;
+                    });
+                    // 질문 목록에 작성한거 지워주기
+                    $('#question-content').val("");
+                    $('#question-opt').val("");
+                }
+            });
+            
+            // 질문 목록에 작성한거 지워주기
+            $('#question-content').val("");
+            $('#question-opt').val("");
+            
+        };
         
   </script>
     <style>
@@ -643,6 +853,12 @@
         }
         .rounded-circle:hover {
           transform: translate(0) rotate(360deg); /* I changed this */
+        }
+        td {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 250px;
         }
     </style>
 
