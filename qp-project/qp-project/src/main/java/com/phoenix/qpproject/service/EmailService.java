@@ -29,7 +29,8 @@ public class EmailService {
         System.out.println("sentPassResetEmail 시작");
         jakarta.mail.internet.MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-        String htmlMsg = "<h3>Hello World!<h3>";
+        String htmlMsg = mailDto.getTheme();
+//        String htmlMsg = "<h3>Hello World!<h3>";
         helper.setText(htmlMsg, true);
         helper.setFrom("info.thephoenixclub@gmail.com");
         helper.setTo(mailDto.getAddress());
@@ -39,7 +40,7 @@ public class EmailService {
 
     }
 
-    public void sendPassResetEmailHtml(MailDTO mailDto){
+    public void sendPassResetEmailHtml(MailDTO mailDto) throws jakarta.mail.MessagingException {
         final String fromEmail = "info.thephoenixclub@gmail.com"; //requires valid gmail id
         final String password = "amdvyyhiuwkucikc"; // correct password for gmail id
         //final String toEmail = "joy2moon4u@gmail.com"; // can be any email id
