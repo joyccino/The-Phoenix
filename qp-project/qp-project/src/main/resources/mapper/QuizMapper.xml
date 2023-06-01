@@ -295,7 +295,7 @@
     </select>
 
     <select id="getOptionByQuestionId" parameterType="java.lang.Integer" resultType="java.lang.String">
-        select optionContent from questionOptions where questionId = #{questionId};
+        select optionContent from questionOptions where questionId = #{questionId} and isAnswer = true;
     </select>
 
     <update id="questionDelete" parameterType="java.lang.Integer">

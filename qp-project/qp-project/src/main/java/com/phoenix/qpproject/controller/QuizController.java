@@ -189,6 +189,11 @@ public class QuizController {
 
         List<ResultsDTO> options = quizService.getQuestionOptionsByQuizId(quiz.getQuizzesId());
 
+        for(int i = 0; i < questions.size(); i++) {
+//            System.out.println(options.get(i).getResultOptionContent());
+            questions.get(i).setQuestionAnswer(options.get(i).getResultOptionContent());
+        }
+
         model.addAttribute("quiz",quiz);
 
         model.addAttribute("title", "퀴즈 수정하기");
@@ -293,6 +298,14 @@ public class QuizController {
         System.out.println("퀴즈아이디 "+quizId);
 
         List<QuestionsDTO> qlist = quizService.getQsWhereQuizId(quizId);
+
+        List<ResultsDTO> options = quizService.getQuestionOptionsByQuizId(quizId);
+
+        for(int i = 0; i < qlist.size(); i++) {
+            System.out.println("옵션");
+            System.out.println(options.get(i).getResultOptionContent());
+            qlist.get(i).setQuestionAnswer(options.get(i).getResultOptionContent());
+        }
 
         System.out.println("qlist: "+qlist.size());
 
