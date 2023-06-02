@@ -324,7 +324,7 @@
                                                   <th scope="col">순서</th>
                                                   <th scope="col">질문</th>
                                                   <th scope="col">퀴즈 유형</th>
-                                                  
+                                                  <th scope="col">정답</th>
                                                   <th class="text-end" scope="col">수정</th>
                                               </tr>
                                               </thead>
@@ -333,6 +333,7 @@
                                                   <td>0</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                                                   <td>서울은 어느 나라의 수도인가? (예시)</td>
                                                   <td>단답형</td>
+                                                  <td>A</td>
                                                   <td class="text-end">
                                                       <div><button class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제"><span class="text-500 fas fa-trash-alt"></span></button></div>
                                                   </td>
@@ -481,11 +482,13 @@
                     let id = value.questionsId;
                     let question = value.questionsQuestion;
                     let questionType = value.questionQuestionType;
+                    let questionAnswer = value.questionAnswer;
                     let markup =
                         `<tr>
                           <td class="qId">`+id+`</td> <!-- 수정 및 삭제시 이 컬럼으로 조회할 것 -->
                           <td>`+question+`</td>
                           <td>`+questionType+`</td>
+                          <td>`+questionAnswer+`</td>
                           <td class="text-end">
                               <div><button class="btn btn-link value = '${question}' p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                           </td>
@@ -677,6 +680,7 @@
                         let tid = "t"+id;
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
+                        let questionAnswer = value.questionAnswer;
                         let data = {"question" : question, "questionType" : questionType};
                         index ++;
                         let markup =
@@ -685,6 +689,7 @@
                               <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
+                              <td>`+questionAnswer+`</td>
                               <td class="text-end">
                                   <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
@@ -733,6 +738,7 @@
                         let tid = "t"+id;
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
+                        let questionAnswer = value.questionAnswer;
                         let data = {"question" : question, "questionType" : questionType};
                         index ++;
                         let markup =
@@ -741,6 +747,7 @@
                               <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
+                              <td>`+questionAnswer+`</td>
                               <td class="text-end">
                                   <div><button id="${mid}" value = '${question}' class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this, '${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
@@ -773,8 +780,6 @@
                 document.querySelector("#question-opt").value = data;
             }
           });
-            
-            
             document.querySelector("#tabForm > form > div:nth-child(1) > div.card-body.bg-light > div > div:nth-child(1) > input").value = eid;
             document.querySelector("#question-content").value = eQuestion;
             document.querySelector("#quiz-type").value = eType;
@@ -818,6 +823,7 @@
                         let tid = "t"+id;
                         let question = value.questionsQuestion;
                         let questionType = value.questionQuestionType;
+                        let questionAnswer = value.questionAnswer;
                         let data = {"question" : question, "questionType" : questionType};
                         index ++;
                         let markup =
@@ -826,6 +832,7 @@
                               <td>`+index+`</td>
                               <td id="${tid}">`+question+`</td>
                               <td>`+questionType+`</td>
+                              <td>`+questionAnswer+`</td>
                               <td class="text-end">
                                   <div><button id="${mid}" value="${question}" class="btn btn-link p-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 수정" onclick="modifyRow(this,'${questionType}')"><span class="text-500 fas fa-edit"></span></button><button id="${rid}" class="btn btn-link p-0 ms-2" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="질문 삭제" onclick="deleteRow(this)"><span class="text-500 fas fa-trash-alt"></span></button></div>
                               </td>
