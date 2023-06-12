@@ -27,4 +27,10 @@
         FROM subjects AS s
         WHERE s.generalSubject = #{selectedGeneralSubject};
     </select>
+    <select id="filterGeneralSubjectList" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+        SELECT DISTINCT
+        s.generalSubject        AS subjectGeneralSubject
+        FROM subjects AS s
+        WHERE s.institutionLevel = #{institutionLevel};
+    </select>
 </mapper>

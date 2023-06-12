@@ -23,4 +23,9 @@ public class SubjectsService {
         List<SubjectsDTO> detailSubjectList = subjectsMapper.getDetailSubjectList(selectedGeneralSubject);
         return detailSubjectList;
     }
+
+    public List<SubjectsDTO> filterGeneralSubjectList(String institutionLevel){
+        List<SubjectsDTO> generalSubjectList = subjectsMapper.filterGeneralSubjectList(institutionLevel);
+        return generalSubjectList;
+    }
 }

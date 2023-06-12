@@ -475,4 +475,12 @@ public class QuizController {
 
         return results;
     }
+
+    @PostMapping("/loadEduLevel")
+    @ResponseBody
+    public List<SubjectsDTO> loadEduLevel(SubjectsDTO subjectsDTO) {
+        System.out.println(subjectsDTO.getSubjectInstitutionLevel());
+        String institutionLevel = subjectsDTO.getSubjectInstitutionLevel();
+        return subjectsService.filterGeneralSubjectList(institutionLevel);
+    }
 }

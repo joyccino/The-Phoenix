@@ -10,4 +10,5 @@ import java.util.List;
 public interface SubjectsMapper {
     public List<SubjectsDTO> getGeneralSubjectList();
     public List<SubjectsDTO> getDetailSubjectList(String selectedGeneralSubject);
+    public List<SubjectsDTO> filterGeneralSubjectList(String institutionLevel);
 }
