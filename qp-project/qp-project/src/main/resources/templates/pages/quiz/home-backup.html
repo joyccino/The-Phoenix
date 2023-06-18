@@ -118,46 +118,46 @@
                             </div>
                             <button class="btn-close text-reset d-xl-none shadow-none" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
-                        <div class="d-flex gap-2 flex-wrap my-3">
-                            <span class="badge bg-300 text-600 py-0">
-                                고등학교
-                                <button class="btn btn-link btn-sm p-0 text-600 ms-1">
-                                    <span class="fas fa-times fs--2"></span></button></span>
-                            <span class="badge bg-300 text-600 py-0">
-                                대학교
-                                <button class="btn btn-link btn-sm p-0 text-600 ms-1">
-                                    <span class="fas fa-times fs--2"></span></button></span>
+                        <div class="d-flex gap-2 flex-wrap my-3" id="selected-filter-categories">
+<!--                            <span class="badge bg-300 text-600 py-0">-->
+<!--                                고등학교-->
+<!--                                <button class="btn btn-link btn-sm p-0 text-600 ms-1">-->
+<!--                                    <span class="fas fa-times fs&#45;&#45;2"></span></button></span>-->
+<!--                            <span class="badge bg-300 text-600 py-0">-->
+<!--                                대학교-->
+<!--                                <button class="btn btn-link btn-sm p-0 text-600 ms-1">-->
+<!--                                    <span class="fas fa-times fs&#45;&#45;2"></span></button></span>-->
                         </div>
                         <ul class="list-unstyled">
                             <li class="border-bottom"><a class="nav-link collapse-indicator-plus fs--2 fw-medium text-600 py-3" data-bs-toggle="collapse" href="#category-collapse" aria-controls="category-collapse" aria-expanded="true">카테고리</a>
                                 <div class="collapse show" id="category-collapse">
-                                    <ul class="list-unstyled">
+                                    <ul class="list-unstyled" id="institution-level-filter">
                                         <li>
                                             <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-category-elementary"><span class="fas fa-file-alt fs--1 me-3"></span>초등학교
+                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="institution-level-elementary"><span class="fas fa-file-alt fs--1 me-3"></span>초등학교
                                                 </label>
-                                                <input class="form-check-input" type="checkbox" name="elementary" id="filter-category-elementary" />
+                                                <input class="form-check-input" type="checkbox" name="institution-level-checkbox" id="institution-level-elementary" value="초등학교" />
                                             </div>
                                         </li>
                                         <li>
                                             <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-category-middle"><span class="fas fa-file-alt fs--1 me-3"></span>중학교
+                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="institution-level-middle"><span class="fas fa-file-alt fs--1 me-3"></span>중학교
                                                 </label>
-                                                <input class="form-check-input" type="checkbox" name="middle" id="filter-category-middle" />
+                                                <input class="form-check-input" type="checkbox" name="institution-level-checkbox" id="institution-level-middle" value="중학교" />
                                             </div>
                                         </li>
                                         <li>
                                             <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-category-high"><span class="fas fa-file-alt fs--1 me-3"></span>고등학교
+                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="institution-level-high"><span class="fas fa-file-alt fs--1 me-3"></span>고등학교
                                                 </label>
-                                                <input class="form-check-input" type="checkbox" checked="checked" name="high" id="filter-category-high" />
+                                                <input class="form-check-input" type="checkbox" name="institution-level-checkbox" id="institution-level-high" value="고등학교" />
                                             </div>
                                         </li>
                                         <li>
                                             <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-category-university"><span class="fas fa-file-alt fs--1 me-3"></span>대학교
+                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="institution-level-university"><span class="fas fa-file-alt fs--1 me-3"></span>대학교
                                                 </label>
-                                                <input class="form-check-input" type="checkbox" checked="checked" name="university" id="filter-category-university" />
+                                                <input class="form-check-input" type="checkbox" name="institution-level-checkbox" id="institution-level-university" value="대학교" />
                                             </div>
                                         </li>
                                         
@@ -166,55 +166,55 @@
                             </li>
                             <li class="border-bottom"><a class="nav-link collapse-indicator-plus fs--2 fw-medium text-600 py-3" data-bs-toggle="collapse" href="#subject-collapse" aria-controls="subject-collapse" aria-expanded="true">과목</a>
                                 <div class="collapse show" id="subject-collapse">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-subject-design"><span class="fas fa-brush fs--1 me-3"></span>수학
-                                                </label>
-                                                <input class="form-check-input" type="checkbox" name="design" id="filter-subject-design" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-subject-web-development"><span class="fas fa-globe fs--1 me-3"></span>인문학
-                                                </label>
-                                                <input class="form-check-input" type="checkbox" checked="checked" name="web-development" id="filter-subject-web-development" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-subject-software"><span class="fas fa-code fs--1 me-3"></span>간호학
-                                                </label>
-                                                <input class="form-check-input" type="checkbox" name="software" id="filter-subject-software" />
-                                            </div>
-                                        </li>
+                                    <ul class="list-unstyled" id="general-subject-filter">
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-subject-design"><span class="fas fa-brush fs&#45;&#45;1 me-3"></span>수학-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="checkbox" name="design" id="filter-subject-design" />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-subject-web-development"><span class="fas fa-globe fs&#45;&#45;1 me-3"></span>인문학-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="checkbox" checked="checked" name="web-development" id="filter-subject-web-development" />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-subject-software"><span class="fas fa-code fs&#45;&#45;1 me-3"></span>간호학-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="checkbox" name="software" id="filter-subject-software" />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
                                     </ul>
                                 </div>
                             </li>
                             <li class="border-bottom"><a class="nav-link collapse-indicator-plus fs--2 fw-medium text-600 py-3" data-bs-toggle="collapse" href="#rating-collapse" aria-controls="rating-collapse" aria-expanded="false">세부과목</a>
                                 <div class="collapse" id="rating-collapse">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-rating-4.5-&amp;-up"><span class="fas fa-star fs--1 me-3"></span>경영학
-                                                </label>
-                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-4.5-&amp;-up" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-rating-4.0-&amp;-up"><span class="fas fa-star fs--1 me-3"></span>사회학
-                                                </label>
-                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-4.0-&amp;-up" />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check d-flex ps-0">
-                                                <label class="form-check-label fs--1 flex-1 text-truncate" for="filter-rating-3.5-&amp;-up"><span class="fas fa-star fs--1 me-3"></span>한국사
-                                                </label>
-                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-3.5-&amp;-up" checked />
-                                            </div>
-                                        </li>
+                                    <ul class="list-unstyled" id="detail-subject-filter">
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-rating-4.5-&amp;-up"><span class="fas fa-star fs&#45;&#45;1 me-3"></span>경영학-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-4.5-&amp;-up" />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-rating-4.0-&amp;-up"><span class="fas fa-star fs&#45;&#45;1 me-3"></span>사회학-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-4.0-&amp;-up" />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="form-check d-flex ps-0">-->
+<!--                                                <label class="form-check-label fs&#45;&#45;1 flex-1 text-truncate" for="filter-rating-3.5-&amp;-up"><span class="fas fa-star fs&#45;&#45;1 me-3"></span>한국사-->
+<!--                                                </label>-->
+<!--                                                <input class="form-check-input" type="radio" name="rating" id="filter-rating-3.5-&amp;-up" checked />-->
+<!--                                            </div>-->
+<!--                                        </li>-->
                                     </ul>
                                 </div>
                             </li>
@@ -775,7 +775,104 @@
                         }
                     });
         });
-        
+
+        //학교 종류 선택시 이벤트
+        $("#institution-level-filter input[name='institution-level-checkbox']").change(function(){
+            $(this).parent().parent().siblings('li').find('input[name="institution-level-checkbox"]').prop('checked',false);//학교 중복선택 방지
+
+            if($(this).prop("checked")){//필터링 조건 선택시
+                $('#selected-filter-categories').html(`
+                    <span class="badge bg-300 text-600 py-0 institution-level-category">
+                        ${$(this).val()} <button class="btn btn-link btn-sm p-0 text-600 ms-1"><span class="fas fa-times fs--2"></span></button>
+                    </span>
+                `)
+                let institutionLevel = $(this).attr('id').split('-')[2]
+                $.ajax({
+                    type : "POST",
+                    url : "/quiz/loadInstitutionLevel",
+                    data : { "subjectInstitutionLevel" : institutionLevel },
+                    success : function(data) {
+                        let html = '';
+                        data.forEach(function(element, idx){
+                            let generalSubject = element.subjectGeneralSubject;
+                            html += `
+                                <li>
+                                    <div class="form-check d-flex ps-0">
+                                        <label class="form-check-label fs--1 flex-1 text-truncate" for="subject-filter-${idx}">
+                                        ${generalSubject}
+                                        </label>
+                                        <input class="form-check-input" type="checkbox" name="subject-filter" id="subject-filter-${idx}" value="${generalSubject}" />
+                                    </div>
+                                </li>
+                            `
+                        })
+
+                        $('#general-subject-filter').html(html);
+                    },
+                })
+            }else{//필터링 조건 해제
+                $('#selected-filter-categories span.institution-level-category').remove();
+                $('#general-subject-filter').html('');
+                $('#detail-subject-filter').html('');
+            }
+        });
+
+        //과목 필터링 선택 이벤트
+        $(document).on('click',"#general-subject-filter input[name*='subject']", function(){
+            $(this).parent().parent().siblings('li').find('input[name="subject-filter"]').prop('checked',false);//학교 중복선택 방지
+
+            if($(this).prop("checked")){
+                $('#selected-filter-categories .general-subject-category').remove();
+                $('#selected-filter-categories').append(`
+                    <span class="badge bg-300 text-600 py-0 general-subject-category">
+                        ${$(this).val()} <button class="btn btn-link btn-sm p-0 text-600 ms-1"><span class="fas fa-times fs--2"></span></button>
+                    </span>
+                `);
+
+                $.ajax({
+                    type : "POST",
+                    url : "/quiz/loadGeneralSubject",
+                    data : { "subjectGeneralSubject" : $(this).val() },
+                    success : function(data) {
+                        let html = ""
+
+                        data.forEach(function(element,idx){
+                            let detailSubject = element.subjectDetailSubject;
+                            html += `
+                                <li>
+                                    <div class="form-check d-flex ps-0">
+                                        <label class="form-check-label fs--1 flex-1 text-truncate" for="detail-subject-filter-${idx}">
+                                            ${detailSubject}
+                                        </label>
+                                        <input class="form-check-input" type="checkbox" name="detail-subject-filter" id="detail-subject-filter-${idx}" value="${detailSubject}" />
+                                    </div>
+                                </li>
+                            `
+                        })
+
+                        $('#detail-subject-filter').html(html)
+                    },
+                })
+
+            }else{
+                $(`#selected-filter-categories .general-subject-category:contains("${$(this).val()}")`).remove();
+                $('#detail-subject-filter').html('');
+            }
+        })
+
+        //세부과목 클릭 이벤트
+        $(document).on('click',"#detail-subject-filter input[name*='detail']", function(){
+            if($(this).prop("checked")){
+                $('#selected-filter-categories').append(`
+                    <span class="badge bg-300 text-600 py-0 detail-subject-category">
+                        ${$(this).val()} <button class="btn btn-link btn-sm p-0 text-600 ms-1"><span class="fas fa-times fs--2"></span></button>
+                    </span>
+                `);
+            }else{
+                $(`#selected-filter-categories .detail-subject-category:contains("${$(this).val()}")`).remove()
+            }
+
+        })
         
     </script>
     <style>
