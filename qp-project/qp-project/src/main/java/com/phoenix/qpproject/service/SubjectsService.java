@@ -28,4 +28,8 @@ public class SubjectsService {
         List<SubjectsDTO> generalSubjectList = subjectsMapper.filterGeneralSubjectList(institutionLevel);
         return generalSubjectList;
     }
+    public List<SubjectsDTO> filterDetailSubjectList(String generalSubject){
+        List<SubjectsDTO> detailSubjectList = subjectsMapper.filterDetailSubjectList(generalSubject);
+        return detailSubjectList;
+    }
 }

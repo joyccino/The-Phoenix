@@ -33,4 +33,10 @@
         FROM subjects AS s
         WHERE s.institutionLevel = #{institutionLevel};
     </select>
+    <select id="filterDetailSubjectList" parameterType="java.lang.String" resultType="com.phoenix.qpproject.dto.SubjectsDTO">
+        SELECT DISTINCT
+        s.detailSubject        AS subjectDetailSubject
+        FROM subjects AS s
+        WHERE s.generalSubject = #{generalSubject};
+    </select>
 </mapper>

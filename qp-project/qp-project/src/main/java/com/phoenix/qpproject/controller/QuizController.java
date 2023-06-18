@@ -476,11 +476,18 @@ public class QuizController {
         return results;
     }
 
-    @PostMapping("/loadEduLevel")
+    @PostMapping("/loadInstitutionLevel")
     @ResponseBody
-    public List<SubjectsDTO> loadEduLevel(SubjectsDTO subjectsDTO) {
+    public List<SubjectsDTO> loadInstitutionLevel(SubjectsDTO subjectsDTO) {
         System.out.println(subjectsDTO.getSubjectInstitutionLevel());
         String institutionLevel = subjectsDTO.getSubjectInstitutionLevel();
         return subjectsService.filterGeneralSubjectList(institutionLevel);
+    }
+    @PostMapping("/loadGeneralSubject")
+    @ResponseBody
+    public List<SubjectsDTO> loadGeneralSubject(SubjectsDTO subjectsDTO) {
+        System.out.println(subjectsDTO.getSubjectGeneralSubject());
+        String subjectGeneralSubject = subjectsDTO.getSubjectGeneralSubject();
+        return subjectsService.filterDetailSubjectList(subjectGeneralSubject);
     }
 }

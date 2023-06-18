@@ -11,4 +11,5 @@ public interface SubjectsMapper {
     public List<SubjectsDTO> getGeneralSubjectList();
     public List<SubjectsDTO> getDetailSubjectList(String selectedGeneralSubject);
     public List<SubjectsDTO> filterGeneralSubjectList(String institutionLevel);
+    public List<SubjectsDTO> filterDetailSubjectList(String generalSubject);
 }
