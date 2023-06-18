@@ -2161,7 +2161,7 @@
                                           <label class="form-label">
                                               <b>질문</b><span class="text-danger">*</span>
                                           </label>
-                                          <textarea class="form-control" id="question-content" rows="3" style="white-space: pre-line"></textarea>
+                                          <textarea class="form-control" id="question-content" rows="3"></textarea>
                                       </div>
                                       <div class="col-12 mb-3">
                                           <label class="form-label" >
@@ -2234,7 +2234,16 @@
               </div>
             </div>
           </div>
-          
+          <footer class="footer">
+            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
+              <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 &copy; <a href="https://themewagon.com">Themewagon</a></p>
+              </div>
+              <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600">v3.16.0</p>
+              </div>
+            </div>
+          </footer>
         </div>
         <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
           <div class="modal-dialog mt-6" role="document">
@@ -2343,15 +2352,12 @@
     
     function addQuestion(){
         //ajax 로 post
-        
-        let question = document.getElementById("question-content").value;
-<!--        question = question.replace(/\n\r?/g, '<br />');-->
           
           $.ajax({
             type : "POST", // http 방식
             url : "/quiz/addQuestion", // ajax 통신 url
             data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-                "question" : question,
+                "question" : document.getElementById("question-content").value,
                 "option" : document.getElementById("question-opt").value,
                 "questionType" : document.getElementById("quiz-type").value
             },

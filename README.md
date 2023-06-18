@@ -2,7 +2,8 @@
 
 ## Overview / 개요 📖
 - This project is a CMS web application developed using MySQL, Spring Boot, and MyBatis. The application provides users with the ability to register quizzes and participate in them. It includes features such as user registration, login/logout, password recovery via email, quiz creation and participation, user profile management, administration dashboard, and more.
-- 이 프로젝트는 MySQL, Spring Boot 및 mybatis 를 사용하여 개발된 CMS 웹 애플리케이션입니다. QP 앱에는 사용자가 퀴즈를 등록하고 응시하는 기능을 제공합니다: 사용자 등록, 로그인/로그아웃, 이메일로 비밀번호 찾기, 퀴즈 생성 및 응시, 사용자 프로필 관리, 관리자 대시보드 등 다양한 기능이 포함되어 있습니다. 
+- 이 프로젝트는 MySQL, Spring Boot 및 mybatis 를 사용하여 개발된 CMS 웹 애플리케이션입니다. QP 앱에는 사용자가 퀴즈를 등록하고 응시하는 기능을 제공합니다: 
+- 사용자 등록, 로그인/로그아웃, 이메일로 비밀번호 찾기, 퀴즈 생성 및 응시, 사용자 프로필 관리, 관리자 대시보드 등 다양한 기능이 포함되어 있습니다. 
 
 ## Project Environment / 프로젝트 환경 💻
 
@@ -36,30 +37,52 @@ We extend our special thanks to Shajeeb, the original author and creator of [Fal
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/555c2e09-b30f-4bde-891f-efba3dcb7126)
 
 ### Quiz
-
-- Quiz Creation with Optional Type Testing
-- Taking Quizzes ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/7dde2319-de21-4831-8d6a-55d8034e65be)
 - Quiz Home Page ✔️ <br>
-![image](https://github.com/joyccino/The-Phoenix/assets/67300266/33cda312-a3fa-42c8-bac1-cdaec07a1fd1)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/75640549-7646-4da9-ab08-c5d5b3941d4e)
 - Quiz Details <br>
 ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/b9f3352b-fd2f-494e-9689-23e944793395)
-
+- Quiz Creating Tool
+- Taking Quizzes ✔️ <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/200b5528-20ca-4ac3-8d3e-dcef5ac72a7d) <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/dd41c81f-fe1a-45aa-aaa3-614cdac888a9) <br>
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6bcaeb82-067d-404f-8fe6-7fbdc93ddad3)
 
 ### MyPage
 
 - Update Basic Information ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/6d9de11b-8f77-4421-b2e7-fe4178c16daf)
+
 - Update Password ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/649182aa-277d-47aa-a941-5da859474388)
+
 - Account Deletion ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/bf779192-4227-4202-abb2-8db234198868)
+
 
 ### Admin
 
 - Dashboard
 - Member Management ✔️
-- ![image](https://github.com/joyccino/The-Phoenix/assets/67300266/1db967b2-f912-40fb-8645-e01b48066cfc)
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/d444cb6c-f180-4d78-a064-17d686c79e75)
+
+## ER Diagram of qp project 📊
+![image](https://github.com/joyccino/The-Phoenix/assets/67300266/e2fbc8f8-fe0a-40c9-9daa-9a36ff7c14f3)
+- To implement the QP project, you can refer to the ER diagram and create the necessary tables in advance.
+- Here is a list of the tables that you must create for the QP project:
+1. Members: This table stores information about the members or users of the QP project. It may include fields such as member ID, name, email, and other relevant details.
+
+2. Subjects: This table represents the subjects or categories of quizzes in the QP project. It may contain fields like subject ID, subject name, and any additional information related to subjects.
+
+3. Quizzes: This table holds information about the quizzes available in the QP project. It may include fields like quiz ID, quiz title, subject ID (foreign key referencing the Subjects table), and other relevant details.
+
+4. Questions: This table stores the questions associated with the quizzes. It may have fields like question ID, question text, quiz ID (foreign key referencing the Quizzes table), and any additional attributes related to questions.
+
+5. QuizHistory: This table tracks the history of quizzes attempted by members. It may include fields such as history ID, member ID (foreign key referencing the Members table), quiz ID (foreign key referencing the Quizzes table), and other relevant details like the score or completion status.
+
+6. QuestionOptions: This table represents the options or choices for multiple-choice questions. It may contain fields like option ID, question ID (foreign key referencing the Questions table), option text, and any additional attributes related to options.
+
+7. VisitHistory: This table tracks the visit history of members on the QP project. It may include fields like visit ID, member ID (foreign key referencing the Members table), timestamp, and any additional details related to visits.
+
+8. Universities: Universities: This table stores information about universities related to the QP project. It may include fields like university ID, university name, website domain and other relevant details. In the QP project, university differentiation is done based on the domain address of the email during the registration process.
+
+- Make sure to create these tables in your database, following the appropriate schema and relationships based on the ER diagram.
 
 
 ## Installation / 설치 ⚙️

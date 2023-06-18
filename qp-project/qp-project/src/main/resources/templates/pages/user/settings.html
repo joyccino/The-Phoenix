@@ -2106,17 +2106,17 @@
                                     <label class='form-label' id = "emailCheck" style="display: none"></label>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label" for="card-emailIsChanged" id ="email-changed"></label>
-                                    <input class="form-control" type="text" autocomplete="none" id="card-emailIsChanged" name ="memberEmailIsChanged" required readonly value="" style="display:none;"/>
-                                </div>
+<!--                                <div class="mb-3">-->
+<!--                                    <label class="form-label" for="card-emailIsChanged" id ="email-changed"></label>-->
+<!--                                    <input class="form-control" type="text" autocomplete="none" id="card-emailIsChanged" name ="memberEmailIsChanged" required readonly value="" style="display:none;"/>-->
+<!--                                </div>-->
 
                                 <div class="mb-3" style = "display: none" id = "uni-name">
                                     <label class="form-label" for="card-uni" id ="uni-name-label">재학중인 학교명</label>
                                     <input class="form-control" th:value="${qpUser.memberInstitutionId}" type="text" autocomplete="on" id="card-uni" readonly/>
                                 </div>
 
-                                <div class="form-check">
+                                <div class="form-check" style="position:absolute;left:-999999px">
                                     <input class="form-check-input" type="checkbox" id="chkUniStudent" />
                                     <label class="form-label" for="chkUniStudent" >대학생입니다.</label>
                                 </div>
@@ -2145,14 +2145,17 @@
                                 <input class="form-control" id="old-password" type="password" required/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="new-password">새 비밀번호</label>
-                                <input class="form-control" id="new-password" type="password" required/>
+                                <label class="form-label" for="new-password" >새 비밀번호</label>
+                                <input class="form-control" id="new-password" type="password" required oninput="passCheck()"/>
+                                <label class="form-label" id="psCheck" style="display: none"></label>
+                                <label class="form-label" id="pCheck" style="display: block; color: red;">8자에서 20자 사이의 비밀번호를 입력해주세요.</label>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="confirm-password">비밀번호 확인</label>
-                                <input class="form-control" id="confirm-password" type="password" required/>
+                            <div class="mb-3" id="div-cpass" style="display:none;">
+                                <label class="form-label" for="confirm-password" >비밀번호 확인</label>
+                                <input class="form-control" id="confirm-password" type="password" required oninput ="passCheck();"/>
+                                <label class="form-label" id="matchCheck" style="display: block; color: red;">비밀번호를 입력해주세요.</label>
                             </div>
-                            <button class="btn btn-primary d-block w-100" onclick="passUpdate();">비밀번호 변경</button>
+                            <button class="btn btn-primary d-block w-100" id="passUpdateBtn" onclick="passUpdate();" disabled>비밀번호 변경</button>
                         </div>
                     </div>
                 </div>
@@ -2331,6 +2334,7 @@
         gender : true,
         birthdate: true, // done
         email: true, // done
+        password : true,
     };
 
     let isChangedEmail = false; //이메일 수정 여부
@@ -2521,6 +2525,7 @@
                 console.log(data);
                 if (data !== "empty") {
                     $("#chkUniStudent").prop("checked",true);
+                    $("#chkUniStudent").css({"pointer-events":"none"});
                     $('#uni-name').show()
                     $('#card-uni').val(data);
                     return true;
@@ -2536,6 +2541,7 @@
 
     //이메일 변화 실시간 감지
     $('#card-email').on("propertychange change paste input", function(){
+        $("#chkUniStudent").css({"pointer-events":"auto"}); //대학교 체크박스 활성화
         let originEmail = $(this).attr('data-origin'); //초기 이메일 저장
         $(this).val() === originEmail ? isChangedEmail = false : isChangedEmail = true; //초기 이메일 변경여부 확인
         $('#card-emailIsChanged').attr('value',(isChangedEmail).toString());
@@ -2591,15 +2597,23 @@
 
     //대학생 체크박스 클릭시 url 비교 함수
     $('#chkUniStudent').click(function(){
-        if($(this).prop("checked")){
-            let targetDomain = $('#card-email').val().split('@')[1];
-            !checkUniEmail(targetDomain) && alert('학교 이메일 도메인을 확인해 주세요.');
+        const targetDomain = $('#card-email').val().split('@')[1];
+        const bool = checkUniEmail(targetDomain)
+        if(bool){
+            $(this).prop("checked", true);
+        }else{
+            $(this).prop("checked", false);
+            alert('학교 이메일 도메인을 확인해 주세요.');
         }
     })
 
+    // 비밀번호 유효성 검사
+    function validatePassword(truth){
+        truth ? inputs.password = true : inputs.password = false;
+    }
+
     function passCheck() {
-      let id = $("#card-userId").val();
-      let pw = $("#card-password").val();
+      let pw = $("#new-password").val();
       let number = pw.search(/[0-9]/g);
       let english = pw.search(/[a-z]/ig);
       let spece = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
@@ -2607,7 +2621,7 @@
       let confirmPass = document.querySelector("#div-cpass");
       let passWarning = document.querySelector("#pCheck");
       let matchWarning = document.querySelector("#matchCheck");
-      let cPassVal = $("#card-confirm-password").val();
+      let cPassVal = $("#confirm-password").val();
 
       // 비밀번호 유효성 검사 false
       validatePassword(false);
@@ -2618,18 +2632,18 @@
           passWarning.style.color = "red";
           passWarning.innerHTML = "8자에서 20자 사이의 비밀번호를 입력해주세요.";
           confirmPass.style.display = "none";
-            $('#submit-btn').prop('disabled', true);
+          $('#passUpdateBtn').prop('disabled', true);
 
       } else if (pw.search(/\s/) != -1) {
           passWarning.style.display = "block";
           passWarning.innerHTML = "비밀번호는 공백 없이 입력해주세요.";
           confirmPass.style.display = "none";
-            $('#submit-btn').prop('disabled', true);
+            $('#passUpdateBtn').prop('disabled', true);
       } else if (number < 0 || english < 0 || spece < 0) {
           passWarning.style.display = "block";
           passWarning.innerHTML = "영문,숫자,특수문자를 혼합하여 입력해주세요.";
           confirmPass.style.display = "none";
-            $('#submit-btn').prop('disabled', true);
+            $('#passUpdateBtn').prop('disabled', true);
       } else {
           passWarning.style.display = "none";
           confirmPass.style.display = "block";
@@ -2637,16 +2651,16 @@
             matchWarning.style.display = "block";
             matchWarning.style.color = "red";
             matchWarning.innerHTML = "비밀번호를 입력해주세요.";
-            $('#submit-btn').prop('disabled', true);
+            $('#passUpdateBtn').prop('disabled', true);
           }
           else if (pw !== cPassVal) {
             matchWarning.style.display = "block";
             matchWarning.innerHTML = "비밀번호가 일치하지 않습니다.";
-            $('#submit-btn').prop('disabled', trFue);
+            $('#passUpdateBtn').prop('disabled', true);
           }
           else{
             matchWarning.style.display = "none";
-            // $('#submit-btn').prop('disabled', false);
+            $('#passUpdateBtn').prop('disabled', false);
 
             // 비밀번호 유효성 검사 true
             validatePassword(true);
