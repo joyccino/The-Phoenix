@@ -112,20 +112,18 @@
             <div class="card-header">
               <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                  <h3 class="mb-0 text-nowrap py-2 py-xl-0"><b>회원 목록 조회</b></h3>
+                  <h4 class="mb-0 text-nowrap py-2 py-xl-0" style="font-weight: bold">회원 관리</h4>
                 </div>
                 <div class="col-8 col-sm-auto text-end ps-2">
 
                   <div id="table-customers-replace-element">
                       <div class="btn-group dropend mt-2">
-                          <button class="btn btn-primary" type="button"><b>이메일 전송</b></button>
+                          <button class="btn btn-primary" type="button" value = "이메일 전송" onclick="btnAction();"><b>이메일 전송</b></button>
                           <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span></button>
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">어드민</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증된 일반유저</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">대학생 유저</a>
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증되지 않은 유저</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
@@ -146,7 +144,7 @@
             </div>
             <div class="card-body p-0">
               <div class="table-responsive scrollbar">
-                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+                <table class="table fs--1 mb-0 overflow-hidden">
                   <thead class="bg-200 text-900">
                     <tr>
                       <th>
@@ -313,6 +311,24 @@
         
         function dropdownSelected(e){
             actBtn.innerHTML = '<b>'+e.innerHTML+'</b>';
+            actBtn.value = e.innerHTML;
+        }
+        
+        function btnAction(){
+            switch(actBtn.value)
+            {
+                case "이메일 전송" :
+                    return
+                case "어드민" :
+                    console.log("어드민");
+                    return
+                case "인증되지 않은 유저" :
+                    return
+                case "차단" :
+                    return
+                case "강제 탈퇴" :
+                    return
+            }
         }
     </script>
     <style>
