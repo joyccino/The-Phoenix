@@ -123,9 +123,6 @@
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">어드민</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증되지 않은 유저</a>
-                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">강제 탈퇴</a>
                           </div>
@@ -171,7 +168,7 @@
                     </tr>
                   </thead>
                   <tbody class="list" id="table-customers-body">
-                    <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger">
+                    <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger" data-bs-toggle="modal" data-bs-target="#modal-edit">
                       <td class="align-middle py-2" style="width: 28px;">
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
                           <input class="form-check-input checks" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
@@ -218,56 +215,84 @@
           </div>
 
         </div>
-        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
-            <div class="modal-content border-0">
-              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                <div class="position-relative z-1" data-bs-theme="light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                  <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                </div>
-                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="kanban-modal-label-1" aria-hidden="true" id="modal-edit">
+              <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                  <div class="modal-content position-relative">
+                      <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body p-0">
+                          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                              <h4 class="mb-1" id="modalExampleDemoLabel">회원 수정</h4>
+                          </div>
+                          <div class="p-4 pb-0">
+                              <form>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberType">멤버 타입:</label>
+                                      <input class="form-control" id="memberType" type="text" />
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberId">아이디:</label>
+                                      <input class="form-control" id="memberId"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberSurname">성:</label>
+                                      <input class="form-control" id="memberSurname"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberLastname">이름:</label>
+                                      <input class="form-control" id="memberLastname"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberEmail">이메일:</label>
+                                      <input class="form-control" id="memberEmail"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberBirthDate">생년월일:</label>
+                                      <input class="form-control" id="memberBirthDate"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="memberJoinedDate">가입날짜:</label>
+                                      <input class="form-control" id="memberJoinedDate"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="isReported">신고여부:</label>
+                                      <input class="form-control" id="isReported"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="reportedDate">신고날짜:</label>
+                                      <input class="form-control" id="reportedDate"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="reportRequester">신고자:</label>
+                                      <input class="form-control" id="reportRequester"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="isBlocked">차단여부:</label>
+                                      <input class="form-control" id="isBlocked"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="blockedDate">차단날짜:</label>
+                                      <input class="form-control" id="blockedDate"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="isRemoved">탈퇴여부:</label>
+                                      <input class="form-control" id="isRemoved"></input>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="removedDate">탈퇴날짜:</label>
+                                      <input class="form-control" id="removedDate"></input>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                          <button class="btn btn-primary" type="button">Understood </button>
+                      </div>
+                  </div>
               </div>
-              <div class="modal-body py-4 px-5">
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-name">Name</label>
-                    <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-email">Email address</label>
-                    <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                  </div>
-                  <div class="row gx-2">
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-password">Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                    </div>
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                    <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                  </div>
-                </form>
-                <div class="position-relative mt-5">
-                  <hr />
-                  <div class="divider-content-center">or register with</div>
-                </div>
-                <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
 
     </main>
@@ -318,11 +343,6 @@
             switch(actBtn.value)
             {
                 case "이메일 전송" :
-                    return
-                case "어드민" :
-                    console.log("어드민");
-                    return
-                case "인증되지 않은 유저" :
                     return
                 case "차단" :
                     return
