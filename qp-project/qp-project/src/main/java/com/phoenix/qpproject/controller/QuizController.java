@@ -374,7 +374,7 @@ public class QuizController {
 
             model.addAttribute("quizList",quizList);
             //System.out.println("퀴즈리스트2 호출:"+quizList.size());
-            return "/pages/quiz/home-backup";
+            return "/pages/quiz/home";
             //return "/pages/quiz/quiz_list";
         }
     }
