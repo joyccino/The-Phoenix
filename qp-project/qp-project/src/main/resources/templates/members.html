@@ -141,7 +141,7 @@
             </div>
             <div class="card-body p-0">
               <div class="table-responsive scrollbar">
-                <table class="table fs--1 mb-0 overflow-hidden">
+                <table class="table fs--1 mb-0 overflow-hidden mTable">
                   <thead class="bg-200 text-900">
                     <tr>
                       <th>
@@ -158,11 +158,6 @@
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">생년월일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입날짜</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고여부</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고날짜</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고자</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">차단여부</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">차단날짜</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">탈퇴여부</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">탈퇴날짜</th>
                     </tr>
@@ -177,28 +172,23 @@
                       <td class="name align-middle white-space-nowrap py-2"><a href="app/e-commerce/customer-details.html">
                           <div class="d-flex d-flex align-items-center">
                             <div class="flex-1">
-                              <h5 th:text="${l.Id}" class="mb-0 fs--1">이름</h5>
+                              <h5 th:text="${l.Id}" class="mb-0 fs--1 memberId">이름</h5>
                             </div>
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한</td>
-                        <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
+                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2 mType">권한</td>
+                        <td th:text="${l.memberId}" class="email align-middle py-2 mUsername">1234</td>
                         <td th:text="${l.memberPw}" class="email align-middle py-2"  style="display:none">1234</td>
-                      <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
-                      <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
+                      <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2 mSurname">문</td>
+                      <td th:text="${l.memberFirstname}" class="address align-middle py-2 mLastname">수빈</td>
 
-                        <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
-                        <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
+                        <td th:text="${l.memberEmail}" class="joined align-middle py-2 mEmail">이메일</td>
+                        <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2 mBirth">생년월일</td>
 
-                        <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2">날짜</td>
-                        <td th:text="${l.memberIsReported}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 여부</td>
-                        <td th:text="${l.memberIsReportedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 날짜</td>
-                        <td th:text="${l.memberReportedMemberId}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고자</td>
-                        <td th:text="${l.memberIsBlocked}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 여부</td>
-                        <td th:text="${l.memberIsBlockedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 날짜</td>
-                        <td th:text="${l.memberIsRemoved}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 여부</td>
-                        <td th:text="${l.memberIsRemovedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 날짜</td>
+                        <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2 mJoined">날짜</td>
+                        <td th:text="${l.memberIsRemoved}" class="joined align-middle white-space-nowrap py-2 mDeleted" data-sort="joined">탈퇴 여부</td>
+                        <td th:text="${l.memberIsRemovedDateTime}" class="joined align-middle white-space-nowrap py-2 mDeletedDate" data-sort="joined">탈퇴 날짜</td>
                     </tr>
                     <tr th:unless="${not #lists.isEmpty(memberList)}">
                         <td colspan="7">등록된 회원의 정보가 없습니다.</td>
@@ -228,67 +218,55 @@
                           <div class="p-4 pb-0">
                               <form>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberType">멤버 타입:</label>
-                                      <input class="form-control" id="memberType" type="text" />
+                                      <label class="col-form-label" for="editMemberType">권한:</label>
+                                      <select class="form-select form-select-sm" id="editMemberType" aria-label=".form-select-sm example">
+                                          <option value="0">어드민</option>
+                                          <option value="1">비인증 회원</option>
+                                          <option value="2">일반 회원</option>
+                                          <option value="3">대학생 회원</option>
+                                      </select>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberId">아이디:</label>
-                                      <input class="form-control" id="memberId"></input>
+                                      <label class="col-form-label" for="editMemberId">아이디:</label>
+                                      <input class="form-control" id="editMemberId"></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberSurname">성:</label>
-                                      <input class="form-control" id="memberSurname"></input>
+                                      <label class="col-form-label" for="editMemberSurname">성:</label>
+                                      <input class="form-control" id="editMemberSurname"></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberLastname">이름:</label>
-                                      <input class="form-control" id="memberLastname"></input>
+                                      <label class="col-form-label" for="editMemberLastname">이름:</label>
+                                      <input class="form-control" id="editMemberLastname"></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberEmail">이메일:</label>
-                                      <input class="form-control" id="memberEmail"></input>
+                                      <label class="col-form-label" for="editMemberEmail">이메일:</label>
+                                      <input class="form-control" id="editMemberEmail"></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberBirthDate">생년월일:</label>
-                                      <input class="form-control" id="memberBirthDate"></input>
+                                      <label class="col-form-label" for="editMemberBirthDate">생년월일:</label>
+                                      <input class="form-control" id="editMemberBirthDate"></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="memberJoinedDate">가입날짜:</label>
-                                      <input class="form-control" id="memberJoinedDate"></input>
+                                      <label class="col-form-label" for="editMemberJoinedDate">가입날짜:</label>
+                                      <input class="form-control" id="editMemberJoinedDate" readonly></input>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="isReported">신고여부:</label>
-                                      <input class="form-control" id="isReported"></input>
+                                      <label class="col-form-label" for="editIsRemoved">탈퇴여부:</label>
+                                      <select class="form-select form-select-sm" id="editIsRemoved" aria-label=".form-select-sm example">
+                                          <option value="true">true</option>
+                                          <option value="false">false</option>
+                                      </select>
                                   </div>
                                   <div class="mb-3">
-                                      <label class="col-form-label" for="reportedDate">신고날짜:</label>
-                                      <input class="form-control" id="reportedDate"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="reportRequester">신고자:</label>
-                                      <input class="form-control" id="reportRequester"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="isBlocked">차단여부:</label>
-                                      <input class="form-control" id="isBlocked"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="blockedDate">차단날짜:</label>
-                                      <input class="form-control" id="blockedDate"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="isRemoved">탈퇴여부:</label>
-                                      <input class="form-control" id="isRemoved"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="removedDate">탈퇴날짜:</label>
-                                      <input class="form-control" id="removedDate"></input>
+                                      <label class="col-form-label" for="editRemovedDate">탈퇴날짜:</label>
+                                      <input class="form-control" id="editRemovedDate" readonly></input>
                                   </div>
                               </form>
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                          <button class="btn btn-primary" type="button">Understood </button>
+                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">닫기</button>
+                          <button class="btn btn-primary" type="button">수정 </button>
                       </div>
                   </div>
               </div>
@@ -350,6 +328,33 @@
                     return
             }
         }
+        
+        let mIds = document.querySelectorAll(".memberId");
+        let mTypes = document.querySelectorAll(".mType");
+        let mUsername = document.querySelectorAll(".mUsername");
+        let mSurnames = document.querySelectorAll(".mSurname");
+        let mLastnames = document.querySelectorAll(".mLastname");
+        let mEmails = document.querySelectorAll(".mEmail");
+        let mBirths = document.querySelectorAll(".mBirth");
+        let mJoineds = document.querySelectorAll(".mJoined");
+        let mDeleteds = document.querySelectorAll(".mDeleted");
+        let mDeletedDates = document.querySelectorAll(".mDeletedDate");
+        
+        $('.mTable').find('tr').click( function(){
+            let row_index = $(this).index();
+            
+            let clicked_mid = mIds[row_index].innerHTML;
+            
+            document.querySelector("#editMemberType").value = mTypes[row_index].innerHTML;
+            document.querySelector("#editMemberId").value = mUsername[row_index].innerHTML;
+            document.querySelector("#editMemberSurname").value = mSurnames[row_index].innerHTML;
+            document.querySelector("#editMemberLastname").value = mLastnames[row_index].innerHTML;
+            document.querySelector("#editMemberEmail").value = mEmails[row_index].innerHTML;
+            document.querySelector("#editMemberBirthDate").value = mBirths[row_index].innerHTML;
+            document.querySelector("#editMemberJoinedDate").value = mJoineds[row_index].innerHTML;
+            document.querySelector("#editIsRemoved").value = mDeleteds[row_index].innerHTML;
+            document.querySelector("#editRemovedDate").value = mDeletedDates[row_index].innerHTML;
+        });
     </script>
     <style>
         .rounded-circle {
