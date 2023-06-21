@@ -123,8 +123,7 @@
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">강제 탈퇴</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">탈퇴 처리</a>
                           </div>
                       </div>
                       <!--<button class="btn btn-falcon-default btn-sm" type="button" onclick="memberTypeChange();">
@@ -211,63 +210,59 @@
                       <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
                           <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body p-0">
-                          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                              <h4 class="mb-1" id="modalExampleDemoLabel">회원 수정</h4>
+                      <form autocomplete="off" th:action="@{/auth/memberUpdateAdmin}" method="post" id="editProfile">
+                          <div class="modal-body p-0">
+                              <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                  <h4 class="mb-1" id="modalExampleDemoLabel">회원 수정</h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                  
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="editMId">ID:</label>
+                                      <input class="form-control" id="editMId" name="Id" readonly></input>
+                                  </div>
+                                  <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberType">권한:</label>
+                                          <select class="form-select form-select-sm" id="editMemberType" aria-label=".form-select-sm example" name="memberMemberTypeId">
+                                              <option value="0">어드민</option>
+                                              <option value="1">비인증 회원</option>
+                                              <option value="2">일반 회원</option>
+                                              <option value="3">대학생 회원</option>
+                                          </select>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberId">아이디:</label>
+                                          <input class="form-control" id="editMemberId" name="memberId"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberSurname">성:</label>
+                                          <input class="form-control" id="editMemberSurname" name="memberSurname"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberLastname">이름:</label>
+                                          <input class="form-control" id="editMemberLastname" name="memberFirstname"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberEmail">이메일:</label>
+                                          <input class="form-control" id="editMemberEmail" name="memberEmail"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberBirthDate">생년월일:</label>
+                                          <input class="form-control" id="editMemberBirthDate" name="memberBDate"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberJoinedDate">가입날짜:</label>
+                                          <input class="form-control" id="editMemberJoinedDate" readonly></input>
+                                      </div>
+                                      
+                              </div>
                           </div>
-                          <div class="p-4 pb-0">
-                              <form>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberType">권한:</label>
-                                      <select class="form-select form-select-sm" id="editMemberType" aria-label=".form-select-sm example">
-                                          <option value="0">어드민</option>
-                                          <option value="1">비인증 회원</option>
-                                          <option value="2">일반 회원</option>
-                                          <option value="3">대학생 회원</option>
-                                      </select>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberId">아이디:</label>
-                                      <input class="form-control" id="editMemberId"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberSurname">성:</label>
-                                      <input class="form-control" id="editMemberSurname"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberLastname">이름:</label>
-                                      <input class="form-control" id="editMemberLastname"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberEmail">이메일:</label>
-                                      <input class="form-control" id="editMemberEmail"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberBirthDate">생년월일:</label>
-                                      <input class="form-control" id="editMemberBirthDate"></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editMemberJoinedDate">가입날짜:</label>
-                                      <input class="form-control" id="editMemberJoinedDate" readonly></input>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editIsRemoved">탈퇴여부:</label>
-                                      <select class="form-select form-select-sm" id="editIsRemoved" aria-label=".form-select-sm example">
-                                          <option value="true">true</option>
-                                          <option value="false">false</option>
-                                      </select>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label class="col-form-label" for="editRemovedDate">탈퇴날짜:</label>
-                                      <input class="form-control" id="editRemovedDate" readonly></input>
-                                  </div>
-                              </form>
+                          <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">닫기</button>
+                              <button class="btn btn-primary" type="submit">수정</button>
                           </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">닫기</button>
-                          <button class="btn btn-primary" type="button">수정 </button>
-                      </div>
+                      </form>
+                      
                   </div>
               </div>
           </div>
@@ -322,9 +317,7 @@
             {
                 case "이메일 전송" :
                     return
-                case "차단" :
-                    return
-                case "강제 탈퇴" :
+                case "탈퇴 처리" :
                     return
             }
         }
@@ -337,14 +330,12 @@
         let mEmails = document.querySelectorAll(".mEmail");
         let mBirths = document.querySelectorAll(".mBirth");
         let mJoineds = document.querySelectorAll(".mJoined");
-        let mDeleteds = document.querySelectorAll(".mDeleted");
-        let mDeletedDates = document.querySelectorAll(".mDeletedDate");
         
         $('.mTable').find('tr').click( function(){
             let row_index = $(this).index();
             
             let clicked_mid = mIds[row_index].innerHTML;
-            
+            document.querySelector("#editMId").value = clicked_mid;
             document.querySelector("#editMemberType").value = mTypes[row_index].innerHTML;
             document.querySelector("#editMemberId").value = mUsername[row_index].innerHTML;
             document.querySelector("#editMemberSurname").value = mSurnames[row_index].innerHTML;
@@ -352,9 +343,9 @@
             document.querySelector("#editMemberEmail").value = mEmails[row_index].innerHTML;
             document.querySelector("#editMemberBirthDate").value = mBirths[row_index].innerHTML;
             document.querySelector("#editMemberJoinedDate").value = mJoineds[row_index].innerHTML;
-            document.querySelector("#editIsRemoved").value = mDeleteds[row_index].innerHTML;
-            document.querySelector("#editRemovedDate").value = mDeletedDates[row_index].innerHTML;
         });
+        
+        
     </script>
     <style>
         .rounded-circle {
