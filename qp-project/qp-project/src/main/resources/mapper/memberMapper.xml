@@ -207,4 +207,16 @@
         InstitutionId = NULL
         WHERE Id = #{Id};
     </update>
+
+    <update id="memberInfoUpdateAdmin" parameterType="com.phoenix.qpproject.dto.MembersDTO">
+        UPDATE members
+        SET
+        MemberTypeId = #{memberMemberTypeId},
+        UserId = #{memberId},
+        Surname = #{memberSurname},
+        Firstname = #{memberFirstname},
+        Email = #{memberEmail},
+        BirthDate = #{memberBDate}
+        WHERE Id = #{Id};
+    </update>
 </mapper>
