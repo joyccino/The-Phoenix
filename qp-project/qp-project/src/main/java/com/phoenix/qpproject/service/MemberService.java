@@ -117,6 +117,9 @@ public class MemberService implements UserDetailsService {
     public void memberInfoUpdate(MembersDTO member){
         memberMapper.memberInfoUpdate(member);
     }
+
+    public void memberInfoUpdateAdmin(MembersDTO member) { memberMapper.memberInfoUpdateAdmin(member);}
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //여기서 받은 유저 패스워드와 비교하여 로그인 인증

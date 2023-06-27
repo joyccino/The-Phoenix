@@ -123,11 +123,7 @@
                           <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">이메일 전송</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">어드민</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">인증되지 않은 유저</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">차단</a>
-                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">강제 탈퇴</a>
+                              <a class="dropdown-item" href="#" onclick="dropdownSelected(this);">탈퇴 처리</a>
                           </div>
                       </div>
                       <!--<button class="btn btn-falcon-default btn-sm" type="button" onclick="memberTypeChange();">
@@ -144,7 +140,7 @@
             </div>
             <div class="card-body p-0">
               <div class="table-responsive scrollbar">
-                <table class="table fs--1 mb-0 overflow-hidden">
+                <table class="table fs--1 mb-0 overflow-hidden mTable">
                   <thead class="bg-200 text-900">
                     <tr>
                       <th>
@@ -161,17 +157,12 @@
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">이메일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">생년월일</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">가입날짜</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고여부</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고날짜</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">신고자</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">차단여부</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">차단날짜</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">탈퇴여부</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">탈퇴날짜</th>
                     </tr>
                   </thead>
                   <tbody class="list" id="table-customers-body">
-                    <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger">
+                    <tr th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}" class="btn-reveal-trigger" data-bs-toggle="modal" data-bs-target="#modal-edit">
                       <td class="align-middle py-2" style="width: 28px;">
                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
                           <input class="form-check-input checks" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
@@ -180,28 +171,23 @@
                       <td class="name align-middle white-space-nowrap py-2"><a href="app/e-commerce/customer-details.html">
                           <div class="d-flex d-flex align-items-center">
                             <div class="flex-1">
-                              <h5 th:text="${l.Id}" class="mb-0 fs--1">이름</h5>
+                              <h5 th:text="${l.Id}" class="mb-0 fs--1 memberId">이름</h5>
                             </div>
                           </div>
                         </a>
                       </td>
-                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2">권한</td>
-                        <td th:text="${l.memberId}" class="email align-middle py-2">1234</td>
+                        <td th:text="${l.memberMemberTypeId}" class="joined align-middle py-2 mType">권한</td>
+                        <td th:text="${l.memberId}" class="email align-middle py-2 mUsername">1234</td>
                         <td th:text="${l.memberPw}" class="email align-middle py-2"  style="display:none">1234</td>
-                      <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2">문</td>
-                      <td th:text="${l.memberFirstname}" class="address align-middle py-2">수빈</td>
+                      <td th:text="${l.memberSurname}" class="phone align-middle white-space-nowrap py-2 mSurname">문</td>
+                      <td th:text="${l.memberFirstname}" class="address align-middle py-2 mLastname">수빈</td>
 
-                        <td th:text="${l.memberEmail}" class="joined align-middle py-2">이메일</td>
-                        <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2">생년월일</td>
+                        <td th:text="${l.memberEmail}" class="joined align-middle py-2 mEmail">이메일</td>
+                        <td th:text="${#dates.format(l.memberBDate, 'yyyy-MM-dd')}" class="joined align-middle white-space-nowrap py-2 mBirth">생년월일</td>
 
-                        <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2">날짜</td>
-                        <td th:text="${l.memberIsReported}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 여부</td>
-                        <td th:text="${l.memberIsReportedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고 날짜</td>
-                        <td th:text="${l.memberReportedMemberId}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">신고자</td>
-                        <td th:text="${l.memberIsBlocked}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 여부</td>
-                        <td th:text="${l.memberIsBlockedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">차단 날짜</td>
-                        <td th:text="${l.memberIsRemoved}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 여부</td>
-                        <td th:text="${l.memberIsRemovedDateTime}" class="joined align-middle white-space-nowrap py-2" data-sort="joined">탈퇴 날짜</td>
+                        <td th:text="${#dates.format(l.memberRegDate, 'yyyy-MM-dd HH:mm:ss')}" class="joined align-middle white-space-nowrap py-2 mJoined">날짜</td>
+                        <td th:text="${l.memberIsRemoved}" class="joined align-middle white-space-nowrap py-2 mDeleted" data-sort="joined">탈퇴 여부</td>
+                        <td th:text="${l.memberIsRemovedDateTime}" class="joined align-middle white-space-nowrap py-2 mDeletedDate" data-sort="joined">탈퇴 날짜</td>
                     </tr>
                     <tr th:unless="${not #lists.isEmpty(memberList)}">
                         <td colspan="7">등록된 회원의 정보가 없습니다.</td>
@@ -218,56 +204,68 @@
           </div>
 
         </div>
-        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
-            <div class="modal-content border-0">
-              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                <div class="position-relative z-1" data-bs-theme="light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                  <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                </div>
-                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="kanban-modal-label-1" aria-hidden="true" id="modal-edit">
+              <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                  <div class="modal-content position-relative">
+                      <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form autocomplete="off" th:action="@{/auth/memberUpdateAdmin}" method="post" id="editProfile">
+                          <div class="modal-body p-0">
+                              <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                  <h4 class="mb-1" id="modalExampleDemoLabel">회원 수정</h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                  
+                                  <div class="mb-3">
+                                      <label class="col-form-label" for="editMId">ID:</label>
+                                      <input class="form-control" id="editMId" name="Id" readonly></input>
+                                  </div>
+                                  <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberType">권한:</label>
+                                          <select class="form-select form-select-sm" id="editMemberType" aria-label=".form-select-sm example" name="memberMemberTypeId">
+                                              <option value="0">어드민</option>
+                                              <option value="1">비인증 회원</option>
+                                              <option value="2">일반 회원</option>
+                                              <option value="3">대학생 회원</option>
+                                          </select>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberId">아이디:</label>
+                                          <input class="form-control" id="editMemberId" name="memberId"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberSurname">성:</label>
+                                          <input class="form-control" id="editMemberSurname" name="memberSurname"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberLastname">이름:</label>
+                                          <input class="form-control" id="editMemberLastname" name="memberFirstname"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberEmail">이메일:</label>
+                                          <input class="form-control" id="editMemberEmail" name="memberEmail"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberBirthDate">생년월일:</label>
+                                          <input class="form-control" id="editMemberBirthDate" name="memberBDate"></input>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label class="col-form-label" for="editMemberJoinedDate">가입날짜:</label>
+                                          <input class="form-control" id="editMemberJoinedDate" readonly></input>
+                                      </div>
+                                      
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">닫기</button>
+                              <button class="btn btn-primary" type="submit">수정</button>
+                          </div>
+                      </form>
+                      
+                  </div>
               </div>
-              <div class="modal-body py-4 px-5">
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-name">Name</label>
-                    <input class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="modal-auth-email">Email address</label>
-                    <input class="form-control" type="email" autocomplete="on" id="modal-auth-email" />
-                  </div>
-                  <div class="row gx-2">
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-password">Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-password" />
-                    </div>
-                    <div class="mb-3 col-sm-6">
-                      <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
-                      <input class="form-control" type="password" autocomplete="on" id="modal-auth-confirm-password" />
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox" />
-                    <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
-                  </div>
-                </form>
-                <div class="position-relative mt-5">
-                  <hr />
-                  <div class="divider-content-center">or register with</div>
-                </div>
-                <div class="row g-2 mt-2">
-                  <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
 
     </main>
@@ -319,17 +317,35 @@
             {
                 case "이메일 전송" :
                     return
-                case "어드민" :
-                    console.log("어드민");
-                    return
-                case "인증되지 않은 유저" :
-                    return
-                case "차단" :
-                    return
-                case "강제 탈퇴" :
+                case "탈퇴 처리" :
                     return
             }
         }
+        
+        let mIds = document.querySelectorAll(".memberId");
+        let mTypes = document.querySelectorAll(".mType");
+        let mUsername = document.querySelectorAll(".mUsername");
+        let mSurnames = document.querySelectorAll(".mSurname");
+        let mLastnames = document.querySelectorAll(".mLastname");
+        let mEmails = document.querySelectorAll(".mEmail");
+        let mBirths = document.querySelectorAll(".mBirth");
+        let mJoineds = document.querySelectorAll(".mJoined");
+        
+        $('.mTable').find('tr').click( function(){
+            let row_index = $(this).index();
+            
+            let clicked_mid = mIds[row_index].innerHTML;
+            document.querySelector("#editMId").value = clicked_mid;
+            document.querySelector("#editMemberType").value = mTypes[row_index].innerHTML;
+            document.querySelector("#editMemberId").value = mUsername[row_index].innerHTML;
+            document.querySelector("#editMemberSurname").value = mSurnames[row_index].innerHTML;
+            document.querySelector("#editMemberLastname").value = mLastnames[row_index].innerHTML;
+            document.querySelector("#editMemberEmail").value = mEmails[row_index].innerHTML;
+            document.querySelector("#editMemberBirthDate").value = mBirths[row_index].innerHTML;
+            document.querySelector("#editMemberJoinedDate").value = mJoineds[row_index].innerHTML;
+        });
+        
+        
     </script>
     <style>
         .rounded-circle {
@@ -337,6 +353,15 @@
         }
         .rounded-circle:hover {
           transform: translate(0) rotate(360deg); /* I changed this */
+        }
+    </style>
+    
+    <style>
+        .rounded-circle {
+          transition: transform .7s ease-in-out;
+        }
+        .rounded-circle:hover {
+          transform: translate(0) rotate(360deg);
         }
     </style>
 

@@ -374,6 +374,18 @@ public class AuthController {
         }
         return "redirect:/mypage/edit";
     }
+
+    @PostMapping("/memberUpdateAdmin")
+    public String memberInfoModifyAdmin(MembersDTO member, HttpServletRequest request) throws MessagingException {
+        HttpSession session = request.getSession();
+        Object qpUser = session.getAttribute("user");
+
+        memberService.memberInfoUpdateAdmin(member);
+
+        System.out.println("멤버 정보 update done");
+
+        return "redirect:/auth/memberList";
+    }
     @PostMapping("/passUpdate")
     public String passModify(@RequestParam("newPass") String newPass, HttpServletRequest request) {
         HttpSession session = request.getSession();
